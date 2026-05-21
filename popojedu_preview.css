@@ -30,6 +30,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
+    overflow-x: hidden;
     font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
     color: var(--text);
     background: var(--bg);
@@ -94,6 +95,8 @@
   .nav-link:hover { border-color: var(--border-strong); background: white; }
   .nav-link.active { border-color: var(--green); color: var(--green-dark); background: var(--green-light); }
   .nav-cta { padding: 8px 18px; }
+  .nav-check { display: none; }
+  .nav-burger { display: none; cursor: pointer; font-size: 26px; line-height: 1; color: var(--text); padding: 2px 8px; user-select: none; -webkit-tap-highlight-color: transparent; }
 
   /* ─────────── HERO ─────────── */
   .hero {
@@ -565,8 +568,12 @@
     .footer-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 720px) {
-    .nav-links { display: none; }
-    .nav-cta { display: inline-flex; }
+    .nav-inner { position: relative; }
+    .nav-burger { display: block; }
+    .nav-cta { display: none; }
+    .nav-links { display: none; position: absolute; top: calc(100% + 1px); left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 2px; background: white; padding: 10px 14px 16px; box-shadow: var(--shadow-md); border-top: 1px solid var(--border); }
+    .nav-check:checked ~ .nav-links { display: flex; }
+    .nav-links .nav-link { padding: 12px 14px; font-size: 15px; }
     h1 { font-size: 36px; }
     h2 { font-size: 26px; }
     .vehicle-grid, .brand-chips, .body-chips, .personas, .builder-vehicles, .services-grid, .tiers-grid { grid-template-columns: 1fr 1fr; }
