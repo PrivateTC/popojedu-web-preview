@@ -52,8 +52,8 @@
 
   /* Typography */
   h1, h2, h3, h4 { color: var(--text); font-weight: 800; letter-spacing: -0.5px; }
-  h1 { font-size: 56px; line-height: 1.05; }
-  h2 { font-size: 36px; line-height: 1.15; margin-bottom: 12px; }
+  h1 { font-size: clamp(32px, 6.4vw, 56px); line-height: 1.08; }
+  h2 { font-size: clamp(25px, 3.7vw, 36px); line-height: 1.18; margin-bottom: 12px; }
   h3 { font-size: 22px; line-height: 1.2; }
   h4 { font-size: 16px; line-height: 1.3; }
   p { color: var(--text-body); }
@@ -103,7 +103,7 @@
   .nav-link.active { border-color: var(--green); color: var(--green-dark); background: var(--green-light); }
   .nav-cta { padding: 8px 18px; }
   .nav-check { display: none; }
-  .nav-burger { display: none; cursor: pointer; font-size: 26px; line-height: 1; color: var(--text); padding: 2px 8px; user-select: none; -webkit-tap-highlight-color: transparent; }
+  .nav-burger { display: none; cursor: pointer; font-size: 24px; line-height: 1; color: var(--text); width: 44px; height: 44px; align-items: center; justify-content: center; user-select: none; -webkit-tap-highlight-color: transparent; }
 
   /* ─────────── HERO ─────────── */
   .hero {
@@ -549,8 +549,6 @@
 
   /* ─────────── RESPONSIVE ─────────── */
   @media (max-width: 1024px) {
-    h1 { font-size: 44px; }
-    h2 { font-size: 30px; }
     .hero-grid { grid-template-columns: 1fr; gap: 32px; }
     .hero-visual { height: 320px; }
     .vehicle-grid { grid-template-columns: repeat(2, 1fr); }
@@ -562,19 +560,23 @@
   }
   @media (max-width: 720px) {
     .nav-inner { position: relative; }
-    .nav-burger { display: block; }
+    .nav-burger { display: flex; }
     .nav-cta { display: none; }
     .nav-links { display: none; position: absolute; top: calc(100% + 1px); left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 2px; background: white; padding: 10px 14px 16px; box-shadow: var(--shadow-md); border-top: 1px solid var(--border); }
     .nav-check:checked ~ .nav-links { display: flex; }
     .nav-links .nav-link { padding: 12px 14px; font-size: 15px; }
-    h1 { font-size: 36px; }
-    h2 { font-size: 26px; }
     .vehicle-grid, .brand-chips, .body-chips, .personas, .builder-vehicles, .services-grid, .tiers-grid { grid-template-columns: 1fr 1fr; }
     .quick-search { grid-template-columns: 1fr 1fr; }
     .quick-search .btn-primary { grid-column: 1 / -1; }
     .footer-grid { grid-template-columns: 1fr; }
     .section { padding: 56px 0; }
     .hero { padding: 32px 0; }
+  }
+  @media (max-width: 480px) {
+    .container { padding: 0 16px; }
+    .section { padding: 44px 0; }
+    .vehicle-grid, .services-grid, .tiers-grid { grid-template-columns: 1fr; }
+    .price-table, .spec-table { display: block; overflow-x: auto; }
   }
 </style>
 </head>
@@ -633,7 +635,7 @@
       <a href="#builder" class="nav-link active">Konfigurátor</a>
       <a href="popojedu_cenik.html" class="nav-link">Ceník</a>
       <a href="#how" class="nav-link">Jak to funguje</a>
-      <a href="#faq" class="nav-link">FAQ</a>
+      <a href="popojedu_faq.html" class="nav-link">FAQ</a>
       <a href="popojedu_ucet.html" class="nav-link">Můj účet</a>
     </div>
     <a href="#builder" class="btn btn-primary nav-cta">Spočítat cenu</a>
@@ -1162,7 +1164,7 @@
         <h5>O nás</h5>
         <ul>
           <li><a href="#how">Jak to funguje</a></li>
-          <li><a href="#faq">FAQ</a></li>
+          <li><a href="popojedu_faq.html">FAQ</a></li>
           <li><a href="#">Blog</a></li>
           <li><a href="popojedu_kontakt.html">Kontakt</a></li>
         </ul>
