@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naše vozy — pronájem aut Praha 9 | Popojedu.cz</title>
+<meta name="description" content="Přehled vozů k pronájmu v Praze 9 — Škoda Fabia, Octavia, Superb, Mercedes i 9místná Hyundai Staria. Desítky vozů, vlastní servis, fér ceny od 550 Kč/den.">
+<meta property="og:title" content="Naše vozy — pronájem aut Praha 9 | Popojedu.cz">
+<meta property="og:description" content="Desítky vozů k pronájmu na den, týden i měsíce. Servis, pojištění a dálniční známka v ceně.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="cs_CZ">
+<link rel="stylesheet" href="popojedu_preview.css">
+<style>
+  .vehicle-img svg { width: 90%; height: auto; }
+  .vehicle-card { text-decoration: none; display: block; }
+  .nav-account { display: flex; align-items: center; gap: 6px; }
+  .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 30px; }
+  .filter-chip {
+    padding: 9px 18px; border-radius: 999px; border: 1.5px solid var(--border);
+    background: white; font-size: 13px; font-weight: 700; color: var(--text-body);
+    cursor: pointer; transition: all 0.15s;
+  }
+  .filter-chip:hover { border-color: var(--green); }
+  .filter-chip.active { background: var(--green-light); border-color: var(--green); color: var(--green-dark); }
+  .vozy-intro { padding: 36px 0 8px; }
+  .cta-band {
+    background: linear-gradient(165deg, var(--navy), var(--navy-light));
+    border-radius: 28px; padding: 44px; text-align: center; color: white;
+    position: relative; overflow: hidden;
+  }
+  .cta-band h2 { color: white; margin-bottom: 8px; }
+  .cta-band p { color: rgba(255,255,255,0.78); margin-bottom: 22px; font-size: 15px; }
+  @media (max-width: 720px) { .cta-band { padding: 32px 22px; } }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ SVG KNIHOVNA VOZŮ ═══════════ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <defs>
+  <symbol id="car" viewBox="0 0 460 200">
+    <ellipse cx="232" cy="185" rx="188" ry="12" fill="#0A1F3F" opacity="0.10"/>
+    <path d="M58 150 Q56 114 88 111 L358 111 Q400 113 420 136 Q428 144 424 150 Z" fill="currentColor"/>
+    <path d="M134 112 Q148 72 198 68 L276 68 Q324 72 338 112 Z" fill="currentColor"/>
+    <path d="M152 108 Q164 85 201 82 L273 82 Q309 85 320 108 Z" fill="#C6D9E8"/>
+    <line x1="237" y1="82" x2="237" y2="108" stroke="currentColor" stroke-width="6"/>
+    <path d="M70 133 L408 133" stroke="#ffffff" stroke-width="2.5" opacity="0.40" stroke-linecap="round"/>
+    <line x1="210" y1="113" x2="210" y2="147" stroke="#0A1F3F" stroke-width="2" opacity="0.15"/>
+    <rect x="222" y="123" width="17" height="5" rx="2.5" fill="#0A1F3F" opacity="0.20"/>
+    <ellipse cx="414" cy="139" rx="8" ry="6" fill="#FFF3CF"/>
+    <rect x="59" y="123" width="7" height="13" rx="2" fill="#E0362F" opacity="0.75"/>
+    <circle cx="134" cy="156" r="32" fill="#10233f"/><circle cx="134" cy="156" r="15.5" fill="#E8EDF2"/><circle cx="134" cy="156" r="5" fill="#00C853"/>
+    <circle cx="340" cy="156" r="32" fill="#10233f"/><circle cx="340" cy="156" r="15.5" fill="#E8EDF2"/><circle cx="340" cy="156" r="5" fill="#00C853"/>
+  </symbol>
+  <symbol id="car-combi" viewBox="0 0 460 200">
+    <ellipse cx="232" cy="185" rx="190" ry="12" fill="#0A1F3F" opacity="0.10"/>
+    <path d="M54 150 Q52 114 86 111 L362 111 Q402 113 421 136 Q429 144 425 150 Z" fill="currentColor"/>
+    <path d="M112 112 Q122 72 170 68 L300 68 Q320 70 332 112 Z" fill="currentColor"/>
+    <path d="M130 108 Q140 85 176 82 L296 82 L309 108 Z" fill="#C6D9E8"/>
+    <line x1="222" y1="82" x2="222" y2="108" stroke="currentColor" stroke-width="6"/>
+    <path d="M66 133 L410 133" stroke="#ffffff" stroke-width="2.5" opacity="0.40" stroke-linecap="round"/>
+    <rect x="234" y="123" width="17" height="5" rx="2.5" fill="#0A1F3F" opacity="0.20"/>
+    <ellipse cx="415" cy="139" rx="8" ry="6" fill="#FFF3CF"/>
+    <circle cx="132" cy="156" r="32" fill="#10233f"/><circle cx="132" cy="156" r="15.5" fill="#E8EDF2"/><circle cx="132" cy="156" r="5" fill="#00C853"/>
+    <circle cx="342" cy="156" r="32" fill="#10233f"/><circle cx="342" cy="156" r="15.5" fill="#E8EDF2"/><circle cx="342" cy="156" r="5" fill="#00C853"/>
+  </symbol>
+  <symbol id="car-van" viewBox="0 0 460 200">
+    <ellipse cx="232" cy="185" rx="194" ry="12" fill="#0A1F3F" opacity="0.10"/>
+    <path d="M50 150 L50 92 Q50 66 86 64 L300 64 Q360 66 400 104 L420 132 Q428 142 423 150 Z" fill="currentColor"/>
+    <path d="M70 86 Q72 78 86 78 L292 78 L300 104 L70 104 Z" fill="#C6D9E8"/>
+    <line x1="160" y1="78" x2="160" y2="104" stroke="currentColor" stroke-width="6"/>
+    <line x1="232" y1="78" x2="232" y2="104" stroke="currentColor" stroke-width="6"/>
+    <path d="M66 124 L404 124" stroke="#ffffff" stroke-width="2.5" opacity="0.35" stroke-linecap="round"/>
+    <ellipse cx="410" cy="134" rx="8" ry="6" fill="#FFF3CF"/>
+    <circle cx="130" cy="156" r="32" fill="#10233f"/><circle cx="130" cy="156" r="15.5" fill="#E8EDF2"/><circle cx="130" cy="156" r="5" fill="#00C853"/>
+    <circle cx="346" cy="156" r="32" fill="#10233f"/><circle cx="346" cy="156" r="15.5" fill="#E8EDF2"/><circle cx="346" cy="156" r="5" fill="#00C853"/>
+  </symbol>
+ </defs>
+</svg>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="popojedu_production_preview.html" class="logo"><div class="logo-mark">p</div>popojedu</a>
+    <div class="nav-links">
+      <a href="popojedu_vozy.html" class="nav-link active">Naše vozy</a>
+      <a href="popojedu_production_preview.html#builder" class="nav-link">Konfigurátor</a>
+      <a href="popojedu_cenik.html" class="nav-link">Ceník</a>
+      <a href="popojedu_production_preview.html#how" class="nav-link">Jak to funguje</a>
+      <a href="popojedu_production_preview.html#faq" class="nav-link">FAQ</a>
+      <a href="#" class="nav-link nav-account">Můj účet</a>
+    </div>
+    <a href="popojedu_production_preview.html#builder" class="btn btn-primary nav-cta">Spočítat cenu</a>
+  </div>
+</nav>
+
+<!-- ═══════════ INTRO ═══════════ -->
+<section class="container vozy-intro">
+  <div class="section-eyebrow">Naše vozy</div>
+  <h1 style="font-size: 44px; margin-bottom: 14px;">Vyberte si vůz k pronájmu</h1>
+  <p class="lead">Provozujeme desítky vozů — od úsporné Škody Fabia po 9místnou Hyundai Staria. Většinu flotily tvoří Škody, které servisujeme ve vlastní dílně v Praze 9 — Čakovicích. Proto platíte férovou cenu bez skrytých marží. Pronájem na den, týden i na celé měsíce.</p>
+</section>
+
+<!-- ═══════════ FILTR + GRID ═══════════ -->
+<section class="section" style="padding-top: 32px;">
+  <div class="container">
+    <div class="filter-bar" id="filter">
+      <div class="filter-chip active" data-brand="all">Všechny vozy</div>
+      <div class="filter-chip" data-brand="skoda">Škoda</div>
+      <div class="filter-chip" data-brand="mercedes">Mercedes-Benz</div>
+      <div class="filter-chip" data-brand="hyundai">Hyundai</div>
+    </div>
+
+    <div class="vehicle-grid" id="grid">
+
+      <a href="popojedu_vuz_detail.html" class="vehicle-card" data-brand="skoda">
+        <div class="vehicle-img"><svg viewBox="0 0 460 200" style="color:#565F6E"><use href="#car"/></svg></div>
+        <div class="vehicle-body">
+          <h4>Škoda Fabia</h4>
+          <div class="vehicle-meta">Automat · 5 míst · úsporná do města</div>
+          <div class="vehicle-price"><span class="vehicle-price-amt">650 Kč</span><span class="vehicle-price-tax">/den</span></div>
+          <div class="vehicle-price-cap">od 9 490 Kč/měs</div>
+          <span class="vehicle-cta">Zobrazit vůz</span>
+        </div>
+      </a>
+
+      <a href="popojedu_vuz_detail.html" class="vehicle-card" data-brand="skoda">
+        <div class="vehicle-img"><svg viewBox="0 0 460 200" style="color:#C7CED6"><use href="#car"/></svg></div>
+        <div class="vehicle-body">
+          <h4>Škoda Octavia</h4>
+          <div class="vehicle-meta">Automat · 5 míst · kufr 590 l</div>
+          <div class="vehicle-price"><span class="vehicle-price-amt">850 Kč</span><span class="vehicle-price-tax">/den</span></div>
+          <div class="vehicle-price-cap">od 9 990 Kč/měs</div>
+          <span class="vehicle-cta">Zobrazit vůz</span>
+        </div>
+      </a>
+
+      <a href="popojedu_vuz_detail.html" class="vehicle-card" data-brand="skoda">
+        <div class="vehicle-img"><svg viewBox="0 0 460 200" style="color:#C7CED6"><use href="#car-combi"/></svg></div>
+        <div class="vehicle-body">
+          <h4>Škoda Octavia Combi</h4>
+          <div class="vehicle-meta">Automat · 5 míst · kufr 640 l</div>
+          <div class="vehicle-price"><span class="vehicle-price-amt">900 Kč</span><span class="vehicle-price-tax">/den</span></div>
+          <div class="vehicle-price-cap">od 10 990 Kč/měs</div>
+          <span class="vehicle-cta">Zobrazit vůz</span>
+        </div>
+      </a>
+
+      <a href="popojedu_vuz_detail.html" class="vehicle-card" data-brand="skoda">
+        <div class="vehicle-img"><svg viewBox="0 0 460 200" style="color:#9AA7B5"><use href="#car"/></svg></div>
+        <div class="vehicle-body">
+          <h4>Škoda Scala</h4>
+          <div class="vehicle-meta">Automat · 5 míst · kompaktní hatchback</div>
+          <div class="vehicle-price"><span class="vehicle-price-amt">800 Kč</span><span class="vehicle-price-tax">/den</span></div>
+          <div class="vehicle-price-cap">od 10 490 Kč/měs</div>
+          <span class="vehicle-cta">Zobrazit vůz</span>
+        </div>
+      </a>
+
+      <a href="popojedu_vuz_detail.html" class="vehicle-card" data-brand="skoda">
+        <div class="vehicle-img"><svg viewBox="0 0 460 200" style="color:#28456B"><use href="#car"/></svg></div>
+        <div class="vehicle-body">
+          <h4>Škoda Superb sedan</h4>
+          <div class="vehicle-meta">Automat · business třída · L&amp;K</div>
+          <div class="vehicle-price"><span class="vehicle-price-amt">1 100 Kč</span><span class="vehicle-price-tax">/den</span></div>
+          <div class="vehicle-price-cap">od 12 990 Kč/měs</div>
+          <span class="vehicle-cta">Zobrazit vůz</span>
+        </div>
+      </a>
+
+      <a href="popojedu_vuz_detail.html" class="vehicle-card" data-brand="skoda">
+        <div class="vehicle-img"><svg viewBox="0 0 460 200" style="color:#28456B"><use href="#car-combi"/></svg></div>
+        <div class="vehicle-body">
+          <h4>Škoda Superb Combi</h4>
+          <div class="vehicle-meta">Automat · 4×4 · kufr 660 l</div>
+          <div class="vehicle-price"><span class="vehicle-price-amt">1 200 Kč</span><span class="vehicle-price-tax">/den</span></div>
+          <div class="vehicle-price-cap">od 13 990 Kč/měs</div>
+          <span class="vehicle-cta">Zobrazit vůz</span>
+        </div>
+      </a>
+
+      <a href="popojedu_vuz_detail.html" class="vehicle-card" data-brand="skoda">
+        <div class="vehicle-img"><svg viewBox="0 0 460 200" style="color:#7FA8C9"><use href="#car"/></svg></div>
+        <div class="vehicle-body">
+          <h4>Škoda Citigo CNG</h4>
+          <div class="vehicle-meta">Manuál · 4 místa · nejlevnější provoz</div>
+          <div class="vehicle-price"><span class="vehicle-price-amt">550 Kč</span><span class="vehicle-price-tax">/den</span></div>
+          <div class="vehicle-price-cap">od 7 990 Kč/měs</div>
+          <span class="vehicle-cta">Zobrazit vůz</span>
+        </div>
+      </a>
+
+      <a href="popojedu_vuz_detail.html" class="vehicle-card" data-brand="mercedes">
+        <div class="vehicle-img"><svg viewBox="0 0 460 200" style="color:#3A3F46"><use href="#car"/></svg></div>
+        <div class="vehicle-body">
+          <h4>Mercedes-Benz E-Class</h4>
+          <div class="vehicle-meta">Automat · business · masážní sedadla</div>
+          <div class="vehicle-price"><span class="vehicle-price-amt">1 500 Kč</span><span class="vehicle-price-tax">/den</span></div>
+          <div class="vehicle-price-cap">od 19 990 Kč/měs</div>
+          <span class="vehicle-cta">Zobrazit vůz</span>
+        </div>
+      </a>
+
+      <a href="popojedu_vuz_detail.html" class="vehicle-card" data-brand="mercedes">
+        <div class="vehicle-img"><svg viewBox="0 0 460 200" style="color:#1A1D22"><use href="#car"/></svg></div>
+        <div class="vehicle-body">
+          <h4>Mercedes-Benz S-Class</h4>
+          <div class="vehicle-meta">Automat · 4MATIC · VIP převozy</div>
+          <div class="vehicle-price"><span class="vehicle-price-amt">2 500 Kč</span><span class="vehicle-price-tax">/den</span></div>
+          <div class="vehicle-price-cap">měsíční ceny na dotaz</div>
+          <span class="vehicle-cta">Zobrazit vůz</span>
+        </div>
+      </a>
+
+      <a href="popojedu_vuz_detail.html" class="vehicle-card" data-brand="hyundai">
+        <div class="vehicle-img"><svg viewBox="0 0 460 200" style="color:#C7CED6"><use href="#car-van"/></svg></div>
+        <div class="vehicle-body">
+          <h4>Hyundai Staria</h4>
+          <div class="vehicle-meta">Automat · 9 míst · minibus</div>
+          <div class="vehicle-price"><span class="vehicle-price-amt">1 900 Kč</span><span class="vehicle-price-tax">/den</span></div>
+          <div class="vehicle-price-cap">od 24 990 Kč/měs</div>
+          <span class="vehicle-cta">Zobrazit vůz</span>
+        </div>
+      </a>
+
+    </div>
+    <p style="font-size: 12px; color: var(--text-muted); margin-top: 18px;">Ceny jsou orientační „od" — přesnou cenu spočítá konfigurátor podle délky pronájmu a nájezdu. Vyobrazení vozů je ilustrační.</p>
+  </div>
+</section>
+
+<!-- ═══════════ CTA BAND ═══════════ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div class="cta-band">
+      <h2>Nevíte, který vůz si vybrat?</h2>
+      <p>Řekněte nám, na co auto potřebujete — konfigurátor vám doporučí vhodný vůz a rovnou spočítá cenu.</p>
+      <a href="popojedu_production_preview.html#builder" class="btn btn-primary" style="padding: 15px 32px;">Spustit konfigurátor →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="popojedu_production_preview.html" class="logo"><div class="logo-mark">p</div>popojedu</a>
+        <div class="footer-contact">
+          📞 +420 731 683 203<br>
+          ✉️ info@popojedu.cz<br>
+          🚗 Provozovna: Cukrovarská 991, Praha 9 — Čakovice<br>
+          🏢 Sídlo: Praha 9, Českomoravská 1181/21
+        </div>
+      </div>
+      <div>
+        <h5>Pronájem</h5>
+        <ul>
+          <li><a href="popojedu_production_preview.html#builder">Konfigurátor pronájmu</a></li>
+          <li><a href="popojedu_vozy.html">Naše vozy</a></li>
+          <li><a href="popojedu_cenik.html">Ceník</a></li>
+          <li><a href="#">Pro firmy</a></li>
+          <li><a href="#">Pro pojišťovny — náhradní vůz</a></li>
+          <li><a href="#">Svatební vozy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>O nás</h5>
+        <ul>
+          <li><a href="popojedu_production_preview.html#how">Jak to funguje</a></li>
+          <li><a href="popojedu_production_preview.html#faq">FAQ</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Kontakt</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Právní</h5>
+        <ul>
+          <li><a href="#">Obchodní podmínky</a></li>
+          <li><a href="#">Ochrana osobních údajů</a></li>
+          <li><a href="#">Cookies</a></li>
+          <li><a href="#">Příplatkový ceník</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© Copyright 2009–2026 Popojedu.cz, spravuje MODRÝ ANDĚL s.r.o.</span>
+      <span>IČ: 105306, MSPH Městský soud v Praze</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════ SCHEMA.ORG JSON-LD ═══════════ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Naše vozy — pronájem aut Praha",
+  "description": "Přehled vozů k pronájmu u Popojedu.cz v Praze 9 — Škoda, Mercedes-Benz a Hyundai.",
+  "about": {
+    "@type": "AutoRental",
+    "name": "Popojedu.cz",
+    "telephone": "+420731683203",
+    "email": "info@popojedu.cz",
+    "priceRange": "550 Kč – 25 000 Kč/měsíc",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Cukrovarská 991",
+      "addressLocality": "Praha 9 — Čakovice",
+      "postalCode": "196 00",
+      "addressCountry": "CZ"
+    }
+  }
+}
+</script>
+
+<script>
+  // Filtr podle značky
+  const chips = document.querySelectorAll('.filter-chip');
+  const cards = document.querySelectorAll('#grid .vehicle-card');
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      const b = chip.dataset.brand;
+      cards.forEach(card => {
+        card.style.display = (b === 'all' || card.dataset.brand === b) ? '' : 'none';
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
