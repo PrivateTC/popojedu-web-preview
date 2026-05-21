@@ -586,3 +586,38 @@
     .vehicle-grid, .services-grid, .tiers-grid { grid-template-columns: 1fr; }
     .price-table, .spec-table { display: block; overflow-x: auto; }
   }
+
+  /* ─────────── STICKY MOBILE CTA (pevná spodní lišta) ─────────── */
+  .sticky-cta {
+    display: none;
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 200;
+    gap: 10px;
+    padding: 9px 14px;
+    padding-bottom: calc(9px + env(safe-area-inset-bottom));
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -6px 22px rgba(10,31,63,0.10);
+  }
+  .sticky-cta .btn { flex: 1; padding: 14px 16px; font-size: 15px; }
+  .sticky-cta .sticky-call {
+    flex: 0 0 54px; width: 54px; padding: 0; font-size: 20px;
+    background: var(--green-light); color: var(--green-dark);
+    border: 1.5px solid var(--green);
+  }
+  .sticky-cta .sticky-call:hover { background: var(--green); color: white; border-color: var(--green); }
+  @media (max-width: 720px) {
+    .sticky-cta { display: flex; align-items: center; }
+    body { padding-bottom: 80px; }
+  }
+
+
+  /* ─────────── REÁLNÉ FOTKY VOZŮ ─────────── */
+  .vehicle-img { padding: 0; }
+  .vehicle-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .builder-vehicle-img { padding: 0; overflow: hidden; }
+  .builder-vehicle-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .vd-main-photo { overflow: hidden; }
+  .vd-main-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .vd-thumb img { width: 100%; height: 46px; object-fit: cover; display: block; border-radius: 6px; }

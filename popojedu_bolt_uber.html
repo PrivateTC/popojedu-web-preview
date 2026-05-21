@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pronájem auta pro Bolt a Uber v Praze — Popojedu.cz</title>
+<meta name="description" content="Pronájem vozu pro řidiče Bolt a Uber v Praze 9. Pojištění TAXI a přepis provozovatele řešíme za vás, plný servis a náhradní vůz v ceně. Úsporné vozy, poptávka přes formulář.">
+<meta property="og:title" content="Pronájem auta pro Bolt a Uber — Popojedu.cz">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="cs_CZ">
+<link rel="stylesheet" href="popojedu_preview.css">
+<style>
+  .seg-intro { padding: 36px 0 8px; }
+  .seg-intro h1 { font-size: clamp(27px, 5.6vw, 44px); margin-bottom: 14px; }
+
+  .usecase-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .usecase {
+    background: white; border: 1.5px solid var(--border); border-radius: 22px;
+    padding: 26px; transition: all 0.2s;
+  }
+  .usecase:hover { border-color: var(--green); box-shadow: var(--shadow-md); transform: translateY(-3px); }
+  .usecase-ico {
+    width: 48px; height: 48px; border-radius: 14px; background: var(--green-light);
+    color: var(--green-dark); display: flex; align-items: center; justify-content: center;
+    font-size: 24px; margin-bottom: 16px;
+  }
+  .usecase h4 { margin-bottom: 6px; }
+  .usecase p { font-size: 13px; }
+
+  .benefit-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 40px; max-width: 900px; }
+  .benefit-line { display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .benefit-check {
+    width: 26px; height: 26px; border-radius: 50%; background: var(--green-light);
+    color: var(--green-dark); font-weight: 800; font-size: 13px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .benefit-line strong { display: block; color: var(--text); font-size: 14px; margin-bottom: 2px; }
+  .benefit-line span { color: var(--text-muted); font-size: 13px; }
+
+  .cta-band {
+    background: linear-gradient(165deg, var(--navy) 0%, var(--navy-light) 100%);
+    border-radius: 28px; padding: 48px; color: white; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-band::before {
+    content: ""; position: absolute; top: -40%; right: -10%;
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(0,200,83,0.35), transparent 70%);
+    pointer-events: none;
+  }
+  .cta-band h2 { color: white; position: relative; }
+  .cta-band p { color: rgba(255,255,255,0.8); max-width: 540px; margin: 12px auto 26px; position: relative; }
+  .cta-band .btn { position: relative; }
+  .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  /* Cross-link strip mezi segmenty */
+  .seg-cross {
+    display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+    background: var(--green-lighter); border: 1.5px solid var(--green-light);
+    border-radius: 18px; padding: 18px 22px;
+  }
+  .seg-cross p { font-size: 14px; margin: 0; }
+
+  @media (max-width: 1024px) { .usecase-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 720px) {
+    .usecase-grid { grid-template-columns: 1fr; }
+    .benefit-cols { grid-template-columns: 1fr; }
+    .benefit-line:last-child { border-bottom: none; }
+    .cta-band { padding: 36px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="popojedu_production_preview.html" class="logo"><div class="logo-mark">p</div>popojedu</a>
+    <input type="checkbox" id="navtoggle" class="nav-check"><label for="navtoggle" class="nav-burger" aria-label="Menu">☰</label>
+      <div class="nav-links">
+      <a href="popojedu_vozy.html" class="nav-link">Naše vozy</a>
+      <a href="popojedu_production_preview.html#builder" class="nav-link">Konfigurátor</a>
+      <a href="popojedu_cenik.html" class="nav-link">Ceník</a>
+      <a href="popojedu_production_preview.html#how" class="nav-link">Jak to funguje</a>
+      <a href="popojedu_faq.html" class="nav-link">FAQ</a>
+      <a href="popojedu_ucet.html" class="nav-link">Můj účet</a>
+    </div>
+    <a href="popojedu_production_preview.html#builder" class="btn btn-primary nav-cta">Spočítat cenu</a>
+  </div>
+</nav>
+
+<!-- ═══════════ INTRO ═══════════ -->
+<section class="container seg-intro">
+  <div class="section-eyebrow">Pro řidiče Bolt a Uber</div>
+  <h1>Auto pro Bolt a Uber — připravené na taxi provoz</h1>
+  <p class="lead">Vozíte cestující přes Bolt nebo Uber? Máme samostatný paket pro taxislužbu — s pojištěním TAXI a přepisem provozovatele. O servis i pojistky se staráme my, vy jen jezdíte a vyděláváte.</p>
+  <div class="hero-actions" style="margin-top: 24px;">
+    <a href="popojedu_production_preview.html#builder" class="btn btn-primary">Spočítat cenu pronájmu</a>
+    <a href="popojedu_kontakt.html" class="btn btn-ghost">Poslat poptávku</a>
+  </div>
+  <div class="hero-trust" style="margin-top: 20px;">
+    <span><span class="check">✓</span> Pojištění TAXI v ceně</span>
+    <span><span class="check">✓</span> Přepis provozovatele řešíme</span>
+    <span><span class="check">✓</span> Úsporné vozy</span>
+  </div>
+</section>
+
+<!-- ═══════════ CO ŘEŠÍME ZA VÁS ═══════════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-eyebrow">Co řešíme za vás</div>
+    <h2 style="margin-bottom: 28px;">Paket pro taxislužbu, ne obyčejný pronájem</h2>
+    <div class="usecase-grid">
+      <div class="usecase">
+        <div class="usecase-ico">🛡️</div>
+        <h4>Pojištění TAXI</h4>
+        <p>Vozy pro Bolt a Uber mají pojištění pro přepravu osob. Běžný pronájem to nepokrývá — u nás je TAXI pojištění součástí paketu.</p>
+      </div>
+      <div class="usecase">
+        <div class="usecase-ico">📋</div>
+        <h4>Přepis provozovatele</h4>
+        <p>Aby vůz mohl jezdit jako taxi, musí být správně přepsaný. Administrativu okolo provozovatele vyřídíme za vás.</p>
+      </div>
+      <div class="usecase">
+        <div class="usecase-ico">🔧</div>
+        <h4>Plný servis</h4>
+        <p>Pravidelné prohlídky, výměna pneumatik i dálniční známka. Auto je pořád v kondici a vy neřešíte dílnu.</p>
+      </div>
+      <div class="usecase">
+        <div class="usecase-ico">🚗</div>
+        <h4>Náhradní vůz</h4>
+        <p>Když je auto v servisu nebo po nehodě, dostanete náhradu. Výdělek se kvůli odstavenému vozu nezastaví.</p>
+      </div>
+      <div class="usecase">
+        <div class="usecase-ico">⛽</div>
+        <h4>Úsporné vozy</h4>
+        <p>Nabízíme i vozy na CNG s nízkými náklady na ujetý kilometr — u celodenního ježdění to dělá velký rozdíl.</p>
+      </div>
+      <div class="usecase">
+        <div class="usecase-ico">🗓️</div>
+        <h4>Flexibilní délka</h4>
+        <p>Na týden, na měsíc i dlouhodobě. Délku přizpůsobíme tomu, jak moc plánujete jezdit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ VÝHODY ═══════════ -->
+<section class="section" style="background: var(--green-light); padding: 80px 0;">
+  <div class="container">
+    <div class="section-eyebrow">Proč to dává smysl</div>
+    <h2 style="margin-bottom: 28px;">Jezdit na půjčené místo vlastního auta</h2>
+    <div class="benefit-cols">
+      <div class="benefit-line">
+        <div class="benefit-check">✓</div>
+        <div><strong>Žádná velká investice na začátku</strong><span>Nemusíte kupovat auto na úvěr — začnete jezdit hned, s předvídatelnou měsíční platbou.</span></div>
+      </div>
+      <div class="benefit-line">
+        <div class="benefit-check">✓</div>
+        <div><strong>Náklady na servis nesete my</strong><span>Opotřebení z celodenního ježdění jde za námi, ne za vámi.</span></div>
+      </div>
+      <div class="benefit-line">
+        <div class="benefit-check">✓</div>
+        <div><strong>Havarijní i povinné pojištění</strong><span>Vůz je pojištěný. Spoluúčast je 10 000 Kč a vždy ji říkáme dopředu.</span></div>
+      </div>
+      <div class="benefit-line">
+        <div class="benefit-check">✓</div>
+        <div><strong>Asistenční služba 24/7</strong><span>Pomoc na telefonu kdykoli — i během noční směny.</span></div>
+      </div>
+      <div class="benefit-line">
+        <div class="benefit-check">✓</div>
+        <div><strong>Nejvýhodnější sazba u delších paketů</strong><span>Čím déle vůz máte, tím nižší měsíční cena. Vyplatí se to pravidelným řidičům.</span></div>
+      </div>
+      <div class="benefit-line" style="border-bottom: none;">
+        <div class="benefit-check">✓</div>
+        <div><strong>Vyzvednutí v Praze 9</strong><span>Provozovna Cukrovarská 991, Praha 9 — Čakovice. Snadný příjezd, parkování u nás.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ JAK TO FUNGUJE ═══════════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-eyebrow">Jak to probíhá</div>
+    <h2 style="margin-bottom: 28px;">Od poptávky za volant ve čtyřech krocích</h2>
+    <div class="how-steps" style="max-width: 760px;">
+      <div class="how-step">
+        <div class="how-step-icon">1</div>
+        <div>
+          <h4>Pošlete poptávku přes formulář</h4>
+          <p>Napíšete, že jezdíte pro Bolt nebo Uber, a na jak dlouho vůz potřebujete. Všechny objednávky vedeme přes formulář, ať je vše přehledně na jednom místě.</p>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-icon">2</div>
+        <div>
+          <h4>Doporučíme vůz a spočítáme cenu</h4>
+          <p>Ozveme se zpravidla do 2 hodin v pracovní době, vybereme vhodný úsporný vůz a řekneme cenu včetně paketu pro taxislužbu.</p>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-icon">3</div>
+        <div>
+          <h4>Smlouva, pojištění TAXI a přepis</h4>
+          <p>Podepíšeme smlouvu, zařídíme pojištění pro přepravu osob a přepis provozovatele, aby vůz mohl rovnou jezdit.</p>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-icon">4</div>
+        <div>
+          <h4>Vyzvednete vůz a jedete vydělávat</h4>
+          <p>Auto si převezmete na provozovně v Praze 9 — Čakovicích. Servis a pojistky řešíme my.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CTA ═══════════ -->
+<section class="section" style="padding-top: 24px;">
+  <div class="container">
+    <div class="cta-band">
+      <h2>Chcete jezdit pro Bolt nebo Uber?</h2>
+      <p>Napište nám, na jak dlouho vůz potřebujete. Připravíme nabídku s pojištěním TAXI i přepisem provozovatele a ozveme se zpravidla do 2 hodin v pracovní době.</p>
+      <div class="cta-actions">
+        <a href="popojedu_kontakt.html" class="btn btn-primary">Poslat poptávku</a>
+        <a href="tel:+420731683203" class="btn btn-ghost">Zavolat +420 731 683 203</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CROSS-LINK NA KURYRY ═══════════ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div class="seg-cross">
+      <div style="font-size: 28px;">🛵</div>
+      <p style="flex: 1; min-width: 220px;"><strong>Rozvážíte jídlo pro Wolt nebo Foodoru?</strong><br>Pro kurýry máme samostatnou nabídku úsporných vozů.</p>
+      <a href="popojedu_kuryri.html" class="btn btn-ghost">Pronájem pro kurýry →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="popojedu_production_preview.html" class="logo"><div class="logo-mark">p</div>popojedu</a>
+        <div class="footer-contact">
+          📞 +420 731 683 203<br>
+          ✉️ info@popojedu.cz<br>
+          🚗 Provozovna: Cukrovarská 991, Praha 9 — Čakovice<br>
+          🏢 Sídlo: Praha 9, Českomoravská 1181/21
+        </div>
+      </div>
+      <div>
+        <h5>Pronájem</h5>
+        <ul>
+          <li><a href="popojedu_production_preview.html#builder">Konfigurátor pronájmu</a></li>
+          <li><a href="popojedu_vozy.html">Naše vozy</a></li>
+          <li><a href="popojedu_cenik.html">Ceník</a></li>
+          <li><a href="popojedu_vyzvednuti.html">Vyzvednutí vozu</a></li>
+          <li><a href="popojedu_predani.html">Předání vozu</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Pro koho</h5>
+        <ul>
+          <li><a href="popojedu_firmy.html">Pro firmy</a></li>
+          <li><a href="popojedu_bolt_uber.html">Pro Bolt a Uber</a></li>
+          <li><a href="popojedu_kuryri.html">Pro kurýry</a></li>
+          <li><a href="popojedu_production_preview.html#how">Jak to funguje</a></li>
+          <li><a href="popojedu_faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Účet a kontakt</h5>
+        <ul>
+          <li><a href="popojedu_kontakt.html">Kontakt</a></li>
+          <li><a href="popojedu_ucet.html">Můj účet</a></li>
+          <li><a href="#">Obchodní podmínky</a></li>
+          <li><a href="#">Ochrana osobních údajů</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© Copyright 2009–2026 Popojedu.cz, spravuje MODRÝ ANDĚL s.r.o.</span>
+      <span>IČ: 105306, MSPH Městský soud v Praze</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════ SCHEMA.ORG JSON-LD ═══════════ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Pronájem auta pro Bolt a Uber",
+  "provider": {
+    "@type": "AutoRental",
+    "name": "Popojedu.cz",
+    "telephone": "+420731683203",
+    "email": "info@popojedu.cz",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Cukrovarská 991",
+      "addressLocality": "Praha 9 — Čakovice",
+      "postalCode": "196 00",
+      "addressCountry": "CZ"
+    }
+  },
+  "areaServed": { "@type": "City", "name": "Praha" },
+  "description": "Pronájem vozu pro řidiče Bolt a Uber v Praze 9 — pojištění TAXI a přepis provozovatele, plný servis a náhradní vůz v ceně."
+}
+</script>
+
+<!-- ═══════════ STICKY MOBILE CTA ═══════════ -->
+<div class="sticky-cta">
+  <a href="popojedu_production_preview.html#builder" class="btn btn-primary">Spočítat cenu pronájmu</a>
+  <a href="tel:+420731683203" class="btn sticky-call" aria-label="Zavolat +420 731 683 203">📞</a>
+</div>
+
+</body>
+</html>
