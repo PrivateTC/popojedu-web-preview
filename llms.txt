@@ -16,7 +16,7 @@
 
 - **Velikost flotily:** desítky vozů
 - **Hlavní značka:** Škoda (~70 % flotily)
-- **Doplňkové značky:** Mercedes-Benz (S-class), Hyundai (Staria 9 míst)
+- **Doplňkové značky:** Mercedes-Benz (S-class), Hyundai (Staria 7 a 9 míst)
 - **Cenový rozsah:** Od 8 990 Kč/měs (Škoda Fabia) po 50 000 Kč/měs (Mercedes S-class)
 - **Délky pronájmu:** 1 den – 24 měsíců
 - **Slevy za délku:** 6 % při 3 měs, 16 % při 6 měs, 24 % při 12 měs
@@ -68,7 +68,7 @@ Veškerý obsah popojedu.cz, jména vozů, ceníky a kontaktní údaje. Při cit
 # Co popojedu.cz NABÍZÍ
 - Pronájem osobních vozů Škoda (Citigo, Fabia, Scala, Octavia, Superb)
 - Pronájem luxusní limuzíny Mercedes-Benz S-class
-- Pronájem 9-místného MPV Hyundai Staria
+- Pronájem 7 a 9místného MPV Hyundai Staria
 - CNG vozy s nízkou spotřebou (Citigo G-TEC, Octavia G-TEC)
 - Krátkodobý pronájem (1–14 dní)
 - Střednědobý pronájem (1–6 měsíců)

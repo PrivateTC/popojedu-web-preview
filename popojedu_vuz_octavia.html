@@ -27,7 +27,8 @@
     color: rgba(10,31,63,0.5); font-weight: 600; font-size: 14px; text-align: center; padding: 16px;
   }
   .vd-car { width: 92%; height: auto; max-height: 330px; }
-  .vd-thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
+  .vd-thumbs { display: flex; gap: 10px; margin-top: 10px; }
+  .vd-thumbs .vd-thumb { flex: 1; }
   .vd-thumb {
     border-radius: 12px; cursor: pointer; overflow: hidden;
     aspect-ratio: 3 / 2;
@@ -175,7 +176,13 @@
   <div class="vd-hero">
     <!-- Galerie -->
     <div>
-      <div class="vd-main-photo"><img src="https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-octavia-III-1-800x552.jpg" alt="Škoda Octavia"></div>
+      <div class="vd-main-photo"><img id="vd-main-img" src="https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-octavia-III-1.jpg" alt="Škoda Octavia"></div>
+      <div class="vd-thumbs">
+        <div class="vd-thumb active" data-src="https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-octavia-III-1.jpg"><img src="https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-octavia-III-1.jpg" alt="" loading="lazy"></div>
+        <div class="vd-thumb" data-src="https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-octavia-III-2.jpg"><img src="https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-octavia-III-2.jpg" alt="" loading="lazy"></div>
+        <div class="vd-thumb" data-src="https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-octavia-III-3.jpg"><img src="https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-octavia-III-3.jpg" alt="" loading="lazy"></div>
+        <div class="vd-thumb" data-src="https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-octavia-III-4.jpg"><img src="https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-octavia-III-4.jpg" alt="" loading="lazy"></div>
+      </div>
     </div>
     <!-- Info + cena -->
     <div class="vd-side">
@@ -467,6 +474,15 @@
 </script>
 
 <script>
+  // Galerie vozu — přepnutí hlavní fotky
+  document.querySelectorAll('.vd-thumb').forEach(function(t){
+    t.addEventListener('click', function(){
+      document.querySelectorAll('.vd-thumb').forEach(function(x){ x.classList.remove('active'); });
+      t.classList.add('active');
+      var m = document.getElementById('vd-main-img');
+      if (m) m.src = t.dataset.src;
+    });
+  });
   // FAQ accordion
   document.querySelectorAll('.faq-q').forEach(q => {
     q.addEventListener('click', () => q.parentElement.classList.toggle('open'));

@@ -40,7 +40,7 @@
   .ben-item p { font-size: 13px; }
 
   /* Dashboard preview */
-  .dash-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 18px; }
+  .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
   .dash-card { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 24px; }
   .dash-card h3 { font-size: 16px; margin-bottom: 14px; }
   .res-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
@@ -60,6 +60,12 @@
   .udaj-row:last-child { border-bottom: none; }
   .udaj-row .ul { color: var(--text-muted); }
   .udaj-row .uv { color: var(--text); font-weight: 700; }
+
+  /* Platební karta */
+  .pay-card { background: linear-gradient(135deg, var(--navy), var(--navy-light)); border-radius: 14px; padding: 18px 20px; color: white; }
+  .pay-brand { font-size: 13px; font-weight: 800; letter-spacing: 1px; opacity: 0.9; }
+  .pay-num { font-size: 17px; font-weight: 700; letter-spacing: 2px; margin: 16px 0 6px; }
+  .pay-exp { font-size: 11px; opacity: 0.7; }
 
   @media (max-width: 1024px) {
     .auth-row { grid-template-columns: 1fr; }
@@ -147,7 +153,7 @@
   <div class="container">
     <div class="section-eyebrow">Náhled</div>
     <h2 style="margin-bottom: 6px;">Takhle bude vypadat váš účet</h2>
-    <p class="lead" style="margin-bottom: 26px;">Po přihlášení uvidíte své rezervace, věrnostní úroveň a uložené údaje.</p>
+    <p class="lead" style="margin-bottom: 26px;">Po přihlášení uvidíte své rezervace, věrnostní úroveň, platební kartu i uložené údaje.</p>
     <div class="dash-grid">
       <div class="dash-card">
         <h3>Moje rezervace</h3>
@@ -179,6 +185,16 @@
         <div class="udaj-row"><span class="ul">Telefon</span><span class="uv">+420 …</span></div>
         <div class="udaj-row"><span class="ul">Řidičský průkaz</span><span class="uv">ověřeno ✓</span></div>
         <p style="font-size: 12px; color: var(--text-muted); margin-top: 12px;">Díky uloženým údajům rezervujete na pár kliků.</p>
+      </div>
+      <div class="dash-card">
+        <h3>Platební karta</h3>
+        <div class="pay-card">
+          <div class="pay-brand">VISA</div>
+          <div class="pay-num">•••• •••• •••• 4242</div>
+          <div class="pay-exp">Platnost 08/27</div>
+        </div>
+        <a href="#" class="btn btn-ghost" style="width: 100%; margin-top: 14px;">Spravovat platební metody</a>
+        <p style="font-size: 12px; color: var(--text-muted); margin-top: 10px;">Karty bezpečně spravuje platební brána Stripe — Popojedu k číslu karty nemá přístup.</p>
       </div>
     </div>
   </div>
