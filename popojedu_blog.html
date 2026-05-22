@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — rady k pronájmu aut | Popojedu.cz</title>
+<meta name="description" content="Blog Popojedu.cz — praktické rady k pronájmu auta v Praze: dlouhodobý pronájem, pronájem na měsíc, leasing vs. pronájem, auta pro Bolt, Uber, Wolt a Foodoru.">
+<meta property="og:title" content="Blog — rady k pronájmu aut | Popojedu.cz">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="cs_CZ">
+<link rel="stylesheet" href="popojedu_preview.css">
+<style>
+  .blog-intro { padding: 36px 0 8px; }
+  .blog-intro h1 { font-size: clamp(28px, 6vw, 44px); margin-bottom: 12px; }
+
+  .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .blog-card {
+    background: white; border: 1.5px solid var(--border); border-radius: 22px;
+    overflow: hidden; display: flex; flex-direction: column;
+    text-decoration: none; transition: all 0.2s;
+  }
+  .blog-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .blog-thumb { aspect-ratio: 3 / 2; overflow: hidden; background: linear-gradient(135deg, #E5EAF0, #CFD8DC); }
+  .blog-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .blog-body { padding: 20px 22px 22px; display: flex; flex-direction: column; flex: 1; }
+  .blog-cat { font-size: 11px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--green-dark); margin-bottom: 8px; }
+  .blog-card h3 { font-size: 17px; line-height: 1.3; margin-bottom: 8px; color: var(--text); }
+  .blog-card p { font-size: 13px; color: var(--text-body); margin-bottom: 14px; flex: 1; }
+  .blog-meta { font-size: 12px; color: var(--text-muted); display: flex; gap: 12px; align-items: center; }
+  .blog-readmore { color: var(--green-dark); font-weight: 700; font-size: 13px; margin-top: 12px; }
+
+  .blog-featured {
+    display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 0;
+    background: white; border: 1.5px solid var(--border); border-radius: 24px;
+    overflow: hidden; margin-bottom: 32px; text-decoration: none; transition: all 0.2s;
+  }
+  .blog-featured:hover { border-color: var(--green); box-shadow: var(--shadow-md); }
+  .blog-featured .blog-thumb { aspect-ratio: auto; min-height: 280px; }
+  .blog-featured .bf-body { padding: 34px 36px; display: flex; flex-direction: column; justify-content: center; }
+  .blog-featured h2 { font-size: clamp(20px, 3vw, 27px); margin-bottom: 12px; }
+  .blog-featured p { font-size: 14px; color: var(--text-body); margin-bottom: 16px; }
+
+  @media (max-width: 1024px) {
+    .blog-grid { grid-template-columns: 1fr 1fr; }
+    .blog-featured { grid-template-columns: 1fr; }
+    .blog-featured .blog-thumb { min-height: 200px; }
+  }
+  @media (max-width: 720px) {
+    .blog-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="popojedu_production_preview.html" class="logo"><div class="logo-mark">p</div>popojedu</a>
+    <input type="checkbox" id="navtoggle" class="nav-check"><label for="navtoggle" class="nav-burger" aria-label="Menu">☰</label>
+      <div class="nav-links">
+      <a href="popojedu_vozy.html" class="nav-link">Naše vozy</a>
+      <a href="popojedu_production_preview.html#builder" class="nav-link">Konfigurátor</a>
+      <a href="popojedu_cenik.html" class="nav-link">Ceník</a>
+      <a href="popojedu_production_preview.html#how" class="nav-link">Jak to funguje</a>
+      <a href="popojedu_faq.html" class="nav-link">FAQ</a>
+      <a href="popojedu_ucet.html" class="nav-link">Můj účet</a>
+    </div>
+    <a href="popojedu_production_preview.html#builder" class="btn btn-primary nav-cta">Spočítat cenu</a>
+  </div>
+</nav>
+
+<!-- ═══════════ INTRO ═══════════ -->
+<section class="container blog-intro">
+  <div class="section-eyebrow">Blog</div>
+  <h1>Rady k pronájmu aut</h1>
+  <p class="lead">Praktické články o tom, kdy se vyplatí pronájem, jak vybrat auto na měsíc i na rok a na co myslet, když jezdíte pro Bolt, Uber nebo rozvážíte jídlo.</p>
+</section>
+
+<!-- ═══════════ ČLÁNKY ═══════════ -->
+<section class="section" style="padding-top: 28px;">
+  <div class="container">
+
+    <!-- Hlavní článek -->
+    <a href="#" class="blog-featured">
+      <div class="blog-thumb"><img src="https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-octavia-III-1-700x466.jpg" alt="Dlouhodobý pronájem auta" loading="lazy"></div>
+      <div class="bf-body">
+        <div class="blog-cat">Dlouhodobý pronájem</div>
+        <h2>Dlouhodobý pronájem auta — kdy se vyplatí a komu</h2>
+        <p>Auto na rok bez starostí o servis, pojistky a pneumatiky. Spočítali jsme, odkdy je dlouhodobý pronájem levnější než vlastní auto i operativní leasing — a pro koho dává největší smysl.</p>
+        <span class="blog-readmore">Číst článek →</span>
+      </div>
+    </a>
+
+    <div class="blog-grid">
+
+      <a href="#" class="blog-card">
+        <div class="blog-thumb"><img src="https://www.popojedu.cz/wp-content/uploads/2019/10/skoda-fabia-10-tsi-dsg-1-1-700x466.jpg" alt="Pronájem auta na měsíc" loading="lazy"></div>
+        <div class="blog-body">
+          <div class="blog-cat">Praktické rady</div>
+          <h3>Pronájem auta na měsíc — jak na to krok za krokem</h3>
+          <p>Co potřebujete doložit, jak funguje kauce a kolik kilometrů máte v ceně. Návod, než si půjčíte auto na měsíc.</p>
+          <div class="blog-meta"><span>6 min čtení</span></div>
+          <span class="blog-readmore">Číst článek →</span>
+        </div>
+      </a>
+
+      <a href="#" class="blog-card">
+        <div class="blog-thumb"><img src="https://www.popojedu.cz/wp-content/uploads/2019/10/2019-skoda-superb-facelift-23-700x466.jpg" alt="Flexibilní pronájem vs. operativní leasing" loading="lazy"></div>
+        <div class="blog-body">
+          <div class="blog-cat">Pronájem vs. leasing</div>
+          <h3>5 důvodů, proč je flexibilní pronájem lepší než operativní leasing</h3>
+          <p>Bez dlouhých závazků, bez velké akontace a bez papírování. Kde flexibilní pronájem leasing porazí.</p>
+          <div class="blog-meta"><span>5 min čtení</span></div>
+          <span class="blog-readmore">Číst článek →</span>
+        </div>
+      </a>
+
+      <a href="#" class="blog-card">
+        <div class="blog-thumb"><img src="https://www.popojedu.cz/wp-content/uploads/2018/09/IMG_2206-clean-look-700x466.png" alt="Pronájem auta vs. vlastní auto" loading="lazy"></div>
+        <div class="blog-body">
+          <div class="blog-cat">Pronájem vs. vlastnictví</div>
+          <h3>Pronájem auta vs. vlastní auto — co se vyplatí víc?</h3>
+          <p>Pořizovací cena, ztráta hodnoty, servis a pojistky. Srovnání, které ukáže, kdy se vlastní auto nevyplatí.</p>
+          <div class="blog-meta"><span>7 min čtení</span></div>
+          <span class="blog-readmore">Číst článek →</span>
+        </div>
+      </a>
+
+      <a href="#" class="blog-card">
+        <div class="blog-thumb"><img src="https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-citigo-g-tec-cng-1-700x466.jpg" alt="Auto pro kurýry Wolt a Foodora" loading="lazy"></div>
+        <div class="blog-body">
+          <div class="blog-cat">Pro kurýry</div>
+          <h3>Auto pro kurýry: čím jezdit pro Wolt a Foodoru</h3>
+          <p>Proč se na celodenní rozvoz hodí úsporné vozy na CNG a jak nízké náklady na kilometr ovlivní váš výdělek.</p>
+          <div class="blog-meta"><span>5 min čtení</span></div>
+          <span class="blog-readmore">Číst článek →</span>
+        </div>
+      </a>
+
+      <a href="#" class="blog-card">
+        <div class="blog-thumb"><img src="https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-octavia-III-2-700x466.jpg" alt="Auto pro Bolt a Uber" loading="lazy"></div>
+        <div class="blog-body">
+          <div class="blog-cat">Pro Bolt a Uber</div>
+          <h3>Auto pro Bolt a Uber — co potřebujete vědět</h3>
+          <p>Pojištění TAXI, přepis provozovatele a výběr úsporného vozu. Na co myslet, než začnete vozit cestující.</p>
+          <div class="blog-meta"><span>6 min čtení</span></div>
+          <span class="blog-readmore">Číst článek →</span>
+        </div>
+      </a>
+
+      <a href="#" class="blog-card">
+        <div class="blog-thumb"><img src="https://www.popojedu.cz/wp-content/uploads/2024/11/DSC_0255m1-700x466.jpg" alt="Jak poznat kvalitní autopůjčovnu" loading="lazy"></div>
+        <div class="blog-body">
+          <div class="blog-cat">Jak vybírat</div>
+          <h3>Jak poznáte kvalitní autopůjčovnu v Praze</h3>
+          <p>Pět znaků férové půjčovny — od transparentního ceníku po vlastní servis a jasné podmínky kauce.</p>
+          <div class="blog-meta"><span>5 min čtení</span></div>
+          <span class="blog-readmore">Číst článek →</span>
+        </div>
+      </a>
+
+      <a href="#" class="blog-card">
+        <div class="blog-thumb"><img src="https://www.popojedu.cz/wp-content/uploads/2019/10/skoda-superb-combi-lk-20-tdi-dsg-1-700x466.jpg" alt="Škoda Superb po faceliftu k pronájmu" loading="lazy"></div>
+        <div class="blog-body">
+          <div class="blog-cat">Naše vozy</div>
+          <h3>Škoda Superb po faceliftu k pronájmu</h3>
+          <p>Reprezentativní business sedan i prostorné kombi. Proč je Superb stálicí naší flotily.</p>
+          <div class="blog-meta"><span>4 min čtení</span></div>
+          <span class="blog-readmore">Číst článek →</span>
+        </div>
+      </a>
+
+      <a href="#" class="blog-card">
+        <div class="blog-thumb"><img src="https://www.popojedu.cz/wp-content/uploads/2018/09/DSC_0682a-scaled-800x552.jpg" alt="Pronájem auta na týden" loading="lazy"></div>
+        <div class="blog-body">
+          <div class="blog-cat">Praktické rady</div>
+          <h3>Pronájem auta na týden — kdy se hodí krátkodobý pronájem</h3>
+          <p>Dovolená, sezónní špička nebo náhrada za auto v servisu. Kdy dává smysl půjčit si vůz jen na pár dní.</p>
+          <div class="blog-meta"><span>4 min čtení</span></div>
+          <span class="blog-readmore">Číst článek →</span>
+        </div>
+      </a>
+
+    </div>
+
+    <p style="font-size: 12px; color: var(--text-muted); margin-top: 22px;">Náhled — jednotlivé články se doplní jako samostatné stránky. Stávající články ze starého webu se při migraci zachovají na svých URL (viz SEO migrační mapa).</p>
+  </div>
+</section>
+
+<!-- ═══════════ CTA BAND ═══════════ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div class="cta-band" style="background: linear-gradient(165deg, var(--navy), var(--navy-light)); border-radius: 28px; padding: 44px; text-align: center; color: white;">
+      <h2 style="color: white; margin-bottom: 8px;">Víte už, jaké auto potřebujete?</h2>
+      <p style="color: rgba(255,255,255,0.78); margin-bottom: 22px; font-size: 15px;">Spusťte konfigurátor — doporučí vůz a rovnou spočítá cenu pronájmu.</p>
+      <a href="popojedu_production_preview.html#builder" class="btn btn-primary" style="padding: 15px 32px;">Spočítat cenu pronájmu →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="popojedu_production_preview.html" class="logo"><div class="logo-mark">p</div>popojedu</a>
+        <div class="footer-contact">
+          📞 +420 731 683 203<br>
+          ✉️ info@popojedu.cz<br>
+          🚗 Provozovna: Cukrovarská 991, Praha 9 — Čakovice<br>
+          🏢 Sídlo: Praha 9, Českomoravská 1181/21
+        </div>
+      </div>
+      <div>
+        <h5>Pronájem</h5>
+        <ul>
+          <li><a href="popojedu_production_preview.html#builder">Konfigurátor pronájmu</a></li>
+          <li><a href="popojedu_vozy.html">Naše vozy</a></li>
+          <li><a href="popojedu_cenik.html">Ceník</a></li>
+          <li><a href="popojedu_vyzvednuti.html">Vyzvednutí vozu</a></li>
+          <li><a href="popojedu_predani.html">Předání vozu</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Pro koho</h5>
+        <ul>
+          <li><a href="popojedu_firmy.html">Pro firmy</a></li>
+          <li><a href="popojedu_bolt_uber.html">Pro Bolt a Uber</a></li>
+          <li><a href="popojedu_kuryri.html">Pro kurýry</a></li>
+          <li><a href="popojedu_production_preview.html#how">Jak to funguje</a></li>
+          <li><a href="popojedu_blog.html">Blog</a></li>
+          <li><a href="popojedu_faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Účet a kontakt</h5>
+        <ul>
+          <li><a href="popojedu_kontakt.html">Kontakt</a></li>
+          <li><a href="popojedu_ucet.html">Můj účet</a></li>
+          <li><a href="#">Obchodní podmínky</a></li>
+          <li><a href="#">Ochrana osobních údajů</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© Copyright 2009–2026 Popojedu.cz, spravuje MODRÝ ANDĚL s.r.o.</span>
+      <span>IČ: 105306, MSPH Městský soud v Praze</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════ SCHEMA.ORG JSON-LD ═══════════ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Blog Popojedu.cz",
+  "description": "Praktické rady k pronájmu auta v Praze — dlouhodobý a krátkodobý pronájem, leasing vs. pronájem, auta pro Bolt, Uber, Wolt a Foodoru.",
+  "publisher": {
+    "@type": "AutoRental",
+    "name": "Popojedu.cz",
+    "telephone": "+420731683203",
+    "email": "info@popojedu.cz"
+  }
+}
+</script>
+
+<!-- ═══════════ JEMNÉ ANIMACE ═══════════ -->
+<script>
+(function(){
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var sel = '.blog-card, .blog-featured, .cta-band';
+  var els = [].slice.call(document.querySelectorAll(sel));
+  if (!els.length) return;
+  els.forEach(function(el){ el.classList.add('reveal'); });
+  els.forEach(function(el){
+    var p = el.parentElement; if (!p) return;
+    var group = [].slice.call(p.children).filter(function(c){ return c.classList.contains('reveal'); });
+    var i = group.indexOf(el);
+    if (i > 0) el.style.transitionDelay = Math.min(i * 60, 360) + 'ms';
+  });
+  if (!('IntersectionObserver' in window)) { els.forEach(function(el){ el.classList.add('is-visible'); }); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(function(el){ io.observe(el); });
+})();
+</script>
+
+<!-- ═══════════ STICKY MOBILE CTA ═══════════ -->
+<div class="sticky-cta">
+  <a href="popojedu_production_preview.html#builder" class="btn btn-primary">Spočítat cenu pronájmu</a>
+  <a href="tel:+420731683203" class="btn sticky-call" aria-label="Zavolat +420 731 683 203">📞</a>
+</div>
+
+</body>
+</html>

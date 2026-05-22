@@ -187,7 +187,7 @@
   .vehicle-card:hover { border-color: var(--green); transform: translateY(-2px); box-shadow: var(--shadow-md); }
   .vehicle-card.selected { border-color: var(--green); box-shadow: var(--shadow-glow); }
   .vehicle-img {
-    height: 160px;
+    aspect-ratio: 3 / 2;
     background: linear-gradient(135deg, #E5EAF0, #CFD8DC);
     display: flex; align-items: center; justify-content: center;
     color: rgba(10,31,63,0.5); font-weight: 600; font-size: 13px; text-align: center;
@@ -612,6 +612,12 @@
   .vd-main-photo { overflow: hidden; }
   .vd-main-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .vd-thumb img { width: 100%; height: 46px; object-fit: cover; display: block; border-radius: 6px; }
+
+  /* ─────────── JEMNÉ ANIMACE (scroll reveal) ─────────── */
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.is-visible { opacity: 1; transform: none; }
+  }
 </style>
 </head>
 <body>
@@ -741,7 +747,7 @@
             <span class="vehicle-price-tax">bez DPH</span>
           </div>
           <div class="vehicle-price-cap">Cena za měsíc</div>
-          <a href="#" class="vehicle-cta">Detail vozu</a>
+          <a href="popojedu_vuz_octavia.html" class="vehicle-cta">Detail vozu</a>
         </div>
       </div>
       <div class="vehicle-card">
@@ -754,7 +760,7 @@
             <span class="vehicle-price-tax">bez DPH</span>
           </div>
           <div class="vehicle-price-cap">Cena za měsíc</div>
-          <a href="#" class="vehicle-cta">Detail vozu</a>
+          <a href="popojedu_vuz_fabia.html" class="vehicle-cta">Detail vozu</a>
         </div>
       </div>
       <div class="vehicle-card">
@@ -767,7 +773,7 @@
             <span class="vehicle-price-tax">bez DPH</span>
           </div>
           <div class="vehicle-price-cap">Cena za měsíc</div>
-          <a href="#" class="vehicle-cta">Detail vozu</a>
+          <a href="popojedu_vuz_superb.html" class="vehicle-cta">Detail vozu</a>
         </div>
       </div>
       <div class="vehicle-card">
@@ -780,7 +786,7 @@
             <span class="vehicle-price-tax">bez DPH</span>
           </div>
           <div class="vehicle-price-cap">Cena za měsíc</div>
-          <a href="#" class="vehicle-cta">Detail vozu</a>
+          <a href="popojedu_vuz_scala.html" class="vehicle-cta">Detail vozu</a>
         </div>
       </div>
       <div class="vehicle-card">
@@ -793,7 +799,7 @@
             <span class="vehicle-price-tax">bez DPH</span>
           </div>
           <div class="vehicle-price-cap">Cena za měsíc</div>
-          <a href="#" class="vehicle-cta">Detail vozu</a>
+          <a href="popojedu_vuz_staria.html" class="vehicle-cta">Detail vozu</a>
         </div>
       </div>
       <div class="vehicle-card">
@@ -806,7 +812,7 @@
             <span class="vehicle-price-tax">bez DPH</span>
           </div>
           <div class="vehicle-price-cap">Cena za měsíc</div>
-          <a href="#" class="vehicle-cta">Detail vozu</a>
+          <a href="popojedu_vuz_mercedes_s.html" class="vehicle-cta">Detail vozu</a>
         </div>
       </div>
     </div>
@@ -1199,6 +1205,7 @@
           <li><a href="popojedu_bolt_uber.html">Pro Bolt a Uber</a></li>
           <li><a href="popojedu_kuryri.html">Pro kurýry</a></li>
           <li><a href="popojedu_production_preview.html#how">Jak to funguje</a></li>
+          <li><a href="popojedu_blog.html">Blog</a></li>
           <li><a href="popojedu_faq.html">FAQ</a></li>
         </ul>
       </div>
@@ -1383,6 +1390,30 @@
   <a href="popojedu_production_preview.html#builder" class="btn btn-primary">Spočítat cenu pronájmu</a>
   <a href="tel:+420731683203" class="btn sticky-call" aria-label="Zavolat +420 731 683 203">📞</a>
 </div>
+
+<!-- ═══════════ JEMNÉ ANIMACE ═══════════ -->
+<script>
+(function(){
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var sel = '.vehicle-card, .usecase, .how-step, .tier-card, .service-card, .info-card, .faq-item, .seg-cross, .cta-band, .builder-card';
+  var els = [].slice.call(document.querySelectorAll(sel));
+  if (!els.length) return;
+  els.forEach(function(el){ el.classList.add('reveal'); });
+  els.forEach(function(el){
+    var p = el.parentElement; if (!p) return;
+    var group = [].slice.call(p.children).filter(function(c){ return c.classList.contains('reveal'); });
+    var i = group.indexOf(el);
+    if (i > 0) el.style.transitionDelay = Math.min(i * 60, 360) + 'ms';
+  });
+  if (!('IntersectionObserver' in window)) { els.forEach(function(el){ el.classList.add('is-visible'); }); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(function(el){ io.observe(el); });
+})();
+</script>
 
 </body>
 </html>
