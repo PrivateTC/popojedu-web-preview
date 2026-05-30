@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /tour-share.html
+Disallow: /partner-dashboard.html
+Disallow: /prihlaseni.html
+
+Sitemap: ./sitemap.xml
