@@ -1,0 +1,29 @@
+# Private Tours Czech — Soukromé výlety s vlastním řidičem
+
+Web s 50+ stránkami nabízejícími privátní výlety z Prahy po Česku a okolí.
+
+## Hlavní výlety
+- Český Krumlov + Hluboká (1 den, od 500 €)
+- Karlštejn (půlden, od 280 €)
+- Kutná Hora (půlden, od 380 €)
+- Karlovy Vary (1 den, od 480 €)
+- České Švýcarsko (1 den, od 520 €)
+- Moravské vinařství (2-3 dny, od 1 280 €)
+- Vídeň, Drážďany, Krakov (mezinárodní)
+
+## Klíčové stránky
+- Homepage: /index.html
+- Listing výletů: /tour-listing.html
+- Tour Builder (AI plánovač): /tour-builder.html
+- Rezervace: /rezervace.html
+- O nás: /o-nas.html
+- Kontakt: /kontakt.html
+- Reference: /reference.html
+- Blog: /blog.html
+
+## Naše unique value proposition
+- Vlastní řidič, anglicky/německy mluvící
+- Premium VAN 4×4 (1-8 osob) nebo Premium Car (1-3 osoby)
+- Bez záloh, platba u řidiče
+- Storno zdarma 24 h předem
+- Vyzvednutí kdekoli v Praze
