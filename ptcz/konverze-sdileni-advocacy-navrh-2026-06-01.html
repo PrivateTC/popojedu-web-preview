@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Konverze · Sdílení · Advocacy — návrh (1. 6. 2026)</title>
+<style>
+  :root{--pri:#1E88B5;--ink:#1c1c2e;--muted:#5a6472;--line:#e3e8ee;--bg:#f6f8fa;--bad:#c0392b;--good:#1b8a5a;--warn:#c87f1e;--q:#7048c4;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;}
+  .wrap{max-width:960px;margin:0 auto;padding:30px 22px 90px;}
+  h1{font-size:25px;margin:0 0 4px;}
+  .sub{color:var(--muted);font-size:13.5px;margin-bottom:20px;}
+  h2{font-size:19px;margin:30px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--pri);}
+  h3{font-size:15.5px;margin:18px 0 6px;}
+  p{margin:8px 0;}
+  .tl{background:#fff;border-left:5px solid var(--pri);border-radius:8px;padding:14px 18px;margin:14px 0;box-shadow:0 1px 3px rgba(0,0,0,.05);}
+  .tl.good{border-left-color:var(--good);} .tl.bad{border-left-color:var(--bad);} .tl.q{border-left-color:var(--q);}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:10px 0;font-size:13px;}
+  th{background:var(--pri);color:#fff;text-align:left;padding:8px 10px;font-size:12px;}
+  td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  code{background:#eef1f4;padding:1px 5px;border-radius:4px;font-size:12px;}
+  .tag{display:inline-block;font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:20px;white-space:nowrap;}
+  .t-cl{background:#eaf4f9;color:var(--pri);} .t-mar{background:#fff4e3;color:var(--warn);} .t-rf{background:#efe8fb;color:var(--q);} .t-ok{background:#e9f6ef;color:var(--good);}
+  ul{margin:6px 0;padding-left:20px;} li{margin:5px 0;}
+  .small{font-size:12px;color:var(--muted);}
+  .loop{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:14px 0;justify-content:center;}
+  .loop .st{background:#fff;border:2px solid var(--pri);border-radius:999px;padding:7px 14px;font-size:12.5px;font-weight:700;}
+  .loop .ar{color:var(--pri);font-weight:800;font-size:16px;}
+  .legend{font-size:12px;color:var(--muted);margin:14px 0 0;}
+  .big{font-size:14px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Jak maximálně posílit konverzi, sdílení a šíření</h1>
+<div class="sub">Private Tours Czech · 1. 6. 2026 · cíl: víc poptávek · zapojit spolucestující · rozjet doporučení a advocacy</div>
+
+<div class="tl good">
+<strong>Hlavní myšlenka — jedna mechanika táhne všechny tři cíle.</strong> Naše cena je <b>za celé auto</b> → <b>čím víc lidí, tím méně každý platí</b>. To z „pozvi další lidi" dělá nejsilnější tah: pro uživatele je sdílení <b>úspora</b> (ne laskavost vůči nám), pro nás je to větší skupina, vyšší hodnota rezervace a víc lidí, kteří pak výlet zažijí a doporučí. Konverze, sdílení i šíření se tak vzájemně posilují v jedné smyčce.
+</div>
+
+<div class="loop">
+  <span class="st">1 · Naplánuje výlet</span><span class="ar">→</span>
+  <span class="st">2 · Pozve skupinu (= levněji)</span><span class="ar">→</span>
+  <span class="st">3 · Odešle rezervaci</span><span class="ar">→</span>
+  <span class="st">4 · Zažije výlet</span><span class="ar">→</span>
+  <span class="st">5 · Sdílí / recenzuje</span><span class="ar">↻</span>
+  <span class="st">noví lidé</span>
+</div>
+
+<!-- A -->
+<h2>A. Konverze — ať dotažení poptávky je snadné a bez obav</h2>
+<p>Naše nabídka má nízký práh (nezávazně, platba až na místě, zrušení zdarma). Dva hlavní brzdiče proto nejsou peníze, ale: <b>„je to seriózní?"</b> a <b>„musím se domluvit s ostatními"</b>. Na ně cílíme.</p>
+<table>
+  <tr><th>Tah</th><th>Co konkrétně</th><th>Kde</th><th>Kdo</th></tr>
+  <tr><td><b>Důvěra u rozhodnutí</b></td><td>U ceny i u tlačítka držet trojici „Nezávazně · platba až na místě · zrušení zdarma do 24 h". Přidat <b>hodnocení + počet recenzí</b> (★ 4,9 · 120+ hodnocení) — reálná čísla z Google.</td><td>detail, lišta, krok 2</td><td><span class="tag t-cl">dev2</span></td></tr>
+  <tr><td><b>Cena za osobu jako motivátor</b></td><td>Využít rozpad 1–8: u ceny věta <b>„Ve 4 jen ≈ X / osoba"</b>. Ukázat, že ve skupině je to levné — rovnou navádí pozvat další.</td><td>detail, karty</td><td><span class="tag t-cl">dev2</span></td></tr>
+  <tr><td><b>Jedna jasná akce na krok</b></td><td>Na krocích trychtýře žádná odbočka pryč (řešeno v booking-flow návrhu).</td><td>kroky</td><td><span class="tag t-mar">theme</span></td></tr>
+  <tr><td><b>Záchrana rozpracovaného výletu</b></td><td>Když uživatel sestaví trasu a neodešle → „Pošlu vám itinerář e-mailem" (sběr e-mailu = lead + možnost se vrátit). Tlačítko „Uložit / poslat si výlet".</td><td>plánovač, krok 2</td><td><span class="tag t-mar">theme</span> + <span class="tag t-cl">dev2</span></td></tr>
+  <tr><td><b>Námitky hned u rozhodnutí</b></td><td>Krátké rozbalovací FAQ u ceny: „Je to legitimní? Co když prší? Kdy a komu platím? Můžu zrušit?" — sundá obavy v momentě váhání.</td><td>detail, krok 2</td><td><span class="tag t-cl">dev2</span></td></tr>
+  <tr><td><b>Slib odezvy</b></td><td>„Odpovíme do 24 h, bez platby předem." jasně u odeslání.</td><td>krok 2/3</td><td><span class="tag t-cl">dev2</span></td></tr>
+</table>
+
+<!-- B -->
+<h2>B. Sdílení výletu &amp; zapojení spolucestujících — náš nejsilnější růstový tah</h2>
+<p>U skupinových výletů je největší ztráta „<b>musím se zeptat ostatních</b>" — uživatel odejde a často se nevrátí. Když mu dáme nástroj <b>domluvit se ve skupině přímo z výletu</b>, vyřešíme konverzní blokátor a zároveň zapojíme další lidi.</p>
+<table>
+  <tr><th>Tah</th><th>Co konkrétně</th><th>Kdo</th></tr>
+  <tr><td><b>Sdílení = úspora (ne laskavost)</b></td><td>Sdílecí CTA postavit na peníze uživatele: <b>„Pozvěte partu — auto se rozpočítá, každý platí míň."</b> Vedle ukázat, jak cena/os. klesá s počtem lidí.</td><td><span class="tag t-cl">dev2</span> copy</td></tr>
+  <tr><td><b>„Domluvte se ve skupině"</b></td><td>Pošli sestavený výlet přátelům <b>ke schválení před rezervací</b>. Sdílená stránka (viz booking-flow 6b): spolucestující vidí plán, můžou upravit, odsouhlasit, přidat se.</td><td><span class="tag t-mar">theme</span></td></tr>
+  <tr><td><b>Tlačítka tam, kde se turisté domlouvají</b></td><td>WhatsApp · Messenger · kopírovat odkaz. (Ne jen obecné „sdílet".)</td><td><span class="tag t-mar">theme</span></td></tr>
+  <tr><td><b>Po rezervaci „Přidejte spolucestující"</b></td><td>Organizátor pošle parťákům potvrzení + místo a čas srazu → zapojení + méně no-shows + každý dostane náš kontakt.</td><td><span class="tag t-mar">theme</span></td></tr>
+  <tr><td><b>Stav „kdo potvrdil"</b> (volitelně)</td><td>Organizátor vidí, kdo se přidal — drobná hra, která tlačí k dokončení skupiny.</td><td><span class="tag t-mar">theme</span></td></tr>
+</table>
+<div class="tl"><strong>Proč to funguje a je to fér:</strong> nemanipulujeme uměle (žádná falešná naléhavost). Říkáme pravdu — víc lidí = nižší cena — a jen to děláme snadné. Uživatel má motivaci sdílet sám za sebe.</div>
+
+<!-- C -->
+<h2>C. Advocacy — recenze, UGC, doporučení a diskuze</h2>
+<h3>C1 · Recenze a obsah od hostů (nejsilnější a zdarma)</h3>
+<table>
+  <tr><th>Tah</th><th>Co konkrétně</th><th>Kdo</th></tr>
+  <tr><td><b>Prosba o recenzi ve správný moment</b></td><td>Po výletu (večer / druhý den) automatický e-mail / SMS s <b>přímým 1-klik odkazem na Google recenzi</b> (máme: g.page/r/…/review). Nejvyšší ochota hned po zážitku.</td><td><span class="tag t-mar">theme</span> + <span class="tag t-cl">Claude</span></td></tr>
+  <tr><td><b>UGC — ať se sdílí sám</b></td><td>Po výletu hezká „recap" stránka (mapa trasy + pár fotek), kterou host snadno hodí na Instagram/FB. Přirozený dosah + důkaz pro další.</td><td><span class="tag t-mar">theme</span></td></tr>
+  <tr><td><b>Připomínka fotek</b></td><td>„Optimal fotograf" fotky předat hostovi s prosbou o sdílení + označení.</td><td><span class="tag t-cl">Claude</span></td></tr>
+</table>
+
+<h3>C2 · Doporučení (referral) &amp; ambasadoři</h3>
+<table>
+  <tr><th>Tah</th><th>Co konkrétně</th><th>Kdo</th></tr>
+  <tr><td><b>Doporuč &amp; získej</b></td><td>„Doporuč nás příteli — oba něco získáte." Napojit na sdílecí odkaz. <b>Vyžaduje rozhodnutí o pobídce</b> (viz Q1).</td><td><span class="tag t-rf">RF rozhodne</span></td></tr>
+  <tr><td><b>Ambasadoři / affiliate</b></td><td>Hotely, průvodci, bloggeři, spokojení hosté → provize. Máme <code>affiliate-onboarding</code> formulář — víc ho propagovat.</td><td><span class="tag t-mar">theme</span> + <span class="tag t-rf">RF</span></td></tr>
+</table>
+
+<h3>C3 · Diskuze a komunity (Reddit, TripAdvisor fórum, FB skupiny) — JEN eticky</h3>
+<div class="tl good"><strong>Co ANO:</strong>
+<ul>
+<li>Být reálně <b>užiteční</b> — odpovídat na dotazy „jak z Prahy na Krumlov", dát hodnotu, a teprve když to sedí, zmínit nás <b>s přiznáním napojení</b>.</li>
+<li>Tvořit <b>kvalitní obsah na blogu</b>, na který lidé v diskuzích sami odkážou (odpovídá na reálné otázky).</li>
+<li>Podpořit <b>spokojené zákazníky</b>, ať se zmíní sami (přirozené, jejich slovy).</li>
+<li>Ambasadoři/affiliate <b>s jasným disclosure</b>.</li>
+</ul></div>
+<div class="tl bad"><strong>Co NE (poškodí značku, SEO i pravidla platforem):</strong>
+<ul>
+<li>Falešné recenze, fiktivní účty, skryté promo, astroturfing v diskuzích.</li>
+<li>Hromadné spamování odkazů do fór (ban + ztráta důvěry).</li>
+</ul></div>
+
+<!-- avoid -->
+<h2>Čeho se vyvarovat (dark patterns)</h2>
+<p>Silná motivace ano, triky ne — poškodily by důvěru i konverzi dlouhodobě:</p>
+<ul>
+<li><b>Falešná naléhavost/scarcity</b> („zbývá 1 místo", odpočty) — nemáme limit, byla by to lež.</li>
+<li><b>Vynucený účet / registrace</b> před poptávkou.</li>
+<li><b>Skryté náklady</b> — cena za vůz musí být jasná od začátku.</li>
+<li><b>Falešné recenze</b> / koupené hodnocení.</li>
+</ul>
+
+<!-- work split -->
+<h2>Co udělám hned na dev2 / co Martin / co rozhodneš ty</h2>
+<table>
+  <tr><th>Hned na dev2 (Claude)</th><th>Theme (Martin)</th><th>Tvé rozhodnutí (RF)</th></tr>
+  <tr>
+    <td>Trust čísla u ceny/lišty (reálné Google hodnocení), formulace „Ve 4 jen ≈ X/os.", sdílecí copy „Pozvěte partu — každý platí míň", rozbalovací FAQ námitek, copy prosby o recenzi.</td>
+    <td>Uložení stavu výletu (sdílení rozpracovaného), „Přidat spolucestující", WhatsApp/Messenger sdílení, e-mail flow (záchrana + recenze), recap/UGC stránka, referral mechanika.</td>
+    <td>Pobídka za doporučení (Q1), rozsah referralu (Q2), tón v diskuzích (Q3), spuštění ambasador programu.</td>
+  </tr>
+</table>
+
+<!-- decisions -->
+<h2>Rozhodnutí pro tebe (Q1–Q3)</h2>
+<div class="tl q"><b>Q1 · Pobídka za doporučení.</b> Co nabídnout tomu, kdo přivede dalšího? Možnosti: (a) sleva na příští výlet pro oba, (b) drobný benefit na místě (lahev vína / dětská sedačka / delší zastávka zdarma), (c) zatím žádná pobídka, jen snadné sdílení. <span class="small">(Pozn.: u jednorázových turistů „sleva na příští výlet" táhne hůř než okamžitý benefit — k tomu se kloním.)</span></div>
+<div class="tl q"><b>Q2 · Rozsah referralu.</b> Jen <b>affiliate</b> (hotely, průvodci, bloggeři — provize), nebo i <b>host → host</b> (běžný turista doporučí kamaráda)?</div>
+<div class="tl q"><b>Q3 · Tón v diskuzích.</b> (a) jen obsah + recenze (nejbezpečnější), (b) + aktivní užitečné odpovídání s disclosure, (c) ambasador program s přiznaným napojením. Doporučuju a+c.</div>
+
+<div class="legend">Legenda: <span class="tag t-cl">dev2 (Claude, hned)</span> <span class="tag t-mar">theme (Martin)</span> <span class="tag t-rf">rozhodnutí RF</span></div>
+</div>
+
+<style>
+#ptcz2-bar{position:fixed;top:10px;right:12px;z-index:9000;background:#fff;border:1px solid #e3e8ee;border-radius:999px;padding:6px 8px;box-shadow:0 2px 12px rgba(0,0,0,.18);display:flex;gap:6px;align-items:center;}
+#ptcz2-bar button{background:#1E88B5;color:#fff;border:none;border-radius:999px;padding:7px 14px;font-weight:700;font-size:12.5px;cursor:pointer;}
+#ptcz2-bar button.sec{background:#fff;color:#1E88B5;border:2px solid #1E88B5;}
+#ptcz2-bar button.on{background:#1b8a5a;}
+#ptcz2-note{font-size:12px;color:#1b8a5a;}
+body.ptcz2-add, body.ptcz2-add *{cursor:crosshair !important;}
+.ptcz2-pin{position:absolute;min-width:24px;height:24px;padding:0 4px;border-radius:50% 50% 50% 3px;background:#1E88B5;color:#fff;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;transform:translate(0,-24px);box-shadow:0 2px 8px rgba(0,0,0,.35);cursor:pointer;z-index:8000;border:2px solid #fff;}
+.ptcz2-pop{position:absolute;z-index:9500;background:#fff;border:1px solid #1E88B5;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.25);padding:10px;width:300px;}
+.ptcz2-pop .ctx{font-size:11px;color:#5a6472;margin-bottom:6px;}
+.ptcz2-pop textarea{width:100%;min-height:70px;font-family:inherit;font-size:13px;padding:8px;border:1px solid #e3e8ee;border-radius:8px;resize:vertical;}
+.ptcz2-pop .row{display:flex;gap:8px;margin-top:8px;}
+.ptcz2-pop button{font-size:12px;padding:6px 12px;border-radius:8px;border:none;cursor:pointer;font-weight:700;}
+.ptcz2-pop .ok{background:#1E88B5;color:#fff;}
+.ptcz2-pop .del{background:#fff;color:#c0392b;border:1px solid #c0392b;}
+dialog#ptcz2-dlg{border:none;border-radius:12px;padding:0;max-width:680px;width:92%;}
+@media print{#ptcz2-bar,.ptcz2-pin{display:none;}}
+</style>
+<script>
+(function(){
+ var STORE='ptcz_csa_pins_v1';
+ function load(){try{return JSON.parse(localStorage.getItem(STORE)||'[]');}catch(e){return [];}}
+ var pins=load(), addMode=false, openPop=null;
+ function note(t){var n=document.getElementById('ptcz2-note'); if(n){n.textContent=t; clearTimeout(window._p2t); window._p2t=setTimeout(function(){n.textContent='';},1200);}}
+ function save(){localStorage.setItem(STORE,JSON.stringify(pins));note('✓ uloženo');}
+ var bar=document.createElement('div'); bar.id='ptcz2-bar';
+ bar.innerHTML='<button id="p2add">💬 Přidat komentář</button><button class="sec" id="p2exp">Export</button><button class="sec" id="p2clr">Vymazat</button><span id="ptcz2-note"></span>';
+ document.body.appendChild(bar);
+ var addBtn=document.getElementById('p2add');
+ addBtn.addEventListener('click',function(){ addMode=!addMode; addBtn.classList.toggle('on',addMode); addBtn.textContent=addMode?'✓ Klikni na místo v textu…':'💬 Přidat komentář'; document.body.classList.toggle('ptcz2-add',addMode); });
+ document.getElementById('p2exp').addEventListener('click',doExport);
+ document.getElementById('p2clr').addEventListener('click',function(){ if(confirm('Vymazat všechny komentáře?')){ pins=[]; localStorage.removeItem(STORE); renderAll(); } });
+ document.addEventListener('click',function(e){
+   if(!addMode) return;
+   if(e.target.closest('#ptcz2-bar')||e.target.closest('.ptcz2-pop')||e.target.closest('.ptcz2-pin')) return;
+   e.preventDefault(); e.stopPropagation();
+   var t=document.elementFromPoint(e.clientX,e.clientY), ctx='', n=t;
+   for(var i=0;i<4&&n;i++){ var tx=(n.textContent||'').replace(/\s+/g,' ').trim(); if(tx){ctx=tx.slice(0,90);break;} n=n.parentElement; }
+   var p={id:Date.now(),x:Math.round(e.pageX),y:Math.round(e.pageY),text:'',ctx:ctx};
+   pins.push(p); save(); renderAll(); addMode=false; addBtn.classList.remove('on'); addBtn.textContent='💬 Přidat komentář'; document.body.classList.remove('ptcz2-add'); openPopover(p);
+ }, true);
+ function renderAll(){ document.querySelectorAll('.ptcz2-pin').forEach(function(x){x.remove();}); pins.forEach(function(p,i){ var el=document.createElement('div'); el.className='ptcz2-pin'; el.style.left=p.x+'px'; el.style.top=p.y+'px'; el.textContent=(i+1); el.title=(p.text||'(bez textu)'); el.addEventListener('click',function(ev){ev.stopPropagation();openPopover(p);}); document.body.appendChild(el); }); }
+ function openPopover(p){
+   if(openPop){openPop.remove();openPop=null;}
+   var pop=document.createElement('div'); pop.className='ptcz2-pop'; openPop=pop;
+   var left=Math.min(p.x+12, window.scrollX+document.documentElement.clientWidth-320); if(left<8)left=8;
+   pop.style.left=left+'px'; pop.style.top=(p.y+10)+'px';
+   pop.innerHTML='<div class="ctx">'+(p.ctx?('u: „'+p.ctx.replace(/</g,'&lt;')+'“'):'(místo)')+'</div><textarea placeholder="Tvoje poznámka k tomuto místu…"></textarea><div class="row"><button class="ok">Uložit</button><button class="del">Smazat</button></div>';
+   document.body.appendChild(pop);
+   var ta=pop.querySelector('textarea'); ta.value=p.text||''; setTimeout(function(){ta.focus();},10);
+   pop.querySelector('.ok').addEventListener('click',function(){ p.text=ta.value; save(); renderAll(); pop.remove(); openPop=null; });
+   pop.querySelector('.del').addEventListener('click',function(){ pins=pins.filter(function(q){return q.id!==p.id;}); save(); renderAll(); pop.remove(); openPop=null; });
+ }
+ document.addEventListener('click',function(e){ if(openPop && !e.target.closest('.ptcz2-pop') && !e.target.closest('.ptcz2-pin')){ openPop.remove(); openPop=null; } });
+ function doExport(){
+   var out='KOMENTÁŘE — Konverze/Sdílení/Advocacy (RF, '+new Date().toLocaleDateString('cs-CZ')+')\n==================================================\n\n';
+   if(!pins.length) out+='(zatím žádné komentáře)';
+   pins.forEach(function(p,i){ out+=(i+1)+'. u: "'+(p.ctx||'')+'"\n   '+(((p.text||'').trim())||'(prázdné)')+'\n\n'; });
+   var d=document.getElementById('ptcz2-dlg'); d.querySelector('textarea').value=out; if(d.showModal) d.showModal(); else alert(out);
+ }
+ var dlg=document.createElement('dialog'); dlg.id='ptcz2-dlg';
+ dlg.innerHTML='<div style="background:#1E88B5;color:#fff;padding:12px 18px;font-weight:700">Komentáře — zkopíruj a pošli</div><div style="padding:16px"><textarea readonly style="width:100%;min-height:320px;font-family:monospace;font-size:12px;padding:10px;border:1px solid #e3e8ee;border-radius:8px"></textarea><div style="margin-top:10px;display:flex;gap:10px"><button id="p2copy" style="background:#1E88B5;color:#fff;border:none;border-radius:8px;padding:7px 14px;font-weight:700;cursor:pointer">Kopírovat</button><button id="p2close" style="background:#fff;color:#1E88B5;border:2px solid #1E88B5;border-radius:8px;padding:7px 14px;font-weight:700;cursor:pointer">Zavřít</button></div></div>';
+ document.body.appendChild(dlg);
+ document.getElementById('p2close').addEventListener('click',function(){dlg.close();});
+ document.getElementById('p2copy').addEventListener('click',function(ev){ var t=dlg.querySelector('textarea'); t.select(); try{navigator.clipboard.writeText(t.value);}catch(e){document.execCommand('copy');} var oo=ev.target.textContent; ev.target.textContent='Zkopírováno ✓'; setTimeout(function(){ev.target.textContent=oo;},1500); });
+ renderAll();
+})();
+</script>
+</body>
+</html>
