@@ -111,13 +111,13 @@
 <p class="small">Logika: na <b>aktivních krocích trychtýře</b> (detaily, plánovač) lišta NESMÍ nabízet odbočku, která odvádí pryč („získej nabídku" / „prohlédni výlety"). Jediná povolená sekundární akce je <b>„Sdílet"</b> — ta nekonkuruje dokončení, naopak pomáhá (pozvi spolucestující ke schválení). Primár na krocích = „Continue" (cenová lišta). Mikro = trust + indikace kroku.</p>
 
 <h3>4b · Lišta v plánovači / krocích (mobil + tablet) — cenová + „Continue"</h3>
-<p>Na krocích <b>Route / Details / Confirmation</b> má theme <b>vlastní spodní lištu</b>: „Total price 839,55 € · Price per vehicle with driver (max. 8 persons) · You will pay the driver/guide – by card or in cash · <b>Continue</b>". Na <b>desktopu</b> je v toku stránky, na <b>mobilu/tabletu</b> je <b>fixní dole</b>. Tohle je správná lišta pro tyto kroky — marketingová lišta sem nepatří (musí se na krocích skrýt, jinak jsou dvě lišty).</p>
+<p>Na krocích <b>Route / Details / Confirmation</b> má theme <b>vlastní spodní lištu</b>: „Total price 839,55 € · Price per vehicle with driver (max. 8 persons) · You will pay the driver/guide – by card or in cash · <b>Continue</b>". Na <b>desktopu</b> je v toku stránky, na <b>mobilu/tabletu</b> je <b>fixní dole</b> (viz screenshot). Tohle je správná lišta pro tyto kroky — marketingová lišta sem nepatří (musí se na krocích skrýt, jinak jsou dvě lišty).</p>
 <table>
  <tr><th>Co optimalizovat (mobil / tablet)</th><th>Kdo</th></tr>
- <tr><td><b>Kolize s chatem i se šipkou „nahoru"</b> — zelená chat bublina překrývá „Continue" a černé kolečko se šipkou (scroll-to-top) překrývá <b>cenu</b>. Obojí zvednout nad lištu (offset).</td><td><span class="tag t-cl">dev2</span> + <span class="tag t-mar">widget</span></td></tr>
+ <tr><td><b>Kolize s chatem i se šipkou „nahoru"</b> — zelená chat bublina překrývá „Continue" a černé kolečko se šipkou (scroll-to-top) překrývá <b>cenu</b>. Obojí zvednout nad lištu (offset), stejně jako u marketingové lišty. Šipka = prvek theme → umím přes CSS na dev2; chat = iframe → offset v nastavení widgetu (Martin/RF).</td><td><span class="tag t-cl">dev2</span> + <span class="tag t-mar">widget</span></td></tr>
  <tr><td><b>Skrýt marketingovou lištu</b> na krocích trychtýře (je tam navíc / redundantní).</td><td><span class="tag t-cl">dev2</span></td></tr>
- <tr><td><b>Kompaktnost</b> — 3 řádky textu + tlačítko je na mobilu vysoké. Cenu + „za vůz (max 8)" na jeden řádek, „platíš řidiči" malým písmem nebo jen do (i) tooltipu, „Continue" plná šířka.</td><td><span class="tag t-mar">theme</span></td></tr>
- <tr><td><b>Per-osoba náznak</b> — k „Total price" přidat „≈ X / osoba".</td><td><span class="tag t-mar">theme</span></td></tr>
+ <tr><td><b>Kompaktnost</b> — 3 řádky textu + tlačítko je na mobilu vysoké. Cenu + „za vůz (max 8)" na jeden řádek, „platíš řidiči – kartou/hotově" malým písmem nebo jen do (i) tooltipu, „Continue" plná šířka.</td><td><span class="tag t-mar">theme</span></td></tr>
+ <tr><td><b>Per-osoba náznak</b> — k „Total price" přidat „≈ X / osoba" (konzistence s naším formátem; celková cena zůstává hlavní, je to reálná cena sestavené trasy).</td><td><span class="tag t-mar">theme</span></td></tr>
  <tr><td><b>padding-bottom</b> obsahu, ať fixní lišta nepřekrývá poslední pole formuláře.</td><td><span class="tag t-mar">theme</span></td></tr>
  <tr><td><b>Krokový indikátor</b> (1 Route · 2 Details · 3 Confirmation) čitelný i na mobilu.</td><td><span class="tag t-mar">theme</span></td></tr>
 </table>
@@ -133,20 +133,20 @@
   <tr><td>Měření kroků (rozlišit zdroj: z výletu / přímo / customize)</td><td><span class="tag t-cl">Claude</span> + <span class="tag t-mar">Martin</span></td><td>GTM/dataLayer</td></tr>
   <tr><td>Tlačítko „Sdílet" (detail výletu + kroky) — sdílí čistou URL výletu + OG</td><td><span class="tag t-mar">Martin / theme</span></td><td>fáze 2: sdílení sestavené trasy</td></tr>
 </table>
-<div class="tl" style="border-left-color:#c87f1e"><strong>Sloučit do jednoho balíčku pro Martina:</strong> tahle úloha (lišta + booking flow + URL/SEO) a samostatná úloha na <b>button systém / pravidla tlačítek</b> se mají předat <b>společně jako jeden koordinovaný balíček</b>, ať Martin neopravuje tytéž prvky dvakrát a nevzniká konflikt.</div>
+<div class="tl" style="border-left-color:#c87f1e"><strong>Sloučit do jednoho balíčku pro Martina (bod RF):</strong> tahle úloha (lišta + booking flow + URL/SEO) a samostatná úloha na <b>button systém / pravidla tlačítek</b> se mají předat <b>společně jako jeden koordinovaný balíček</b>, ať Martin neopravuje tytéž prvky dvakrát a nevzniká konflikt. Před předáním je spojím.</div>
 
 <h2>6. Sdílení & SEO — jednoznačnost sdílených URL</h2>
 <p>Když uživatel sdílí odkaz, musí to (a) maximálně pomoct SEO a (b) být jednoznačné — sdílený odkaz = jedna konkrétní věc.</p>
 <table>
   <tr><th>Co se sdílí</th><th>Kam to má vést / canonical</th><th>OG náhled</th><th>Index</th></tr>
   <tr><td>Výlet (detail)</td><td><b>vlastní URL výletu</b> <code>/en/trip/{slug}/</code> (canonical = self)</td><td>název výletu + foto výletu + popis</td><td>index ✓</td></tr>
-  <tr><td>Detaily rezervace (krok 2)</td><td><b>canonical → detail výletu</b> <code>/en/trip/{slug}/</code></td><td>název výletu + foto</td><td>noindex</td></tr>
-  <tr><td>Plánovač (přímý)</td><td><code>/en/trip-planner/</code> (canonical = self)</td><td>„Plan your private Prague trip" + neutrální foto</td><td>index</td></tr>
+  <tr><td>Detaily rezervace (krok 2)</td><td><b>canonical → detail výletu</b> <code>/en/trip/{slug}/</code> (signály se slijí na indexovatelnou stránku)</td><td>název výletu + foto (i kdyby někdo sdílel rozdělaný formulář, náhled je hezký)</td><td>noindex</td></tr>
+  <tr><td>Plánovač (přímý)</td><td><code>/en/trip-planner/</code> (canonical = self)</td><td>„Plan your private Prague trip" + neutrální foto</td><td>index (užitečná landing)</td></tr>
   <tr><td>Potvrzení</td><td>canonical → detail výletu / plánovač</td><td>neutrální</td><td>noindex</td></tr>
 </table>
 <div class="tl">
-<strong>Princip sdílení:</strong> tlačítko „Sdílet" i canonical vždy ukazují na <b>čistou indexovatelnou stránku</b> (detail výletu, příp. plánovač) — nikdy na rozdělaný krok formuláře. Tím se (1) SEO signály se slévají na správnou stránku výletu, a (2) příjemce vidí jasně „tohle je výlet X", ne půlku formuláře.</div>
-<p>Doplnit <b>tlačítko „Sdílet"</b> na detail výletu i na kroky trychtýře — sdílí URL výletu se správnými OG tagy. <b>Fáze 2 (volitelně):</b> sdílení <b>sestavené trasy</b> přes odkaz, který recipientovi znovu načte konfiguraci (uložený stav výletu) — vyžaduje uložení stavu na serveru.</p>
+<strong>Princip sdílení:</strong> tlačítko „Sdílet" i canonical vždy ukazují na <b>čistou indexovatelnou stránku</b> (detail výletu, příp. plánovač) — nikdy na rozdělaný krok formuláře. Tím se (1) SEO signály (sdílení, zpětné odkazy) slévají na správnou stránku výletu, a (2) příjemce odkazu vidí jasně „tohle je výlet X", ne půlku formuláře. Dnešní přetížená <code>/prague-private-tours/</code> je při sdílení dvojznačná (výlet? plánovač? landing?) — rozdělení to vyřeší.</div>
+<p>Doplnit <b>tlačítko „Sdílet"</b> na detail výletu i na kroky trychtýře (detaily, potvrzení) — sdílí URL výletu se správnými OG tagy (název = název výletu, obrázek = featured foto). Pomáhá SEO nepřímo (sociální signály + odkazy na canonical) a je jednoznačné. <b>Pozor (bod RF):</b> sdílený odkaz musí nést správná data — proto se sdílí <b>čistá URL výletu</b>, ne rozdělaný formulář. <b>Fáze 2 (volitelně):</b> sdílení <b>sestavené trasy</b> přes odkaz, který recipientovi znovu načte konfiguraci (uložený stav výletu) — to ať se posoudí zvlášť, vyžaduje uložení stavu na serveru.</p>
 
 <h2>7. Přehled výletů — akce „nenašli jste výlet?"</h2>
 <p>Na konec přehledu výletů (a/nebo do prázdného stavu filtru) přidat blok, který zachytí návštěvníka, kterému z katalogu nic nesedí:</p>
@@ -155,10 +155,19 @@
 &nbsp;&nbsp;→ <b>Sestavit vlastní výlet</b> (primár) → plánovač <code>/en/trip-planner/</code><br>
 &nbsp;&nbsp;→ <b>Pošlete nám poptávku</b> (sekundár) → formulář „Tell us about your travel idea"
 </div>
-<div class="tl bad"><strong>Blokátor:</strong> formulář „Tell us about your travel idea" <b>zatím nemá URL ani stránku</b> — dodělá Martin (formulář + URL).</div>
+<p class="small">Doplňuje to spodní lištu (ta má „Sestavit vlastní výlet" jako sekundár) — tady je to navíc jako <b>jasná zpráva v obsahu</b> přesně v místě, kde uživatel dočetl katalog. Dvě cesty: self-service (plánovač) a lidský kontakt (poptávka e‑mailem).</p>
+<div class="tl bad"><strong>Blokátor:</strong> formulář „Tell us about your travel idea" <b>zatím nemá URL ani stránku</b> — je potřeba ho nechat dodělat Martinovi (samotný formulář + URL). Do té doby může sekundár dočasně mířit na stávající poptávku, nebo blok pustíme až s hotovým formulářem.</div>
 
-<h2>8. Sitemap — cílová struktura URL</h2>
-<p>Rozdělení na <b>indexovatelné stránky</b> (jdou do <code>sitemap.xml</code>, hreflang cs/en) a <b>kroky trychtýře</b> (noindex, do sitemap.xml NEpatří).</p>
+<h2>8. Co udělám hned na dev2</h2>
+<p>Bez Martina umím rovnou doladit:</p>
+<ul>
+<li><b>Lišta na krocích trychtýře</b> (plánovač/detaily) — zredukovat na trust linku (bez druhé CTA), ať neodvádí od dokončení.</li>
+<li><b>Blok „nenašli jste výlet?"</b> na konci přehledu výletů (Sestavit vlastní + Pošlete poptávku) — jako prototyp k tvé kontrole.</li>
+</ul>
+<p>Theme/Martin (až dáš pokyn): rozdělení URL <code>/en/trip/{slug}/book/</code> + <code>/en/trip-planner/</code> + potvrzení, H1/titulky per krok, <b>canonical sdílených kroků → detail výletu</b>, noindex kroků, OG tagy + tlačítko Sdílet, „Customize" = předvyplněný plánovač, a <b>vytvořit poptávkový formulář „Tell us about your travel idea" + jeho URL</b> (zatím neexistuje).</p>
+
+<h2>9. Sitemap — cílová struktura URL</h2>
+<p>Rozdělení na <b>indexovatelné stránky</b> (jdou do <code>sitemap.xml</code>, mají hreflang cs/en) a <b>kroky trychtýře</b> (noindex, do sitemap.xml NEpatří).</p>
 <table>
   <tr><th>Stránka</th><th>URL (EN)</th><th>URL (CZ)</th><th>Index</th></tr>
   <tr><td>Homepage</td><td><code>/en/</code></td><td><code>/</code></td><td><span class="tag t-ok">index</span></td></tr>
@@ -170,12 +179,81 @@
   <tr><td>FAQ / Affiliate / Partner</td><td><code>/en/faq/</code> …</td><td><code>/faq/</code> …</td><td><span class="tag t-ok">index</span></td></tr>
   <tr><td><b>Detaily rezervace (krok 2)</b></td><td><code>/en/trip/{slug}/book/</code></td><td><code>/vylet/{slug}/rezervace/</code></td><td><span class="tag t-bad">noindex</span> · canonical → detail</td></tr>
   <tr><td><b>Potvrzení (krok 3)</b></td><td><code>/en/trip/{slug}/confirmation/</code></td><td><code>/vylet/{slug}/potvrzeni/</code></td><td><span class="tag t-bad">noindex</span></td></tr>
-  <tr><td><b>Customize</b></td><td><code>/en/trip-planner/?from={slug}</code></td><td><code>/planovac-vyletu/?from={slug}</code></td><td><span class="tag t-bad">noindex</span></td></tr>
+  <tr><td><b>Customize</b> (předvyplněný plánovač)</td><td><code>/en/trip-planner/?from={slug}</code></td><td><code>/planovac-vyletu/?from={slug}</code></td><td><span class="tag t-bad">noindex</span></td></tr>
   <tr><td><b>Poptávkový formulář</b> „Tell us about your travel idea"</td><td>URL TBD <span class="tag t-mar">Martin vytvoří</span></td><td>URL TBD</td><td><span class="tag t-bad">noindex</span></td></tr>
 </table>
-<p class="small"><b>sitemap.xml:</b> obsahuje jen indexovatelné stránky, každou s <code>hreflang</code> cs + en + x-default. Kroky trychtýře (book / confirmation / customize / poptávkový formulář) jsou <b>noindex</b> a do sitemap.xml nepatří.</p>
+<p class="small"><b>sitemap.xml:</b> obsahuje jen indexovatelné stránky (homepage, blog + články, přehled výletů, 25 detailů, plánovač-landing, statické), každou s <code>hreflang</code> cs + en + x-default. Kroky trychtýře (book / confirmation / customize / poptávkový formulář) jsou <b>noindex</b> a do sitemap.xml nepatří. Aktualizaci <code>sitemap.xml</code> + noindex hlaviček udělá Martin při zavedení nových URL (dnešní přetížená <code>/en/prague-private-tours/</code> se nahradí: část → plánovač-landing /en/trip-planner/, část → kroky pod URL výletu).</p>
 
 <div class="legend">Legenda: <span class="tag t-ok">návrh / správně / index</span> <span class="tag t-bad">problém / noindex</span> <span class="tag t-cl">dev2 (Claude)</span> <span class="tag t-mar">theme (Martin)</span></div>
 </div>
+
+<style>
+#ptcz2-bar{position:fixed;top:10px;right:12px;z-index:9000;background:#fff;border:1px solid #e3e8ee;border-radius:999px;padding:6px 8px;box-shadow:0 2px 12px rgba(0,0,0,.18);display:flex;gap:6px;align-items:center;}
+#ptcz2-bar button{background:#1E88B5;color:#fff;border:none;border-radius:999px;padding:7px 14px;font-weight:700;font-size:12.5px;cursor:pointer;}
+#ptcz2-bar button.sec{background:#fff;color:#1E88B5;border:2px solid #1E88B5;}
+#ptcz2-bar button.on{background:#1b8a5a;}
+#ptcz2-note{font-size:12px;color:#1b8a5a;}
+body.ptcz2-add, body.ptcz2-add *{cursor:crosshair !important;}
+.ptcz2-pin{position:absolute;min-width:24px;height:24px;padding:0 4px;border-radius:50% 50% 50% 3px;background:#1E88B5;color:#fff;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;transform:translate(0,-24px);box-shadow:0 2px 8px rgba(0,0,0,.35);cursor:pointer;z-index:8000;border:2px solid #fff;}
+.ptcz2-pop{position:absolute;z-index:9500;background:#fff;border:1px solid #1E88B5;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.25);padding:10px;width:300px;}
+.ptcz2-pop .ctx{font-size:11px;color:#5a6472;margin-bottom:6px;}
+.ptcz2-pop textarea{width:100%;min-height:70px;font-family:inherit;font-size:13px;padding:8px;border:1px solid #e3e8ee;border-radius:8px;resize:vertical;}
+.ptcz2-pop .row{display:flex;gap:8px;margin-top:8px;}
+.ptcz2-pop button{font-size:12px;padding:6px 12px;border-radius:8px;border:none;cursor:pointer;font-weight:700;}
+.ptcz2-pop .ok{background:#1E88B5;color:#fff;}
+.ptcz2-pop .del{background:#fff;color:#c0392b;border:1px solid #c0392b;}
+dialog#ptcz2-dlg{border:none;border-radius:12px;padding:0;max-width:680px;width:92%;}
+@media print{#ptcz2-bar,.ptcz2-pin{display:none;}}
+</style>
+<script>
+(function(){
+ var STORE='ptcz_flow_pins_v1';
+ function load(){try{return JSON.parse(localStorage.getItem(STORE)||'[]');}catch(e){return [];}}
+ var pins=load(), addMode=false, openPop=null;
+ function note(t){var n=document.getElementById('ptcz2-note'); if(n){n.textContent=t; clearTimeout(window._p2t); window._p2t=setTimeout(function(){n.textContent='';},1200);}}
+ function save(){localStorage.setItem(STORE,JSON.stringify(pins));note('✓ uloženo');}
+ var bar=document.createElement('div'); bar.id='ptcz2-bar';
+ bar.innerHTML='<button id="p2add">💬 Přidat komentář</button><button class="sec" id="p2exp">Export</button><button class="sec" id="p2clr">Vymazat</button><span id="ptcz2-note"></span>';
+ document.body.appendChild(bar);
+ var addBtn=document.getElementById('p2add');
+ addBtn.addEventListener('click',function(){ addMode=!addMode; addBtn.classList.toggle('on',addMode); addBtn.textContent=addMode?'✓ Klikni na místo v textu…':'💬 Přidat komentář'; document.body.classList.toggle('ptcz2-add',addMode); });
+ document.getElementById('p2exp').addEventListener('click',doExport);
+ document.getElementById('p2clr').addEventListener('click',function(){ if(confirm('Vymazat všechny komentáře?')){ pins=[]; localStorage.removeItem(STORE); renderAll(); } });
+ document.addEventListener('click',function(e){
+   if(!addMode) return;
+   if(e.target.closest('#ptcz2-bar')||e.target.closest('.ptcz2-pop')||e.target.closest('.ptcz2-pin')) return;
+   e.preventDefault(); e.stopPropagation();
+   var t=document.elementFromPoint(e.clientX,e.clientY), ctx='', n=t;
+   for(var i=0;i<4&&n;i++){ var tx=(n.textContent||'').replace(/\s+/g,' ').trim(); if(tx){ctx=tx.slice(0,90);break;} n=n.parentElement; }
+   var p={id:Date.now(),x:Math.round(e.pageX),y:Math.round(e.pageY),text:'',ctx:ctx};
+   pins.push(p); save(); renderAll(); addMode=false; addBtn.classList.remove('on'); addBtn.textContent='💬 Přidat komentář'; document.body.classList.remove('ptcz2-add'); openPopover(p);
+ }, true);
+ function renderAll(){ document.querySelectorAll('.ptcz2-pin').forEach(function(x){x.remove();}); pins.forEach(function(p,i){ var el=document.createElement('div'); el.className='ptcz2-pin'; el.style.left=p.x+'px'; el.style.top=p.y+'px'; el.textContent=(i+1); el.title=(p.text||'(bez textu)'); el.addEventListener('click',function(ev){ev.stopPropagation();openPopover(p);}); document.body.appendChild(el); }); }
+ function openPopover(p){
+   if(openPop){openPop.remove();openPop=null;}
+   var pop=document.createElement('div'); pop.className='ptcz2-pop'; openPop=pop;
+   var left=Math.min(p.x+12, window.scrollX+document.documentElement.clientWidth-320); if(left<8)left=8;
+   pop.style.left=left+'px'; pop.style.top=(p.y+10)+'px';
+   pop.innerHTML='<div class="ctx">'+(p.ctx?('u: „'+p.ctx.replace(/</g,'&lt;')+'“'):'(místo)')+'</div><textarea placeholder="Tvoje poznámka k tomuto místu…"></textarea><div class="row"><button class="ok">Uložit</button><button class="del">Smazat</button></div>';
+   document.body.appendChild(pop);
+   var ta=pop.querySelector('textarea'); ta.value=p.text||''; setTimeout(function(){ta.focus();},10);
+   pop.querySelector('.ok').addEventListener('click',function(){ p.text=ta.value; save(); renderAll(); pop.remove(); openPop=null; });
+   pop.querySelector('.del').addEventListener('click',function(){ pins=pins.filter(function(q){return q.id!==p.id;}); save(); renderAll(); pop.remove(); openPop=null; });
+ }
+ document.addEventListener('click',function(e){ if(openPop && !e.target.closest('.ptcz2-pop') && !e.target.closest('.ptcz2-pin')){ openPop.remove(); openPop=null; } });
+ function doExport(){
+   var out='KOMENTÁŘE k místům — Booking flow analýza (RF, '+new Date().toLocaleDateString('cs-CZ')+')\n==================================================\n\n';
+   if(!pins.length) out+='(zatím žádné komentáře)';
+   pins.forEach(function(p,i){ out+=(i+1)+'. u: "'+(p.ctx||'')+'"\n   '+(((p.text||'').trim())||'(prázdné)')+'\n\n'; });
+   var d=document.getElementById('ptcz2-dlg'); d.querySelector('textarea').value=out; if(d.showModal) d.showModal(); else alert(out);
+ }
+ var dlg=document.createElement('dialog'); dlg.id='ptcz2-dlg';
+ dlg.innerHTML='<div style="background:#1E88B5;color:#fff;padding:12px 18px;font-weight:700">Komentáře k místům — zkopíruj a pošli</div><div style="padding:16px"><textarea readonly style="width:100%;min-height:320px;font-family:monospace;font-size:12px;padding:10px;border:1px solid #e3e8ee;border-radius:8px"></textarea><div style="margin-top:10px;display:flex;gap:10px"><button id="p2copy" style="background:#1E88B5;color:#fff;border:none;border-radius:8px;padding:7px 14px;font-weight:700;cursor:pointer">Kopírovat</button><button id="p2close" style="background:#fff;color:#1E88B5;border:2px solid #1E88B5;border-radius:8px;padding:7px 14px;font-weight:700;cursor:pointer">Zavřít</button></div></div>';
+ document.body.appendChild(dlg);
+ document.getElementById('p2close').addEventListener('click',function(){dlg.close();});
+ document.getElementById('p2copy').addEventListener('click',function(ev){ var t=dlg.querySelector('textarea'); t.select(); try{navigator.clipboard.writeText(t.value);}catch(e){document.execCommand('copy');} var oo=ev.target.textContent; ev.target.textContent='Zkopírováno ✓'; setTimeout(function(){ev.target.textContent=oo;},1500); });
+ renderAll();
+})();
+</script>
 </body>
 </html>
