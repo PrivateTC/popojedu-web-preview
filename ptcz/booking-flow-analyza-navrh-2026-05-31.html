@@ -39,6 +39,31 @@
 <h1>Booking flow + spodní lišta — hloubková analýza a návrh</h1>
 <div class="sub">Private Tours Czech · dev2 · 31. 5. 2026 · po stránkách: homepage → blog → přehled výletů → detail výletu → další kroky (plánovač / detaily / potvrzení)</div>
 
+<div style="background:#fff8ec;border-left:4px solid #c87f1e;border-radius:8px;padding:14px 18px;margin:14px 0;font-size:13.7px;line-height:1.6;">
+<b>Aktualizace 1. 6. 2026 — zapracované připomínky RF:</b>
+<ol style="margin:8px 0 0;padding-left:20px;">
+<li>Homepage odkaz: „Nejlepší / Best" znělo lacině → <b>„Privátní výlety z Prahy / Private day trips from Prague"</b>.</li>
+<li>Mikrotext jasně o vlastním výletu: <b>„Sestavte si vlastní výlet — vaše místa, vaše tempo / Design your own tour — your places, your pace"</b>.</li>
+<li>Aby bylo jasné, že se z Prahy <b>nejde pěšky</b>: <b>„Privátní výlety z Prahy autem (až 8 osob) — a pěší prohlídky přímo v Praze / Private day trips by car (up to 8) — plus walking tours within Prague"</b>.</li>
+<li>Poptávka = <b>popsání záměru</b>, ne formulář: CTA všude <b>„Popište nám svůj výlet — nezávazně / Tell us about your trip — no obligation"</b> (nikoli „Nezávazná poptávka").</li>
+<li>–8. <b>Sdílení dalším lidem</b>: doplněno jako sekundární „Sdílet" na detailu, krocích i potvrzení. Na krocích sdílí <b>čistou URL výletu</b>; sdílení <b>sestavené trasy</b> = fáze 2 (musí načíst správná data z předchozí stránky — viz sekce 7).</li>
+<li>Pravidla tlačítek <b>sjednocena do tohoto návrhu</b> (sekce 4c), ať je Martin nedělá dvakrát v samostatné úloze.</li>
+<li>Homepage lišta: <b>„Prohlédnout výlety" = primár</b>, „Sestavit vlastní výlet" = sekundár.</li>
+<li>–12. Krok 2 / přímý plánovač: <b>mobil + tablet</b> — počítat s tím, že tam <b>už je obsah</b> (stepper, formulář) i cenová lišta; „Sdílet" nesmí kolidovat s cenovou lištou ani s infem (sekce 4b).</li>
+</ol>
+</div>
+
+<div style="background:#eef6fb;border-left:4px solid #1E88B5;border-radius:8px;padding:14px 18px;margin:14px 0;font-size:13.7px;line-height:1.6;">
+<b>Aktualizace 1. 6. 2026 (2. kolo) — další připomínky RF:</b>
+<ul style="margin:8px 0 0;padding-left:20px;">
+<li><b>Blog lišta:</b> primár = <b>Prohlédnout výlety</b>, sekundár = Popište nám svůj výlet (prohozeno).</li>
+<li><b>Přehled lišta:</b> primár = <b>Sestavit vlastní výlet</b>, sekundár = Popište nám svůj výlet (prohozeno).</li>
+<li><b>„Upravit" na detailu</b> musí otevřít <b>předvyplněný plánovač TOHOTO konkrétního výletu</b> (ne prázdný).</li>
+<li><b>Text „Continue"</b> na krocích → návrh vhodnější textace (viz sekce 4 — tabulka + pozn.).</li>
+<li><b>Sdílení:</b> doplněn <b>náhled, jak sdílená stránka vypadá</b> — poutavá, s možností rozpracovaný výlet upravit a poslat dál (sekce 6b).</li>
+</ul>
+</div>
+
 <div class="tl bad">
 <strong>Hlavní zjištění:</strong> Jedna generická stránka <code>/en/prague-private-tours/</code> (H1 „Prague Private Tours", titulek „…Certified Local Guide") plní <b>tři různé role najednou</b>: (1) samostatný plánovač, (2) „další krok / detaily" po výběru hotového výletu, (3) „Customize". Když přijdeš z výletu „Český Krumlov", skončíš na obecné „Prague Private Tours" — <b>ztratí se název i URL výletu</b>. A když jdeš rovnou na plánovač, URL ani nadpis neřeknou, že jsi v plánovači. To je matoucí pro uživatele, pro SEO i pro měření.</div>
 
@@ -100,15 +125,32 @@
 <h2>4. Spodní lišta — po stránkách (cílový stav)</h2>
 <table>
   <tr><th>Stránka</th><th>Role lišty</th><th>Text lišty (mimo tlačítka)</th><th>Primár</th><th>Sekundár</th><th>Mikro</th></tr>
-  <tr><td>Homepage</td><td>objevení</td><td>„Privátní výlety z Prahy" <span class="small">(EN: Private day trips from Prague)</span> — odkaz vlevo</td><td>Browse Trips / Prohlédnout výlety</td><td>Design Your Own / Sestavit vlastní</td><td>„Naplánujte si vlastní výlet — vaše místa, vaše tempo" / „Design your own trip — your places, your pace"</td></tr>
-  <tr><td>Blog</td><td>orientace + konverze</td><td>„Privátní výlety z Prahy autem (až 8 osob) — nebo pěší prohlídky Prahy" <span class="small">(EN: Private day trips by car (up to 8) — or private walking tours of Prague)</span></td><td>Popište nám svůj výlet / Tell us about your travel idea</td><td>Prohlédnout výlety</td><td>Zrušení zdarma do 24 h · platba na místě</td></tr>
-  <tr><td>Přehled výletů</td><td>konverze + customizace</td><td>„Privátní výlety z Prahy autem (až 8 osob) — nebo pěší prohlídky Prahy"</td><td>Popište nám svůj výlet / Tell us about your travel idea</td><td>Sestavit vlastní výlet</td><td>Zrušení zdarma do 24 h…</td></tr>
-  <tr><td>Detail výletu</td><td>rezervace toho výletu</td><td><b>název výletu</b> (např. „Český Krumlov a zámek Hluboká")</td><td>Rezervovat výlet</td><td>Upravit</td><td>Zrušení zdarma do 24 h…</td></tr>
-  <tr><td><b>Detaily rezervace (krok 2)</b></td><td><b>nerozptylovat + sdílení</b></td><td>cenový blok: „Celková cena 839 € · za vůz s řidičem (max. 8 osob) · ≈ X / osoba · Platíte řidiči – kartou nebo hotově"</td><td>Continue (cenová lišta)</td><td><b>Sdílet</b> (sdílí URL výletu)</td><td>jen trust + „Krok 2 ze 3"</td></tr>
-  <tr><td><b>Plánovač (přímý)</b></td><td><b>nerozptylovat + sdílení</b></td><td>cenový blok: „Celková cena … · za vůz s řidičem (max. 8) · ≈ X / osoba · Platíte řidiči – kartou/hotově"</td><td>Continue (cenová lišta)</td><td><b>Sdílet</b> (sestavená trasa)</td><td>jen trust + „Krok 1 ze 3"</td></tr>
+  <tr><td>Homepage</td><td>objevení</td><td>„Privátní výlety z Prahy" <span class="small">(EN: Private day trips from Prague)</span> — odkaz vlevo</td><td>Browse Trips / Prohlédnout výlety</td><td>Design Your Own / Sestavit vlastní</td><td>„Sestavte si vlastní výlet — vaše místa, vaše tempo" / „Design your own tour — your places, your pace"</td></tr>
+  <tr><td>Blog</td><td>orientace + konverze</td><td>„Privátní výlety z Prahy autem (až 8 osob) — a pěší prohlídky přímo v Praze" <span class="small">(EN: Private day trips by car (up to 8) — plus walking tours within Prague)</span></td><td><b>Prohlédnout výlety</b> / Browse trips</td><td>Popište nám svůj výlet / Tell us about your trip</td><td>Zrušení zdarma do 24 h · platba na místě</td></tr>
+  <tr><td>Přehled výletů</td><td>konverze + customizace</td><td>„Privátní výlety z Prahy autem (až 8 osob) — a pěší prohlídky přímo v Praze"</td><td><b>Sestavit vlastní výlet</b> / Design your own tour</td><td>Popište nám svůj výlet / Tell us about your trip</td><td>Zrušení zdarma do 24 h…</td></tr>
+  <tr><td>Detail výletu</td><td>rezervace toho výletu</td><td><b>název výletu</b> (např. „Český Krumlov a zámek Hluboká")</td><td>Rezervovat výlet</td><td>Upravit <span class="small">(otevře předvyplněný plánovač <b>tohoto</b> výletu)</span></td><td>Zrušení zdarma do 24 h…</td></tr>
+  <tr><td><b>Detaily rezervace (krok 2)</b></td><td><b>nerozptylovat + sdílení</b></td><td>cenový blok: „Celková cena 839 € · za vůz s řidičem (max. 8 osob) · ≈ X / osoba · Platíte řidiči – kartou nebo hotově"</td><td>Pokračovat → / Continue → <span class="small">(cenová lišta; viz pozn. k textaci)</span></td><td><b>Sdílet</b> (sdílí URL výletu)</td><td>jen trust + „Krok 2 ze 3"</td></tr>
+  <tr><td><b>Plánovač (přímý)</b></td><td><b>nerozptylovat + sdílení</b></td><td>cenový blok: „Celková cena … · za vůz s řidičem (max. 8) · ≈ X / osoba · Platíte řidiči – kartou/hotově"</td><td>Pokračovat → / Continue → <span class="small">(cenová lišta; viz pozn. k textaci)</span></td><td><b>Sdílet</b> (sestavená trasa)</td><td>jen trust + „Krok 1 ze 3"</td></tr>
   <tr><td><b>Potvrzení</b></td><td>po konverzi</td><td>„Hotovo — ozveme se do 24 h a potvrdíme detaily"</td><td>Prohlédnout další výlety</td><td><b>Sdílet</b> (pošli spolucestujícím)</td><td>„Platba na místě · zrušení zdarma do 24 h"</td></tr>
 </table>
-<p class="small">Logika: na <b>aktivních krocích trychtýře</b> (detaily, plánovač) lišta NESMÍ nabízet odbočku, která odvádí pryč („získej nabídku" / „prohlédni výlety"). Jediná povolená sekundární akce je <b>„Sdílet"</b> — ta nekonkuruje dokončení, naopak pomáhá (pozvi spolucestující ke schválení). Primár na krocích = „Continue" (cenová lišta). Mikro = trust + indikace kroku.</p>
+<p class="small">Logika: na <b>aktivních krocích trychtýře</b> (detaily, plánovač) lišta NESMÍ nabízet odbočku, která odvádí pryč („získej nabídku" / „prohlédni výlety"). Jediná povolená sekundární akce je <b>„Sdílet"</b> — ta nekonkuruje dokončení, naopak pomáhá (pozvi spolucestující ke schválení). Primár na krocích = „Pokračovat" (cenová lišta). Mikro = trust + indikace kroku.</p>
+
+<div class="tl"><strong>Textace tlačítka na krocích (bod RF #4 — „je Continue nejvhodnější?"):</strong> „Continue / Pokračovat" je vágní — neřekne, kam to vede. Návrh konkrétnějšího znění podle kroku:
+<ul style="margin:6px 0 0;">
+<li><b>Krok 1–2 (trasa / detaily):</b> <b>„Pokračovat k rezervaci →" / „Continue to booking →"</b> — je jasné, že se blížím k rezervaci, ne k platbě.</li>
+<li><b>Poslední krok (odeslání):</b> <b>„Odeslat nezávaznou rezervaci" / „Send booking request"</b> — jasné, že tím nic neplatím (platba na místě), jen odesílám.</li>
+</ul>
+Doporučení: „Pokračovat k rezervaci →" na mezikrocích, „Odeslat nezávaznou rezervaci" na posledním. (Vyhneme se dojmu okamžité platby.)</div>
+
+<h3>4c · Pravidla tlačítek (sjednoceno do tohoto návrhu)</h3>
+<p class="small">Aby Martin neřešil tlačítka dvakrát (zvlášť lišta a zvlášť „button systém"), patří jednotná pravidla <b>sem</b> a dělají se s lištou v jednom kroku:</p>
+<table>
+ <tr><th>Úroveň</th><th>Vzhled</th><th>Použití (jen jedna primární na obrazovku)</th></tr>
+ <tr><td><b>Primár</b></td><td>plná modrá #1E88B5 + bílý text</td><td>hlavní akce stránky: Prohlédnout výlety · Popište nám svůj výlet · Rezervovat výlet · Continue</td></tr>
+ <tr><td><b>Sekundár (ghost)</b></td><td>průhledné + modrý obrys/text</td><td>vedlejší akce: Sestavit vlastní výlet · Upravit · <b>Sdílet</b></td></tr>
+ <tr><td><b>Text</b></td><td>bez rámečku, modrý odkaz</td><td>in-article odkazy v blogu — vždy na <b>konkrétní výlet</b> článku</td></tr>
+</table>
+<p class="small">Navíc: zrušit starou světle modrou <code>#58C2F4</code>. Na aktivních krocích trychtýře = primár „Continue", sekundár jen „Sdílet" (žádná odbočka pryč).</p>
 
 <h3>4b · Lišta v plánovači / krocích (mobil + tablet) — cenová + „Continue"</h3>
 <p>Na krocích <b>Route / Details / Confirmation</b> má theme <b>vlastní spodní lištu</b>: „Total price 839,55 € · Price per vehicle with driver (max. 8 persons) · You will pay the driver/guide – by card or in cash · <b>Continue</b>". Na <b>desktopu</b> je v toku stránky, na <b>mobilu/tabletu</b> je <b>fixní dole</b> (viz screenshot). Tohle je správná lišta pro tyto kroky — marketingová lišta sem nepatří (musí se na krocích skrýt, jinak jsou dvě lišty).</p>
@@ -120,6 +162,7 @@
  <tr><td><b>Per-osoba náznak</b> — k „Total price" přidat „≈ X / osoba" (konzistence s naším formátem; celková cena zůstává hlavní, je to reálná cena sestavené trasy).</td><td><span class="tag t-mar">theme</span></td></tr>
  <tr><td><b>padding-bottom</b> obsahu, ať fixní lišta nepřekrývá poslední pole formuláře.</td><td><span class="tag t-mar">theme</span></td></tr>
  <tr><td><b>Krokový indikátor</b> (1 Route · 2 Details · 3 Confirmation) čitelný i na mobilu.</td><td><span class="tag t-mar">theme</span></td></tr>
+ <tr><td><b>Počítat s tím, že tam už něco je (bod RF #11/#12).</b> Krok 2 i přímý plánovač mají na mobilu/tabletu už vlastní obsah (stepper počtu osob, datum, formulář) <b>plus</b> fixní cenovou lištu. „Sdílet" sem proto nesmí přidávat třetí plovoucí prvek, který by se bil s cenovou lištou ani s info textem — buď ho dát jako malou ikonu do hlavičky kroku (vedle „Share" na detailu), ne do spodní lišty.</td><td><span class="tag t-mar">theme</span></td></tr>
 </table>
 
 <h2>5. Rozdělení práce</h2>
@@ -147,6 +190,47 @@
 <div class="tl">
 <strong>Princip sdílení:</strong> tlačítko „Sdílet" i canonical vždy ukazují na <b>čistou indexovatelnou stránku</b> (detail výletu, příp. plánovač) — nikdy na rozdělaný krok formuláře. Tím se (1) SEO signály (sdílení, zpětné odkazy) slévají na správnou stránku výletu, a (2) příjemce odkazu vidí jasně „tohle je výlet X", ne půlku formuláře. Dnešní přetížená <code>/prague-private-tours/</code> je při sdílení dvojznačná (výlet? plánovač? landing?) — rozdělení to vyřeší.</div>
 <p>Doplnit <b>tlačítko „Sdílet"</b> na detail výletu i na kroky trychtýře (detaily, potvrzení) — sdílí URL výletu se správnými OG tagy (název = název výletu, obrázek = featured foto). Pomáhá SEO nepřímo (sociální signály + odkazy na canonical) a je jednoznačné. <b>Pozor (bod RF):</b> sdílený odkaz musí nést správná data — proto se sdílí <b>čistá URL výletu</b>, ne rozdělaný formulář. <b>Fáze 2 (volitelně):</b> sdílení <b>sestavené trasy</b> přes odkaz, který recipientovi znovu načte konfiguraci (uložený stav výletu) — to ať se posoudí zvlášť, vyžaduje uložení stavu na serveru.</p>
+
+<h3 id="sdilena-stranka">6b · Náhled sdílené stránky (bod RF #5)</h3>
+<p>Takhle vypadá odkaz, když ho někdo pošle dál — (1) náhledová karta v chatu / na sociální síti a (2) stránka, kterou příjemce otevře. Cíl: <b>poutavé</b> a příjemce může <b>rozpracovaný výlet upravit a poslat dál</b>.</p>
+<div style="display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:14px 0;">
+  <div style="flex:1 1 280px;max-width:340px;">
+    <div class="small" style="margin-bottom:6px;">1 · Náhled odkazu (WhatsApp / Messenger / FB)</div>
+    <div style="border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08);background:#fff;">
+      <div style="height:150px;background:linear-gradient(135deg,#2c5364,#203a43 45%,#c08457);position:relative;">
+        <div style="position:absolute;left:12px;bottom:10px;color:#fff;font-weight:700;text-shadow:0 1px 4px rgba(0,0,0,.5);">📸 foto výletu</div>
+      </div>
+      <div style="padding:10px 12px;">
+        <div class="small" style="text-transform:uppercase;letter-spacing:.04em;">privatetoursczech.cz</div>
+        <div style="font-weight:700;font-size:14px;margin:3px 0;">Český Krumlov &amp; Hluboká — náš výlet</div>
+        <div class="small">Soukromý výlet autem až pro 8 · 9 h · od 86 $/os. Mrkni a uprav, kam chceš jet.</div>
+      </div>
+    </div>
+  </div>
+  <div style="flex:1 1 320px;max-width:430px;">
+    <div class="small" style="margin-bottom:6px;">2 · Stránka, kterou příjemce otevře</div>
+    <div style="border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08);background:#fff;">
+      <div style="height:120px;background:linear-gradient(135deg,#203a43,#2c5364 50%,#c08457);"></div>
+      <div style="padding:14px 16px;">
+        <span class="tag t-ok">sdíleno · sestaveno pro vás</span>
+        <div style="font-weight:800;font-size:18px;margin:6px 0 2px;">Český Krumlov &amp; Hluboká Castle</div>
+        <div class="small" style="margin-bottom:8px;">Soukromý výlet autem · max 8 osob · ~9 h</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;">
+          <span style="background:#eef1f4;border-radius:20px;padding:3px 10px;font-size:12px;">🏰 Hluboká · 1 h 30</span>
+          <span style="background:#eef1f4;border-radius:20px;padding:3px 10px;font-size:12px;">🏘️ Český Krumlov · 3 h</span>
+          <span style="background:#eef1f4;border-radius:20px;padding:3px 10px;font-size:12px;">🕓 odjezd 9:00</span>
+        </div>
+        <div style="font-weight:700;margin-bottom:12px;">Celkem 689 $ <span class="small" style="font-weight:400;">za vůz s řidičem (max 8) · ≈ 86 $/os.</span></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span style="background:var(--pri);color:#fff;border-radius:8px;padding:8px 14px;font-weight:700;font-size:13px;">Upravit tento výlet</span>
+          <span style="background:var(--pri);color:#fff;border-radius:8px;padding:8px 14px;font-weight:700;font-size:13px;">Rezervovat</span>
+          <span style="background:#fff;color:var(--pri);border:2px solid var(--pri);border-radius:8px;padding:6px 12px;font-weight:700;font-size:13px;">Poslat dál ↗</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="small"><b>Jak to funguje:</b> „Upravit tento výlet" otevře <b>plánovač předvyplněný sestavenou trasou</b> (příjemce mění zastávky, termín, počet osob), „Rezervovat" jde rovnou na rezervaci, „Poslat dál" zkopíruje odkaz dalšímu člověku. Aby šel rozpracovaný výlet znovu načíst, musí se <b>uložit stav výletu na serveru</b> a odkaz nést jeho ID (např. <code>/en/trip-planner/?plan={id}</code>). = <span class="tag t-mar">theme (Martin)</span> — uložení stavu + OG tagy generované z konkrétního výletu (název, foto, cena).</p>
 
 <h2>7. Přehled výletů — akce „nenašli jste výlet?"</h2>
 <p>Na konec přehledu výletů (a/nebo do prázdného stavu filtru) přidat blok, který zachytí návštěvníka, kterému z katalogu nic nesedí:</p>
