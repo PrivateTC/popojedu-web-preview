@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Designový systém tlačítek — finální návrh (869dgwj8h)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1E88B5; --blue-dark:#176f93;
+    --ink:#1C1C2E;
+    --nfill:#eef1f4; --nline:#d3d9e0; --nink:#374151;
+    --muted:#6b7280; --line:#e5e7eb; --bg:#f6f8fa; --card:#fff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 72px}
+  h1{font-family:'Montserrat',sans-serif;font-size:27px;margin:0 0 4px}
+  h2{font-family:'Montserrat',sans-serif;font-size:19px;margin:38px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--line)}
+  h3{font-size:14.5px;margin:0 0 4px;font-weight:700}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 8px}
+  .pill{display:inline-block;font-size:12px;font-weight:600;padding:2px 10px;border-radius:100px;background:#eef4f8;color:var(--blue-dark);margin-right:6px}
+  .rules{background:#eef6fb;border:1px solid #cfe5f1;border-radius:14px;padding:16px 20px;margin:10px 0}
+  .rules li{margin:4px 0;font-size:14px}
+
+  /* ===== SYSTÉM TLAČÍTEK (kanonické definice) ===== */
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:'Inter Tight',sans-serif;font-size:15px;line-height:1;
+       border-radius:100px;padding:13px 26px;text-decoration:none;cursor:pointer;border:2px solid transparent;transition:background .18s,color .18s,box-shadow .25s,transform .18s}
+  .arw{transition:transform .18s}.btn:hover .arw{transform:translateX(4px)}
+  /* primár */
+  .btn--primary{background:var(--blue);color:#fff;font-weight:700;box-shadow:0 4px 14px rgb(30 136 181/.35)}
+  .btn--primary:hover{background:var(--blue-dark);box-shadow:0 6px 20px rgb(30 136 181/.5);transform:translateY(-1px)}
+  /* sekundár — ink ghost (na světlém) */
+  .btn--secondary{background:transparent;color:var(--ink);border-color:var(--ink);font-weight:700}
+  .btn--secondary:hover{background:var(--ink);color:#fff}
+  /* sekundár — na tmavém/foto */
+  .btn--secondary.on-dark{color:#fff;border-color:#fff}
+  .btn--secondary.on-dark:hover{background:#fff;color:var(--ink)}
+  /* terciár — text */
+  .btn--text{background:none;border:none;color:var(--blue);font-weight:600;padding:13px 4px}
+  .btn--text:hover{text-decoration:underline}
+  /* neutrál — funkční ovládání */
+  .ctrl{display:inline-flex;align-items:center;gap:6px;font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:500;
+        background:#fff;color:var(--nink);border:1px solid var(--nline);border-radius:10px;padding:9px 14px;cursor:pointer}
+  .ctrl:hover{background:var(--nfill)}
+  .ctrl--round{width:46px;height:46px;border-radius:50%;justify-content:center;padding:0;font-size:18px}
+  /* animace */
+  @keyframes glowpulse{0%,100%{box-shadow:0 4px 14px rgb(30 136 181/.30)}50%{box-shadow:0 6px 26px rgb(30 136 181/.70)}}
+  .is-glow{animation:glowpulse 2.4s ease-in-out infinite}
+  .is-shimmer{position:relative;overflow:hidden}
+  .is-shimmer::after{content:"";position:absolute;top:0;left:-160%;width:55%;height:100%;background:linear-gradient(120deg,transparent,rgb(255 255 255/.5),transparent);transform:skewX(-20deg)}
+  .is-shimmer:hover::after{left:160%;transition:left .75s ease}
+  @media (prefers-reduced-motion: reduce){.is-glow{animation:none}.btn,.arw{transition:none}.is-shimmer::after{display:none}}
+
+  /* layout pomocné */
+  .demo{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:8px 0}
+  .demo.dark{background:linear-gradient(135deg,#3a5b74,#16344a)}
+  .demo .note{font-size:12px;color:var(--muted);width:100%;margin-top:2px}
+  .demo.dark .note{color:rgb(255 255 255/.6)}
+  .swatches{display:flex;gap:12px;flex-wrap:wrap}
+  .sw{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px}
+  .chip{width:20px;height:20px;border-radius:5px;border:1px solid rgb(0 0 0/.1)}
+  table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:#fbfcfd;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+  tr:last-child td{border-bottom:none}
+  code{background:#f1f3f5;border-radius:5px;padding:1px 6px;font-size:12.5px;font-family:ui-monospace,monospace}
+  .lv{display:inline-block;font-size:11px;font-weight:700;border-radius:6px;padding:1px 8px;white-space:nowrap}
+  .l1{background:#1E88B5;color:#fff}.l2{background:#e7f2f8;color:#176f93}.l3{background:#f1f3f5;color:#475569}.l4{background:#fdf0e6;color:#9a5413}
+  pre{background:#0f1b22;color:#d6e6ee;border-radius:12px;padding:18px;overflow:auto;font-size:12.5px;line-height:1.5}
+  .foot{color:var(--muted);font-size:12.5px;margin-top:28px;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Designový systém tlačítek — finální návrh</h1>
+  <p class="sub">Private Tours Czech · úloha <strong>869dgwj8h</strong> · 2026-06-02 · k odsouhlasení RF → pak balíček pro Martina s lištami (869dgwjxb)</p>
+  <p><span class="pill">Pouze náhled</span><span class="pill">na produkci nic nezměněno</span></p>
+
+  <h2>Pravidla (zlatá)</h2>
+  <div class="rules">
+    <ul style="margin:0;padding-left:18px">
+      <li><strong>Jedna modrá na sekci.</strong> Plná #1E88B5 patří jen hlavní akci dané sekce. Vše ostatní je tmavé/neutrální.</li>
+      <li><strong>Modrá = konverze, neutrál = ovládání.</strong> Jazyk, měna, Menu, šipky, filtry nikdy nejsou modré.</li>
+      <li><strong>Šipka „→" jen na primáru.</strong> Sekundár a ovládání bez šipky.</li>
+      <li><strong>Pryč se starou #58C2F4.</strong> Primár vždy #1E88B5.</li>
+      <li><strong>Pohyb střídmě.</strong> Glow puls max 1× na stránce; vždy respektovat „reduced motion".</li>
+    </ul>
+  </div>
+
+  <h2>Tokeny</h2>
+  <div class="swatches">
+    <div class="sw"><span class="chip" style="background:#1E88B5"></span> #1E88B5 · primár</div>
+    <div class="sw"><span class="chip" style="background:#176f93"></span> #176f93 · primár hover</div>
+    <div class="sw"><span class="chip" style="background:#1C1C2E"></span> #1C1C2E · ink (sekundár / text)</div>
+    <div class="sw"><span class="chip" style="background:#fff"></span> #FFFFFF · sekundár na fotce</div>
+    <div class="sw"><span class="chip" style="background:#eef1f4"></span> #EEF1F4 · neutrál podklad</div>
+    <div class="sw"><span class="chip" style="background:#d3d9e0"></span> #D3D9E0 · neutrál obrys</div>
+  </div>
+  <p class="sub" style="margin-top:10px">Tvar: tlačítka radius <code>100px</code> (pill), ovládání radius <code>10px</code>. Font Inter Tight, primár+sekundár <code>700</code>. Obrys sekundáru <code>2px</code>. Padding tlačítka <code>13px 26px</code> (malé <code>11px 22px</code>).</p>
+
+  <h2>Úrovně — všechny stavy</h2>
+
+  <h3>① Primár — hlavní akce (plná modrá + šipka)</h3>
+  <div class="demo">
+    <a class="btn btn--primary">Reserve this tour <span class="arw">→</span></a>
+    <span class="note">Default · hover ztmavne na #176f93 + nadzvednutí. Použití: Reserve, Continue, submit formuláře, hlavní hero CTA, header CTA, „Popište nám váš vysněný výlet".</span>
+  </div>
+  <div class="demo dark">
+    <a class="btn btn--primary is-glow">Reserve this tour <span class="arw">→</span></a>
+    <span class="note">Na fotce stejná modrá. Verze s glow pulsem (<code>.is-glow</code>) — jen pro jedinou nejdůležitější CTA na stránce (sticky „Reserve").</span>
+  </div>
+
+  <h3>② Sekundár — vedlejší akce (neutrální ghost)</h3>
+  <div class="demo">
+    <a class="btn btn--primary">Browse Trips <span class="arw">→</span></a>
+    <a class="btn btn--secondary">Design Your Own</a>
+    <span class="note">Na světlém: ink obrys #1C1C2E, hover = výplň ink + bílý text. Použití: View trip, Design Your Own, Book a trip, Upravit, Sdílet, Všechny články.</span>
+  </div>
+  <div class="demo dark">
+    <a class="btn btn--primary">Ready-Made Tours <span class="arw">→</span></a>
+    <a class="btn btn--secondary on-dark">Plan Your Tour</a>
+    <span class="note">Na fotce/tmavém: bílý obrys + bílý text (<code>.on-dark</code>), hover = výplň bílá + ink text.</span>
+  </div>
+
+  <h3>③ Terciár — doplňková akce (text)</h3>
+  <div class="demo">
+    <a class="btn--text">Přečíst článek →</a>
+    <a class="btn--text">Tell us about your trip</a>
+    <span class="note">Textový odkaz, hover podtržení. Použití: „Přečíst článek", nízkopriostní odkazy. (Blog karty jsou navíc celé klikatelné.)</span>
+  </div>
+
+  <h3>④ Neutrál — funkční ovládání (nikdy modré)</h3>
+  <div class="demo">
+    <span class="ctrl">🇨🇿 EN</span>
+    <span class="ctrl">USD ▾</span>
+    <span class="ctrl">☰ Menu</span>
+    <span class="ctrl ctrl--round">←</span>
+    <span class="ctrl ctrl--round">→</span>
+    <span class="note">Jazyk, měna, Menu toggle, šipky karuselu, filtry, stránkování, „kopírovat". Šedý obrys/podklad, malé, radius 10px.</span>
+  </div>
+
+  <h2>Animace</h2>
+  <table>
+    <tr><th>Efekt</th><th>Kdy se spustí</th><th>Kde použít</th></tr>
+    <tr><td>Lift + šipka popojede</td><td>hover</td><td>všechna primární tlačítka (základ)</td></tr>
+    <tr><td>Glow puls („podsvícení")</td><td>běží sám</td><td>jen 1× — sticky „Reserve this tour"</td></tr>
+    <tr><td>Shimmer (lesk)</td><td>hover</td><td>volitelně, jen na sticky „Reserve"</td></tr>
+    <tr><td>Výplň (ink/bílá)</td><td>hover</td><td>sekundár ghost</td></tr>
+  </table>
+  <p class="sub" style="margin-top:8px">Vždy v CSS <code>@media (prefers-reduced-motion: reduce)</code> → animace vypnout pro uživatele s citlivostí na pohyb.</p>
+
+  <h2>Kompletní mapování — každé tlačítko na webu</h2>
+  <table>
+    <tr><th>Tlačítko / třída</th><th>Kde</th><th>Úroveň</th><th>Cílový styl</th></tr>
+    <tr><td>Reserve this tour <code>.ptcz-book-cta</code></td><td>detail — sticky</td><td><span class="lv l1">Primár</span></td><td>plná #1E88B5 + šipka + glow puls + shimmer</td></tr>
+    <tr><td>Continue (cenová lišta)</td><td>kroky trychtýře</td><td><span class="lv l1">Primár</span></td><td>plná #1E88B5</td></tr>
+    <tr><td>Submit formuláře <code>.newbutton[type=submit]</code></td><td>rezervace / kontakt / travel idea</td><td><span class="lv l1">Primár</span></td><td>plná #1E88B5</td></tr>
+    <tr><td>Hero CTA „Browse Trips / Ready-Made" <code>.newbuttono</code> / <code>.ptcz-bar-primary</code></td><td>hero, homepage lišta</td><td><span class="lv l1">Primár</span></td><td>plná #1E88B5 + šipka</td></tr>
+    <tr><td>Header CTA „Plan your trip" (nové)</td><td>header</td><td><span class="lv l1">Primár</span></td><td>plná #1E88B5 + šipka</td></tr>
+    <tr><td>„Popište nám váš vysněný výlet"</td><td>customizer blok</td><td><span class="lv l1">Primár</span></td><td>plná #1E88B5 + šipka</td></tr>
+    <tr><td>Menu CTA <code>.newbuttonp--primary</code></td><td>panel menu</td><td><span class="lv l1">Primár</span></td><td>plná #1E88B5</td></tr>
+    <tr><td>View trip <code>.naplanovat-btn</code> (×26)</td><td>karty výletů</td><td><span class="lv l2">Sekundár</span></td><td>ink ghost (na bílém)</td></tr>
+    <tr><td>Book a trip / „Design Your Own" / <code>.ptcz-bar-outline</code></td><td>detail, hero, lišta</td><td><span class="lv l2">Sekundár</span></td><td>ink ghost / na fotce bílý ghost</td></tr>
+    <tr><td>„Plan Your Tour" (hero na fotce)</td><td>hero</td><td><span class="lv l2">Sekundár</span></td><td>bílý ghost <code>.on-dark</code></td></tr>
+    <tr><td>Upravit / Sdílet</td><td>detail, kroky</td><td><span class="lv l2">Sekundár</span></td><td>ink ghost</td></tr>
+    <tr><td>Menu CTA <code>.newbuttonp--secondary</code> / „Všechny články"</td><td>menu, blog</td><td><span class="lv l2">Sekundár</span></td><td>ink ghost</td></tr>
+    <tr><td>Blog CTA <code>.newbuttonp</code> / „Přečíst článek"</td><td>blog karty, článek</td><td><span class="lv l3">Terciár</span></td><td>textový odkaz „… →" (na konkrétní výlet u in-article CTA)</td></tr>
+    <tr><td>„Tell us about your trip"</td><td>blog, přehled</td><td><span class="lv l3">Terciár</span></td><td>textový odkaz</td></tr>
+    <tr><td>Jazyk 🇨🇿 / Měna USD / Menu toggle / šipky karuselu</td><td>header, sekce</td><td><span class="lv l4">Neutrál</span></td><td>šedý obrys/pill, radius 10px (šipky kulaté)</td></tr>
+    <tr><td>Filtry / stránkování / <code>.copy-btn</code></td><td>přehled, sdílení</td><td><span class="lv l4">Neutrál</span></td><td>neutrální / ikonové</td></tr>
+    <tr><td>Cookie lišta <code>.cmplz-btn</code> (×12, Complianz)</td><td>cookie banner</td><td><span class="lv l1">P</span>/<span class="lv l2">S</span>/<span class="lv l3">T</span></td><td>Accept = primár, Reject = ghost, Nastavení = text. Jen barvy, chování neměnit.</td></tr>
+    <tr><td>Pozůstatky <code>.btn-primary</code> / <code>.btn-secondary</code></td><td>ojediněle</td><td>—</td><td>sjednotit do systému nebo odstranit</td></tr>
+  </table>
+
+  <h2>„Jedna modrá na sekci" — co je primár kde</h2>
+  <table>
+    <tr><th>Stránka / sekce</th><th>Primár (jediná modrá)</th><th>Sekundár</th><th>Terciár / neutrál</th></tr>
+    <tr><td>Homepage hero</td><td>Browse Trips / Ready-Made</td><td>Design Your Own / Plan Your Tour</td><td>—</td></tr>
+    <tr><td>Customizer blok</td><td>Popište nám váš vysněný výlet</td><td>—</td><td>—</td></tr>
+    <tr><td>Tipy a inspirace (blog teaser)</td><td>—</td><td>Všechny články</td><td>Přečíst článek (text) · šipky (neutrál)</td></tr>
+    <tr><td>Přehled výletů</td><td>—</td><td>View trip (karty)</td><td>Tell us about your trip (text)</td></tr>
+    <tr><td>Detail výletu</td><td>Reserve this tour (sticky)</td><td>Book a trip · Upravit · Sdílet</td><td>—</td></tr>
+    <tr><td>Kroky trychtýře</td><td>Continue</td><td>Sdílet</td><td>trust text</td></tr>
+    <tr><td>Header</td><td>Plan your trip (nové, stálé)</td><td>—</td><td>jazyk · měna · Menu (neutrál)</td></tr>
+  </table>
+
+  <h2>Implementace — CSS základ pro Martina</h2>
+  <p class="sub">Kanonické definice (níže). Existující třídy se na ně namapují přes named-scope — bez přepisu markupu, aby se nerozbil booking flow. Globálně nahradit <code>#58C2F4 → #1E88B5</code> u primárů; sekundáry na ink/bílý ghost.</p>
+  <pre>:root{
+  --ptc-blue:#1E88B5;  --ptc-blue-dark:#176f93;
+  --ptc-ink:#1C1C2E;
+  --ptc-nfill:#EEF1F4; --ptc-nline:#D3D9E0; --ptc-nink:#374151;
+}
+/* ===== PRIMÁR ===== */
+.ptcz-book-cta, .ptcz-bar-primary, .newbuttono.is-primary,
+.newbuttonp--primary, button.newbutton[type="submit"]{
+  background:var(--ptc-blue); color:#fff; font-weight:700;
+  border:2px solid transparent; border-radius:100px;
+  box-shadow:0 4px 14px rgb(30 136 181/.35);
+  transition:background .18s, box-shadow .25s, transform .18s;
+}
+.ptcz-book-cta:hover, .ptcz-bar-primary:hover{
+  background:var(--ptc-blue-dark); transform:translateY(-1px);
+  box-shadow:0 6px 20px rgb(30 136 181/.5);
+}
+/* ===== SEKUNDÁR — ink ghost (světlé pozadí) ===== */
+.naplanovat-btn, .ptcz-bar-outline, .newbuttonp--secondary,
+.newbuttono:not(.is-primary){
+  background:transparent; color:var(--ptc-ink);
+  border:2px solid var(--ptc-ink); border-radius:100px;
+  font-weight:700; text-decoration:none;
+}
+.naplanovat-btn:hover, .ptcz-bar-outline:hover{ background:var(--ptc-ink); color:#fff; }
+/* ===== SEKUNDÁR na fotce (hero) ===== */
+.ptcz-hero .btn--secondary{ color:#fff; border-color:#fff; }
+.ptcz-hero .btn--secondary:hover{ background:#fff; color:var(--ptc-ink); }
+/* ===== TERCIÁR — text ===== */
+.newbuttonp{ background:none!important; border:none!important; color:var(--ptc-blue);
+  font-weight:600; text-decoration:none; }
+.newbuttonp:hover{ text-decoration:underline; }
+/* ===== NEUTRÁL — ovládání (jazyk, měna, menu, šipky) ===== */
+.header_curr, .lang-switch, .ptcz-mm__toggle, .carousel-arrow{
+  background:#fff; color:var(--ptc-nink);
+  border:1px solid var(--ptc-nline); border-radius:10px; font-weight:500;
+}
+/* ===== ANIMACE ===== */
+@keyframes ptcGlow{0%,100%{box-shadow:0 4px 14px rgb(30 136 181/.30)}
+  50%{box-shadow:0 6px 26px rgb(30 136 181/.70)}}
+.ptcz-book-cta{ animation:ptcGlow 2.4s ease-in-out infinite; } /* glow jen na sticky */
+@media (prefers-reduced-motion: reduce){
+  .ptcz-book-cta{ animation:none } *{ transition:none!important }
+}</pre>
+  <p class="sub">Pozn.: selektory výše jsou návrh — Martin je doladí podle skutečných tříd v theme (named-scope). Cíl je jednoznačný: 5 stylů (primár / sekundár-ink / sekundár-bílý / terciár / neutrál) a žádná #58C2F4.</p>
+
+  <p class="foot">Finální systém 2026-06-02 · po odsouhlasení RF → balíček pro Martina spolu s 869dgwjxb (spodní lišty). Na produkci nic nezměněno.</p>
+</div>
+</body>
+</html>
