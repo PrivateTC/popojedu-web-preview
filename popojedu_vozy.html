@@ -31,49 +31,6 @@
 </head>
 <body>
 
-<!-- ═══════════ SVG KNIHOVNA VOZŮ ═══════════ -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
- <defs>
-  <symbol id="car" viewBox="0 0 460 200">
-    <ellipse cx="232" cy="185" rx="188" ry="12" fill="#0A1F3F" opacity="0.10"/>
-    <path d="M58 150 Q56 114 88 111 L358 111 Q400 113 420 136 Q428 144 424 150 Z" fill="currentColor"/>
-    <path d="M134 112 Q148 72 198 68 L276 68 Q324 72 338 112 Z" fill="currentColor"/>
-    <path d="M152 108 Q164 85 201 82 L273 82 Q309 85 320 108 Z" fill="#C6D9E8"/>
-    <line x1="237" y1="82" x2="237" y2="108" stroke="currentColor" stroke-width="6"/>
-    <path d="M70 133 L408 133" stroke="#ffffff" stroke-width="2.5" opacity="0.40" stroke-linecap="round"/>
-    <line x1="210" y1="113" x2="210" y2="147" stroke="#0A1F3F" stroke-width="2" opacity="0.15"/>
-    <rect x="222" y="123" width="17" height="5" rx="2.5" fill="#0A1F3F" opacity="0.20"/>
-    <ellipse cx="414" cy="139" rx="8" ry="6" fill="#FFF3CF"/>
-    <rect x="59" y="123" width="7" height="13" rx="2" fill="#E0362F" opacity="0.75"/>
-    <circle cx="134" cy="156" r="32" fill="#10233f"/><circle cx="134" cy="156" r="15.5" fill="#E8EDF2"/><circle cx="134" cy="156" r="5" fill="#00C853"/>
-    <circle cx="340" cy="156" r="32" fill="#10233f"/><circle cx="340" cy="156" r="15.5" fill="#E8EDF2"/><circle cx="340" cy="156" r="5" fill="#00C853"/>
-  </symbol>
-  <symbol id="car-combi" viewBox="0 0 460 200">
-    <ellipse cx="232" cy="185" rx="190" ry="12" fill="#0A1F3F" opacity="0.10"/>
-    <path d="M54 150 Q52 114 86 111 L362 111 Q402 113 421 136 Q429 144 425 150 Z" fill="currentColor"/>
-    <path d="M112 112 Q122 72 170 68 L300 68 Q320 70 332 112 Z" fill="currentColor"/>
-    <path d="M130 108 Q140 85 176 82 L296 82 L309 108 Z" fill="#C6D9E8"/>
-    <line x1="222" y1="82" x2="222" y2="108" stroke="currentColor" stroke-width="6"/>
-    <path d="M66 133 L410 133" stroke="#ffffff" stroke-width="2.5" opacity="0.40" stroke-linecap="round"/>
-    <rect x="234" y="123" width="17" height="5" rx="2.5" fill="#0A1F3F" opacity="0.20"/>
-    <ellipse cx="415" cy="139" rx="8" ry="6" fill="#FFF3CF"/>
-    <circle cx="132" cy="156" r="32" fill="#10233f"/><circle cx="132" cy="156" r="15.5" fill="#E8EDF2"/><circle cx="132" cy="156" r="5" fill="#00C853"/>
-    <circle cx="342" cy="156" r="32" fill="#10233f"/><circle cx="342" cy="156" r="15.5" fill="#E8EDF2"/><circle cx="342" cy="156" r="5" fill="#00C853"/>
-  </symbol>
-  <symbol id="car-van" viewBox="0 0 460 200">
-    <ellipse cx="232" cy="185" rx="194" ry="12" fill="#0A1F3F" opacity="0.10"/>
-    <path d="M50 150 L50 92 Q50 66 86 64 L300 64 Q360 66 400 104 L420 132 Q428 142 423 150 Z" fill="currentColor"/>
-    <path d="M70 86 Q72 78 86 78 L292 78 L300 104 L70 104 Z" fill="#C6D9E8"/>
-    <line x1="160" y1="78" x2="160" y2="104" stroke="currentColor" stroke-width="6"/>
-    <line x1="232" y1="78" x2="232" y2="104" stroke="currentColor" stroke-width="6"/>
-    <path d="M66 124 L404 124" stroke="#ffffff" stroke-width="2.5" opacity="0.35" stroke-linecap="round"/>
-    <ellipse cx="410" cy="134" rx="8" ry="6" fill="#FFF3CF"/>
-    <circle cx="130" cy="156" r="32" fill="#10233f"/><circle cx="130" cy="156" r="15.5" fill="#E8EDF2"/><circle cx="130" cy="156" r="5" fill="#00C853"/>
-    <circle cx="346" cy="156" r="32" fill="#10233f"/><circle cx="346" cy="156" r="15.5" fill="#E8EDF2"/><circle cx="346" cy="156" r="5" fill="#00C853"/>
-  </symbol>
- </defs>
-</svg>
-
 <!-- ═══════════ NAVBAR ═══════════ -->
 <nav class="navbar">
   <div class="container nav-inner">
@@ -98,7 +55,6 @@
   <p class="lead">Provozujeme desítky vozů — od úsporné Škody Fabia po 7 a 9místnou Hyundai Staria. Většinu flotily tvoří Škody, které servisujeme ve vlastní dílně v Praze 9 — Čakovicích. Proto platíte férovou cenu bez skrytých marží. Pronájem na den, týden i na celé měsíce.</p>
 </section>
 
-<!-- ═══════════ FILTR + GRID ═══════════ -->
 <section class="section" style="padding-top: 32px;">
   <div class="container">
     <div class="vozy-controls">
@@ -119,144 +75,145 @@
 
     <div class="vehicle-grid" id="grid">
 
-      <a href="popojedu_vuz_fabia.html" class="vehicle-card" data-price="650" data-transmission="automat">
-        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2019/10/skoda-fabia-10-tsi-dsg-1-1-700x466.jpg" alt="Škoda Fabia" loading="lazy"></div>
+      <a href="popojedu_vuz_citigo.html" class="vehicle-card" data-price="550" data-transmission="manual">
+        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-citigo-g-tec-cng-1-700x466.jpg" alt="Škoda Citigo G-tec CNG" loading="lazy"></div>
         <div class="vehicle-body">
-          <h4>Škoda Fabia</h4>
+          <h4>Škoda Citigo G-tec CNG</h4>
+          <div class="vehicle-meta">Manuál · 4 místa · CNG, úsporný provoz</div>
+          <div class="vehicle-price"><span class="vehicle-price-amt">550 Kč</span><span class="vehicle-price-tax">/den</span></div>
+          <div class="vehicle-price-cap">od 7 990 Kč/měs · min. 7 dní</div>
+          <span class="vehicle-cta">Zobrazit vůz</span>
+        </div>
+      </a>
+
+      <a href="popojedu_vuz_octavia.html" class="vehicle-card" data-price="700" data-transmission="manual">
+        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-octavia-III-1-700x466.jpg" alt="Škoda Octávia III G-tec CNG liftback" loading="lazy"></div>
+        <div class="vehicle-body">
+          <h4>Škoda Octávia III G-tec CNG liftback</h4>
+          <div class="vehicle-meta">Manuál · 5 míst · CNG, liftback</div>
+          <div class="vehicle-price"><span class="vehicle-price-amt">700 Kč</span><span class="vehicle-price-tax">/den</span></div>
+          <div class="vehicle-price-cap">od 8 990 Kč/měs · min. 5 dní</div>
+          <span class="vehicle-cta">Zobrazit vůz</span>
+        </div>
+      </a>
+
+      <a href="popojedu_vuz_octavia.html" class="vehicle-card" data-price="800" data-transmission="manual">
+        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-octavia-III-1-700x466.jpg" alt="Škoda Octávia III TDi liftback" loading="lazy"></div>
+        <div class="vehicle-body">
+          <h4>Škoda Octávia III TDi liftback</h4>
+          <div class="vehicle-meta">Manuál · 5 míst · TDi nafta, liftback</div>
+          <div class="vehicle-price"><span class="vehicle-price-amt">800 Kč</span><span class="vehicle-price-tax">/den</span></div>
+          <div class="vehicle-price-cap">od 9 490 Kč/měs · min. 5 dní</div>
+          <span class="vehicle-cta">Zobrazit vůz</span>
+        </div>
+      </a>
+
+      <a href="popojedu_vuz_fabia.html" class="vehicle-card" data-price="650" data-transmission="automat">
+        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2019/10/skoda-fabia-10-tsi-dsg-1-1-700x466.jpg" alt="Škoda Fabia III Ambition TSi DSG" loading="lazy"></div>
+        <div class="vehicle-body">
+          <h4>Škoda Fabia III Ambition TSi DSG</h4>
           <div class="vehicle-meta">Automat · 5 míst · úsporná do města</div>
           <div class="vehicle-price"><span class="vehicle-price-amt">650 Kč</span><span class="vehicle-price-tax">/den</span></div>
-          <div class="vehicle-price-cap">od 9 490 Kč/měs</div>
-          <span class="vehicle-cta">Zobrazit vůz</span>
-        </div>
-      </a>
-
-      <a href="popojedu_vuz_octavia.html" class="vehicle-card" data-price="850" data-transmission="automat">
-        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-octavia-III-1-700x466.jpg" alt="Škoda Octavia" loading="lazy"></div>
-        <div class="vehicle-body">
-          <h4>Škoda Octavia</h4>
-          <div class="vehicle-meta">Automat · 5 míst · kufr 590 l</div>
-          <div class="vehicle-price"><span class="vehicle-price-amt">850 Kč</span><span class="vehicle-price-tax">/den</span></div>
-          <div class="vehicle-price-cap">od 9 990 Kč/měs</div>
-          <span class="vehicle-cta">Zobrazit vůz</span>
-        </div>
-      </a>
-
-      <a href="popojedu_vuz_octavia_combi.html" class="vehicle-card" data-price="900" data-transmission="automat">
-        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2018/09/DSC_0682a-scaled-800x552.jpg" alt="Škoda Octavia Combi" loading="lazy"></div>
-        <div class="vehicle-body">
-          <h4>Škoda Octavia Combi</h4>
-          <div class="vehicle-meta">Automat · 5 míst · kufr 640 l</div>
-          <div class="vehicle-price"><span class="vehicle-price-amt">900 Kč</span><span class="vehicle-price-tax">/den</span></div>
-          <div class="vehicle-price-cap">od 10 990 Kč/měs</div>
+          <div class="vehicle-price-cap">od 9 490 Kč/měs · min. 5 dní</div>
           <span class="vehicle-cta">Zobrazit vůz</span>
         </div>
       </a>
 
       <a href="popojedu_vuz_scala.html" class="vehicle-card" data-price="800" data-transmission="automat">
-        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2018/09/DSC_0347-scaled-e1687360813780-800x600.jpg" alt="Škoda Scala" loading="lazy"></div>
+        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2018/09/DSC_0347-scaled-e1687360813780-800x600.jpg" alt="Škoda Scala Top Selection TSi DSG" loading="lazy"></div>
         <div class="vehicle-body">
-          <h4>Škoda Scala</h4>
+          <h4>Škoda Scala Top Selection TSi DSG</h4>
           <div class="vehicle-meta">Automat · 5 míst · kompaktní hatchback</div>
           <div class="vehicle-price"><span class="vehicle-price-amt">800 Kč</span><span class="vehicle-price-tax">/den</span></div>
-          <div class="vehicle-price-cap">od 10 490 Kč/měs</div>
+          <div class="vehicle-price-cap">od 10 490 Kč/měs · min. 3 dny</div>
           <span class="vehicle-cta">Zobrazit vůz</span>
         </div>
       </a>
 
-      <a href="popojedu_vuz_superb.html" class="vehicle-card" data-price="1100" data-transmission="automat">
-        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2019/10/2019-skoda-superb-facelift-23-700x466.jpg" alt="Škoda Superb sedan" loading="lazy"></div>
-        <div class="vehicle-body">
-          <h4>Škoda Superb sedan</h4>
-          <div class="vehicle-meta">Automat · business třída · L&amp;K</div>
-          <div class="vehicle-price"><span class="vehicle-price-amt">1 100 Kč</span><span class="vehicle-price-tax">/den</span></div>
-          <div class="vehicle-price-cap">od 12 990 Kč/měs</div>
-          <span class="vehicle-cta">Zobrazit vůz</span>
-        </div>
-      </a>
-
-      <a href="popojedu_vuz_superb_combi.html" class="vehicle-card" data-price="1200" data-transmission="automat">
-        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2019/10/skoda-superb-combi-lk-20-tdi-dsg-1-700x466.jpg" alt="Škoda Superb Combi" loading="lazy"></div>
-        <div class="vehicle-body">
-          <h4>Škoda Superb Combi</h4>
-          <div class="vehicle-meta">Automat · 4×4 · kufr 660 l</div>
-          <div class="vehicle-price"><span class="vehicle-price-amt">1 200 Kč</span><span class="vehicle-price-tax">/den</span></div>
-          <div class="vehicle-price-cap">od 13 990 Kč/měs</div>
-          <span class="vehicle-cta">Zobrazit vůz</span>
-        </div>
-      </a>
-
-      <a href="popojedu_vuz_citigo.html" class="vehicle-card" data-price="550" data-transmission="manual">
-        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-citigo-g-tec-cng-1-700x466.jpg" alt="Škoda Citigo CNG" loading="lazy"></div>
-        <div class="vehicle-body">
-          <h4>Škoda Citigo CNG</h4>
-          <div class="vehicle-meta">Manuál · 4 místa · nejlevnější provoz</div>
-          <div class="vehicle-price"><span class="vehicle-price-amt">550 Kč</span><span class="vehicle-price-tax">/den</span></div>
-          <div class="vehicle-price-cap">od 7 990 Kč/měs</div>
-          <span class="vehicle-cta">Zobrazit vůz</span>
-        </div>
-      </a>
-
-      <a href="popojedu_vuz_mercedes_s.html" class="vehicle-card" data-price="2500" data-transmission="automat">
-        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2018/09/IMG_2206-clean-look-700x466.png" alt="Mercedes-Benz S-Class" loading="lazy"></div>
-        <div class="vehicle-body">
-          <h4>Mercedes-Benz S-Class</h4>
-          <div class="vehicle-meta">Automat · 4MATIC · VIP převozy</div>
-          <div class="vehicle-price"><span class="vehicle-price-amt">2 500 Kč</span><span class="vehicle-price-tax">/den</span></div>
-          <div class="vehicle-price-cap">měsíční ceny na dotaz</div>
-          <span class="vehicle-cta">Zobrazit vůz</span>
-        </div>
-      </a>
-
-      <a href="popojedu_vuz_staria.html" class="vehicle-card" data-price="1900" data-transmission="automat">
-        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2024/11/DSC_0255m1-700x466.jpg" alt="Hyundai Staria 9 míst" loading="lazy"></div>
-        <div class="vehicle-body">
-          <h4>Hyundai Staria 9 míst</h4>
-          <div class="vehicle-meta">Automat · 9 míst · minibus</div>
-          <div class="vehicle-price"><span class="vehicle-price-amt">1 900 Kč</span><span class="vehicle-price-tax">/den</span></div>
-          <div class="vehicle-price-cap">od 24 990 Kč/měs</div>
-          <span class="vehicle-cta">Zobrazit vůz</span>
-        </div>
-      </a>
-
-      <a href="popojedu_vuz_staria_7.html" class="vehicle-card" data-price="1900" data-transmission="automat">
-        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2024/11/DSC_0255m1-700x466.jpg" alt="Hyundai Staria 7 míst" loading="lazy"></div>
-        <div class="vehicle-body">
-          <h4>Hyundai Staria 7 míst</h4>
-          <div class="vehicle-meta">Automat · 7 míst · minibus</div>
-          <div class="vehicle-price"><span class="vehicle-price-amt">1 900 Kč</span><span class="vehicle-price-tax">/den</span></div>
-          <div class="vehicle-price-cap">od 24 990 Kč/měs</div>
-          <span class="vehicle-cta">Zobrazit vůz</span>
-        </div>
-      </a>
       <a href="popojedu_vuz_octavia_combi.html" class="vehicle-card" data-price="1000" data-transmission="manual">
-        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2018/09/DSC_0682a-scaled-800x552.jpg" alt="Škoda Octavia IV combi Ambition (manuál)" loading="lazy"></div>
+        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2018/09/DSC_0682a-scaled-800x552.jpg" alt="Škoda Octávia IV combi Ambition TDi" loading="lazy"></div>
         <div class="vehicle-body">
-          <h4>Škoda Octavia IV combi Ambition</h4>
-          <div class="vehicle-meta">Manuál · TDi · novější generace IV</div>
-          <div class="vehicle-price"><span class="vehicle-price-amt">cena na dotaz</span></div>
-          <div class="vehicle-price-cap">brzy v nabídce</div>
+          <h4>Škoda Octávia IV combi Ambition TDi</h4>
+          <div class="vehicle-meta">Manuál · 5 míst · TDi nafta, combi</div>
+          <div class="vehicle-price"><span class="vehicle-price-amt">1 000 Kč</span><span class="vehicle-price-tax">/den</span></div>
+          <div class="vehicle-price-cap">od 10 990 Kč/měs · min. 3 dny</div>
           <span class="vehicle-cta">Zobrazit vůz</span>
         </div>
       </a>
 
       <a href="popojedu_vuz_octavia_combi.html" class="vehicle-card" data-price="1100" data-transmission="automat">
-        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2018/09/DSC_0682a-scaled-800x552.jpg" alt="Škoda Octavia IV combi Style (automat)" loading="lazy"></div>
+        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2018/09/DSC_0682a-scaled-800x552.jpg" alt="Škoda Octávia IV combi Style TDi DSG" loading="lazy"></div>
         <div class="vehicle-body">
-          <h4>Škoda Octavia IV combi Style</h4>
-          <div class="vehicle-meta">Automat DSG · TDi · novější generace IV</div>
-          <div class="vehicle-price"><span class="vehicle-price-amt">cena na dotaz</span></div>
-          <div class="vehicle-price-cap">brzy v nabídce</div>
+          <h4>Škoda Octávia IV combi Style TDi DSG</h4>
+          <div class="vehicle-meta">Automat DSG · 5 míst · TDi nafta, combi</div>
+          <div class="vehicle-price"><span class="vehicle-price-amt">1 100 Kč</span><span class="vehicle-price-tax">/den</span></div>
+          <div class="vehicle-price-cap">od 11 990 Kč/měs · min. 3 dny</div>
+          <span class="vehicle-cta">Zobrazit vůz</span>
+        </div>
+      </a>
+
+      <a href="popojedu_vuz_superb.html" class="vehicle-card" data-price="1100" data-transmission="automat">
+        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2019/10/2019-skoda-superb-facelift-23-700x466.jpg" alt="Škoda Superb III L&amp;K TDi liftback" loading="lazy"></div>
+        <div class="vehicle-body">
+          <h4>Škoda Superb III L&amp;K TDi liftback</h4>
+          <div class="vehicle-meta">Automat · business třída · L&amp;K, liftback</div>
+          <div class="vehicle-price"><span class="vehicle-price-amt">1 100 Kč</span><span class="vehicle-price-tax">/den</span></div>
+          <div class="vehicle-price-cap">od 12 990 Kč/měs · min. 1 den</div>
+          <span class="vehicle-cta">Zobrazit vůz</span>
+        </div>
+      </a>
+
+      <a href="popojedu_vuz_superb_combi.html" class="vehicle-card" data-price="1200" data-transmission="automat">
+        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2019/10/skoda-superb-combi-lk-20-tdi-dsg-1-700x466.jpg" alt="Škoda Superb III L&amp;K TDi combi" loading="lazy"></div>
+        <div class="vehicle-body">
+          <h4>Škoda Superb III L&amp;K TDi combi</h4>
+          <div class="vehicle-meta">Automat · business třída · L&amp;K, combi</div>
+          <div class="vehicle-price"><span class="vehicle-price-amt">1 200 Kč</span><span class="vehicle-price-tax">/den</span></div>
+          <div class="vehicle-price-cap">od 13 990 Kč/měs · min. 1 den</div>
           <span class="vehicle-cta">Zobrazit vůz</span>
         </div>
       </a>
 
       <a href="popojedu_vuz_superb.html" class="vehicle-card" data-price="1300" data-transmission="automat">
-        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2019/10/2019-skoda-superb-facelift-23-700x466.jpg" alt="Škoda Superb IV L&amp;K liftback" loading="lazy"></div>
+        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2019/10/2019-skoda-superb-facelift-23-700x466.jpg" alt="Škoda Superb IV L&amp;K TDi liftback (nový model)" loading="lazy"></div>
         <div class="vehicle-body">
-          <h4>Škoda Superb IV L&amp;K</h4>
-          <div class="vehicle-meta">Automat · novější generace · business třída</div>
-          <div class="vehicle-price"><span class="vehicle-price-amt">cena na dotaz</span></div>
-          <div class="vehicle-price-cap">brzy v nabídce</div>
+          <h4>Škoda Superb IV L&amp;K TDi liftback</h4>
+          <div class="vehicle-meta">Automat · novější generace IV · L&amp;K, liftback</div>
+          <div class="vehicle-price"><span class="vehicle-price-amt">1 300 Kč</span><span class="vehicle-price-tax">/den</span></div>
+          <div class="vehicle-price-cap">od 14 990 Kč/měs · min. 1 den</div>
+          <span class="vehicle-cta">Zobrazit vůz</span>
+        </div>
+      </a>
+
+      <a href="popojedu_vuz_mercedes_s.html" class="vehicle-card" data-price="2500" data-transmission="automat">
+        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2018/09/IMG_2206-clean-look-700x466.png" alt="Mercedes-Benz S350 d 4MATIC L" loading="lazy"></div>
+        <div class="vehicle-body">
+          <h4>Mercedes-Benz S350 d 4MATIC L</h4>
+          <div class="vehicle-meta">Automat · 4MATIC · VIP převozy, long</div>
+          <div class="vehicle-price"><span class="vehicle-price-amt">2 500 Kč</span><span class="vehicle-price-tax">/den</span></div>
+          <div class="vehicle-price-cap">měsíční ceny na dotaz · min. 30 dní</div>
+          <span class="vehicle-cta">Zobrazit vůz</span>
+        </div>
+      </a>
+
+      <a href="popojedu_vuz_staria_7.html" class="vehicle-card" data-price="1900" data-transmission="automat">
+        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2024/11/DSC_0255m1-700x466.jpg" alt="Hyundai Staria Luxury CDi 6+1 (7 míst)" loading="lazy"></div>
+        <div class="vehicle-body">
+          <h4>Hyundai Staria Luxury CDi 6+1</h4>
+          <div class="vehicle-meta">Automat · 7 míst · luxury minibus</div>
+          <div class="vehicle-price"><span class="vehicle-price-amt">1 900 Kč</span><span class="vehicle-price-tax">/den</span></div>
+          <div class="vehicle-price-cap">od 24 990 Kč/měs · min. 30 dní</div>
+          <span class="vehicle-cta">Zobrazit vůz</span>
+        </div>
+      </a>
+
+      <a href="popojedu_vuz_staria.html" class="vehicle-card" data-price="1950" data-transmission="automat">
+        <div class="vehicle-img"><img src="https://www.popojedu.cz/wp-content/uploads/2024/11/DSC_0255m1-700x466.jpg" alt="Hyundai Staria Style Premium CDi 8+1 (9 míst)" loading="lazy"></div>
+        <div class="vehicle-body">
+          <h4>Hyundai Staria Style Premium CDi 8+1</h4>
+          <div class="vehicle-meta">Automat · 9 míst · style premium minibus</div>
+          <div class="vehicle-price"><span class="vehicle-price-amt">1 950 Kč</span><span class="vehicle-price-tax">/den</span></div>
+          <div class="vehicle-price-cap">od 25 990 Kč/měs · min. 30 dní</div>
           <span class="vehicle-cta">Zobrazit vůz</span>
         </div>
       </a>
@@ -266,7 +223,6 @@
   </div>
 </section>
 
-<!-- ═══════════ CTA BAND ═══════════ -->
 <section class="section" style="padding-top: 0;">
   <div class="container">
     <div class="cta-band">
@@ -277,83 +233,22 @@
   </div>
 </section>
 
-<!-- ═══════════ FOOTER ═══════════ -->
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
       <div>
         <a href="popojedu_production_preview.html" class="logo"><div class="logo-mark">p</div>popojedu</a>
-        <div class="footer-contact">
-          📞 +420 731 683 203<br>
-          ✉️ info@popojedu.cz<br>
-          🚗 Provozovna: Cukrovarská 991, Praha 9 — Čakovice<br>
-          🏢 Sídlo: Praha 9, Českomoravská 1181/21
-        </div>
+        <div class="footer-contact">📞 +420 731 683 203<br>✉️ info@popojedu.cz<br>🚗 Provozovna: Cukrovarská 991, Praha 9 — Čakovice<br>🏢 Sídlo: Praha 9, Českomoravská 1181/21</div>
       </div>
-      <div>
-        <h5>Pronájem</h5>
-        <ul>
-          <li><a href="popojedu_production_preview.html#builder">Konfigurátor pronájmu</a></li>
-          <li><a href="popojedu_vozy.html">Naše vozy</a></li>
-          <li><a href="popojedu_cenik.html">Ceník</a></li>
-          <li><a href="popojedu_vyzvednuti.html">Vyzvednutí vozu</a></li>
-          <li><a href="popojedu_predani.html">Předání vozu</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5>Pro koho</h5>
-        <ul>
-          <li><a href="popojedu_firmy.html">Pro firmy</a></li>
-          <li><a href="popojedu_bolt_uber.html">Pro Bolt a Uber</a></li>
-          <li><a href="popojedu_kuryri.html">Pro kurýry</a></li>
-          <li><a href="popojedu_production_preview.html#how">Jak to funguje</a></li>
-          <li><a href="popojedu_blog.html">Blog</a></li>
-          <li><a href="popojedu_faq.html">FAQ</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5>Účet a kontakt</h5>
-        <ul>
-          <li><a href="popojedu_kontakt.html">Kontakt</a></li>
-          <li><a href="popojedu_ucet.html">Můj účet</a></li>
-          <li><a href="#">Obchodní podmínky</a></li>
-          <li><a href="#">Ochrana osobních údajů</a></li>
-        </ul>
-      </div>
+      <div><h5>Pronájem</h5><ul><li><a href="popojedu_production_preview.html#builder">Konfigurátor pronájmu</a></li><li><a href="popojedu_vozy.html">Naše vozy</a></li><li><a href="popojedu_cenik.html">Ceník</a></li><li><a href="popojedu_vyzvednuti.html">Vyzvednutí vozu</a></li><li><a href="popojedu_predani.html">Předání vozu</a></li></ul></div>
+      <div><h5>Pro koho</h5><ul><li><a href="popojedu_firmy.html">Pro firmy</a></li><li><a href="popojedu_bolt_uber.html">Pro Bolt a Uber</a></li><li><a href="popojedu_kuryri.html">Pro kurýry</a></li><li><a href="popojedu_production_preview.html#how">Jak to funguje</a></li><li><a href="popojedu_blog.html">Blog</a></li><li><a href="popojedu_faq.html">FAQ</a></li></ul></div>
+      <div><h5>Účet a kontakt</h5><ul><li><a href="popojedu_kontakt.html">Kontakt</a></li><li><a href="popojedu_ucet.html">Můj účet</a></li><li><a href="#">Obchodní podmínky</a></li><li><a href="#">Ochrana osobních údajů</a></li></ul></div>
     </div>
-    <div class="footer-bottom">
-      <span>© Copyright 2009–2026 Popojedu.cz, spravuje MODRÝ ANDĚL s.r.o.</span>
-      <span>IČ: 105306, MSPH Městský soud v Praze</span>
-    </div>
+    <div class="footer-bottom"><span>© Copyright 2009–2026 Popojedu.cz, spravuje MODRÝ ANDĚL s.r.o.</span><span>IČ: 105306, MSPH Městský soud v Praze</span></div>
   </div>
 </footer>
 
-<!-- ═══════════ SCHEMA.ORG JSON-LD ═══════════ -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "name": "Naše vozy — pronájem aut Praha",
-  "description": "Přehled vozů k pronájmu u Popojedu.cz v Praze 9 — Škoda, Mercedes-Benz a Hyundai.",
-  "about": {
-    "@type": "AutoRental",
-    "name": "Popojedu.cz",
-    "telephone": "+420731683203",
-    "email": "info@popojedu.cz",
-    "priceRange": "550 Kč – 25 000 Kč/měsíc",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Cukrovarská 991",
-      "addressLocality": "Praha 9 — Čakovice",
-      "postalCode": "196 00",
-      "addressCountry": "CZ"
-    }
-  }
-}
-</script>
-
 <script>
-  // Řazení podle ceny + filtr převodovky
   const grid = document.getElementById('grid');
   const fTrans = document.getElementById('f-trans');
   const fSort = document.getElementById('f-sort');
@@ -361,9 +256,7 @@
   function applyVozy() {
     const t = fTrans.value, s = fSort.value;
     let visible = allCards.filter(c => t === 'all' || c.dataset.transmission === t);
-    visible.sort((a, b) => s === 'asc'
-      ? a.dataset.price - b.dataset.price
-      : b.dataset.price - a.dataset.price);
+    visible.sort((a, b) => s === 'asc' ? a.dataset.price - b.dataset.price : b.dataset.price - a.dataset.price);
     allCards.forEach(c => { c.style.display = 'none'; });
     visible.forEach(c => { c.style.display = ''; grid.appendChild(c); });
   }
@@ -372,35 +265,10 @@
   applyVozy();
 </script>
 
-<!-- ═══════════ STICKY MOBILE CTA ═══════════ -->
 <div class="sticky-cta">
   <a href="popojedu_production_preview.html#builder" class="btn btn-primary">Spočítat cenu pronájmu</a>
   <a href="tel:+420731683203" class="btn sticky-call" aria-label="Zavolat +420 731 683 203">📞</a>
 </div>
-
-<!-- ═══════════ JEMNÉ ANIMACE ═══════════ -->
-<script>
-(function(){
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var sel = '.vehicle-card, .usecase, .how-step, .tier-card, .service-card, .info-card, .faq-item, .seg-cross, .cta-band, .builder-card';
-  var els = [].slice.call(document.querySelectorAll(sel));
-  if (!els.length) return;
-  els.forEach(function(el){ el.classList.add('reveal'); });
-  els.forEach(function(el){
-    var p = el.parentElement; if (!p) return;
-    var group = [].slice.call(p.children).filter(function(c){ return c.classList.contains('reveal'); });
-    var i = group.indexOf(el);
-    if (i > 0) el.style.transitionDelay = Math.min(i * 60, 360) + 'ms';
-  });
-  if (!('IntersectionObserver' in window)) { els.forEach(function(el){ el.classList.add('is-visible'); }); return; }
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if (e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-  els.forEach(function(el){ io.observe(el); });
-})();
-</script>
 
 </body>
 </html>
