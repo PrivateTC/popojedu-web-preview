@@ -14,7 +14,6 @@
   .vyz-intro { padding: 36px 0 8px; }
   .vyz-intro h1 { font-size: clamp(28px, 6vw, 44px); margin-bottom: 14px; }
 
-  /* Mapa + info */
   .map-row { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 24px; align-items: stretch; }
   .info-card { background: white; border: 1.5px solid var(--border); border-radius: 22px; padding: 30px; }
   .info-card h3 { margin-bottom: 4px; }
@@ -26,14 +25,12 @@
   .map-frame { border-radius: 22px; overflow: hidden; border: 1.5px solid var(--border); box-shadow: var(--shadow-md); min-height: 440px; }
   .map-frame iframe { width: 100%; height: 100%; min-height: 440px; border: 0; display: block; }
 
-  /* Co si vzít */
   .bring-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
   .bring-card { background: white; border: 1px solid var(--border); border-radius: 18px; padding: 22px; }
   .bring-ico { width: 46px; height: 46px; border-radius: 12px; background: var(--green-light); color: var(--green-dark); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 12px; }
   .bring-card h4 { font-size: 15px; margin-bottom: 4px; }
   .bring-card p { font-size: 12px; }
 
-  /* Kroky */
   .step-list { display: flex; flex-direction: column; gap: 14px; max-width: 760px; }
   .step-row { background: white; border: 1px solid var(--border); border-radius: 18px; padding: 20px 24px; display: flex; gap: 18px; align-items: flex-start; }
   .step-row .num { width: 40px; height: 40px; border-radius: 12px; background: var(--green); color: white; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -51,7 +48,6 @@
 </head>
 <body>
 
-<!-- ═══════════ NAVBAR ═══════════ -->
 <nav class="navbar">
   <div class="container nav-inner">
     <a href="popojedu_production_preview.html" class="logo"><div class="logo-mark">p</div>popojedu</a>
@@ -68,14 +64,12 @@
   </div>
 </nav>
 
-<!-- ═══════════ INTRO ═══════════ -->
 <section class="container vyz-intro">
   <div class="section-eyebrow">Vyzvednutí vozu</div>
   <h1>Vůz si vyzvednete v Praze 9 — Čakovicích</h1>
   <p class="lead">Naše provozovna je v areálu Cukrovar Čakovice. Snadno se k nám dostanete autem i MHD, zaparkujete přímo u nás a vyzvednutí vyřídíme klidně a bez spěchu — zhruba za 20 minut.</p>
 </section>
 
-<!-- ═══════════ MAPA + ADRESA ═══════════ -->
 <section class="section" style="padding-top: 32px;">
   <div class="container">
     <div class="map-row">
@@ -110,7 +104,6 @@
   </div>
 </section>
 
-<!-- ═══════════ CO SI VZÍT ═══════════ -->
 <section class="section" style="background: var(--green-light); padding: 72px 0;">
   <div class="container">
     <div class="section-eyebrow">Před cestou k nám</div>
@@ -141,7 +134,6 @@
   </div>
 </section>
 
-<!-- ═══════════ JAK PROBÍHÁ ═══════════ -->
 <section class="section">
   <div class="container">
     <div class="section-eyebrow">Na místě</div>
@@ -161,13 +153,20 @@
       </div>
       <div class="step-row">
         <div class="num">4</div>
+        <div><h4>Doplatek + kauce pre-auth</h4><p>Doplatíte zbylých 80 % nájemného (rezervační poplatek 20 % už máte uhrazený). Blokujeme pre-auth kauci na kartě (10 000 – 50 000 Kč podle vozu) — po vrácení se automaticky uvolní.</p></div>
+      </div>
+      <div class="step-row">
+        <div class="num">5</div>
         <div><h4>Podpis a klíče</h4><p>Podepíšete smlouvu, převezmete klíče — a můžete vyrazit. Celé to trvá zhruba 20 minut.</p></div>
       </div>
+    </div>
+    <div style="background: var(--cream-light); border-radius: 16px; padding: 20px 24px; margin-top: 24px; border-left: 4px solid var(--green);">
+      <strong style="display: block; margin-bottom: 6px;">💡 Co se platí kdy?</strong>
+      <span style="font-size: 14px; color: var(--text-body);">Při rezervaci více než 30 dnů dopředu hradíte <strong>nevratný rezervační poplatek 20 %</strong>. Zbylých 80 % platíte při vyzvednutí (kartou, QR, převodem). Kauce není v hotovosti — jen blokace na kartě.</span>
     </div>
   </div>
 </section>
 
-<!-- ═══════════ CTA ═══════════ -->
 <section class="section" style="padding-top: 0;">
   <div class="container">
     <div style="background: linear-gradient(165deg, var(--navy), var(--navy-light)); border-radius: 28px; padding: 44px; text-align: center; color: white;">
@@ -178,7 +177,6 @@
   </div>
 </section>
 
-<!-- ═══════════ FOOTER ═══════════ -->
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
@@ -229,7 +227,6 @@
   </div>
 </footer>
 
-<!-- ═══════════ SCHEMA.ORG JSON-LD ═══════════ -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -256,17 +253,15 @@
 }
 </script>
 
-<!-- ═══════════ STICKY MOBILE CTA ═══════════ -->
 <div class="sticky-cta">
   <a href="popojedu_production_preview.html#builder" class="btn btn-primary">Spočítat cenu pronájmu</a>
   <a href="tel:+420731683203" class="btn sticky-call" aria-label="Zavolat +420 731 683 203">📞</a>
 </div>
 
-<!-- ═══════════ JEMNÉ ANIMACE ═══════════ -->
 <script>
 (function(){
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var sel = '.vehicle-card, .usecase, .how-step, .tier-card, .service-card, .info-card, .faq-item, .seg-cross, .cta-band, .builder-card';
+  var sel = '.vehicle-card, .usecase, .how-step, .tier-card, .service-card, .info-card, .faq-item, .seg-cross, .cta-band, .builder-card, .step-row, .bring-card';
   var els = [].slice.call(document.querySelectorAll(sel));
   if (!els.length) return;
   els.forEach(function(el){ el.classList.add('reveal'); });
