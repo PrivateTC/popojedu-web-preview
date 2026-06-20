@@ -255,7 +255,9 @@ body.notes .annot{display:block}
 .vbadge{position:absolute;top:10px;left:10px;background:rgba(10,31,63,.78);color:#fff;font-size:11px;font-weight:700;letter-spacing:.02em;border-radius:999px;padding:4px 11px;backdrop-filter:blur(2px)}
 .vcard .b{padding:16px 16px 18px;gap:5px}
 .vcard .b h3{font-size:16.5px;line-height:1.2}
-.vmeta{color:var(--muted);font-size:13px;font-weight:600;margin-bottom:4px}
+.vspecs{display:flex;flex-wrap:wrap;gap:3px 10px;color:var(--muted);font-size:12.5px;font-weight:600;margin-bottom:2px}
+.vspecs span{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.vincl{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:var(--green-d);background:var(--soft);border-radius:9px;padding:6px 10px;margin:3px 0 1px;line-height:1.3}
 .vprice{margin-top:auto}
 .vbig{font-size:23px;font-weight:800;letter-spacing:-.02em;color:var(--navy);line-height:1.1}
 .vbig small{font-size:13px;font-weight:600;color:var(--muted);margin-left:2px}
@@ -435,8 +437,9 @@ const isCourier=()=>S.purpose==='taxi'||S.purpose==='kuryr';
 function vcardHTML(c){const tr=/automat/i.test(c.n)?'Automat':'Manuál';const md=c.min===1?'1 den':(c.min<5?c.min+' dny':c.min+' dní');return `<div class="vcard" data-car="${c.id}">
   <div class="ph" style="background-image:url('${c.ph}')"><span class="vbadge">${c.cat}</span></div>
   <div class="b"><h3>${carName(c)}</h3>
-  <div class="vmeta">${tr} · ${c.fuel} · ${c.seats} míst · ${c.eu?'EU':'jen ČR'}</div>
-  <div class="vprice"><div class="vbig">${c.mo?fmt(c.mo)+' Kč':'na dotaz'}<small>${c.mo?'/měs':''}</small></div><div class="vsub">${fmt(c.day)} Kč/den · min. ${md}</div></div>
+  <div class="vspecs"><span>⚙️ ${tr}</span><span>⛽ ${c.fuel}</span><span>👥 ${c.seats} míst</span><span>📅 min. ${md}</span><span>${c.eu?'🇪🇺 EU':'🇨🇿 jen ČR'}</span></div>
+  <div class="vincl">✓ Servis, pojištění i dálniční známka v ceně</div>
+  <div class="vprice"><div class="vbig">${c.mo?fmt(c.mo)+' Kč':'na dotaz'}<small>${c.mo?'/měs':''}</small></div><div class="vsub">${fmt(c.day)} Kč/den</div></div>
   <a class="btn ghost block" data-car="${c.id}" style="margin-top:12px">Detail vozu</a></div></div>`;}
 function priceLines(c){const day=c.day;const week=Math.round(c.day*5.45/10)*10;
   if(isCourier())return {big:fmt(week),per:'/ týden',stats:[['Za den',fmt(day)+' Kč'],['V ceně','6 500 km/měs']]};
@@ -447,7 +450,8 @@ function priceLines(c){const day=c.day;const week=Math.round(c.day*5.45/10)*10;
 function homeCardHTML(c){const pl=priceLines(c);const tr=/automat/i.test(c.n)?'Automat':'Manuál';const md=c.min===1?'1 den':(c.min<5?c.min+' dny':c.min+' dní');const un=(S.scale==='short'&&S.days<c.min);const dtxt=S.days+' '+(S.days===1?'den':(S.days<5?'dny':'dní'));return `<div class="vcard${un?' dim':''}">
   <div class="ph" style="background-image:url('${c.ph}')"><span class="vbadge">${c.cat}</span></div>
   <div class="b"><h3>${carName(c)}</h3>
-  <div class="vmeta">${tr} · ${c.fuel} · ${c.seats} míst · ${c.eu?'EU':'jen ČR'}</div>
+  <div class="vspecs"><span>⚙️ ${tr}</span><span>⛽ ${c.fuel}</span><span>👥 ${c.seats} míst</span><span>📅 min. ${md}</span><span>${c.eu?'🇪🇺 EU':'🇨🇿 jen ČR'}</span></div>
+  <div class="vincl">✓ Vše v ceně — servis, pojištění, dálniční známka</div>
   <div class="vprice"><div class="vbig">${pl.big}${pl.big==='na dotaz'?'':' Kč'}<small>${pl.per}</small></div><div class="vsub">${pl.stats.map(s=>s[0]+' '+s[1]).join(' · ')}</div></div>
   ${un?`<div class="unavail">Min. pronájem ${md} — na ${dtxt} nedostupné</div><a class="vdetail" data-car="${c.id}">Detail vozu →</a>`:`<a class="btn pick block" data-pick="${c.id}">Vybrat vůz →</a><a class="vdetail" data-car="${c.id}">Detail vozu</a>`}
   </div></div>`;}
