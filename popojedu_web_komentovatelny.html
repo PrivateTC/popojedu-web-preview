@@ -227,6 +227,12 @@ body.notes .annot{display:block}
 .qseg button{flex:1;font:inherit;font-size:14px;font-weight:600;cursor:pointer;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:11px 8px;color:var(--navy)}
 .qseg button.on{border-color:var(--green);background:var(--soft);color:var(--green-d)}
 .qnote{text-align:center;color:var(--muted);font-size:12.5px;margin-top:10px}
+.qladder{display:flex;gap:6px;margin-top:10px}
+.qlad{flex:1;text-align:center;border:1.5px solid var(--line);border-radius:10px;padding:7px 4px;font-size:11px;color:var(--muted);line-height:1.3}
+.qlad span{display:block}
+.qlad b{display:block;font-size:12.5px;color:var(--navy);font-weight:800;margin-top:2px}
+.qlad.on{border-color:var(--green);background:var(--soft);box-shadow:0 0 0 2px rgba(0,200,83,.15)}
+.qlad.on b{color:var(--green-d)}
 .qcheck{display:flex;align-items:flex-start;gap:8px;font-size:13.5px;color:var(--navy);font-weight:600;cursor:pointer;margin:12px 0 2px;line-height:1.4}
 .qcheck input{margin-top:2px;width:16px;height:16px;accent-color:var(--green);flex:none}
 .vspec{display:flex;flex-wrap:wrap;gap:5px 12px;font-size:13px;color:var(--muted);margin:2px 0 8px}
@@ -240,7 +246,10 @@ body.notes .annot{display:block}
   .grid4{grid-template-columns:repeat(2,1fr)}.grid3,.step-row,.inclgrid,.discgrid{grid-template-columns:repeat(2,1fr)}
   .cfg{grid-template-columns:1fr}.panel{position:static}.split{grid-template-columns:1fr}.opts{grid-template-columns:repeat(2,1fr)}.reco{grid-template-columns:1fr}.fg{grid-template-columns:1fr}.ft .cols{grid-template-columns:1fr 1fr}
 }
-@media(max-width:600px){.grid4,.grid2,.grid3,.step-row,.inclgrid,.discgrid{grid-template-columns:1fr}.ft .cols{grid-template-columns:1fr}.mobnav{right:12px;left:12px;width:auto}.pricerow{flex-wrap:wrap}}
+@media(max-width:600px){.grid4,.grid2,.grid3,.step-row,.inclgrid,.discgrid{grid-template-columns:1fr}.ft .cols{grid-template-columns:1fr}.mobnav{right:12px;left:12px;width:auto}.pricerow{flex-wrap:wrap}.hdr-actions a[data-route="ucet"]{display:none}.hdr-actions #menuBtn{padding:9px 13px;font-size:14px}.hd .wrap{gap:10px;height:64px}.logo{font-size:18px}}
+.vcard.dim{opacity:.5}
+.vcard.dim:hover{transform:none;box-shadow:var(--shadow)}
+.unavail{margin-top:8px;background:#fdeef0;color:#b33449;border:1px solid #f3c9d0;border-radius:10px;padding:9px 11px;font-size:12px;font-weight:600;text-align:center}
 
 /* ====== GRAFICKÝ POLISH (jen vzhled, nemění obsah ani funkce) ====== */
 html{scroll-behavior:smooth}
@@ -306,17 +315,15 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 <!-- HEADER -->
 <header class="hd"><div class="wrap">
   <div class="logo" data-route="home"><span class="dot">p</span>popojedu</div>
-  <div style="margin-left:auto;display:flex;align-items:center;gap:10px">
+  <div class="hdr-actions" style="margin-left:auto;display:flex;align-items:center;gap:10px">
     <button class="btn ghost" id="menuBtn">☰ Menu</button>
     <a class="btn ghost" data-route="ucet">Můj účet</a>
   </div>
 </div>
 <div class="mobnav" id="mobnav">
-  <a data-route="vozy">Naše vozy</a><a data-route="cenik">Ceník</a><a data-route="jak">Jak to funguje</a>
-  <a data-route="vyzvednuti">Vyzvednutí vozu</a><a data-route="predani">Předání vozu</a>
   <a data-route="firmy">Pro firmy</a><a data-route="bolt">Pro Bolt a Uber</a><a data-route="kuryri">Pro kurýry</a>
-  <a data-route="blog">Blog</a><a data-route="faq">FAQ</a><a data-route="kontakt">Kontakt</a><a data-route="ucet">Můj účet</a>
-  <a class="btn block" data-route="cfg">Spočítat cenu</a>
+  <a data-route="blog">Blog</a><a data-route="kontakt">Kontakt</a><a data-route="ucet">Můj účet</a>
+  <a class="btn block" data-route="home">Spočítat cenu</a>
 </div>
 </header>
 
@@ -399,7 +406,7 @@ const carName=c=>c.n.replace(/,\s*(manuál|automat)$/i,'');
 
 /* ============ STATE ============ */
 const S={purpose:'sebe',scale:'long',months:6,km:3500,car:'fabia',extras:new Set(['driver']),detailCar:'sup4',vozyCount:6,vozySort:'asc',vozyTrans:'all',days:3,kmDay:50};
-const EXTRAS=[{id:'driver',label:'Druhý řidič',price:'+ 0 Kč'},{id:'seat',label:'Dětská sedačka',price:'na vyžádání'},{id:'box',label:'Střešní box Thule',price:'+ 80 Kč/den',only:['sup3lb','sup3co','oct4a','oct4s']},{id:'deliver',label:'Dovoz vozu po Praze',price:'od 30 dnů zdarma'}];
+const EXTRAS=[{id:'driver',label:'Druhý řidič',price:'+ 0 Kč'},{id:'seat',label:'Dětská sedačka',price:'na vyžádání'},{id:'box',label:'Střešní box Thule',price:'+ 80 Kč/den',only:['sup3lb','sup3co','oct4a','oct4s']},{id:'deliver',label:'Přistavení a vyzvednutí vozu',price:'od 500 Kč (30+ dní zdarma)'}];
 const DISC=m=>m>=12?24:m>=6?16:m>=3?6:0;
 const isCourier=()=>S.purpose==='taxi'||S.purpose==='kuryr';
 
@@ -407,7 +414,7 @@ const isCourier=()=>S.purpose==='taxi'||S.purpose==='kuryr';
 function vcardHTML(c){const tr=/automat/i.test(c.n)?'Automat':'Manuál';const md=c.min===1?'1 den':(c.min<5?c.min+' dny':c.min+' dní');return `<div class="vcard" data-car="${c.id}">
   <div class="ph" style="background-image:url('${c.ph}')"></div>
   <div class="b"><h3>${carName(c)}</h3>
-  <div class="tags"><span class="tag">⚙️ ${tr}</span><span class="tag">⛽ ${c.fuel}</span><span class="tag">👥 ${c.seats} míst</span><span class="tag">📅 min. ${md}</span>${c.eu?'<span class="tag eu">🇪🇺 výjezd EU</span>':'<span class="tag cr">🇨🇿 jen ČR</span>'}</div>
+  <div class="tags"><span class="tag">⚙️ ${tr}</span><span class="tag">⛽ ${c.fuel}</span><span class="tag">👥 ${c.seats}</span><span class="tag">📅 min. ${md}</span>${c.eu?'<span class="tag eu">EU</span>':'<span class="tag cr">jen ČR</span>'}</div>
   <div class="price">${c.mo?fmt(c.mo)+' Kč':'na dotaz'}<small>${c.mo?' /měs':''}</small></div>
   <div class="spec">${fmt(c.day)} Kč/den</div>
   <a class="btn ghost" data-car="${c.id}" style="margin-top:6px">Detail vozu</a></div></div>`;}
@@ -417,16 +424,14 @@ function priceLines(c){const day=c.day;const week=Math.round(c.day*5.45/10)*10;
   const base=c.mo;if(!base)return {big:'na dotaz',per:'',stats:[['Měsíční cena','na dotaz'],['',' ']]};
   const mo=base-Math.round(base*DISC(S.months)/100);
   return {big:fmt(mo),per:'/ měsíc',stats:[['Celkem za '+S.months+' měs',fmt(mo*S.months)+' Kč'],['Za den',fmt(day)+' Kč']]};}
-function homeCardHTML(c){const pl=priceLines(c);const tr=/automat/i.test(c.n)?'Automat':'Manuál';const md=c.min===1?'1 den':(c.min<5?c.min+' dny':c.min+' dní');return `<div class="vcard">
+function homeCardHTML(c){const pl=priceLines(c);const tr=/automat/i.test(c.n)?'Automat':'Manuál';const md=c.min===1?'1 den':(c.min<5?c.min+' dny':c.min+' dní');const un=(S.scale==='short'&&S.days<c.min);const dtxt=S.days+' '+(S.days===1?'den':(S.days<5?'dny':'dní'));return `<div class="vcard${un?' dim':''}">
   <div class="ph" style="background-image:url('${c.ph}')"></div>
   <div class="b"><h3>${carName(c)}</h3>
-  <div class="tags"><span class="tag">⚙️ ${tr}</span><span class="tag">⛽ ${c.fuel}</span><span class="tag">👥 ${c.seats} míst</span><span class="tag">📅 min. ${md}</span>${c.eu?'<span class="tag eu">🇪🇺 výjezd EU</span>':'<span class="tag cr">🇨🇿 jen ČR</span>'}</div>
+  <div class="tags"><span class="tag">⚙️ ${tr}</span><span class="tag">⛽ ${c.fuel}</span><span class="tag">👥 ${c.seats}</span>${c.eu?'<span class="tag eu">EU</span>':'<span class="tag cr">jen ČR</span>'}</div>
   <div class="price">${pl.big}${pl.big==='na dotaz'?'':' Kč'}<small> ${pl.per}</small></div>
   <div class="pricerow">${pl.stats.map(s=>`<span>${s[0]}<b>${s[1]}</b></span>`).join('')}</div>
-  <div style="display:flex;gap:8px;margin-top:8px">
-    <a class="btn pick" data-pick="${c.id}" style="flex:1;justify-content:center">Vybrat vůz →</a>
-    <a class="btn ghost" data-car="${c.id}">Detail</a>
-  </div></div></div>`;}
+  ${un?`<div class="unavail">Min. pronájem ${md} — na ${dtxt} nedostupné</div><a class="btn ghost block" data-car="${c.id}" style="margin-top:8px">Detail vozu</a>`:`<div style="display:flex;gap:8px;margin-top:8px"><a class="btn pick" data-pick="${c.id}" style="flex:1;justify-content:center">Vybrat vůz →</a><a class="btn ghost" data-car="${c.id}">Detail</a></div>`}
+  </div></div>`;}
 function homeList(){let l=[...CARS];const isAuto=c=>/automat/i.test(c.n);if(S.vozyTrans==='auto')l=l.filter(isAuto);if(S.vozyTrans==='man')l=l.filter(c=>!isAuto(c));if(S.vozySort==='desc')l.sort((a,b)=>(b.mo||0)-(a.mo||0));else if(S.vozySort==='cat'){const o={'Město':0,'Střední':1,'Prémium':2,'Skupina':3};l.sort((a,b)=>o[a.cat]-o[b.cat]||(a.mo||9e9)-(b.mo||9e9));}else l.sort((a,b)=>(a.mo||9e9)-(b.mo||9e9));return l;}
 function paintHome(){const g=document.getElementById('homeCars');if(!g)return;
   g.innerHTML=homeList().map(homeCardHTML).join('');
@@ -437,6 +442,7 @@ function paintHome(){const g=document.getElementById('homeCars');if(!g)return;
   const ks=document.getElementById('qkmDayWrap');if(ks)ks.style.display=S.scale==='short'?'':'none';
   const kdv=document.getElementById('qkmdayval');if(kdv)kdv.textContent=S.kmDay;
   const mv=document.getElementById('qmval');if(mv)mv.textContent=S.months;
+  const qd=document.getElementById('qdisc');if(qd){var t=S.months>=12?12:S.months>=6?6:S.months>=3?3:1;qd.querySelectorAll('.qlad').forEach(function(el){el.classList.toggle('on',+el.dataset.t===t);});}
   const kv=document.getElementById('qkmval');if(kv)kv.textContent=fmt(S.km);
   const kh=document.getElementById('qkmhint');if(kh)kh.textContent='V ceně '+(isCourier()?'6 500':'4 500')+' km/měs';
   const hc=document.getElementById('homeCount');if(hc)hc.textContent='Zobrazeno '+homeList().length+' z 13 vozů';}
@@ -466,6 +472,12 @@ home:()=>`
     <div id="qmonthsWrap" style="${S.scale==='short'?'display:none':''};margin-top:10px">
       <input type="range" min="1" max="24" value="${S.months}" id="qmonths" style="width:100%">
       <div style="display:flex;justify-content:space-between;font-size:13px"><span class="muted">Délka pronájmu</span><span><b id="qmval">${S.months}</b> měsíců</span></div>
+      <div id="qdisc" class="qladder">
+        <div class="qlad" data-t="1"><span>1 měs</span><b>základ</b></div>
+        <div class="qlad" data-t="3"><span>3 měs</span><b>−6 %</b></div>
+        <div class="qlad" data-t="6"><span>6 měs</span><b>−16 %</b></div>
+        <div class="qlad" data-t="12"><span>12 měs</span><b>−24 %</b></div>
+      </div>
     </div>
     <div id="qdaysWrap" style="${S.scale==='short'?'':'display:none'};margin-top:10px">
       <input type="range" min="1" max="30" value="${S.days}" id="qdays" style="width:100%">
@@ -519,8 +531,18 @@ home:()=>`
   <div class="step-row" style="grid-template-columns:repeat(3,1fr);text-align:center">
     ${[['Spočítáte cenu','Konfigurátor okamžitě ukáže fér cenu podle vozu, doby a nájezdu. Při 6 měsících ušetříte 16 %, při 12 měsících 24 %.'],
        ['Domluvíte rezervaci','Pošlete poptávku a my vám e-mailem potvrdíme dostupnost vozu i rezervaci. Vůz pro vás držíme 24 hodin — žádný stres.'],
-       ['Vyzvednete na Čakovicích','Provozovna Cukrovarská 991. Předání trvá 20 minut: instruktáž, společné foto stavu vozu, klíče. Přistavení/vyzvednutí po Praze od 500 Kč, mimo Prahu od 25 Kč/km — u paketu od 30 dnů po Praze zdarma.']
+       ['Vyzvednete na Čakovicích','Provozovna Cukrovarská 991. Předání trvá 20 minut: instruktáž, společné foto stavu vozu, klíče. Nebo vám vůz přivezeme — ceny viz níže.']
       ].map((s,i)=>`<div class="fcard"><div class="snum">${i+1}</div><h3>${s[0]}</h3><p>${s[1]}</p></div>`).join('')}
+  </div>
+</div></section>
+
+<section class="sec"><div class="wrap center">
+  <div class="eyebrow">Přivezeme i vyzvedneme</div>
+  <h2 style="font-size:28px;margin:8px 0 18px">Přistavení a vyzvednutí vozu</h2>
+  <div class="grid3">
+    <div class="fcard"><div class="ic">🏙️</div><h3>Po Praze</h3><p>Do 20 km <b>500 Kč</b>, nad 20 km <b>700 Kč</b> (jednosměrně).</p></div>
+    <div class="fcard"><div class="ic">🛣️</div><h3>Mimo Prahu</h3><p><b>Od 25 Kč/km</b> jednosměrně podle vzdálenosti.</p></div>
+    <div class="fcard"><div class="ic">🎁</div><h3>Pronájem od 30 dnů</h3><p>Přistavení i vyzvednutí po Praze <b>zdarma</b>.</p></div>
   </div>
 </div></section>
 
@@ -921,6 +943,11 @@ poptavka:()=>`<section class="sec"><div class="wrap">
     <div style="margin-bottom:18px">
       <h3 style="font-size:15px;margin-bottom:10px">Doplňky k pronájmu (nad rámec)</h3>
       <div id="extrasP">${EXTRAS.filter(e=>!e.only||e.only.includes(S.car)).map(e=>`<div class="extra ${S.extras.has(e.id)?'sel':''}" data-extra="${e.id}"><span class="ck">✓</span><span>${e.label}</span><span class="pr">${e.price}</span></div>`).join('')}</div>
+      <div id="deliverBox" style="${S.extras.has('deliver')?'':'display:none'};margin-top:10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px">
+        <label>Adresa přistavení a vrácení vozu</label>
+        <input type="text" placeholder="Ulice a číslo, město">
+        <p class="muted" style="font-size:12.5px;margin-top:8px">Cena za přistavení i vyzvednutí (každý směr zvlášť): po Praze do 20 km <b>500 Kč</b>, nad 20 km <b>700 Kč</b> · mimo Prahu <b>od 25 Kč/km</b> · u pronájmu od 30 dnů po Praze <b>zdarma</b>. Přesnou částku potvrdíme podle zadané adresy.</p>
+      </div>
     </div>
     <div class="frm">
       <div class="fg">
@@ -1006,6 +1033,7 @@ function go(route){
   document.getElementById('mobnav').style.display='none';
   if(route==='cfg')paintCfg();
   if(route==='poptavka')paintSummary();
+  if(route==='home')paintHome();
   var _mc=document.querySelector('.mcta');if(_mc)_mc.style.display=['home','cfg','poptavka','potvrzeni'].includes(route)?'none':'';
   window.scrollTo({top:0,behavior:'instant'in window?'instant':'auto'});
 }
@@ -1019,7 +1047,7 @@ document.addEventListener('click',e=>{
   const sc=e.target.closest('#scale button,#qscale button');if(sc){S.scale=sc.dataset.s;document.querySelectorAll('#scale button,#qscale button').forEach(b=>b.classList.toggle('on',b.dataset.s===S.scale));paintCfg();paintHome();return;}
   const ct=e.target.closest('#custType button');if(ct){document.querySelectorAll('#custType button').forEach(b=>b.classList.toggle('on',b===ct));const ff=ct.dataset.ct==='firma';const f1=document.getElementById('fFirma1'),f2=document.getElementById('fFirma2');if(f1)f1.style.display=ff?'':'none';if(f2)f2.style.display=ff?'':'none';return;}
   const rc=e.target.closest('[data-reco]');if(rc){S.car=rc.dataset.reco;paintCfg();return;}
-  const ex=e.target.closest('[data-extra]');if(ex&&!ex.classList.contains('dis')){const id=ex.dataset.extra;S.extras.has(id)?S.extras.delete(id):S.extras.add(id);ex.classList.toggle('sel');paintCfg();if(document.getElementById('extrasP'))paintSummary();return;}
+  const ex=e.target.closest('[data-extra]');if(ex&&!ex.classList.contains('dis')){const id=ex.dataset.extra;S.extras.has(id)?S.extras.delete(id):S.extras.add(id);ex.classList.toggle('sel');var db=document.getElementById('deliverBox');if(db&&id==='deliver')db.style.display=S.extras.has('deliver')?'':'none';paintCfg();if(document.getElementById('extrasP'))paintSummary();return;}
 });
 document.addEventListener('input',e=>{
   if(e.target.id==='months'){S.months=+e.target.value;document.getElementById('mval').textContent=S.months;paintCfg();}
