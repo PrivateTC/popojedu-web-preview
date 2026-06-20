@@ -250,6 +250,19 @@ body.notes .annot{display:block}
 .vcard.dim{opacity:.5}
 .vcard.dim:hover{transform:none;box-shadow:var(--shadow)}
 .unavail{margin-top:8px;background:#fdeef0;color:#b33449;border:1px solid #f3c9d0;border-radius:10px;padding:9px 11px;font-size:12px;font-weight:600;text-align:center}
+/* ====== ČISTÁ KARTA VOZU ====== */
+.vcard .ph{position:relative}
+.vbadge{position:absolute;top:10px;left:10px;background:rgba(10,31,63,.78);color:#fff;font-size:11px;font-weight:700;letter-spacing:.02em;border-radius:999px;padding:4px 11px;backdrop-filter:blur(2px)}
+.vcard .b{padding:16px 16px 18px;gap:5px}
+.vcard .b h3{font-size:16.5px;line-height:1.2}
+.vmeta{color:var(--muted);font-size:13px;font-weight:600;margin-bottom:4px}
+.vprice{margin-top:auto}
+.vbig{font-size:23px;font-weight:800;letter-spacing:-.02em;color:var(--navy);line-height:1.1}
+.vbig small{font-size:13px;font-weight:600;color:var(--muted);margin-left:2px}
+.vsub{color:var(--muted);font-size:12px;margin-top:3px;line-height:1.4}
+.vcard .b .btn.pick{margin-top:12px}
+.vdetail{display:block;text-align:center;margin-top:9px;font-size:13px;color:var(--green-d);font-weight:600;cursor:pointer;text-decoration:none}
+.vdetail:hover{text-decoration:underline}
 
 /* ====== GRAFICKÝ POLISH (jen vzhled, nemění obsah ani funkce) ====== */
 html{scroll-behavior:smooth}
@@ -365,25 +378,33 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 /* ============ DATA ============ */
 const PH={
   citigo:"https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-citigo-g-tec-cng-1-700x466.jpg",
-  octavia:"https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-octavia-III-1-700x466.jpg",
+  oct3cng:"https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-octavia-III-2-700x466.jpg",
+  oct3tdi:"https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-octavia-III-1-700x466.jpg",
   fabia:"https://www.popojedu.cz/wp-content/uploads/2019/10/skoda-fabia-10-tsi-dsg-1-1-700x466.jpg",
-  combi:"https://www.popojedu.cz/wp-content/uploads/2018/09/DSC_0682a-scaled-800x552.jpg",
-  superb:"https://www.popojedu.cz/wp-content/uploads/2019/10/2019-skoda-superb-facelift-23-700x466.jpg"
+  scala:"https://www.popojedu.cz/wp-content/uploads/2018/09/DSC_0347-scaled-e1687360813780-700x466.jpg",
+  oct4a:"https://www.popojedu.cz/wp-content/uploads/2018/09/DSC_0682P-700x466.jpg",
+  oct4s:"https://www.popojedu.cz/wp-content/uploads/2018/09/DSC_0682a-700x466.jpg",
+  sup3lb:"https://www.popojedu.cz/wp-content/uploads/2019/10/2019-skoda-superb-facelift-23-700x466.jpg",
+  sup3co:"https://www.popojedu.cz/wp-content/uploads/2019/10/skoda-superb-combi-lk-20-tdi-dsg-1-700x466.jpg",
+  sup4:"https://www.popojedu.cz/wp-content/uploads/2018/09/DSC_0693-800x552.jpg",
+  star7:"https://www.popojedu.cz/wp-content/uploads/2024/11/DSC_0255m1-800x552.jpg",
+  star9:"https://www.popojedu.cz/wp-content/uploads/2024/11/DSC_0258m1-800x552.jpg",
+  merc:"https://www.popojedu.cz/wp-content/uploads/2018/09/IMG_2206-clean-look-700x466.png"
 };
 const CARS=[
  {id:'citigo',n:'Škoda Citigo G-tec Active (CNG), manuál',short:'Citigo',day:550,mo:7990,min:7,eu:false,seats:4,fuel:'CNG',body:'Hatchback',cat:'Město',ph:PH.citigo,desc:'Nejlevnější auto na provoz v celé flotile — CNG je zhruba třetinová cena oproti benzinu. Malé rozměry usnadní parkování.'},
- {id:'oct3cng',n:'Škoda Octávia III G-tec liftback (CNG), manuál',short:'Octávia III CNG',day:700,mo:8990,min:5,eu:false,seats:5,fuel:'CNG',body:'Liftback',cat:'Střední',ph:PH.octavia,desc:'Prostorná Octávia na CNG — nízké náklady na kilometr a velký kufr. Ideální na nájezdy po městě i mimo.'},
+ {id:'oct3cng',n:'Škoda Octávia III G-tec liftback (CNG), manuál',short:'Octávia III CNG',day:700,mo:8990,min:5,eu:false,seats:5,fuel:'CNG',body:'Liftback',cat:'Střední',ph:PH.oct3cng,desc:'Prostorná Octávia na CNG — nízké náklady na kilometr a velký kufr. Ideální na nájezdy po městě i mimo.'},
  {id:'fabia',n:'Škoda Fabia III Ambition TSi DSG, automat',short:'Fabia III',day:650,mo:9490,min:5,eu:true,seats:5,fuel:'benzín',body:'Hatchback',cat:'Město',ph:PH.fabia,desc:'Svižný a úsporný městský automat. Skvělá volba na dovolenou, víkend i kratší pracovní cesty.'},
- {id:'oct3tdi',n:'Škoda Octávia III TDi liftback, manuál',short:'Octávia III TDi',day:800,mo:9490,min:5,eu:false,seats:5,fuel:'diesel',body:'Liftback',cat:'Střední',ph:PH.octavia,desc:'Spolehlivá diesel Octávia s velkým prostorem — ekonomická na dálnici i při vyšších nájezdech.'},
- {id:'scala',n:'Škoda Scala Top Selection TSi DSG, automat',short:'Scala',day:800,mo:10490,min:3,eu:true,seats:5,fuel:'benzín',body:'Hatchback',cat:'Střední',ph:PH.fabia,desc:'Moderní kompakt v top výbavě s automatem. Příjemná na řízení, dobře vybavená.'},
- {id:'oct4a',n:'Škoda Octávia IV combi Ambition TDi, manuál',short:'Octávia IV combi',day:1000,mo:10990,min:3,eu:true,seats:5,fuel:'diesel',body:'Combi',cat:'Střední',ph:PH.combi,desc:'Nejnovější generace Octávie jako kombi — obří kufr, úsporný diesel. Tahoun na dlouhé cesty.'},
- {id:'oct4s',n:'Škoda Octávia IV combi Style TDi DSG, automat',short:'Octávia IV combi Style',day:1100,mo:11990,min:3,eu:true,seats:5,fuel:'diesel',body:'Combi',cat:'Střední',ph:PH.combi,desc:'Octávia IV combi v top výbavě Style s automatem — komfort, prostor a nízká spotřeba.'},
- {id:'sup3lb',n:'Škoda Superb III L&K TDi, liftback, automat',short:'Superb III',day:1100,mo:12990,min:1,eu:true,seats:5,fuel:'diesel',body:'Liftback',cat:'Prémium',ph:PH.superb,desc:'Vlajková loď Škody ve výbavě Laurin & Klement. Maximum komfortu za rozumnou cenu — i na jeden den.'},
- {id:'sup3co',n:'Škoda Superb III L&K TDi, combi, automat',short:'Superb III combi',day:1200,mo:13990,min:1,eu:true,seats:5,fuel:'diesel',body:'Combi',cat:'Prémium',ph:PH.superb,desc:'Superb L&K jako kombi — obrovský prostor a reprezentativní vzhled. Pro rodiny i firmy.'},
- {id:'sup4',n:'Škoda Superb IV L&K TDi, liftback, automat',short:'Superb IV',day:1300,mo:14990,min:1,eu:true,seats:5,fuel:'diesel',body:'Liftback',cat:'Prémium',ph:PH.superb,desc:'Nejnovější generace Superbu v top výbavě L&K — masážní sedadla, panorama, ekonomický diesel.'},
- {id:'star7',n:'Hyundai Staria Luxury CDi, 6+1, automat',short:'Staria 7 míst',day:1900,mo:24990,min:30,eu:true,seats:7,fuel:'diesel',body:'Van',cat:'Skupina',ph:PH.combi,desc:'Futuristická Staria v luxusní výbavě, 7 míst včetně řidiče. Pohodlí pro skupinové i rodinné cesty.'},
- {id:'star9',n:'Hyundai Staria Style Premium CDi, 8+1, automat',short:'Staria 9 míst',day:1950,mo:25990,min:30,eu:true,seats:9,fuel:'diesel',body:'Van',cat:'Skupina',ph:PH.combi,desc:'Staria pro 9 osob — ideální na výlety větší skupiny, transfery a skupinovou přepravu.'},
- {id:'merc',n:'Mercedes-Benz S350 d 4MATIC L, automat',short:'Mercedes S',day:2500,mo:null,min:30,eu:true,seats:5,fuel:'diesel',body:'Limuzína',cat:'Prémium',ph:PH.superb,desc:'Reprezentativní limuzína pro ten nejnáročnější den D, svatbu či důležitou schůzku. Měsíční ceny na dotaz.'}
+ {id:'oct3tdi',n:'Škoda Octávia III TDi liftback, manuál',short:'Octávia III TDi',day:800,mo:9490,min:5,eu:false,seats:5,fuel:'diesel',body:'Liftback',cat:'Střední',ph:PH.oct3tdi,desc:'Spolehlivá diesel Octávia s velkým prostorem — ekonomická na dálnici i při vyšších nájezdech.'},
+ {id:'scala',n:'Škoda Scala Top Selection TSi DSG, automat',short:'Scala',day:800,mo:10490,min:3,eu:true,seats:5,fuel:'benzín',body:'Hatchback',cat:'Střední',ph:PH.scala,desc:'Moderní kompakt v top výbavě s automatem. Příjemná na řízení, dobře vybavená.'},
+ {id:'oct4a',n:'Škoda Octávia IV combi Ambition TDi, manuál',short:'Octávia IV combi',day:1000,mo:10990,min:3,eu:true,seats:5,fuel:'diesel',body:'Combi',cat:'Střední',ph:PH.oct4a,desc:'Nejnovější generace Octávie jako kombi — obří kufr, úsporný diesel. Tahoun na dlouhé cesty.'},
+ {id:'oct4s',n:'Škoda Octávia IV combi Style TDi DSG, automat',short:'Octávia IV combi Style',day:1100,mo:11990,min:3,eu:true,seats:5,fuel:'diesel',body:'Combi',cat:'Střední',ph:PH.oct4s,desc:'Octávia IV combi v top výbavě Style s automatem — komfort, prostor a nízká spotřeba.'},
+ {id:'sup3lb',n:'Škoda Superb III L&K TDi, liftback, automat',short:'Superb III',day:1100,mo:12990,min:1,eu:true,seats:5,fuel:'diesel',body:'Liftback',cat:'Prémium',ph:PH.sup3lb,desc:'Vlajková loď Škody ve výbavě Laurin & Klement. Maximum komfortu za rozumnou cenu — i na jeden den.'},
+ {id:'sup3co',n:'Škoda Superb III L&K TDi, combi, automat',short:'Superb III combi',day:1200,mo:13990,min:1,eu:true,seats:5,fuel:'diesel',body:'Combi',cat:'Prémium',ph:PH.sup3co,desc:'Superb L&K jako kombi — obrovský prostor a reprezentativní vzhled. Pro rodiny i firmy.'},
+ {id:'sup4',n:'Škoda Superb IV L&K TDi, liftback, automat',short:'Superb IV',day:1300,mo:14990,min:1,eu:true,seats:5,fuel:'diesel',body:'Liftback',cat:'Prémium',ph:PH.sup4,desc:'Nejnovější generace Superbu v top výbavě L&K — masážní sedadla, panorama, ekonomický diesel.'},
+ {id:'star7',n:'Hyundai Staria Luxury CDi, 6+1, automat',short:'Staria 7 míst',day:1900,mo:24990,min:30,eu:true,seats:7,fuel:'diesel',body:'Van',cat:'Skupina',ph:PH.star7,desc:'Futuristická Staria v luxusní výbavě, 7 míst včetně řidiče. Pohodlí pro skupinové i rodinné cesty.'},
+ {id:'star9',n:'Hyundai Staria Style Premium CDi, 8+1, automat',short:'Staria 9 míst',day:1950,mo:25990,min:30,eu:true,seats:9,fuel:'diesel',body:'Van',cat:'Skupina',ph:PH.star9,desc:'Staria pro 9 osob — ideální na výlety větší skupiny, transfery a skupinovou přepravu.'},
+ {id:'merc',n:'Mercedes-Benz S350 d 4MATIC L, automat',short:'Mercedes S',day:2500,mo:null,min:30,eu:true,seats:5,fuel:'diesel',body:'Limuzína',cat:'Prémium',ph:PH.merc,desc:'Reprezentativní limuzína pro ten nejnáročnější den D, svatbu či důležitou schůzku. Měsíční ceny na dotaz.'}
 ];
 const FAQ=[
  ['Na jak dlouho si můžu vůz půjčit?','Den, týden i celé měsíce. U dlouhodobých paketů (3, 6 a 12 měsíců) máte nejvýhodnější měsíční sazbu.'],
@@ -412,12 +433,11 @@ const isCourier=()=>S.purpose==='taxi'||S.purpose==='kuryr';
 
 /* ============ TEMPLATES ============ */
 function vcardHTML(c){const tr=/automat/i.test(c.n)?'Automat':'Manuál';const md=c.min===1?'1 den':(c.min<5?c.min+' dny':c.min+' dní');return `<div class="vcard" data-car="${c.id}">
-  <div class="ph" style="background-image:url('${c.ph}')"></div>
+  <div class="ph" style="background-image:url('${c.ph}')"><span class="vbadge">${c.cat}</span></div>
   <div class="b"><h3>${carName(c)}</h3>
-  <div class="tags"><span class="tag">⚙️ ${tr}</span><span class="tag">⛽ ${c.fuel}</span><span class="tag">👥 ${c.seats}</span><span class="tag">📅 min. ${md}</span>${c.eu?'<span class="tag eu">EU</span>':'<span class="tag cr">jen ČR</span>'}</div>
-  <div class="price">${c.mo?fmt(c.mo)+' Kč':'na dotaz'}<small>${c.mo?' /měs':''}</small></div>
-  <div class="spec">${fmt(c.day)} Kč/den</div>
-  <a class="btn ghost" data-car="${c.id}" style="margin-top:6px">Detail vozu</a></div></div>`;}
+  <div class="vmeta">${tr} · ${c.fuel} · ${c.seats} míst · ${c.eu?'EU':'jen ČR'}</div>
+  <div class="vprice"><div class="vbig">${c.mo?fmt(c.mo)+' Kč':'na dotaz'}<small>${c.mo?'/měs':''}</small></div><div class="vsub">${fmt(c.day)} Kč/den · min. ${md}</div></div>
+  <a class="btn ghost block" data-car="${c.id}" style="margin-top:12px">Detail vozu</a></div></div>`;}
 function priceLines(c){const day=c.day;const week=Math.round(c.day*5.45/10)*10;
   if(isCourier())return {big:fmt(week),per:'/ týden',stats:[['Za den',fmt(day)+' Kč'],['V ceně','6 500 km/měs']]};
   if(S.scale==='short')return {big:fmt(day),per:'/ den',stats:[['Za '+S.days+' dní',fmt(day*S.days)+' Kč'],['V ceně','50 km/den']]};
@@ -425,12 +445,11 @@ function priceLines(c){const day=c.day;const week=Math.round(c.day*5.45/10)*10;
   const mo=base-Math.round(base*DISC(S.months)/100);
   return {big:fmt(mo),per:'/ měsíc',stats:[['Celkem za '+S.months+' měs',fmt(mo*S.months)+' Kč'],['Za den',fmt(day)+' Kč']]};}
 function homeCardHTML(c){const pl=priceLines(c);const tr=/automat/i.test(c.n)?'Automat':'Manuál';const md=c.min===1?'1 den':(c.min<5?c.min+' dny':c.min+' dní');const un=(S.scale==='short'&&S.days<c.min);const dtxt=S.days+' '+(S.days===1?'den':(S.days<5?'dny':'dní'));return `<div class="vcard${un?' dim':''}">
-  <div class="ph" style="background-image:url('${c.ph}')"></div>
+  <div class="ph" style="background-image:url('${c.ph}')"><span class="vbadge">${c.cat}</span></div>
   <div class="b"><h3>${carName(c)}</h3>
-  <div class="tags"><span class="tag">⚙️ ${tr}</span><span class="tag">⛽ ${c.fuel}</span><span class="tag">👥 ${c.seats}</span>${c.eu?'<span class="tag eu">EU</span>':'<span class="tag cr">jen ČR</span>'}</div>
-  <div class="price">${pl.big}${pl.big==='na dotaz'?'':' Kč'}<small> ${pl.per}</small></div>
-  <div class="pricerow">${pl.stats.map(s=>`<span>${s[0]}<b>${s[1]}</b></span>`).join('')}</div>
-  ${un?`<div class="unavail">Min. pronájem ${md} — na ${dtxt} nedostupné</div><a class="btn ghost block" data-car="${c.id}" style="margin-top:8px">Detail vozu</a>`:`<div style="display:flex;gap:8px;margin-top:8px"><a class="btn pick" data-pick="${c.id}" style="flex:1;justify-content:center">Vybrat vůz →</a><a class="btn ghost" data-car="${c.id}">Detail</a></div>`}
+  <div class="vmeta">${tr} · ${c.fuel} · ${c.seats} míst · ${c.eu?'EU':'jen ČR'}</div>
+  <div class="vprice"><div class="vbig">${pl.big}${pl.big==='na dotaz'?'':' Kč'}<small>${pl.per}</small></div><div class="vsub">${pl.stats.map(s=>s[0]+' '+s[1]).join(' · ')}</div></div>
+  ${un?`<div class="unavail">Min. pronájem ${md} — na ${dtxt} nedostupné</div><a class="vdetail" data-car="${c.id}">Detail vozu →</a>`:`<a class="btn pick block" data-pick="${c.id}">Vybrat vůz →</a><a class="vdetail" data-car="${c.id}">Detail vozu</a>`}
   </div></div>`;}
 function homeList(){let l=[...CARS];const isAuto=c=>/automat/i.test(c.n);if(S.vozyTrans==='auto')l=l.filter(isAuto);if(S.vozyTrans==='man')l=l.filter(c=>!isAuto(c));if(S.vozySort==='desc')l.sort((a,b)=>(b.mo||0)-(a.mo||0));else if(S.vozySort==='cat'){const o={'Město':0,'Střední':1,'Prémium':2,'Skupina':3};l.sort((a,b)=>o[a.cat]-o[b.cat]||(a.mo||9e9)-(b.mo||9e9));}else l.sort((a,b)=>(a.mo||9e9)-(b.mo||9e9));return l;}
 function paintHome(){const g=document.getElementById('homeCars');if(!g)return;
