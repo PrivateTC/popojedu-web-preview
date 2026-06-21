@@ -969,12 +969,12 @@ cfg:()=>`<section class="sec"><div class="wrap">
         <p class="muted" style="font-size:12.5px;margin-top:8px">Jestli jste firma a kterou přepravní službu jezdíte (Bolt, Uber, Wolt, Foodora) upřesníte až v posledním kroku u kontaktu.</p>
       </div>
       <div class="step"><div class="top"><h3>Jak dlouho?</h3><span class="kc">KROK 2 / 5</span></div>
-        <div class="seg" id="scale"><button data-s="short">Krátkodobě (dny)</button><button data-s="long" class="on">Dlouhodobě (měsíce)</button></div>
-        <div id="durWrap"><input type="range" min="1" max="24" value="6" id="months">
-        <div style="display:flex;justify-content:space-between;margin-top:4px"><span class="muted" style="font-size:13px">Délka pronájmu</span><span class="rangeval"><span id="mval">6</span> měsíců</span></div></div></div>
+        <div class="seg" id="scale"><button data-s="short"${S.scale==='short'?' class="on"':''}>Krátkodobě (dny)</button><button data-s="long"${S.scale==='long'?' class="on"':''}>Dlouhodobě (měsíce)</button></div>
+        <div id="durWrap"><input type="range" min="1" max="24" value="${S.months}" id="months">
+        <div style="display:flex;justify-content:space-between;margin-top:4px"><span class="muted" style="font-size:13px">Délka pronájmu</span><span class="rangeval"><span id="mval">${S.months}</span> měsíců</span></div></div></div>
       <div class="step"><div class="top"><h3>Kolik km měsíčně?</h3><span class="kc">KROK 3 / 5</span></div>
-        <input type="range" min="500" max="10000" step="500" value="3500" id="km">
-        <div style="display:flex;justify-content:space-between;margin-top:4px"><span class="muted" style="font-size:13px" id="kmHint">V ceně paketu je 4 500 km/měs.</span><span class="rangeval"><span id="kmval">3 500</span> km</span></div></div>
+        <input type="range" min="500" max="10000" step="500" value="${S.km}" id="km">
+        <div style="display:flex;justify-content:space-between;margin-top:4px"><span class="muted" style="font-size:13px" id="kmHint">V ceně paketu je 4 500 km/měs.</span><span class="rangeval"><span id="kmval">${fmt(S.km)}</span> km</span></div></div>
       <div class="step"><div class="top"><h3>Doporučené vozy</h3><span class="kc">KROK 4 / 5</span></div><div class="reco" id="reco"></div>
         <div style="margin-top:10px"><a class="btn ghost" data-route="vozy" style="font-size:14px;padding:9px 14px">Zobrazit všech 13 vozů →</a></div></div>
       <div class="step"><div class="top"><h3>Přidat něco k pronájmu?</h3><span class="kc">KROK 5 / 5</span></div><div id="extras"></div>
@@ -1140,7 +1140,38 @@ document.getElementById('noteToggle').addEventListener('click',function(){docume
 document.getElementById('menuBtn').addEventListener('click',()=>{const m=document.getElementById('mobnav');m.style.display=m.style.display==='flex'?'none':'flex';});
 function closeCookie(){document.getElementById('cookie').style.display='none';}
 
-go('home');
+/* ====== LLM / AGENT-READY VRSTVA (strojová data, JSON-LD nabídky, deep-link) ====== */
+function injectMachineData(){
+  var base=location.origin+location.pathname;
+  var isAuto=function(c){return /automat/i.test(c.n);};
+  var ld={"@context":"https://schema.org","@type":"AutoRental","name":"Popojedu.cz","url":base,"telephone":"+420731683203","email":"info@popojedu.cz","areaServed":"Praha a okolí","priceRange":"550–25990 CZK","address":{"@type":"PostalAddress","streetAddress":"Cukrovarská 991","addressLocality":"Praha 9 — Čakovice","postalCode":"196 00","addressCountry":"CZ"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"18:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:00","closes":"13:00"}],"makesOffer":CARS.map(function(c){return {"@type":"Offer","priceCurrency":"CZK","price":c.day,"availability":"https://schema.org/InStock","url":base+"?vuz="+c.id+"&open=cfg","itemOffered":{"@type":"Car","name":carName(c),"vehicleConfiguration":c.cat,"fuelType":c.fuel,"vehicleTransmission":isAuto(c)?"Automatic":"Manual","seatingCapacity":c.seats}};})};
+  var faq={"@context":"https://schema.org","@type":"FAQPage","mainEntity":FAQ.map(function(q){return {"@type":"Question","name":q[0],"acceptedAnswer":{"@type":"Answer","text":q[1]}};})};
+  [ld,faq].forEach(function(o){var s=document.createElement('script');s.type='application/ld+json';s.textContent=JSON.stringify(o);document.head.appendChild(s);});
+  var data={provider:{name:"Popojedu.cz",phone:"+420731683203",email:"info@popojedu.cz",address:"Cukrovarská 991, Praha 9 — Čakovice",since:2017},currency:"CZK",
+    pricing_rules:{included_km_per_month:4500,included_km_per_month_courier:6500,included_km_per_day:50,over_limit_km_czk:[2.0,2.5],length_discount_pct:{"1":0,"3":6,"6":16,"12":24},extra_discounts:{pay_within_24h_pct:5,loyalty_pct:[5,8,12],full_tank_back_czk:500},deposit_czk:[10000,50000],reservation_deposit_pct:20,reservation_note:"u rezervací 30+ dní dopředu, započítá se do ceny",delivery_czk:{prague_to20km:500,prague_over20km:700,outside_per_km_from:25,free_from_days:30}},
+    price_formula:"Dlouhodobě: měsíční cena = price_month_czk − round(price_month_czk × length_discount_pct/100). Krátkodobě: celkem = price_day_czk × počet_dní (v ceně 50 km/den). Přepravní služba (ucel=taxi): týden ≈ round(price_day_czk×5.45/10)×10, paket 6500 km/měs.",
+    deeplink:{base:base,params:{vuz:"id vozu z fleet[]",rezim:"long|short",mesice:"1–24",dni:"1–30",km:"500–10000",kmden:"50–500",ucel:"sebe|taxi",open:"cfg|poptavka|detail|vozy"},example:base+"?vuz=fabia&rezim=long&mesice=6&km=3500&open=cfg"},
+    fleet:CARS.map(function(c){return {id:c.id,name:carName(c),category:c.cat,transmission:isAuto(c)?"automat":"manuál",fuel:c.fuel,seats:c.seats,eu_allowed:c.eu,min_days:c.min,price_day_czk:c.day,price_month_czk:c.mo,offer_url:base+"?vuz="+c.id+"&open=cfg"};})};
+  var sd=document.createElement('script');sd.type='application/json';sd.id='popojedu-data';sd.textContent=JSON.stringify(data,null,2);document.body.appendChild(sd);
+}
+injectMachineData();
+
+/* deep-link: ?vuz=&rezim=&mesice=&dni=&km=&kmden=&ucel=&open= */
+var __start='home';
+try{var q=new URLSearchParams(location.search);var ids=CARS.map(function(c){return c.id;});
+  if(q.get('vuz')&&ids.indexOf(q.get('vuz'))>-1){S.car=q.get('vuz');S.detailCar=q.get('vuz');}
+  var rez=q.get('rezim');if(rez==='short'||rez==='long')S.scale=rez;
+  if(q.get('mesice')){S.scale='long';S.months=Math.min(24,Math.max(1,+q.get('mesice')||S.months));}
+  if(q.get('dni')){S.scale='short';S.days=Math.min(30,Math.max(1,+q.get('dni')||S.days));}
+  if(q.get('km'))S.km=Math.min(10000,Math.max(500,+q.get('km')||S.km));
+  if(q.get('kmden'))S.kmDay=Math.min(500,Math.max(50,+q.get('kmden')||S.kmDay));
+  var uc=q.get('ucel');if(uc==='taxi'||uc==='kuryr')S.purpose=uc;else if(uc==='sebe')S.purpose='sebe';
+  var R={cfg:1,poptavka:1,detail:1,vozy:1};var op=q.get('open');
+  var hasCfg=q.has('vuz')||q.has('mesice')||q.has('dni')||q.has('km')||q.has('kmden')||q.has('ucel');
+  __start=(op&&R[op])?op:(hasCfg?'cfg':'home');
+}catch(e){}
+
+go(__start);
 </script>
 
 <!-- ===== KOMENTOVACÍ VRSTVA (vanilla JS + localStorage, funguje z file://) ===== -->
