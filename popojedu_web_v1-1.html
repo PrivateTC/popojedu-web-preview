@@ -102,6 +102,11 @@ img{max-width:100%;display:block}
 .ptable th,.ptable td{padding:13px 16px;text-align:left;border-bottom:1px solid var(--line);font-size:14px}
 .ptable th{background:var(--navy);color:#fff;font-size:13px}
 .ptable td:last-child,.ptable td:nth-child(2),.ptable th:last-child,.ptable th:nth-child(2){text-align:right;font-weight:600}
+.fld.adm{padding:6px 10px;font-size:13px;background:#f7faf8;width:108px}
+.adm-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
+.adm-row:last-child{border:none}
+.adm-tog{display:inline-block;width:34px;height:18px;border-radius:999px;background:var(--green);position:relative;vertical-align:middle}
+.adm-tog::after{content:"";position:absolute;right:2px;top:2px;width:14px;height:14px;border-radius:50%;background:#fff}
 .discgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .disc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;text-align:center}
 .disc .pct{font-size:26px;font-weight:800;color:var(--green)}
@@ -146,6 +151,24 @@ img{max-width:100%;display:block}
 .seg{display:inline-flex;background:#f1f4f8;border-radius:999px;padding:4px;gap:4px;margin-bottom:12px}
 .seg button{border:none;background:transparent;border-radius:999px;padding:7px 14px;font:inherit;font-weight:600;font-size:13px;color:var(--muted);cursor:pointer}
 .seg button.on{background:var(--green);color:#fff;box-shadow:0 1px 4px rgba(0,200,83,.35)}
+.vatsw{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+.vatsw button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;font:inherit;font-weight:600;font-size:12.5px;color:var(--muted);cursor:pointer}
+.vatsw button.on{background:var(--green);color:#fff;border-color:var(--green)}
+.summary .sumprice{margin-top:14px;border-top:1px solid #cdeccd;padding-top:12px;display:flex;flex-direction:column;gap:7px}
+.summary .sp-main{display:flex;justify-content:space-between;align-items:baseline}
+.summary .sp-main b{font-size:23px;font-weight:800;letter-spacing:-.02em;color:var(--green-d)}
+.summary .sp-row{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.summary .sp-row.disc span:last-child{color:var(--green-d);font-weight:700}
+.gthumbs{display:flex;gap:8px;margin-top:10px;overflow-x:auto;padding-bottom:4px}
+.gthumb{flex:0 0 auto;width:86px;height:58px;border:2px solid var(--line);border-radius:10px;overflow:hidden;padding:0;cursor:pointer;background:none}
+.gthumb img{width:100%;height:100%;object-fit:cover;display:block}
+.gthumb.on{border-color:var(--green)}
+.kmpkg{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.kmpkg button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 11px;font:inherit;font-weight:600;font-size:12px;color:var(--muted);cursor:pointer}
+.kmpkg button.on{background:var(--green);color:#fff;border-color:var(--green)}
+.qod{margin-top:14px;background:var(--soft);border:1px solid #cdeccd;border-radius:14px;padding:12px 14px;text-align:center}
+.qod b{font-size:26px;color:var(--green-d);letter-spacing:-.02em}
+.dcalc .seg{display:flex}.dcalc .seg button{flex:1}
 input[type=range]{width:100%;accent-color:var(--green)}
 .rangeval{font-weight:800;font-size:17px}
 .reco{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
@@ -173,10 +196,10 @@ input[type=range]{width:100%;accent-color:var(--green)}
 .gow{font-size:12px;color:#9fb3cc;text-align:center;margin-top:10px}
 
 /* form */
-.summary{background:var(--navy);color:#fff;border:none;border-radius:18px;padding:20px 22px;margin-bottom:18px;box-shadow:0 16px 44px rgba(10,31,63,.2)}
-.summary h3{color:#fff}
-.summary .chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#fff}
-.summary .chip b{color:#9fb3cc}
+.summary{background:var(--soft);color:var(--navy);border:1px solid #cdeccd;border-radius:18px;padding:20px 22px;margin-bottom:18px}
+.summary h3{color:var(--navy)}
+.summary .chip{background:#fff;border:1px solid #cdeccd;color:var(--navy)}
+.summary .chip b{color:var(--muted)}
 .chips{display:flex;gap:10px;flex-wrap:wrap}
 .chip{background:#fff;border:1px solid #cdebd6;border-radius:10px;padding:8px 12px;font-size:13px}
 .chip b{display:block;color:var(--green-d);font-size:11px;text-transform:uppercase;letter-spacing:.05em}
@@ -390,7 +413,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
     </div>
     <div><h4>Pronájem</h4><a data-route="cfg">Konfigurátor</a><a data-route="vozy">Naše vozy</a><a data-route="cenik">Ceník</a><a data-route="vyzvednuti">Vyzvednutí vozu</a><a data-route="predani">Předání vozu</a></div>
     <div><h4>Pro koho</h4><a data-route="firmy">Pro firmy</a><a data-route="bolt">Pro Bolt a Uber</a><a data-route="kuryri">Pro kurýry</a><a data-route="jak">Jak to funguje</a><a data-route="blog">Blog</a><a data-route="faq">FAQ</a></div>
-    <div><h4>Účet a právní</h4><a data-route="kontakt">Kontakt</a><a data-route="ucet">Můj účet</a><a data-route="op">Obchodní podmínky</a><a data-route="gdpr">Ochrana osobních údajů</a></div>
+    <div><h4>Účet a právní</h4><a data-route="kontakt">Kontakt</a><a data-route="ucet">Můj účet</a><a data-route="op">Obchodní podmínky</a><a data-route="gdpr">Ochrana osobních údajů</a><a data-route="admin">⚙ Redakční systém (náhled)</a></div>
   </div>
   <div class="bottom">
     <span>© 2026 Popojedu.cz · Autopůjčovna od roku 2017 · spravuje MODRÝ ANDĚL s.r.o.</span>
@@ -415,7 +438,7 @@ const PH={
   oct3cng:"https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-octavia-III-2-700x466.jpg",
   oct3tdi:"https://www.popojedu.cz/wp-content/uploads/2019/12/skoda-octavia-III-1-700x466.jpg",
   fabia:"https://www.popojedu.cz/wp-content/uploads/2019/10/skoda-fabia-10-tsi-dsg-1-1-700x466.jpg",
-  scala:"https://www.popojedu.cz/wp-content/uploads/2018/09/DSC_0347-scaled-e1687360813780-700x466.jpg",
+  scala:"https://www.popojedu.cz/wp-content/uploads/2025/05/DSC_0691-scaled-800x600.jpg",
   oct4a:"https://www.popojedu.cz/wp-content/uploads/2018/09/DSC_0682P-700x466.jpg",
   oct4s:"https://www.popojedu.cz/wp-content/uploads/2018/09/DSC_0682a-700x466.jpg",
   sup3lb:"https://www.popojedu.cz/wp-content/uploads/2019/10/2019-skoda-superb-facelift-23-700x466.jpg",
@@ -425,25 +448,42 @@ const PH={
   star9:"https://www.popojedu.cz/wp-content/uploads/2024/11/DSC_0258m1-800x552.jpg",
   merc:"https://www.popojedu.cz/wp-content/uploads/2018/09/IMG_2206-clean-look-700x466.png"
 };
+/* Galerie fotek z produkce (detail vozu) — 800px varianty */
+const _U='https://www.popojedu.cz/wp-content/uploads/';
+const PHG={
+citigo:[_U+'2019/12/skoda-citigo-g-tec-cng-1-800x552.jpg',_U+'2019/12/skoda-citigo-g-tec-cng-2-800x552.jpg',_U+'2018/09/3-2-800x552.jpg'],
+oct3tdi:[_U+'2019/12/skoda-octavia-III-1-800x552.jpg',_U+'2019/12/skoda-octavia-III-3-800x552.jpg',_U+'2019/12/skoda-octavia-III-4-800x552.jpg',_U+'2019/12/skoda-octavia-III-5-800x552.jpg'],
+oct3cng:[_U+'2019/12/skoda-octavia-III-2-800x552.jpg',_U+'2019/12/skoda-octavia-III-3-800x552.jpg',_U+'2019/12/skoda-octavia-III-4-800x552.jpg',_U+'2019/12/skoda-octavia-III-5-800x552.jpg'],
+fabia:[_U+'2019/10/skoda-fabia-10-tsi-dsg-1-1-800x552.jpg',_U+'2019/10/skoda-fabia-10-tsi-dsg-2-1-800x552.jpg',_U+'2019/10/skoda-fabia-10-tsi-dsg-3-800x552.jpg',_U+'2019/10/skoda-fabia-10-tsi-dsg-4-800x552.jpg'],
+scala:[_U+'2025/05/DSC_0691-scaled-800x600.jpg',_U+'2025/05/DSC_0697-scaled-800x600.jpg',_U+'2025/05/DSC_0694-scaled-800x600.jpg',_U+'2025/05/DSC_0695-scaled-800x600.jpg'],
+oct4a:[_U+'2018/09/DSC_0682P-scaled-800x552.jpg',_U+'2018/09/DSC_0687P-scaled-800x552.jpg',_U+'2018/09/DSC_0864-scaled-800x552.jpg',_U+'2018/09/DSC_0866-scaled-800x552.jpg'],
+oct4s:[_U+'2018/09/DSC_0682a-scaled-800x552.jpg',_U+'2018/09/DSC_0684a-scaled-800x552.jpg',_U+'2018/09/DSC_0848-scaled-800x552.jpg',_U+'2018/09/DSC_0849-scaled-800x552.jpg'],
+sup3lb:[_U+'2019/10/2019-skoda-superb-facelift-23-800x600.jpg',_U+'2019/10/2019-skoda-superb-facelift-27-800x600.jpg',_U+'2019/10/2019-skoda-superb-facelift-29-800x600.jpg',_U+'2019/10/2019-skoda-superb-facelift-35-800x600.jpg'],
+sup3co:[_U+'2019/10/skoda-superb-combi-lk-20-tdi-dsg-1-800x600.jpg',_U+'2019/10/skoda-superb-combi-20-tdi-dsg-2-800x600.jpg',_U+'2019/10/2019-skoda-superb-facelift-29-800x600.jpg',_U+'2019/10/2019-skoda-superb-facelift-35-800x600.jpg'],
+sup4:[_U+'2018/09/DSC_0693-800x552.jpg',_U+'2018/09/DSC_0696-800x552.jpg',_U+'2018/09/DSC_0697-800x552.jpg',_U+'2018/09/DSC_0702-800x552.jpg',_U+'2018/09/DSC_0575-800x552.jpg'],
+merc:[_U+'2018/09/IMG_3440-clean-1-800x552.png',_U+'2018/09/IMG_3441-clean-2-800x552.png',_U+'2018/09/IMG_3442-clean-3-800x552.png',_U+'2018/09/IMG_3446-800x552.jpeg',_U+'2018/09/IMG_3449-800x552.jpeg'],
+star7:[_U+'2024/11/DSC_0255m1-800x552.jpg',_U+'2024/11/DSC_0258m1-800x552.jpg',_U+'2024/11/WhatsApp-Image-2024-11-13-at-16.18.47-1-800x552.jpeg',_U+'2024/11/WhatsApp-Image-2024-11-13-at-16.18.47-800x552.jpeg',_U+'2024/11/WhatsApp-Image-2024-11-13-at-16.18.48-800x552.jpeg'],
+star9:[_U+'2024/11/DSC_0258m1-800x552.jpg',_U+'2024/11/DSC_0255m1-800x552.jpg',_U+'2024/11/WhatsApp-Image-2024-11-13-at-16.18.47-1-800x552.jpeg',_U+'2024/11/WhatsApp-Image-2024-11-13-at-16.18.48-800x552.jpeg']
+};
 const CARS=[
- {id:'citigo',n:'Škoda Citigo G-tec Active (CNG), manuál',short:'Citigo',day:550,mo:7990,min:7,eu:false,seats:4,fuel:'CNG',body:'Hatchback',cat:'Město',ph:PH.citigo,desc:'Nejlevnější auto na provoz v celé flotile — CNG je zhruba třetinová cena oproti benzinu. Malé rozměry usnadní parkování.'},
- {id:'oct3cng',n:'Škoda Octávia III G-tec liftback (CNG), manuál',short:'Octávia III CNG',day:700,mo:8990,min:5,eu:false,seats:5,fuel:'CNG',body:'Liftback',cat:'Střední',ph:PH.oct3cng,desc:'Prostorná Octávia na CNG — nízké náklady na kilometr a velký kufr. Ideální na nájezdy po městě i mimo.'},
- {id:'fabia',n:'Škoda Fabia III Ambition TSi DSG, automat',short:'Fabia III',day:650,mo:9490,min:5,eu:true,seats:5,fuel:'benzín',body:'Hatchback',cat:'Město',ph:PH.fabia,desc:'Svižný a úsporný městský automat. Skvělá volba na dovolenou, víkend i kratší pracovní cesty.'},
- {id:'oct3tdi',n:'Škoda Octávia III TDi liftback, manuál',short:'Octávia III TDi',day:800,mo:9490,min:5,eu:false,seats:5,fuel:'diesel',body:'Liftback',cat:'Střední',ph:PH.oct3tdi,desc:'Spolehlivá diesel Octávia s velkým prostorem — ekonomická na dálnici i při vyšších nájezdech.'},
- {id:'scala',n:'Škoda Scala Top Selection TSi DSG, automat',short:'Scala',day:800,mo:10490,min:3,eu:true,seats:5,fuel:'benzín',body:'Hatchback',cat:'Střední',ph:PH.scala,desc:'Moderní kompakt v top výbavě s automatem. Příjemná na řízení, dobře vybavená.'},
- {id:'oct4a',n:'Škoda Octávia IV combi Ambition TDi, manuál',short:'Octávia IV combi',day:1000,mo:10990,min:3,eu:true,seats:5,fuel:'diesel',body:'Combi',cat:'Střední',ph:PH.oct4a,desc:'Nejnovější generace Octávie jako kombi — obří kufr, úsporný diesel. Tahoun na dlouhé cesty.'},
- {id:'oct4s',n:'Škoda Octávia IV combi Style TDi DSG, automat',short:'Octávia IV combi Style',day:1100,mo:11990,min:3,eu:true,seats:5,fuel:'diesel',body:'Combi',cat:'Střední',ph:PH.oct4s,desc:'Octávia IV combi v top výbavě Style s automatem — komfort, prostor a nízká spotřeba.'},
- {id:'sup3lb',n:'Škoda Superb III L&K TDi, liftback, automat',short:'Superb III',day:1100,mo:12990,min:1,eu:true,seats:5,fuel:'diesel',body:'Liftback',cat:'Prémium',ph:PH.sup3lb,desc:'Vlajková loď Škody ve výbavě Laurin & Klement. Maximum komfortu za rozumnou cenu — i na jeden den.'},
- {id:'sup3co',n:'Škoda Superb III L&K TDi, combi, automat',short:'Superb III combi',day:1200,mo:13990,min:1,eu:true,seats:5,fuel:'diesel',body:'Combi',cat:'Prémium',ph:PH.sup3co,desc:'Superb L&K jako kombi — obrovský prostor a reprezentativní vzhled. Pro rodiny i firmy.'},
- {id:'sup4',n:'Škoda Superb IV L&K TDi, liftback, automat',short:'Superb IV',day:1300,mo:14990,min:1,eu:true,seats:5,fuel:'diesel',body:'Liftback',cat:'Prémium',ph:PH.sup4,desc:'Nejnovější generace Superbu v top výbavě L&K — masážní sedadla, panorama, ekonomický diesel.'},
- {id:'star7',n:'Hyundai Staria Luxury CDi, 6+1, automat',short:'Staria 7 míst',day:1900,mo:24990,min:30,eu:true,seats:7,fuel:'diesel',body:'Van',cat:'Skupina',ph:PH.star7,desc:'Futuristická Staria v luxusní výbavě, 7 míst včetně řidiče. Pohodlí pro skupinové i rodinné cesty.'},
- {id:'star9',n:'Hyundai Staria Style Premium CDi, 8+1, automat',short:'Staria 9 míst',day:1950,mo:25990,min:30,eu:true,seats:9,fuel:'diesel',body:'Van',cat:'Skupina',ph:PH.star9,desc:'Staria pro 9 osob — ideální na výlety větší skupiny, transfery a skupinovou přepravu.'},
- {id:'merc',n:'Mercedes-Benz S350 d 4MATIC L, automat',short:'Mercedes S',day:2500,mo:null,min:30,eu:true,seats:5,fuel:'diesel',body:'Limuzína',cat:'Prémium',ph:PH.merc,desc:'Reprezentativní limuzína pro ten nejnáročnější den D, svatbu či důležitou schůzku. Měsíční ceny na dotaz.'}
+ {id:'citigo',n:'Škoda Citigo G-tec Active (CNG), manuál',short:'Citigo',day:413,mo:6324,min:7,eu:false,seats:4,fuel:'CNG',body:'Hatchback',cat:'Město',ph:PH.citigo,desc:'Nejlevnější auto na provoz v celé flotile — CNG je zhruba třetinová cena oproti benzinu. Malé rozměry usnadní parkování.'},
+ {id:'oct3cng',n:'Škoda Octávia III G-tec liftback (CNG), manuál',short:'Octávia III CNG',day:479,mo:8740,min:5,eu:false,seats:5,fuel:'CNG',body:'Liftback',cat:'Střední',ph:PH.oct3cng,desc:'Prostorná Octávia na CNG — nízké náklady na kilometr a velký kufr. Ideální na nájezdy po městě i mimo.'},
+ {id:'fabia',n:'Škoda Fabia III Ambition TSi DSG, automat',short:'Fabia III',day:500,mo:8990,min:5,eu:true,seats:5,fuel:'benzín',body:'Hatchback',cat:'Město',ph:PH.fabia,desc:'Svižný a úsporný městský automat. Skvělá volba na dovolenou, víkend i kratší pracovní cesty.'},
+ {id:'oct3tdi',n:'Škoda Octávia III TDi liftback, manuál',short:'Octávia III TDi',day:469,mo:8500,min:5,eu:false,seats:5,fuel:'diesel',body:'Liftback',cat:'Střední',ph:PH.oct3tdi,desc:'Spolehlivá diesel Octávia s velkým prostorem — ekonomická na dálnici i při vyšších nájezdech.'},
+ {id:'scala',n:'Škoda Scala Top Selection TSi DSG, automat',short:'Scala',day:750,mo:12403,min:3,eu:true,seats:5,fuel:'benzín',body:'Hatchback',cat:'Střední',ph:PH.scala,desc:'Moderní kompakt v top výbavě s automatem. Příjemná na řízení, dobře vybavená.'},
+ {id:'oct4a',n:'Škoda Octávia IV combi Ambition TDi, manuál',short:'Octávia IV combi',day:792,mo:14454,min:3,eu:true,seats:5,fuel:'diesel',body:'Combi',cat:'Střední',ph:PH.oct4a,desc:'Nejnovější generace Octávie jako kombi — obří kufr, úsporný diesel. Tahoun na dlouhé cesty.'},
+ {id:'oct4s',n:'Škoda Octávia IV combi Style TDi DSG, automat',short:'Octávia IV combi Style',day:895,mo:16979,min:3,eu:true,seats:5,fuel:'diesel',body:'Combi',cat:'Střední',ph:PH.oct4s,desc:'Octávia IV combi v top výbavě Style s automatem — komfort, prostor a nízká spotřeba.'},
+ {id:'sup3lb',n:'Škoda Superb III L&K TDi, liftback, automat',short:'Superb III',day:962,mo:18890,min:1,eu:true,seats:5,fuel:'diesel',body:'Liftback',cat:'Prémium',ph:PH.sup3lb,desc:'Vlajková loď Škody ve výbavě Laurin & Klement. Maximum komfortu za rozumnou cenu — i na jeden den.'},
+ {id:'sup3co',n:'Škoda Superb III L&K TDi, combi, automat',short:'Superb III combi',day:962,mo:18890,min:1,eu:true,seats:5,fuel:'diesel',body:'Combi',cat:'Prémium',ph:PH.sup3co,desc:'Superb L&K jako kombi — obrovský prostor a reprezentativní vzhled. Pro rodiny i firmy.'},
+ {id:'sup4',n:'Škoda Superb IV L&K TDi, liftback, automat',short:'Superb IV',day:995,mo:20975,min:1,eu:true,seats:5,fuel:'diesel',body:'Liftback',cat:'Prémium',ph:PH.sup4,desc:'Nejnovější generace Superbu v top výbavě L&K — masážní sedadla, panorama, ekonomický diesel.'},
+ {id:'star7',n:'Hyundai Staria Luxury CDi, 6+1, automat',short:'Staria 7 míst',day:2000,mo:35000,min:30,eu:true,seats:7,fuel:'diesel',body:'Van',cat:'Skupina',ph:PH.star7,desc:'Futuristická Staria v luxusní výbavě, 7 míst včetně řidiče. Pohodlí pro skupinové i rodinné cesty.'},
+ {id:'star9',n:'Hyundai Staria Style Premium CDi, 8+1, automat',short:'Staria 9 míst',day:3000,mo:52500,min:30,eu:true,seats:9,fuel:'diesel',body:'Van',cat:'Skupina',ph:PH.star9,desc:'Staria pro 9 osob — ideální na výlety větší skupiny, transfery a skupinovou přepravu.'},
+ {id:'merc',n:'Mercedes-Benz S350 d 4MATIC L, automat',short:'Mercedes S',day:2000,mo:50000,min:30,eu:true,seats:5,fuel:'diesel',body:'Limuzína',cat:'Prémium',ph:PH.merc,desc:'Reprezentativní limuzína pro ten nejnáročnější den D, svatbu či důležitou schůzku. K dispozici na den i na delší období.'}
 ];
 const FAQ=[
  ['Na jak dlouho si můžu vůz půjčit?','Den, týden i celé měsíce. U dlouhodobých paketů (3, 6 a 12 měsíců) máte nejvýhodnější měsíční sazbu.'],
  ['Jak je to s kaucí?','Vratná kauce je 10 000 až 50 000 Kč podle kategorie vozu — výši vždy říkáme dopředu. Po vrácení vozu se vrací.'],
- ['Jak funguje rezervační poplatek?','Při rezervaci více než 30 dnů dopředu hradíte rezervační poplatek 20 % z ceny pronájmu — blokuje vůz na termín. Zbylých 80 % doplatíte při vyzvednutí. Pokud pronájem zrušíte, přestanete se ozývat nebo se nedostavíte, rezervační poplatek se nevrací.'],
+ ['Jak funguje rezervace a platba?','Rezervaci potvrdíte úhradou pronájmu předem (kartou, převodem nebo QR kódem) — tím vám vůz držíme na termín. Pokud pronájem nevyužijete nebo se nedostavíte, platba se nevrací. Žádná samostatná záloha navíc se neplatí.'],
  ['Co je v ceně pronájmu?','Plný servis, havarijní i povinné pojištění včetně čelního skla s územním rozsahem EU, dálniční známka, sezónní pneumatiky, asistenční služba 24/7 a náhradní vůz při poruše.'],
  ['Co když najedu více kilometrů?','Nadlimitní kilometr stojí 2,00–2,50 Kč podle vozu. Účtuje se až po skončení pronájmu podle reálného nájezdu.'],
  ['Jak jsou vozy pojištěné?','Každý vůz má havarijní i povinné pojištění v ceně, včetně čelního skla v rámci EU. Při škodě se hradí spoluúčast 10 000 Kč.'],
@@ -457,6 +497,9 @@ const FAQ=[
 ];
 const INCL=[['Plný servis','Údržba a opravy v naší dílně'],['Havarijní + povinné pojištění','Vč. čelního skla, územní rozsah EU · spoluúčast 10 000 Kč'],['Dálniční známka','Platná ČR po celou dobu'],['Sezónní pneumatiky','Letní i zimní obutí + přezutí'],['Asistenční služba 24/7','Pomoc na silnici kdykoli'],['Náhradní vůz','Dle dostupnosti']];
 const fmt=n=>n.toLocaleString('cs-CZ').replace(/,/g,' ');
+/* DPH: ceny v CARS jsou bez DPH; P() přepočte na s DPH (×1,21, zaokr. nahoru na 10 Kč) když je zapnutý přepínač */
+const P=n=>(n==null)?n:(S.vat?Math.ceil(n*1.21/10)*10:n);
+const vatSwitch=()=>`<span class="vatsw">Ceny: <button data-vat="exc"${!S.vat?' class="on"':''}>bez DPH</button><button data-vat="inc"${S.vat?' class="on"':''}>s DPH</button></span>`;
 const carName=c=>c.n.replace(/,\s*(manuál|automat)$/i,'');
 /* jemné jednobarevné ikony (místo emoji) */
 const IC={
@@ -472,10 +515,17 @@ const IC={
 function ic(n){return `<svg class="svi" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[n]||''}</svg>`;}
 
 /* ============ STATE ============ */
-const S={purpose:'sebe',scale:'long',months:6,km:3500,car:'fabia',extras:new Set(['driver']),detailCar:'sup4',vozyCount:6,vozySort:'asc',vozyTrans:'all',days:3,kmDay:50};
+const S={purpose:'sebe',scale:'long',months:6,km:3500,car:'fabia',extras:new Set(['driver']),detailCar:'sup4',vozyCount:6,vozySort:'asc',vozyTrans:'all',days:3,kmDay:50,vat:false,kmIdx:0,heroCar:null};
+let CURR='home';
 const EXTRAS=[{id:'driver',label:'Druhý řidič',price:'+ 0 Kč'},{id:'seat',label:'Dětská sedačka',price:'na vyžádání'},{id:'box',label:'Střešní box Thule',price:'+ 80 Kč/den',only:['sup3lb','sup3co','oct4a','oct4s']},{id:'deliver',label:'Přistavení a vyzvednutí vozu',price:'od 500 Kč (30+ dní zdarma)'}];
 const DISC=m=>m>=12?24:m>=6?16:m>=3?6:0;
+/* Kilometrové balíčky (ekonomika dle produkce: vyšší nájezd = vyšší sazba; faktor 50 km/den ×1,0 … 300 km/den ×1,85, lineárně). Nad nejvyšší balíček = individuálně. */
+const KM_LONG=[1500,3000,4500,6000,7500,9000];
+const KM_SHORT=[50,100,150,200,250,300];
+const kmFactor=i=>1+i*(0.85/(KM_SHORT.length-1));
 const isCourier=()=>S.purpose==='taxi'||S.purpose==='kuryr';
+const isTaxi=()=>S.purpose==='taxi';
+const SEG_CARS={kuryr:['citigo','oct3cng','oct3tdi','fabia'],taxi:['oct3cng','oct3tdi','fabia','scala','oct4a','oct4s','sup3lb']};
 
 /* ============ TEMPLATES ============ */
 function vcardHTML(c){const tr=/automat/i.test(c.n)?'Automat':'Manuál';const md=c.min===1?'1 den':(c.min<5?c.min+' dny':c.min+' dní');return `<div class="vcard" data-car="${c.id}">
@@ -483,36 +533,48 @@ function vcardHTML(c){const tr=/automat/i.test(c.n)?'Automat':'Manuál';const md
   <div class="b"><h3>${carName(c)}</h3>
   <div class="vspecs"><span>${ic('gear')} ${tr}</span><span>${ic('fuel')} ${c.fuel}</span><span>${ic('seat')} ${c.seats} míst</span><span>${ic('cal')} min. ${md}</span><span>${ic('pin')} ${c.eu?'EU':'jen ČR'}</span></div>
   <div class="vincl">✓ Servis, pojištění i dálniční známka v ceně</div>
-  <div class="vprice"><div class="vbig">${c.mo?fmt(c.mo)+' Kč':'na dotaz'}<small>${c.mo?'/měs':''}</small></div><div class="vsub">${fmt(c.day)} Kč/den</div></div>
+  <div class="vprice"><div class="vbig">${c.mo?fmt(P(c.mo))+' Kč':'na dotaz'}<small>${c.mo?'/měs':''}</small></div><div class="vsub">${fmt(P(c.day))} Kč/den</div></div>
   <a class="btn ghost block" data-car="${c.id}" style="margin-top:12px">Detail vozu</a></div></div>`;}
-function priceLines(c){const day=c.day;const week=Math.round(c.day*5.45/10)*10;
-  if(isCourier())return {big:fmt(week),per:'/ týden',stats:[['Za den',fmt(day)+' Kč'],['V ceně','6 500 km/měs']]};
-  if(S.scale==='short')return {big:fmt(day),per:'/ den',stats:[['Za '+S.days+' dní',fmt(day*S.days)+' Kč'],['V ceně','50 km/den']]};
-  const base=c.mo;if(!base)return {big:'na dotaz',per:'',stats:[['Měsíční cena','na dotaz'],['',' ']]};
+function cheapest(){var l=homeList(),best=null;l.forEach(function(c){var pl=priceLines(c);var v=parseInt(String(pl.big).replace(/[^0-9]/g,''),10);if(!isNaN(v)&&(best===null||v<best.v))best={v:v,c:c,per:pl.per};});return best;}
+function animNum(el,to){var from=parseInt(el.dataset.v||'',10);el.dataset.v=to;if(isNaN(from)){el.textContent=fmt(to)+' Kč';return;}var t0=Date.now();(function s(){var p=Math.min(1,(Date.now()-t0)/350);var v=Math.round(from+(to-from)*p);el.textContent=fmt(v)+' Kč';if(p<1)requestAnimationFrame(s);})();}
+function detailPriceHTML(c){var pl=priceLines(c);return '<div class="row" style="align-items:baseline"><span>'+(isCourier()?'Přepravní — týdně':(S.scale==='short'?'Za '+S.days+' '+(S.days===1?'den':S.days<5?'dny':'dní'):'Měsíčně'))+'</span><b style="color:var(--green-d);font-size:22px">'+pl.big+(pl.big==='na dotaz'?'':' Kč')+'<small style="font-weight:600;color:var(--muted)">'+pl.per+'</small></b></div>'+pl.stats.map(function(x){return '<div class="row"><span>'+x[0]+'</span><b>'+x[1]+'</b></div>';}).join('')+'<div class="row"><span>Min. pronájem</span><b>'+c.min+(c.min===1?' den':' dní')+'</b></div>';}
+function paintDetail(){var c=CARS.find(function(x){return x.id===S.detailCar;})||CARS[0];var pb=document.getElementById('dpricebox');if(pb)pb.innerHTML=detailPriceHTML(c);
+  document.querySelectorAll('#dscale button').forEach(function(b){b.classList.toggle('on',b.dataset.ds===S.scale);});
+  var dur=document.getElementById('ddur'),dl=document.getElementById('ddurlbl');
+  if(dur){if(S.scale==='short'){dur.min=1;dur.max=30;dur.step=1;dur.value=S.days;if(dl)dl.textContent=S.days+(S.days===1?' den':S.days<5?' dny':' dní');}else{dur.min=1;dur.max=24;dur.step=1;dur.value=S.months;if(dl)dl.textContent=S.months+(S.months>=5?' měsíců':S.months===1?' měsíc':' měsíce');}}
+  var km=document.getElementById('dkm'),kl=document.getElementById('dkmlbl');
+  if(km){if(isCourier()){km.disabled=true;km.style.opacity=.4;if(kl)kl.textContent='6 500 km/měs (paket)';}else{km.disabled=false;km.style.opacity=1;km.value=S.kmIdx;var T=S.scale==='short'?KM_SHORT:KM_LONG,u=S.scale==='short'?' km/den':' km/měs';if(kl)kl.textContent=fmt(T[S.kmIdx])+u;}}}
+function priceLines(c){const fct=isCourier()?1:kmFactor(S.kmIdx);const day=P(Math.round(c.day*fct));const week=Math.round(P(c.day)*5.45/10)*10;
+  if(isCourier())return {big:fmt(week),per:'/ týden',stats:[['Za den',fmt(P(c.day))+' Kč'],['V ceně','6 500 km/měs']]};
+  if(S.scale==='short')return {big:fmt(day),per:'/ den',stats:[['Za '+S.days+' dní',fmt(day*S.days)+' Kč'],['V ceně',KM_SHORT[S.kmIdx]+' km/den']]};
+  const base=P(Math.round(c.mo*fct));if(!base)return {big:'na dotaz',per:'',stats:[['Měsíční cena','na dotaz'],['',' ']]};
   const mo=base-Math.round(base*DISC(S.months)/100);
-  return {big:fmt(mo),per:'/ měsíc',stats:[['Celkem za '+S.months+' měs',fmt(mo*S.months)+' Kč'],['Za den',fmt(day)+' Kč']]};}
+  return {big:fmt(mo),per:'/ měsíc',stats:[['Celkem za '+S.months+' měs',fmt(mo*S.months)+' Kč'],['V ceně',fmt(KM_LONG[S.kmIdx])+' km/měs']]};}
 function homeCardHTML(c){const pl=priceLines(c);const tr=/automat/i.test(c.n)?'Automat':'Manuál';const md=c.min===1?'1 den':(c.min<5?c.min+' dny':c.min+' dní');const un=(S.scale==='short'&&S.days<c.min);const dtxt=S.days+' '+(S.days===1?'den':(S.days<5?'dny':'dní'));return `<div class="vcard${un?' dim':''}">
   <div class="ph" style="background-image:url('${c.ph}')"><span class="vbadge">${c.cat}</span></div>
   <div class="b"><h3>${carName(c)}</h3>
   <div class="vspecs"><span>${ic('gear')} ${tr}</span><span>${ic('fuel')} ${c.fuel}</span><span>${ic('seat')} ${c.seats} míst</span><span>${ic('cal')} min. ${md}</span><span>${ic('pin')} ${c.eu?'EU':'jen ČR'}</span></div>
-  <div class="vincl">✓ Vše v ceně — servis, pojištění, dálniční známka</div>
+  <div class="vincl">✓ ${isTaxi()?'V ceně servis a dálniční známka · pojištění řešíte sám (ceny bez pojištění)':'Vše v ceně — servis, pojištění, dálniční známka'}</div>
   <div class="vprice"><div class="vbig">${pl.big}${pl.big==='na dotaz'?'':' Kč'}<small>${pl.per}</small></div><div class="vsub">${pl.stats.map(s=>s[0]+' '+s[1]).join(' · ')}</div></div>
   ${un?`<div class="unavail">Min. pronájem ${md} — na ${dtxt} nedostupné</div><a class="vdetail" data-car="${c.id}">Detail vozu →</a>`:`<a class="btn pick block" data-pick="${c.id}">Vybrat vůz →</a><a class="vdetail" data-car="${c.id}">Detail vozu</a>`}
   </div></div>`;}
-function homeList(){let l=[...CARS];const isAuto=c=>/automat/i.test(c.n);if(S.vozyTrans==='auto')l=l.filter(isAuto);if(S.vozyTrans==='man')l=l.filter(c=>!isAuto(c));if(S.vozySort==='desc')l.sort((a,b)=>(b.mo||0)-(a.mo||0));else if(S.vozySort==='cat'){const o={'Město':0,'Střední':1,'Prémium':2,'Skupina':3};l.sort((a,b)=>o[a.cat]-o[b.cat]||(a.mo||9e9)-(b.mo||9e9));}else l.sort((a,b)=>(a.mo||9e9)-(b.mo||9e9));return l;}
+function homeList(){let l=[...CARS];if(S.purpose==='kuryr')l=l.filter(c=>SEG_CARS.kuryr.includes(c.id));else if(S.purpose==='taxi')l=l.filter(c=>SEG_CARS.taxi.includes(c.id));const isAuto=c=>/automat/i.test(c.n);if(S.vozyTrans==='auto')l=l.filter(isAuto);if(S.vozyTrans==='man')l=l.filter(c=>!isAuto(c));if(S.vozySort==='desc')l.sort((a,b)=>(b.mo||0)-(a.mo||0));else if(S.vozySort==='cat'){const o={'Město':0,'Střední':1,'Prémium':2,'Skupina':3};l.sort((a,b)=>o[a.cat]-o[b.cat]||(a.mo||9e9)-(b.mo||9e9));}else l.sort((a,b)=>(a.mo||9e9)-(b.mo||9e9));return l;}
 function paintHome(){const g=document.getElementById('homeCars');if(!g)return;
   g.innerHTML=homeList().map(homeCardHTML).join('');
   const mw=document.getElementById('qmonthsWrap');if(mw)mw.style.display=S.scale==='short'?'none':'';
   const dw=document.getElementById('qdaysWrap');if(dw)dw.style.display=S.scale==='short'?'':'none';
   const dvv=document.getElementById('qdval');if(dvv)dvv.textContent=S.days;
-  const kw=document.getElementById('qkmWrap');if(kw)kw.style.display=S.scale==='short'?'none':'';
-  const ks=document.getElementById('qkmDayWrap');if(ks)ks.style.display=S.scale==='short'?'':'none';
-  const kdv=document.getElementById('qkmdayval');if(kdv)kdv.textContent=S.kmDay;
+  const _rng=document.getElementById('qkmrange'),_kl=document.getElementById('qkmlbl'),_kh=document.getElementById('qkmhint');
+  if(_rng){if(isCourier()){_rng.disabled=true;_rng.style.opacity=.4;if(_kl)_kl.textContent='6 500 km/měs';if(_kh)_kh.textContent='Kurýrní / taxi paket';}
+    else{_rng.disabled=false;_rng.style.opacity=1;_rng.value=S.kmIdx;var _T=S.scale==='short'?KM_SHORT:KM_LONG,_u=S.scale==='short'?' km/den':' km/měs';if(_kl)_kl.textContent=fmt(_T[S.kmIdx])+_u;if(_kh)_kh.textContent='Vyšší nájezd = vyšší cena. Nad nejvyšší balíček individuálně.';}}
+  var _sel=document.getElementById('qodSel');
+  if(_sel){var _L=homeList();if(!_L.some(function(c){return c.id===S.heroCar;}))S.heroCar=_L.length?_L[0].id:null;
+    _sel.innerHTML=_L.map(function(c){return '<option value="'+c.id+'"'+(c.id===S.heroCar?' selected':'')+'>'+c.short+'</option>';}).join('');
+    var _car=_L.find(function(c){return c.id===S.heroCar;})||_L[0];
+    if(_car){var _pl=priceLines(_car),_v=parseInt(String(_pl.big).replace(/[^0-9]/g,''),10),_op=document.getElementById('qodPrice'),_opr=document.getElementById('qodPer');if(_op&&!isNaN(_v))animNum(_op,_v);if(_opr)_opr.textContent=_pl.per;}}
   const mv=document.getElementById('qmval');if(mv)mv.textContent=S.months;
   const qd=document.getElementById('qdisc');if(qd){var t=S.months>=12?12:S.months>=6?6:S.months>=3?3:1;qd.querySelectorAll('.qlad').forEach(function(el){el.classList.toggle('on',+el.dataset.t===t);});}
-  const kv=document.getElementById('qkmval');if(kv)kv.textContent=fmt(S.km);
-  const kh=document.getElementById('qkmhint');if(kh)kh.textContent='V ceně '+(isCourier()?'6 500':'4 500')+' km/měs';
-  const hc=document.getElementById('homeCount');if(hc)hc.textContent='Zobrazeno '+homeList().length+' z 13 vozů';}
+  const hc=document.getElementById('homeCount');if(hc)hc.textContent='Zobrazeno '+homeList().length+' vozů';}
 
 function annot(t){return `<div class="annot">${t}</div>`;}
 
@@ -522,12 +584,7 @@ home:()=>`
   <div>
     <span class="chip">● Praha 9 · Provoz autopůjčovny od roku 2017</span>
     <h1>Pronájem auta v Praze a okolí.<br><span style="color:var(--green)">Spolehlivá Škoda</span> za výhodnou cenu.</h1>
-    <p class="lead" style="margin-top:18px">Většinu naší flotily tvoří Škody — od ekonomické Fabie po Superb L&K. Servisujeme je ve vlastní dílně v Praze 9, takže platíte férovou cenu bez skrytých marží. Pronájem na den, týden i na 12 měsíců.</p>
-    <div class="bullets">
-      <div>Pojištění vč. čelního skla v EU</div><div>Náhradní vůz při poruše</div>
-      <div>Plný servis v ceně</div><div>Vlastní servis = férové ceny</div>
-      <div>Přivezeme i vyzvedneme vůz</div>
-    </div>
+    <p class="lead" style="margin-top:18px">Většinu naší flotily tvoří Škody — od ekonomické Fabie po Superb L&K. Servisujeme je ve vlastní dílně v Praze 9, takže platíte férovou cenu bez skrytých marží. Pronájem na den, týden i na 12 měsíců. Vůz přivezeme i vyzvedneme.</p>
   </div>
   <aside class="qstart">
     <div class="qh"><b>Spočítejte si cenu</b><span>Vyberte dobu a nájezd — ceny u vozů níže se hned přepočítají.</span></div>
@@ -550,17 +607,23 @@ home:()=>`
       <input type="range" min="1" max="30" value="${S.days}" id="qdays" style="width:100%">
       <div style="display:flex;justify-content:space-between;font-size:13px"><span class="muted">Počet dní</span><span><b id="qdval">${S.days}</b> dní</span></div>
     </div>
-    <div class="qlbl">Nájezd</div>
-    <div id="qkmWrap" style="${S.scale==='short'?'display:none':''}">
-      <input type="range" min="500" max="10000" step="500" value="${S.km}" id="qkm" style="width:100%">
-      <div style="display:flex;justify-content:space-between;font-size:13px"><span class="muted" id="qkmhint">V ceně ${isCourier()?'6 500':'4 500'} km/měs</span><span><b id="qkmval">${fmt(S.km)}</b> km</span></div>
+    <div class="qlbl">Kolik najedete?</div>
+    <input type="range" min="0" max="5" step="1" value="${S.kmIdx}" id="qkmrange" style="width:100%">
+    <div style="display:flex;justify-content:space-between;font-size:13px;margin-top:2px"><span class="muted" id="qkmhint">Vyšší nájezd = vyšší cena</span><b id="qkmlbl"></b></div>
+    <label class="qcheck" style="margin-top:12px"><input type="checkbox" id="qtransport" ${isCourier()?'checked':''}> 🚖 Jsem řidič přepravní nebo kurýrní služby</label>
+    <div id="qsub" class="qseg" style="${isCourier()?'':'display:none'};margin-top:8px">
+      <button data-pp="kuryr" class="${S.purpose==='kuryr'?'on':''}">Kurýr (Wolt, Foodora)</button>
+      <button data-pp="taxi" class="${S.purpose==='taxi'?'on':''}">Přeprava osob (Bolt, Uber)</button>
     </div>
-    <div id="qkmDayWrap" style="${S.scale==='short'?'':'display:none'}">
-      <input type="range" min="50" max="500" step="25" value="${S.kmDay}" id="qkmday" style="width:100%">
-      <div style="display:flex;justify-content:space-between;font-size:13px"><span class="muted">V ceně je 50 km/den</span><span><b id="qkmdayval">${S.kmDay}</b> km/den</span></div>
+    <div id="qsubnote" class="muted" style="${isCourier()?'':'display:none'};font-size:12px;margin-top:6px">${isTaxi()?'U přepravy osob (Bolt, Uber, Liftago) si pojištění TAXI hradíte sám. Níže vidíte jen vhodné vozy.':'Kurýrní pojištění (rozvoz zboží) je v ceně. Níže vidíte jen úsporné vozy pro rozvoz.'}</div>
+    <div class="qod">
+      <div style="display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:8px">
+        <span class="muted" style="font-size:13px">Spočítat pro:</span>
+        <select id="qodSel" class="fld" style="width:auto;max-width:64%"></select>
+      </div>
+      <b id="qodPrice">—</b> <span id="qodPer" class="muted" style="font-size:13px"></span>
     </div>
-    <label class="qcheck" style="margin-top:12px"><input type="checkbox" id="qtransport" ${isCourier()?'checked':''}> 🚖 Jsem řidič přepravní služby</label>
-    <a class="btn lg block" href="#homeCars" style="margin-top:14px">Zobrazit ceny u vozů ↓</a>
+    <a class="btn lg block" href="#homeCars" style="margin-top:12px">Zobrazit ceny u vozů ↓</a>
     <div class="qnote">Nezávazné · vyberte vůz níže a doplňte kontakt</div>
   </aside>
 </div></section>
@@ -568,22 +631,23 @@ home:()=>`
 <div class="wrap" style="margin-top:18px"><div class="trust">
   <span>${ic('check')} Autopůjčovna od roku 2017</span>
   <span>${ic('gear')} Vlastní servis = férové ceny</span>
-  <span>${ic('car')} 13 vozů skladem</span>
+  <span>${ic('car')} Náhradní vůz při poruše</span>
   <span>${ic('shield')} Bez skrytých poplatků</span>
-  <span class="rating"><span class="stars">★★★★★</span> <b>Google hodnocení</b></span>
-</div>${annot('<b>✦ Doplnit:</b> reálné Google hodnocení Popojedu (známka + počet recenzí + odkaz na profil) — teď je to placeholder.')}</div>
+  <a class="rating" href="https://share.google/GLzX9ectTEKS1QiiL" target="_blank" rel="noopener"><span class="stars">★★★★★</span> <b>4,9</b> <span class="cnt">· Google recenze</span></a>
+</div></div>
 
 <section class="sec"><div class="wrap">
   <div class="eyebrow">Vyberte si vůz</div>
   <h2 style="font-size:32px;margin:8px 0 10px">Vozy s vaší cenou</h2>
-  <p class="lead">Ceny u vozů se řídí dobou a nájezdem, které jste zadali nahoře. Vyberte vůz a stačí doplnit kontakt — celá flotila čítá <b>13 vozů</b>.</p>
+  <p class="lead">Ceny u vozů se řídí dobou a nájezdem, které jste zadali nahoře. Vyberte vůz a stačí doplnit kontakt.</p>
   ${annot('<b>✦ Úprava (RF):</b> homepage je rovnou konfigurátor — doba a km nahoře, ceny u vozů hned, výběr → kontakt. Záložky Naše vozy / Ceník / Jak to funguje / FAQ jsou sloučené sem.')}
   <div style="display:flex;gap:12px;align-items:center;margin:18px 0;flex-wrap:wrap">
     <label style="margin:0">Řadit:</label>
     <select class="fld" id="hsort" style="width:auto"><option value="asc"${S.vozySort==='asc'?' selected':''}>Od nejlevnějšího</option><option value="desc"${S.vozySort==='desc'?' selected':''}>Od nejdražšího</option><option value="cat"${S.vozySort==='cat'?' selected':''}>Podle kategorie</option></select>
     <label style="margin:0">Převodovka:</label>
     <select class="fld" id="htrans" style="width:auto"><option value="all"${S.vozyTrans==='all'?' selected':''}>Všechny</option><option value="auto"${S.vozyTrans==='auto'?' selected':''}>Automat</option><option value="man"${S.vozyTrans==='man'?' selected':''}>Manuál</option></select>
-    <span class="muted" id="homeCount" style="margin-left:auto;font-size:14px">Zobrazeno 13 z 13 vozů</span>
+    <span style="margin-left:auto">${vatSwitch()}</span>
+    <span class="muted" id="homeCount" style="font-size:14px">Zobrazeno všechny vozy</span>
   </div>
   <div class="grid4" id="homeCars">${homeList().map(homeCardHTML).join('')}</div>
 </div></section>
@@ -606,7 +670,7 @@ home:()=>`
   <div class="step-row" style="grid-template-columns:repeat(3,1fr);text-align:center">
     ${[['Spočítáte cenu','Konfigurátor okamžitě ukáže fér cenu podle vozu, doby a nájezdu. Při 6 měsících ušetříte 16 %, při 12 měsících 24 %.'],
        ['Domluvíte rezervaci','Pošlete poptávku a my vám e-mailem potvrdíme dostupnost vozu i rezervaci. Vůz pro vás držíme 24 hodin — žádný stres.'],
-       ['Vyzvednete na Čakovicích','Provozovna Cukrovarská 991. Předání trvá 20 minut: instruktáž, společné foto stavu vozu, klíče. Nebo vám vůz přivezeme — ceny viz níže.']
+       ['Vyzvednete v Čakovicích','Provozovna Cukrovarská 991. Předání trvá 20 minut: instruktáž, společné foto stavu vozu, klíče. Nebo vám vůz přivezeme — ceny viz níže.']
       ].map((s,i)=>`<div class="fcard"><div class="snum">${i+1}</div><h3>${s[0]}</h3><p>${s[1]}</p></div>`).join('')}
   </div>
 </div></section>
@@ -643,8 +707,7 @@ vozy:()=>{
   return `<section class="sec"><div class="wrap">
   <div class="eyebrow">Naše vozy</div>
   <h1 style="font-size:36px;margin:8px 0 10px">Vyberte si vůz k pronájmu</h1>
-  <p class="lead">Provozujeme <b>13 vozů</b> — od úsporné Fabie po 7 a 9místnou Hyundai Staria. Většinu flotily tvoří Škody, které servisujeme ve vlastní dílně v Praze 9 — Čakovicích. Pronájem na den, týden i na celé měsíce.</p>
-  ${annot('<b>✦ Oprava:</b> intro říká přesný počet (13), ne „desítky". Řazení reálně funguje. Všech 13 vozů je dostupných (komplet flotila dle Romanova seznamu).')}
+  <p class="lead">Provozujeme <b>širokou flotilu vozů</b> — od úsporné Fabie po 7 a 9místnou Hyundai Staria. Většinu flotily tvoří Škody, které servisujeme ve vlastní dílně v Praze 9 — Čakovicích. Pronájem na den, týden i na celé měsíce.</p>
   <div style="display:flex;gap:14px;align-items:center;margin:20px 0 18px;flex-wrap:wrap">
     <label style="margin:0">Řadit:</label>
     <select class="fld" id="vsort" style="width:auto">
@@ -658,7 +721,7 @@ vozy:()=>{
       <option value="auto"${S.vozyTrans==='auto'?' selected':''}>Automat</option>
       <option value="man"${S.vozyTrans==='man'?' selected':''}>Manuál</option>
     </select>
-    <span class="muted" style="margin-left:auto;font-size:14px">Zobrazeno ${list.length} z 13 vozů</span>
+    <span class="muted" style="margin-left:auto;font-size:14px">Zobrazeno ${list.length} vozů</span>
   </div>
   <div class="grid4">${list.map(vcardHTML).join('')}</div>
   <p class="muted" style="font-size:13px;margin-top:18px">Ceny jsou orientační „od" — přesnou cenu spočítá konfigurátor podle délky pronájmu a nájezdu. Fotky jsou reálné vozy z naší flotily; konkrétní kus přidělíme podle dostupnosti.</p>
@@ -667,14 +730,15 @@ vozy:()=>{
 
 detail:()=>{
   const c=CARS.find(x=>x.id===S.detailCar)||CARS[9];
-  const others=CARS.filter(x=>x.id!==c.id&&x.mo).slice(0,4);
+  const others=CARS.filter(x=>x.mo&&x.mo>(c.mo||0)).sort((a,b)=>a.mo-b.mo).slice(0,4);
   return `<section class="sec"><div class="wrap">
   <div class="muted" style="font-size:13px;margin-bottom:16px"><a data-route="home" style="cursor:pointer">Domů</a> › <a data-route="vozy" style="cursor:pointer">Naše vozy</a> › ${c.short}</div>
-  ${annot('<b>✦ Oprava:</b> šablona detailu je společná pro všech 13 vozů. Pozn.: produkční fotky se přiřadí 1:1 ke správnému vozu (dnes Superb IV omylem používá foto Superbu III, obě Octávie III sdílejí jednu fotku) a detail dostane galerii, ne jednu fotku.')}
+  ${annot('<b>✦ Pozn.:</b> detail má nově galerii fotek z produkce (klik na náhled přepne hlavní fotku). „Mohlo by se hodit" záměrně nabízí jen dražší vozy (upsell).')}
   <div class="split">
     <div>
-      <div class="photo" style="border-radius:18px;overflow:hidden;box-shadow:var(--shadow)"><img src="${c.ph}" alt="${c.short}" style="aspect-ratio:3/2;object-fit:cover;width:100%"></div>
-      <p class="muted center" style="font-size:13px;margin-top:10px">Fotografie vozu z naší flotily — konkrétní kus přidělíme podle dostupnosti.</p>
+      ${(()=>{const gal=[c.ph].concat(PHG[c.id]||[]).filter((u,i,a)=>a.indexOf(u)===i);return `<div class="photo" style="border-radius:18px;overflow:hidden;box-shadow:var(--shadow)"><img id="galMain" src="${gal[0]}" alt="${c.short}" style="aspect-ratio:3/2;object-fit:cover;width:100%;display:block"></div>
+      ${gal.length>1?`<div class="gthumbs">${gal.map((u,i)=>`<button class="gthumb${i===0?' on':''}" data-gimg="${u}" aria-label="Fotka ${i+1}"><img src="${u}" alt=""></button>`).join('')}</div>`:''}`;})()}
+      <p class="muted center" style="font-size:13px;margin-top:10px">Fotky vozu z naší flotily — konkrétní kus přidělíme podle dostupnosti.</p>
     </div>
     <div>
       <span class="tag" style="background:var(--soft)">★ ${c.cat} · ${c.body}</span>
@@ -685,13 +749,18 @@ detail:()=>{
         <span>👥 ${c.seats} míst</span><span>⛽ ${c.fuel}</span>
         ${c.eu?'<span class="eu">🇪🇺 výjezd EU</span>':'<span class="cr">🇨🇿 jen ČR</span>'}
       </div>
-      <div class="pricebox" style="margin-top:8px">
-        <div class="row"><span>Pronájem na den</span><b>od ${fmt(c.day)} Kč</b></div>
-        <div class="row"><span>Měsíční paket</span><b style="color:var(--green-d)">${c.mo?'od '+fmt(c.mo)+' Kč':'na dotaz'}</b></div>
-        <div class="row"><span>Minimální pronájem</span><b>${c.min} ${c.min===1?'den':'dní'}</b></div>
+      <div class="dcalc" style="margin-top:8px">
+        <div class="seg" id="dscale"><button data-ds="short"${S.scale==='short'?' class="on"':''}>Krátkodobě</button><button data-ds="long"${S.scale==='long'?' class="on"':''}>Dlouhodobě</button></div>
+        <div style="margin:10px 0 2px;display:flex;justify-content:space-between;font-size:13px"><span class="muted">Doba pronájmu</span><b id="ddurlbl"></b></div>
+        <input type="range" id="ddur" style="width:100%">
+        <div style="margin:10px 0 2px;display:flex;justify-content:space-between;font-size:13px"><span class="muted">Kolik najedete</span><b id="dkmlbl"></b></div>
+        <input type="range" min="0" max="5" step="1" value="${S.kmIdx}" id="dkm" style="width:100%">
+        <div class="pricebox" id="dpricebox" style="margin-top:12px"></div>
+        <div style="margin-top:8px">${vatSwitch()}</div>
+        <p class="muted" style="font-size:12.5px;margin-top:6px">Hrajte si s dobou a nájezdem — cena tohoto vozu se hned přepočítá.</p>
       </div>
       <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
-        <a class="btn lg" data-route="cfg">Spočítat přesnou cenu →</a>
+        <a class="btn lg" data-pick="${c.id}">Vybrat vůz → poptávka</a>
       </div>
       <p class="muted" style="font-size:13px;margin-top:12px">Objednávky vyřizujeme přes formulář — ať máme vše v pořádku. Dotazy rádi zodpovíme na 731 683 203.</p>
     </div>
@@ -701,11 +770,11 @@ detail:()=>{
     <h2 style="font-size:24px;margin:8px 0 18px">Co máte v ceně pronájmu</h2>
     <div class="inclgrid">${INCL.map(i=>`<div class="incl"><span class="c">✓</span><div><b>${i[0]}</b><br><span class="muted" style="font-size:13px">${i[1]}</span></div></div>`).join('')}</div>
   </div>
-  <div style="margin-top:48px">
-    <div class="eyebrow">Další vozy</div>
+  ${others.length?`<div style="margin-top:48px">
+    <div class="eyebrow">Vyšší třída</div>
     <h2 style="font-size:24px;margin:8px 0 18px">Mohlo by se hodit</h2>
     <div class="grid4">${others.map(vcardHTML).join('')}</div>
-  </div>
+  </div>`:''}
 </div></section>`;},
 
 cenik:()=>`<section class="sec"><div class="wrap">
@@ -725,13 +794,14 @@ cenik:()=>`<section class="sec"><div class="wrap">
   </div>
   <div class="eyebrow">Sazby vozů</div><h2 style="font-size:24px;margin:8px 0 14px">Ceník podle vozu</h2>
   <table class="ptable"><tr><th>Vůz</th><th>Týden</th><th>Měsíc</th></tr>
-  ${CARS.map(c=>`<tr><td>${c.n.replace(', automat','').replace(', manuál','')}</td><td>${c.mo?fmt(Math.round(c.day*5.45/10)*10):'na dotaz'} Kč</td><td>${c.mo?fmt(c.mo)+' Kč':'na dotaz'}</td></tr>`).join('')}
+  ${CARS.map(c=>`<tr><td>${c.n.replace(', automat','').replace(', manuál','')}</td><td>${c.mo?fmt(Math.round(P(c.day)*5.45/10)*10):'na dotaz'} Kč</td><td>${c.mo?fmt(P(c.mo))+' Kč':'na dotaz'}</td></tr>`).join('')}
   </table>
-  <p class="muted" style="font-size:13px;margin-top:12px">Měsíční sazby platí pro paket na 1 měsíc a nájezd do 4 500 km/měs (u kurýrských paketů 6 500 km/měs). Nadlimitní km 2,00–2,50 Kč/km. Minimální doba pronájmu se liší podle vozu.</p>
+  <div style="margin-top:14px">${vatSwitch()}</div>
+  <p class="muted" style="font-size:13px;margin-top:12px">Měsíční sazby jsou pro nejnižší km balíček; vyšší nájezd = vyšší balíček (1 500–9 000 km/měs, vidíte v konfigurátoru, cena se hned přepočítá). Nad nejvyšší balíček řešíme individuálně. Minimální doba pronájmu se liší podle vozu.</p>
   <div style="margin-top:36px"><div class="eyebrow">Rezervace a platba</div><h2 style="font-size:24px;margin:8px 0 18px">Jednoduše a bez skrytých kroků</h2>
   <div class="grid3">
-    ${[['💳','Záloha vám drží vůz','Při rezervaci 30+ dní dopředu složíte zálohu 20 % — tím vám vůz blokujeme na termín. Záloha se započítá do ceny pronájmu.'],
-       ['✓','Doplatek až při vyzvednutí','Zbytek doplatíte na místě při převzetí — kartou, převodem nebo QR kódem.'],
+    ${[['💳','Platba předem drží vůz','Pronájem uhradíte předem (kartou, převodem nebo QR kódem) — tím vám vůz držíme na termín. Při nevyužití se platba nevrací.'],
+       ['🚗','Přistavení dle požadavku','Vůz vyzvednete v Čakovicích, nebo vám ho přistavíme — cenu řekneme dopředu podle adresy.'],
        ['🔒','Vratná kauce','Podle vozu 10 000–50 000 Kč — výši vždy řekneme dopředu. Po vrácení vozu se vrací.']
       ].map(c=>`<div class="fcard"><div class="ic">${c[0]}</div><h3>${c[1]}</h3><p>${c[2]}</p></div>`).join('')}
   </div></div>
@@ -815,13 +885,13 @@ bolt:()=>`<section class="sec"><div class="wrap">
   <div class="eyebrow">Pro řidiče Bolt a Uber</div>
   <h1 style="font-size:34px;margin:8px 0 10px">Auto pro Bolt a Uber — připravené na taxi provoz</h1>
   <p class="lead">Vozíte cestující přes Bolt nebo Uber? Máme paket pro taxislužbu — vůz s přepisem provozovatele a plným servisem. O auto se staráme my, vy jen jezdíte a vyděláváte.</p>
-  ${annot('<b>✦ Oprava:</b> dnes si stránka protiřečí v TAXI pojištění (hero „řidič si zajišťuje sám" vs krok 3 „zařídíme" vs FAQ „máme paket"). Sjednoceno na: <b>„pojištění TAXI i přepis provozovatele pomůžeme zařídit"</b> — finální znění potvrdit s Romanem (právně citlivé).')}
+  ${annot('<b>✦ Sjednoceno (RF 21. 6.):</b> pojištění pro přepravu osob (TAXI) i přepis provozovatele si <b>řidič zajišťuje sám</b> (rádi poradíme). Pojištění vozu zůstává v ceně. Finální znění potvrdit s Romanem.')}
   <div style="display:flex;gap:12px;margin:20px 0">
     <a class="btn" data-route="cfg">Spočítat cenu pronájmu</a><a class="btn ghost" data-route="kontakt">Poslat poptávku</a>
   </div>
   <h2 style="font-size:24px;margin:30px 0 18px">Co řešíme za vás</h2>
   <div class="grid3">
-    ${[['🛡️','Pojištění auta v ceně','Havarijní i povinné (spoluúčast 10 000 Kč), vč. čelního skla v EU.'],['📋','Pojištění TAXI a přepis provozovatele','S pojištěním pro přepravu osob i přepisem provozovatele vám poradíme a pomůžeme zařídit.'],['🔧','Plný servis','Prohlídky, pneumatiky i dálniční známka.'],['🚗','Náhradní vůz','Výdělek se kvůli odstavenému vozu nezastaví.'],['⛽','Úsporné vozy','I CNG s nízkými náklady na km.'],['🗓️','Flexibilní délka','Týden, měsíc i dlouhodobě.']].map(c=>`<div class="fcard"><div class="ic">${c[0]}</div><h3>${c[1]}</h3><p>${c[2]}</p></div>`).join('')}
+    ${[['🛡️','Pojištění a přepis řešíte vy','U přepravy osob (Bolt/Uber/Taxi) pojištění NENÍ v ceně — pojištění pro přepravu osob i přepis provozovatele si jako řidič zajišťujete sám. Rádi poradíme a nasměrujeme.'],['🔧','Plný servis','Prohlídky, pneumatiky i dálniční známka.'],['🚗','Náhradní vůz','Výdělek se kvůli odstavenému vozu nezastaví.'],['⛽','Úsporné vozy','I CNG s nízkými náklady na km.'],['🗓️','Flexibilní délka','Týden, měsíc i dlouhodobě.']].map(c=>`<div class="fcard"><div class="ic">${c[0]}</div><h3>${c[1]}</h3><p>${c[2]}</p></div>`).join('')}
   </div>
   <div class="fcard" style="margin-top:24px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap">
     <div>🛵 <b>Rozvážíte jídlo pro Wolt nebo Foodoru?</b> Pro kurýry máme samostatnou nabídku.</div>
@@ -838,7 +908,7 @@ kuryri:()=>`<section class="sec"><div class="wrap">
   </div>
   <h2 style="font-size:24px;margin:30px 0 18px">Vůz připravený na celodenní rozvoz</h2>
   <div class="grid3">
-    ${[['⛽','Nízké náklady na kilometr','Nabízíme i vozy na CNG — úspora se při stovkách km denně sečte.'],['🗓️','Flexibilní délka','Na týden, měsíc i dlouhodobě.'],['🔧','Plný servis','Prohlídky, pneumatiky i dálniční známka řešíme za vás.'],['🚗','Náhradní vůz','Rozvoz se kvůli servisu nezastaví.'],['⚡','Rychlý start','Ozveme se zpravidla do 2 hodin v pracovní době.'],['🛡️','Pojištění v ceně','Vč. čelního skla v EU, spoluúčast 10 000 Kč.']].map(c=>`<div class="fcard"><div class="ic">${c[0]}</div><h3>${c[1]}</h3><p>${c[2]}</p></div>`).join('')}
+    ${[['⛽','Nízké náklady na kilometr','Nabízíme i vozy na CNG — úspora se při stovkách km denně sečte.'],['🗓️','Flexibilní délka','Na týden, měsíc i dlouhodobě.'],['🔧','Plný servis','Prohlídky, pneumatiky i dálniční známka řešíme za vás.'],['🚗','Náhradní vůz','Rozvoz se kvůli servisu nezastaví.'],['⚡','Rychlý start','Ozveme se nejpozději následující pracovní den.'],['🛡️','Pojištění v ceně','Vč. čelního skla v EU, spoluúčast 10 000 Kč.']].map(c=>`<div class="fcard"><div class="ic">${c[0]}</div><h3>${c[1]}</h3><p>${c[2]}</p></div>`).join('')}
   </div>
   <div class="fcard" style="margin-top:24px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap">
     <div>🚕 <b>Vozíte cestující přes Bolt nebo Uber?</b> Pro taxislužbu máme samostatný paket.</div>
@@ -863,7 +933,7 @@ kontakt:()=>`<section class="sec"><div class="wrap">
     <div class="fcard">
       <h3 style="margin-bottom:14px">Popojedu.cz</h3>
       <div class="infoline"><span class="ic">📞</span><div><b>+420 731 683 203</b><br><span class="muted">Po–Pá 8:00–18:00, So 9:00–13:00</span></div></div>
-      <div class="infoline"><span class="ic">✉️</span><div><b>info@popojedu.cz</b><br><span class="muted">Odpovídáme zpravidla do 2 hodin v prac. době</span></div></div>
+      <div class="infoline"><span class="ic">✉️</span><div><b>info@popojedu.cz</b><br><span class="muted">Odpovídáme nejpozději následující pracovní den</span></div></div>
       <div class="infoline"><span class="ic">📍</span><div><b>Provozovna — Cukrovarská 991, Praha 9</b><br><span class="muted">Areál Cukrovar Čakovice, budova č. 3, 196 00</span></div></div>
       <div class="infoline"><span class="ic">🏢</span><div><b>Sídlo — Českomoravská 1181/21, Praha 9</b><br><span class="muted">190 00 — fakturace a právní záležitosti</span></div></div>
     </div>
@@ -886,12 +956,32 @@ ucet:()=>`<section class="sec"><div class="wrap">
   <p class="lead">S účtem si vůz objednáte na pár kliků — údaje vyplníte jen jednou. Najdete tu historii pronájmů, smlouvy i věrnostní slevy na jednom místě.</p>
   <div class="split" style="margin-top:24px">
     <div class="fcard">
-      <div class="seg" style="margin-bottom:16px"><button class="on">Přihlásit se</button><button>Registrovat</button></div>
-      <label>E-mail</label><input type="email" placeholder="vas@email.cz" style="margin-bottom:12px">
-      <label>Heslo</label><input type="text" value="••••••••" style="margin-bottom:14px">
-      <button class="btn block">Přihlásit se</button>
-      <p class="muted center" style="font-size:13px;margin-top:10px">Zapomněli jste heslo?</p>
-      ${annot('<b>Náhled:</b> přihlášení/registrace budou funkční po nasazení (napojení na rezervační systém a CRM). B2B část účtu (zálohové předpisy à la MŮJČEZ, řidiči, účetní) se doplní dle briefu.')}
+      <div class="seg" id="acctabs" style="margin-bottom:16px"><button data-acttab="login" class="on">Přihlásit se</button><button data-acttab="reg">Registrovat</button></div>
+      <div id="loginForm">
+        <button class="btn ghost block" type="button" style="margin-bottom:8px">Pokračovat přes Google</button>
+        <button class="btn block" type="button" style="margin-bottom:14px;background:#111;border-color:#111">Pokračovat přes Apple</button>
+        <div class="muted center" style="font-size:12px;margin-bottom:12px">— nebo e-mailem —</div>
+        <label>E-mail</label><input type="email" placeholder="vas@email.cz" style="margin-bottom:12px">
+        <label>Heslo</label><input type="password" placeholder="Vaše heslo" style="margin-bottom:14px">
+        <button class="btn block">Přihlásit se</button>
+        <p class="muted center" id="forgotLink" style="font-size:13px;margin-top:10px;cursor:pointer">Zapomněli jste heslo?</p>
+      </div>
+      <div id="resetForm" style="display:none">
+        <h3 style="margin-bottom:8px;font-size:16px">Obnovení hesla</h3>
+        <p class="muted" style="font-size:13px;margin-bottom:12px">Zadejte e-mail a pošleme vám odkaz pro nastavení nového hesla.</p>
+        <label>E-mail</label><input type="email" placeholder="vas@email.cz" style="margin-bottom:14px">
+        <button class="btn block">Poslat odkaz pro obnovení</button>
+        <p class="muted center" id="resetBack" style="font-size:13px;margin-top:10px;cursor:pointer">← Zpět na přihlášení</p>
+      </div>
+      <div id="regForm" style="display:none">
+        <label>Jméno a příjmení</label><input type="text" placeholder="Jan Novák" style="margin-bottom:12px">
+        <label>E-mail</label><input type="email" placeholder="vas@email.cz" style="margin-bottom:12px">
+        <label>Telefon</label><input type="tel" placeholder="+420 …" style="margin-bottom:12px">
+        <label>Heslo</label><input type="password" placeholder="Zvolte heslo" style="margin-bottom:14px">
+        <label style="display:flex;gap:8px;align-items:flex-start;font-size:13px;margin-bottom:12px"><input type="checkbox" style="margin-top:3px;width:auto"><span class="muted">Souhlasím se zpracováním osobních údajů. <u data-route="gdpr" style="cursor:pointer">Zásady</u>.</span></label>
+        <button class="btn block">Vytvořit účet</button>
+      </div>
+      ${annot('<b>Náhled:</b> přepínání Přihlášení/Registrace je v náhledu funkční; samotné přihlášení/registrace napojíme po nasazení (rezervační systém + CRM). B2B část účtu (zálohové předpisy à la MŮJČEZ, řidiči, účetní) se doplní dle briefu.')}
     </div>
     <div class="fcard">
       <h3 style="margin-bottom:12px">Takhle bude vypadat váš účet</h3>
@@ -937,9 +1027,9 @@ op:()=>`<section class="sec"><div class="wrap" style="max-width:820px">
   ${annot('<b>✦ Oprava:</b> dnes je odkaz mrtvý (href="#"). Stránka musí existovat — odkazuje na ni ceník i formuláře. Níže je kostra; finální text dodá právník.')}
   <p class="muted">Provozovatel: MODRÝ ANDĚL s.r.o., Českomoravská 1181/21, 190 00 Praha 9, IČO 27218422, DIČ CZ27218422, spisová značka C 105306/MSPH.</p>
   <h3 style="margin:22px 0 8px">1. Předmět</h3><p class="muted">Pronájem motorových vozidel za podmínek uvedených ve smlouvě a v ceníku.</p>
-  <h3 style="margin:22px 0 8px">2. Rezervace a platby</h3><p class="muted">Rezervační poplatek 20 % u rezervací 30+ dní dopředu (nevratný). Doplatek 80 % při vyzvednutí. Kauce formou pre-authorization na kartě 10 000–50 000 Kč.</p>
+  <h3 style="margin:22px 0 8px">2. Rezervace a platby</h3><p class="muted">Pronájem se hradí předem (kartou, převodem nebo QR kódem) — úhradou vám vůz držíme na termín. Při nevyužití se platba nevrací. Kauce formou pre-authorization na kartě 10 000–50 000 Kč.</p>
   <h3 style="margin:22px 0 8px">3. Pojištění a spoluúčast</h3><p class="muted">Vozy jsou havarijně i povinně pojištěné vč. čelního skla (EU). Spoluúčast při škodě 10 000 Kč.</p>
-  <h3 style="margin:22px 0 8px">4. Storno</h3><p class="muted">Rezervační poplatek se nevrací. Storno nájemného dle smlouvy.</p>
+  <h3 style="margin:22px 0 8px">4. Storno</h3><p class="muted">Uhrazený pronájem se při zrušení nebo nevyužití nevrací. Další podmínky storna dle smlouvy.</p>
   <p class="muted" style="margin-top:22px;font-style:italic">[Kompletní znění dodá právník před spuštěním.]</p>
 </div></section>`,
 
@@ -974,9 +1064,9 @@ cfg:()=>`<section class="sec"><div class="wrap">
         <div style="display:flex;justify-content:space-between;margin-top:4px"><span class="muted" style="font-size:13px">Délka pronájmu</span><span class="rangeval"><span id="mval">${S.months}</span> měsíců</span></div></div></div>
       <div class="step"><div class="top"><h3>Kolik km měsíčně?</h3><span class="kc">KROK 3 / 5</span></div>
         <input type="range" min="500" max="10000" step="500" value="${S.km}" id="km">
-        <div style="display:flex;justify-content:space-between;margin-top:4px"><span class="muted" style="font-size:13px" id="kmHint">V ceně paketu je 4 500 km/měs.</span><span class="rangeval"><span id="kmval">${fmt(S.km)}</span> km</span></div></div>
+        <div style="display:flex;justify-content:space-between;margin-top:4px"><span class="muted" style="font-size:13px" id="kmHint">V ceně paketu je 4 500 km/měs.</span><span class="rangeval"><span id="kmval">3 500</span> km</span></div></div>
       <div class="step"><div class="top"><h3>Doporučené vozy</h3><span class="kc">KROK 4 / 5</span></div><div class="reco" id="reco"></div>
-        <div style="margin-top:10px"><a class="btn ghost" data-route="vozy" style="font-size:14px;padding:9px 14px">Zobrazit všech 13 vozů →</a></div></div>
+        <div style="margin-top:10px"><a class="btn ghost" data-route="vozy" style="font-size:14px;padding:9px 14px">Zobrazit všechny vozy →</a></div></div>
       <div class="step"><div class="top"><h3>Přidat něco k pronájmu?</h3><span class="kc">KROK 5 / 5</span></div><div id="extras"></div>
         <p class="muted" style="font-size:12.5px">Nabízíme jen doplňky, které k vybranému vozu sedí.</p></div>
     </div>
@@ -1005,15 +1095,17 @@ poptavka:()=>`<section class="sec"><div class="wrap">
         <div class="chip"><b>Vůz</b><span id="sCar">Škoda Fabia III</span></div>
         <div class="chip"><b>Doba</b><span id="sDur">6 měsíců</span></div>
         <div class="chip"><b>Nájezd</b><span id="sKm">4 500 km/měs</span></div>
-        <div class="chip"><b>Cena / měsíc</b><span id="sPmonth">7 972 Kč</span></div>
-        <div class="chip"><b>Cena / den</b><span id="sPday">650 Kč</span></div>
-        <div class="chip"><b>Celkem</b><span id="sPtotal">47 832 Kč za 6 měs</span></div>
-        <div class="chip"><b>Vaše sleva</b><span id="sDisc">−1 518 Kč/měs (−16 %)</span></div>
+      </div>
+      <div class="sumprice">
+        <div class="sp-main"><span>Cena / měsíc</span><b id="sPmonth">7 972 Kč</b></div>
+        <div class="sp-row"><span>Cena / den</span><span id="sPday">650 Kč</span></div>
+        <div class="sp-row"><span>Celkem</span><span id="sPtotal">47 832 Kč za 6 měs</span></div>
+        <div class="sp-row disc"><span>Vaše sleva</span><span id="sDisc">−1 518 Kč/měs (−16 %)</span></div>
       </div>
       <div id="sNext" class="muted" style="margin-top:10px;font-size:13px"></div>
-      <div id="sExtras" style="margin-top:8px;font-size:13px;color:#cfe3d6"></div>
+      <div id="sExtras" style="margin-top:8px;font-size:13px;color:var(--muted)"></div>
     </div>
-    ${isCourier()?'<div style="background:var(--soft);border:1px solid #cdeccd;border-radius:12px;padding:14px 16px;margin-bottom:16px;font-size:14px">🚖 <b>Pro přepravní služby:</b> vůz dostanete s vyšším km paketem (6 500 km/měs). S <b>přepisem provozovatele</b> i <b>pojištěním pro přepravu osob (TAXI)</b> vám poradíme a pomůžeme je zařídit — detaily doladíme po odeslání poptávky.</div>':''}
+    ${isCourier()?(isTaxi()?'<div style="background:var(--soft);border:1px solid #cdeccd;border-radius:12px;padding:14px 16px;margin-bottom:16px;font-size:14px">🚖 <b>Pro přepravu osob (Bolt, Uber, Liftago):</b> vyšší km paket (6 500 km/měs). <b>Přepis provozovatele</b> i <b>pojištění pro přepravu osob (TAXI)</b> si jako řidič zajišťujete sám — rádi poradíme. Detaily doladíme po odeslání poptávky.</div>':'<div style="background:var(--soft);border:1px solid #cdeccd;border-radius:12px;padding:14px 16px;margin-bottom:16px;font-size:14px">🛵 <b>Pro kurýry (Wolt, Foodora):</b> vyšší km paket (6 500 km/měs); pojištění vozu, servis i dálniční známka jsou v ceně. Detaily doladíme po odeslání poptávky.</div>'):''}
     <div style="margin-bottom:18px">
       <h3 style="font-size:15px;margin-bottom:10px">Doplňky k pronájmu (nad rámec)</h3>
       <div id="extrasP">${EXTRAS.filter(e=>!e.only||e.only.includes(S.car)).map(e=>`<div class="extra ${S.extras.has(e.id)?'sel':''}" data-extra="${e.id}"><span class="ck">✓</span><span>${e.label}</span><span class="pr">${e.price}</span></div>`).join('')}</div>
@@ -1031,14 +1123,14 @@ poptavka:()=>`<section class="sec"><div class="wrap">
         <div><label>Jméno a příjmení *</label><input type="text" placeholder="Jan Novák"></div>
         <div><label>Telefon *</label><input type="tel" placeholder="+420 …"></div>
         <div><label>E-mail *</label><input type="email" placeholder="jan@email.cz"></div>
-        ${isCourier()?'<div><label>Pro jakou přepravní službu? *</label><select class="fld" style="width:100%"><option>Bolt</option><option>Uber</option><option>Wolt</option><option>Foodora</option><option>Jiná</option></select></div>':''}
+        ${isCourier()?'<div><label>Pro jakou službu? *</label><select class="fld" style="width:100%">'+(isTaxi()?'<option>Bolt</option><option>Uber</option><option>Liftago</option><option>Jiná</option>':'<option>Wolt</option><option>Foodora</option><option>Bolt Food</option><option>Jiná</option>')+'</select></div>':''}
         <div><label>Termín od *</label><input type="date"></div>
         <div><label>Termín do *</label><input type="date"></div>
         <div><label>Poznámka</label><input type="text" placeholder="Cokoli důležitého…"></div>
         <div class="full" style="display:flex;gap:10px;align-items:flex-start;font-size:13px" ><input type="checkbox" style="margin-top:3px"><span class="muted">Souhlasím se zpracováním osobních údajů pro vyřízení poptávky. <u data-route="gdpr" style="cursor:pointer">Zásady</u>.</span></div>
       </div>
       <a class="btn lg block" data-route="potvrzeni" style="margin-top:18px">Odeslat poptávku →</a>
-      <p class="fine">Odesláním se k ničemu nezavazujete — <b>potvrdíme dostupnost vozu</b> a ozveme se do 2 hodin v pracovní době.</p>
+      <p class="fine">Odesláním se k ničemu nezavazujete — <b>potvrdíme dostupnost vozu</b> a ozveme se nejpozději následující pracovní den.</p>
     </div>
   </div>
 </div></section>`,
@@ -1051,25 +1143,99 @@ potvrzeni:()=>`<section class="sec"><div class="wrap">
     <p class="muted">Děkujeme! Máme vaši poptávku i s konfigurací. Teď zkontrolujeme dostupnost vozu na váš termín.</p>
     <div class="tl">
       <div class="it"><span class="n">✓</span><div><b>Poptávka přijata</b><br><span class="muted" style="font-size:13px">Potvrzení jsme poslali na váš e-mail.</span></div></div>
-      <div class="it muted"><span class="n">2</span><div><b>Ověříme dostupnost a ozveme se do 2 h</b><br><span class="muted" style="font-size:13px">Po–Pá 8–18, So 9–13. Když vůz nevyjde, nabídneme alternativu.</span></div></div>
-      <div class="it muted"><span class="n">3</span><div><b>Potvrdíme termín a pošleme smlouvu</b><br><span class="muted" style="font-size:13px">Záloha 20 % jen u rezervací 30+ dní dopředu — započítá se do ceny.</span></div></div>
-      <div class="it muted"><span class="n">4</span><div><b>Vyzvednutí na Cukrovaru Čakovice</b><br><span class="muted" style="font-size:13px">Doplatek a kauce (pre-auth na kartě) až na místě.</span></div></div>
+      <div class="it muted"><span class="n">2</span><div><b>Ověříme dostupnost a ozveme se</b><br><span class="muted" style="font-size:13px">Nejpozději následující pracovní den (Po–Pá 8–18, So 9–13). Když vůz nevyjde, nabídneme alternativu.</span></div></div>
+      <div class="it muted"><span class="n">3</span><div><b>Potvrdíme termín a pošleme smlouvu</b><br><span class="muted" style="font-size:13px">Pronájem uhradíte předem — tím vám vůz držíme na termín.</span></div></div>
+      <div class="it muted"><span class="n">4</span><div><b>Vyzvednutí v Čakovicích nebo přistavení dle požadavku</b><br><span class="muted" style="font-size:13px">Vratná kauce (pre-auth na kartě) až na místě.</span></div></div>
     </div>
     <div style="margin-top:24px"><a class="btn ghost" data-route="home">Zpět na úvod</a></div>
   </div>
+</div></section>`,
+
+admin:()=>`<section class="sec"><div class="wrap">
+  <div class="eyebrow">Náhled · Redakční systém</div>
+  <h1 style="font-size:34px;margin:8px 0 10px">Co půjde nastavovat v adminu</h1>
+  <p class="lead">Takhle bude Roman/RF měnit vozy, ceny a pravidla nového webu — bez programátora. Změna se hned propíše do karet vozů, konfigurátoru, detailu, ceníku i strojových dat pro AI. <b>Toto je náhled — pole jsou jen ukázková.</b></p>
+  ${annot('✦ Mockup administrace (vizualizace polí), ne funkční CMS. Reálný systém postaví Martin podle návrhu popojedu_redakcni_system_navrh.md.')}
+
+  <div class="eyebrow" style="margin-top:24px">Vozy</div>
+  <h2 style="font-size:22px;margin:6px 0 12px">Flotila — ceny a parametry</h2>
+  <div style="overflow-x:auto"><table class="ptable">
+    <tr><th style="text-align:left">Vůz</th><th>Zobrazit</th><th>Min. dní</th><th>Cena/den</th><th>Cena/měs</th><th>km/měs</th><th style="text-align:left">Segmenty</th></tr>
+    ${CARS.map(c=>`<tr>
+      <td style="text-align:left">${carName(c)}</td>
+      <td style="text-align:center"><span class="adm-tog"></span></td>
+      <td><input class="fld adm" style="width:60px" value="${c.min}" readonly></td>
+      <td><input class="fld adm" value="${fmt(c.day)} Kč" readonly></td>
+      <td><input class="fld adm" value="${c.mo?fmt(c.mo)+' Kč':'na dotaz'}" readonly></td>
+      <td><input class="fld adm" style="width:80px" value="4 500" readonly></td>
+      <td style="text-align:left;font-size:12px;color:var(--muted)">běžný${SEG_CARS.kuryr.includes(c.id)?' · kurýr':''}${SEG_CARS.taxi.includes(c.id)?' · přeprava osob':''}</td>
+    </tr>`).join('')}
+  </table></div>
+  <p class="muted" style="font-size:12.5px;margin-top:8px">U každého vozu navíc: název, popis, kategorie, palivo, převodovka, počet míst, EU/jen ČR, galerie fotek, stav (skladem / na dotaz), pořadí.</p>
+
+  <div class="eyebrow" style="margin-top:28px">Cenová pravidla</div>
+  <h2 style="font-size:22px;margin:6px 0 12px">Globální nastavení cen</h2>
+  <div class="grid2">
+    <div class="fcard"><h3>Kilometrové balíčky</h3>
+      ${KM_LONG.map((t,i)=>`<div class="adm-row"><span>${fmt(t)} km/měs</span><span class="muted">×${kmFactor(i).toFixed(2)}</span></div>`).join('')}
+      <p class="muted" style="font-size:12px;margin-top:6px">Nad nejvyšší balíček: na dotaz. (Koeficient/ceny potvrdí Roman.)</p>
+    </div>
+    <div class="fcard"><h3>Slevy za délku</h3>
+      <div class="adm-row"><span>1 měsíc</span><span class="muted">základ</span></div>
+      <div class="adm-row"><span>3 měsíce</span><span class="muted">−6 %</span></div>
+      <div class="adm-row"><span>6 měsíců</span><span class="muted">−16 %</span></div>
+      <div class="adm-row"><span>12 měsíců</span><span class="muted">−24 %</span></div>
+    </div>
+    <div class="fcard"><h3>Daně a kauce</h3>
+      <div class="adm-row"><span>Sazba DPH</span><input class="fld adm" style="width:80px" value="21 %" readonly></div>
+      <div class="adm-row"><span>Výchozí zobrazení</span><span class="muted">bez DPH</span></div>
+      <div class="adm-row"><span>Vratná kauce</span><input class="fld adm" style="width:150px" value="10 000–50 000 Kč" readonly></div>
+      <div class="adm-row"><span>Spoluúčast</span><input class="fld adm" style="width:120px" value="10 000 Kč" readonly></div>
+    </div>
+    <div class="fcard"><h3>Přeprava osob & kurýři</h3>
+      <div class="adm-row"><span>Přepravní paket</span><input class="fld adm" style="width:130px" value="6 500 km/měs" readonly></div>
+      <div class="adm-row"><span>Bolt / Uber ceny</span><span class="muted">bez pojištění</span></div>
+      <div class="adm-row"><span>Pojištění (přeprava osob)</span><span class="muted">řeší řidič</span></div>
+      <div class="adm-row"><span>Kurýrní pojištění</span><span class="muted">v ceně</span></div>
+    </div>
+  </div>
+
+  <div class="eyebrow" style="margin-top:28px">Přistavení a doplňky</div>
+  <div class="grid2">
+    <div class="fcard"><h3>Přistavení / vyzvednutí</h3>
+      <div class="adm-row"><span>Po Praze do 20 km</span><span class="muted">500 Kč</span></div>
+      <div class="adm-row"><span>Po Praze nad 20 km</span><span class="muted">700 Kč</span></div>
+      <div class="adm-row"><span>Mimo Prahu</span><span class="muted">25 Kč/km</span></div>
+      <div class="adm-row"><span>Od 30 dní po Praze</span><span class="muted">zdarma</span></div>
+    </div>
+    <div class="fcard"><h3>Doplňky</h3>
+      ${EXTRAS.map(e=>`<div class="adm-row"><span>${e.label}</span><span class="muted">${e.price}</span></div>`).join('')}
+    </div>
+  </div>
+
+  <div class="eyebrow" style="margin-top:28px">Obsah a texty</div>
+  <div class="fcard">
+    <div class="adm-row"><span>Trust pruh + Google hodnocení</span><span class="muted">text · známka · odkaz</span></div>
+    <div class="adm-row"><span>FAQ</span><span class="muted">otázky a odpovědi</span></div>
+    <div class="adm-row"><span>„Co je v ceně"</span><span class="muted">seznam položek</span></div>
+    <div class="adm-row"><span>Kontakt / otevírací doba</span><span class="muted">telefon, e-mail, hodiny</span></div>
+    <div class="adm-row"><span>Akce / banner</span><span class="muted">zap/vyp, text, platnost</span></div>
+  </div>
+  <div class="center" style="margin-top:24px"><a class="btn ghost" data-route="home">← Zpět na web</a></div>
 </div></section>`
 };
 
 /* ============ CONFIGURATOR LOGIC ============ */
 function recoCars(){let pool=CARS.filter(c=>c.mo);pool=isCourier()?pool.filter(c=>['citigo','oct3cng','oct3tdi','fabia'].includes(c.id)):pool.filter(c=>['fabia','oct4s','sup3lb','scala','oct3tdi'].includes(c.id));return pool.slice(0,3);}
-function calc(){const c=CARS.find(x=>x.id===S.car);const kmIncl=isCourier()?6500:4500;
-  if(S.scale==='short')return{main:c.day,base:c.day,disc:0,pct:0,kmIncl,car:c,sub:'denní sazba · vč. všech služeb',per:'/den'};
-  const base=isCourier()?9500:c.mo;const pct=DISC(S.months);const disc=Math.round(base*pct/100);
+function calc(){const c=CARS.find(x=>x.id===S.car);const fct=isCourier()?1:kmFactor(S.kmIdx);
+  const kmIncl=isCourier()?6500:(S.scale==='short'?KM_SHORT[S.kmIdx]:KM_LONG[S.kmIdx]);
+  if(S.scale==='short'){const d=P(Math.round(c.day*fct));return{main:d,base:d,disc:0,pct:0,kmIncl,car:c,sub:'denní sazba · vč. všech služeb',per:'/den'};}
+  const base=isCourier()?P(9500):P(Math.round(c.mo*fct));const pct=DISC(S.months);const disc=Math.round(base*pct/100);
   return{main:base-disc,base,disc,pct,kmIncl,car:c,sub:'na '+S.months+' měsíc'+(S.months>=5?'ů':(S.months===1?'':'e'))+' · vč. všech služeb',per:'/měs'};}
 function paintCfg(){
   if(!document.getElementById('reco'))return;
   const r=recoCars();if(!r.find(c=>c.id===S.car))S.car=r[0].id;
-  document.getElementById('reco').innerHTML=r.map((c,i)=>`<div class="rcar ${c.id===S.car?'sel':''}" data-reco="${c.id}">${i===0?`<span class="pill">${isCourier()?'Nízké náklady/km':'Nejčastější volba'}</span>`:''}<div class="ph" style="background-image:url('${c.ph}')"></div><div class="b"><h4>${c.short}</h4><div class="p">od ${fmt(c.day)} Kč/den</div></div></div>`).join('');
+  document.getElementById('reco').innerHTML=r.map((c,i)=>`<div class="rcar ${c.id===S.car?'sel':''}" data-reco="${c.id}">${i===0?`<span class="pill">${isCourier()?'Nízké náklady/km':'Nejčastější volba'}</span>`:''}<div class="ph" style="background-image:url('${c.ph}')"></div><div class="b"><h4>${c.short}</h4><div class="p">od ${fmt(P(c.day))} Kč/den</div></div></div>`).join('');
   document.getElementById('extras').innerHTML=EXTRAS.map(e=>{const dis=e.only&&!e.only.includes(S.car);if(dis)S.extras.delete(e.id);return `<div class="extra ${S.extras.has(e.id)?'sel':''} ${dis?'dis':''}" data-extra="${e.id}"><span class="ck">✓</span><span>${e.label}${e.only?' <small class="muted">(jen Superb/Octávia IV)</small>':''}</span><span class="pr">${e.price}</span></div>`;}).join('');
   const c=calc();
   document.getElementById('ppm').textContent=fmt(c.main);
@@ -1086,22 +1252,26 @@ function paintCfg(){
   var _mv=document.getElementById('mbarVal');if(_mv)_mv.textContent=fmt(c.main)+' Kč'+c.per;
 }
 function paintSummary(){const c=calc();const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
-  var _mv=document.getElementById('mbarVal');if(_mv)_mv.textContent=(S.scale==='short'?fmt(c.car.day*S.days)+' Kč':fmt(c.main)+' Kč/měs');
-  set('sCar',carName(c.car));set('sDur',S.scale==='short'?'krátkodobě (dny)':S.months+' měsíců');set('sKm',fmt(c.kmIncl)+' km/měs');set('sPday',fmt(c.car.day)+' Kč');
+  var _mv=document.getElementById('mbarVal');if(_mv)_mv.textContent=(S.scale==='short'?fmt(c.main*S.days)+' Kč':fmt(c.main)+' Kč/měs');
+  set('sCar',carName(c.car));set('sDur',S.scale==='short'?'krátkodobě (dny)':S.months+' měsíců');set('sKm',fmt(c.kmIncl)+(S.scale==='short'?' km/den':' km/měs'));set('sPday',fmt(S.scale==='short'?c.main:P(c.car.day))+' Kč');
   var sn=document.getElementById('sNext');
   var se=document.getElementById('sExtras');if(se){var elb=EXTRAS.filter(e=>S.extras.has(e.id)).map(e=>e.label);se.textContent=elb.length?('Doplňky: '+elb.join(', ')):'';}
-  if(S.scale==='short'){set('sKm','50 km/den');set('sPmonth','—');set('sPtotal',fmt(c.car.day*S.days)+' Kč za '+S.days+' dní');set('sDisc','—');if(sn)sn.textContent='Tip: u dlouhodobého pronájmu (měsíce) získáte slevu až −24 %.';return;}
+  if(S.scale==='short'){set('sPmonth','—');set('sPtotal',fmt(c.main*S.days)+' Kč za '+S.days+' dní');set('sDisc','—');if(sn)sn.textContent='Tip: u dlouhodobého pronájmu (měsíce) získáte slevu až −24 %.';return;}
   set('sPmonth',fmt(c.main)+' Kč');set('sPtotal',fmt(c.main*S.months)+' Kč za '+S.months+' měs');set('sDisc',c.disc>0?('−'+fmt(c.disc)+' Kč/měs (−'+c.pct+' %)'):'bez slevy (1 měsíc)');
-  if(sn){if(S.months<12){var b=isCourier()?9500:c.car.mo;var mo12=b?b-Math.round(b*24/100):0;sn.textContent='Když prodloužíte na 12 měsíců: −24 % → '+fmt(mo12)+' Kč/měs (ušetříte dalších '+fmt(Math.max(0,c.main-mo12))+' Kč/měs).';}else sn.textContent='Máte nejvyšší slevu −24 % za 12 měsíců. 🎉';}}
+  if(sn){if(S.months<12){var b=isCourier()?P(9500):P(c.car.mo);var mo12=b?b-Math.round(b*24/100):0;sn.textContent='Když prodloužíte na 12 měsíců: −24 % → '+fmt(mo12)+' Kč/měs (ušetříte dalších '+fmt(Math.max(0,c.main-mo12))+' Kč/měs).';}else sn.textContent='Máte nejvyšší slevu −24 % za 12 měsíců. 🎉';}}
 
 function syncSegmentUI(){var t2=isCourier();
   document.querySelectorAll('[data-p]').forEach(function(o){o.classList.toggle('sel',o.dataset.p===S.purpose);});
   document.querySelectorAll('#qtransport,#qtransport2').forEach(function(c){c.checked=t2;});
+  document.querySelectorAll('[data-pp]').forEach(function(b){b.classList.toggle('on',b.dataset.pp===S.purpose);});
+  var note=document.getElementById('qsubnote');if(note){note.style.display=t2?'':'none';note.textContent=isTaxi()?'U přepravy osob (Bolt, Uber, Liftago) si pojištění TAXI hradíte sám. Níže vidíte jen vhodné vozy.':'Kurýrní pojištění (rozvoz zboží) je v ceně. Níže vidíte jen úsporné vozy pro rozvoz.';}
   var a=document.getElementById('qsub'),b=document.getElementById('qsub2');
   if(a)a.style.display=t2?'':'none';if(b)b.style.display=t2?'':'none';}
 
 /* ============ ROUTER ============ */
 function go(route){
+  if(route==='cfg')route='home';/* #11: samostatný konfigurátor zrušen → vše jede přes konfigurátor na homepage */
+  CURR=route;
   const fn=PAGES[route]||PAGES.home;
   document.getElementById('main').innerHTML=fn();
   document.querySelectorAll('.nav a').forEach(a=>a.classList.toggle('on',a.dataset.route===route));
@@ -1109,6 +1279,7 @@ function go(route){
   document.getElementById('mobnav').style.display='none';
   if(route==='cfg')paintCfg();
   if(route==='poptavka')paintSummary();
+  if(route==='detail')paintDetail();
   if(route==='home')paintHome();
   var _mc=document.querySelector('.mcta');if(_mc)_mc.style.display=['home','cfg','poptavka','potvrzeni'].includes(route)?'none':'';
   var _mb=document.getElementById('mbar');if(_mb){var _onb=(route==='cfg'||route==='poptavka');_mb.classList.toggle('on',_onb);document.body.classList.toggle('mbar-on',_onb);if(_onb){var _bt=document.getElementById('mbarBtn');if(route==='cfg'){_bt.dataset.route='poptavka';_bt.textContent='Pokračovat →';}else{_bt.dataset.route='potvrzeni';_bt.textContent='Odeslat poptávku →';}}}
@@ -1117,11 +1288,19 @@ function go(route){
 
 /* ============ EVENTS ============ */
 document.addEventListener('click',e=>{
+  const vt=e.target.closest('[data-vat]');if(vt){S.vat=(vt.dataset.vat==='inc');go(CURR);return;}
   const r=e.target.closest('[data-route]');if(r){go(r.dataset.route);return;}
+  const gi=e.target.closest('[data-gimg]');if(gi){var gm=document.getElementById('galMain');if(gm)gm.src=gi.dataset.gimg;document.querySelectorAll('.gthumb').forEach(b=>b.classList.toggle('on',b===gi));return;}
   const pk=e.target.closest('[data-pick]');if(pk){S.car=pk.dataset.pick;S.detailCar=pk.dataset.pick;go('poptavka');return;}
   const car=e.target.closest('[data-car]');if(car){S.detailCar=car.dataset.car;go('detail');return;}
   const p=e.target.closest('[data-p]');if(p){S.purpose=p.dataset.p;syncSegmentUI();paintCfg();return;}
+  const pp=e.target.closest('[data-pp]');if(pp){S.purpose=pp.dataset.pp;syncSegmentUI();paintHome();return;}
+  const kp=e.target.closest('[data-kmpkg]');if(kp){S.kmIdx=+kp.dataset.kmpkg;paintHome();return;}
+  const dsc=e.target.closest('#dscale button');if(dsc){S.scale=dsc.dataset.ds;paintDetail();return;}
   const sc=e.target.closest('#scale button,#qscale button');if(sc){S.scale=sc.dataset.s;document.querySelectorAll('#scale button,#qscale button').forEach(b=>b.classList.toggle('on',b.dataset.s===S.scale));paintCfg();paintHome();return;}
+  const at=e.target.closest('#acctabs button');if(at){document.querySelectorAll('#acctabs button').forEach(b=>b.classList.toggle('on',b===at));const reg=at.dataset.acttab==='reg';var lf=document.getElementById('loginForm'),rf=document.getElementById('regForm'),rs0=document.getElementById('resetForm');if(rs0)rs0.style.display='none';if(lf)lf.style.display=reg?'none':'';if(rf)rf.style.display=reg?'':'none';return;}
+  const fgl=e.target.closest('#forgotLink');if(fgl){var l1=document.getElementById('loginForm'),r1=document.getElementById('regForm'),s1=document.getElementById('resetForm');if(l1)l1.style.display='none';if(r1)r1.style.display='none';if(s1)s1.style.display='';return;}
+  const rbk=e.target.closest('#resetBack');if(rbk){var s2=document.getElementById('resetForm'),l2=document.getElementById('loginForm');if(s2)s2.style.display='none';if(l2)l2.style.display='';document.querySelectorAll('#acctabs button').forEach(b=>b.classList.toggle('on',b.dataset.acttab==='login'));return;}
   const ct=e.target.closest('#custType button');if(ct){document.querySelectorAll('#custType button').forEach(b=>b.classList.toggle('on',b===ct));const ff=ct.dataset.ct==='firma';const f1=document.getElementById('fFirma1'),f2=document.getElementById('fFirma2');if(f1)f1.style.display=ff?'':'none';if(f2)f2.style.display=ff?'':'none';return;}
   const rc=e.target.closest('[data-reco]');if(rc){S.car=rc.dataset.reco;paintCfg();return;}
   const ex=e.target.closest('[data-extra]');if(ex&&!ex.classList.contains('dis')){const id=ex.dataset.extra;S.extras.has(id)?S.extras.delete(id):S.extras.add(id);ex.classList.toggle('sel');var db=document.getElementById('deliverBox');if(db&&id==='deliver')db.style.display=S.extras.has('deliver')?'':'none';paintCfg();if(document.getElementById('extrasP'))paintSummary();return;}
@@ -1130,11 +1309,14 @@ document.addEventListener('input',e=>{
   if(e.target.id==='months'){S.months=+e.target.value;document.getElementById('mval').textContent=S.months;paintCfg();}
   if(e.target.id==='km'){S.km=+e.target.value;document.getElementById('kmval').textContent=fmt(S.km);}
   if(e.target.id==='qmonths'){S.months=+e.target.value;paintHome();}
+  if(e.target.id==='qkmrange'){S.kmIdx=+e.target.value;paintHome();}
+  if(e.target.id==='ddur'){if(S.scale==='short')S.days=+e.target.value;else S.months=+e.target.value;paintDetail();}
+  if(e.target.id==='dkm'){S.kmIdx=+e.target.value;paintDetail();}
   if(e.target.id==='qkm'){S.km=+e.target.value;paintHome();}
   if(e.target.id==='qdays'){S.days=+e.target.value;paintHome();}
   if(e.target.id==='qkmday'){S.kmDay=+e.target.value;paintHome();}
 });
-document.addEventListener('change',e=>{if(e.target.id==='vsort'){S.vozySort=e.target.value;go('vozy');}if(e.target.id==='vtrans'){S.vozyTrans=e.target.value;go('vozy');}if(e.target.id==='hsort'){S.vozySort=e.target.value;paintHome();}if(e.target.id==='htrans'){S.vozyTrans=e.target.value;paintHome();}if(e.target.id==='qtransport'||e.target.id==='qtransport2'){S.purpose=e.target.checked?'taxi':'sebe';syncSegmentUI();paintCfg();paintHome();}});
+document.addEventListener('change',e=>{if(e.target.id==='qodSel'){S.heroCar=e.target.value;paintHome();return;}if(e.target.id==='vsort'){S.vozySort=e.target.value;go('vozy');}if(e.target.id==='vtrans'){S.vozyTrans=e.target.value;go('vozy');}if(e.target.id==='hsort'){S.vozySort=e.target.value;paintHome();}if(e.target.id==='htrans'){S.vozyTrans=e.target.value;paintHome();}if(e.target.id==='qtransport'||e.target.id==='qtransport2'){S.purpose=e.target.checked?'kuryr':'sebe';syncSegmentUI();paintCfg();paintHome();}});
 document.getElementById('jump').addEventListener('change',e=>go(e.target.value));
 document.getElementById('noteToggle').addEventListener('click',function(){document.body.classList.toggle('notes');this.classList.toggle('on');});
 document.getElementById('menuBtn').addEventListener('click',()=>{const m=document.getElementById('mobnav');m.style.display=m.style.display==='flex'?'none':'flex';});
@@ -1144,7 +1326,7 @@ function closeCookie(){document.getElementById('cookie').style.display='none';}
 function injectMachineData(){
   var base=location.origin+location.pathname;
   var isAuto=function(c){return /automat/i.test(c.n);};
-  var ld={"@context":"https://schema.org","@type":"AutoRental","name":"Popojedu.cz","url":base,"telephone":"+420731683203","email":"info@popojedu.cz","areaServed":"Praha a okolí","priceRange":"550–25990 CZK","address":{"@type":"PostalAddress","streetAddress":"Cukrovarská 991","addressLocality":"Praha 9 — Čakovice","postalCode":"196 00","addressCountry":"CZ"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"18:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:00","closes":"13:00"}],"makesOffer":CARS.map(function(c){return {"@type":"Offer","priceCurrency":"CZK","price":c.day,"availability":"https://schema.org/InStock","url":base+"?vuz="+c.id+"&open=cfg","itemOffered":{"@type":"Car","name":carName(c),"vehicleConfiguration":c.cat,"fuelType":c.fuel,"vehicleTransmission":isAuto(c)?"Automatic":"Manual","seatingCapacity":c.seats}};})};
+  var ld={"@context":"https://schema.org","@type":"AutoRental","name":"Popojedu.cz","url":base,"telephone":"+420731683203","email":"info@popojedu.cz","areaServed":"Praha a okolí","priceRange":"413–52500 CZK (bez DPH)","address":{"@type":"PostalAddress","streetAddress":"Cukrovarská 991","addressLocality":"Praha 9 — Čakovice","postalCode":"196 00","addressCountry":"CZ"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"18:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:00","closes":"13:00"}],"makesOffer":CARS.map(function(c){return {"@type":"Offer","priceCurrency":"CZK","price":c.day,"availability":"https://schema.org/InStock","url":base+"?vuz="+c.id+"&open=cfg","itemOffered":{"@type":"Car","name":carName(c),"vehicleConfiguration":c.cat,"fuelType":c.fuel,"vehicleTransmission":isAuto(c)?"Automatic":"Manual","seatingCapacity":c.seats}};})};
   var faq={"@context":"https://schema.org","@type":"FAQPage","mainEntity":FAQ.map(function(q){return {"@type":"Question","name":q[0],"acceptedAnswer":{"@type":"Answer","text":q[1]}};})};
   [ld,faq].forEach(function(o){var s=document.createElement('script');s.type='application/ld+json';s.textContent=JSON.stringify(o);document.head.appendChild(s);});
   var data={provider:{name:"Popojedu.cz",phone:"+420731683203",email:"info@popojedu.cz",address:"Cukrovarská 991, Praha 9 — Čakovice",since:2017},currency:"CZK",
@@ -1163,10 +1345,10 @@ try{var q=new URLSearchParams(location.search);var ids=CARS.map(function(c){retu
   var rez=q.get('rezim');if(rez==='short'||rez==='long')S.scale=rez;
   if(q.get('mesice')){S.scale='long';S.months=Math.min(24,Math.max(1,+q.get('mesice')||S.months));}
   if(q.get('dni')){S.scale='short';S.days=Math.min(30,Math.max(1,+q.get('dni')||S.days));}
-  if(q.get('km'))S.km=Math.min(10000,Math.max(500,+q.get('km')||S.km));
-  if(q.get('kmden'))S.kmDay=Math.min(500,Math.max(50,+q.get('kmden')||S.kmDay));
+  if(q.get('km')){var _kv=+q.get('km')||4500;S.kmIdx=KM_LONG.reduce(function(b,t,i){return Math.abs(t-_kv)<Math.abs(KM_LONG[b]-_kv)?i:b;},0);}
+  if(q.get('kmden')){var _kd=+q.get('kmden')||50;S.kmIdx=KM_SHORT.reduce(function(b,t,i){return Math.abs(t-_kd)<Math.abs(KM_SHORT[b]-_kd)?i:b;},0);}
   var uc=q.get('ucel');if(uc==='taxi'||uc==='kuryr')S.purpose=uc;else if(uc==='sebe')S.purpose='sebe';
-  var R={cfg:1,poptavka:1,detail:1,vozy:1};var op=q.get('open');
+  var R={cfg:1,poptavka:1,detail:1,vozy:1,admin:1,ucet:1};var op=q.get('open');
   var hasCfg=q.has('vuz')||q.has('mesice')||q.has('dni')||q.has('km')||q.has('kmden')||q.has('ucel');
   __start=(op&&R[op])?op:(hasCfg?'cfg':'home');
 }catch(e){}
@@ -1352,7 +1534,7 @@ body.cmt-on #main a,body.cmt-on #main button,body.cmt-on #main input,body.cmt-on
     if(!comments.length) return 'Žádné komentáře.';
     var by={}; var order=[];
     comments.forEach(function(c){ if(!by[c.route]){ by[c.route]=[]; order.push(c.route);} by[c.route].push(c); });
-    var out='KOMENTÁŘE K NÁVRHU — Popojedu.cz (V1.1)\n';
+    var out='KOMENTÁŘE K NÁVRHU — Popojedu.cz\n';
     out+='Vygenerováno: '+new Date().toLocaleString('cs-CZ')+'\n';
     out+='Celkem poznámek: '+comments.length+'\n';
     out+='======================================\n\n';
