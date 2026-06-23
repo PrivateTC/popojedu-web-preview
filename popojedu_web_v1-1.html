@@ -413,7 +413,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
     </div>
     <div><h4>Pronájem</h4><a data-route="cfg">Konfigurátor</a><a data-route="vozy">Naše vozy</a><a data-route="cenik">Ceník</a><a data-route="vyzvednuti">Vyzvednutí vozu</a><a data-route="predani">Předání vozu</a></div>
     <div><h4>Pro koho</h4><a data-route="firmy">Pro firmy</a><a data-route="bolt">Pro Bolt a Uber</a><a data-route="kuryri">Pro kurýry</a><a data-route="jak">Jak to funguje</a><a data-route="blog">Blog</a><a data-route="faq">FAQ</a></div>
-    <div><h4>Účet a právní</h4><a data-route="kontakt">Kontakt</a><a data-route="ucet">Můj účet</a><a data-route="op">Obchodní podmínky</a><a data-route="gdpr">Ochrana osobních údajů</a><a data-route="admin">⚙ Redakční systém (náhled)</a></div>
+    <div><h4>Účet a právní</h4><a data-route="kontakt">Kontakt</a><a data-route="ucet">Můj účet</a><a data-route="op">Obchodní podmínky</a><a data-route="gdpr">Ochrana osobních údajů</a><a data-route="cookies">Zásady cookies</a><a data-route="admin">⚙ Redakční systém (náhled)</a></div>
   </div>
   <div class="bottom">
     <span>© 2026 Popojedu.cz · Autopůjčovna od roku 2017 · spravuje MODRÝ ANDĚL s.r.o.</span>
@@ -470,6 +470,7 @@ const CARS=[
  {id:'oct3cng',n:'Škoda Octávia III G-tec liftback (CNG), manuál',short:'Octávia III CNG',day:479,mo:8740,min:5,eu:false,seats:5,fuel:'CNG',body:'Liftback',cat:'Střední',ph:PH.oct3cng,desc:'Prostorná Octávia na CNG — nízké náklady na kilometr a velký kufr. Ideální na nájezdy po městě i mimo.'},
  {id:'fabia',n:'Škoda Fabia III Ambition TSi DSG, automat',short:'Fabia III',day:500,mo:8990,min:5,eu:true,seats:5,fuel:'benzín',body:'Hatchback',cat:'Město',ph:PH.fabia,desc:'Svižný a úsporný městský automat. Skvělá volba na dovolenou, víkend i kratší pracovní cesty.'},
  {id:'oct3tdi',n:'Škoda Octávia III TDi liftback, manuál',short:'Octávia III TDi',day:469,mo:8500,min:5,eu:false,seats:5,fuel:'diesel',body:'Liftback',cat:'Střední',ph:PH.oct3tdi,desc:'Spolehlivá diesel Octávia s velkým prostorem — ekonomická na dálnici i při vyšších nájezdech.'},
+ {id:'scalaa',n:'Škoda Scala Ambition TSi, manuál',short:'Scala Ambition',day:656,mo:10839,min:3,eu:true,seats:5,fuel:'benzín',body:'Hatchback',cat:'Střední',ph:PH.scala,desc:'Levnější varianta Scaly s manuální převodovkou — úsporný a praktický kompakt do města i na cesty.'},
  {id:'scala',n:'Škoda Scala Top Selection TSi DSG, automat',short:'Scala',day:750,mo:12403,min:3,eu:true,seats:5,fuel:'benzín',body:'Hatchback',cat:'Střední',ph:PH.scala,desc:'Moderní kompakt v top výbavě s automatem. Příjemná na řízení, dobře vybavená.'},
  {id:'oct4a',n:'Škoda Octávia IV combi Ambition TDi, manuál',short:'Octávia IV combi',day:792,mo:14454,min:3,eu:true,seats:5,fuel:'diesel',body:'Combi',cat:'Střední',ph:PH.oct4a,desc:'Nejnovější generace Octávie jako kombi — obří kufr, úsporný diesel. Tahoun na dlouhé cesty.'},
  {id:'oct4s',n:'Škoda Octávia IV combi Style TDi DSG, automat',short:'Octávia IV combi Style',day:895,mo:16979,min:3,eu:true,seats:5,fuel:'diesel',body:'Combi',cat:'Střední',ph:PH.oct4s,desc:'Octávia IV combi v top výbavě Style s automatem — komfort, prostor a nízká spotřeba.'},
@@ -483,7 +484,7 @@ const CARS=[
 const FAQ=[
  ['Na jak dlouho si můžu vůz půjčit?','Den, týden i celé měsíce. U dlouhodobých paketů (3, 6 a 12 měsíců) máte nejvýhodnější měsíční sazbu.'],
  ['Jak je to s kaucí?','Vratná kauce je 10 000 až 50 000 Kč podle kategorie vozu — výši vždy říkáme dopředu. Po vrácení vozu se vrací.'],
- ['Jak funguje rezervace a platba?','Rezervaci potvrdíte úhradou pronájmu předem (kartou, převodem nebo QR kódem) — tím vám vůz držíme na termín. Pokud pronájem nevyužijete nebo se nedostavíte, platba se nevrací. Žádná samostatná záloha navíc se neplatí.'],
+ ['Jak funguje rezervace a platba?','Rezervaci potvrdíte úhradou zálohy 20 % z ceny pronájmu (kartou, převodem nebo QR kódem) — tím vám vůz držíme na termín. Doplatek hradíte nejpozději při převzetí vozu. Pokud rezervaci zrušíte nebo se nedostavíte, záloha 20 % propadá jako storno poplatek.'],
  ['Co je v ceně pronájmu?','Plný servis, havarijní i povinné pojištění včetně čelního skla s územním rozsahem EU, dálniční známka, sezónní pneumatiky, asistenční služba 24/7 a náhradní vůz při poruše.'],
  ['Co když najedu více kilometrů?','Nadlimitní kilometr stojí 2,00–2,50 Kč podle vozu. Účtuje se až po skončení pronájmu podle reálného nájezdu.'],
  ['Jak jsou vozy pojištěné?','Každý vůz má havarijní i povinné pojištění v ceně, včetně čelního skla v rámci EU. Při škodě se hradí spoluúčast 10 000 Kč.'],
@@ -515,7 +516,198 @@ const IC={
 function ic(n){return `<svg class="svi" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[n]||''}</svg>`;}
 
 /* ============ STATE ============ */
-const S={purpose:'sebe',scale:'long',months:6,km:3500,car:'fabia',extras:new Set(['driver']),detailCar:'sup4',vozyCount:6,vozySort:'asc',vozyTrans:'all',days:3,kmDay:50,vat:false,kmIdx:0,heroCar:null};
+const S={purpose:'sebe',scale:'long',months:6,km:3500,car:'fabia',extras:new Set(['driver']),detailCar:'sup4',vozyCount:6,vozySort:'asc',vozyTrans:'all',days:3,kmDay:50,vat:false,kmIdx:0,heroCar:null,post:'pronajem-auta-na-mesic'};
+
+/* ====== BLOG — interní články (SEO + LLM ready) ====== */
+const BLOGPOSTS={
+ 'pronajem-auta-na-mesic':{
+  title:'Pronájem auta na měsíc: kdy se vyplatí a jak na to',
+  date:'18. 6. 2026', read:'6 min', cat:'Rádce',
+  kw:'pronájem auta na měsíc Praha',
+  perex:'Potřebujete auto na měsíc nebo na pár měsíců, ale nechcete ho kupovat ani se vázat leasingem na roky? Flexibilní měsíční pronájem je dnes nejjednodušší cesta — všechno (servis, pojištění, dálniční známka, pneu) je v jedné ceně a auto vrátíte, až ho přestanete potřebovat.',
+  body:`
+   <h2>Pro koho dává měsíční pronájem smysl</h2>
+   <p>Měsíční pronájem auta řeší situace, kdy je krátkodobá půjčovna na den drahá a koupě nebo víceletý leasing zbytečně velký závazek. Typicky se hodí, když:</p>
+   <ul>
+     <li>vám je v servisu vlastní vůz a potřebujete náhradu na několik týdnů,</li>
+     <li>nastupujete do nové práce a čekáte na firemní nebo leasingové auto,</li>
+     <li>řešíte sezónní špičku ve firmě a potřebujete dočasně rozšířit vozový park,</li>
+     <li>jste ve městě nakrátko a chcete mobilitu bez starostí s vlastnictvím.</li>
+   </ul>
+   <h2>Co všechno je v ceně</h2>
+   <p>U flexibilního měsíčního pronájmu platíte jednu měsíční částku a v ní máte havarijní i povinné pojištění (včetně čelního skla, platné v EU), pravidelný servis, sezónní přezutí pneumatik, dálniční známku a asistenční službu 24/7. Když se vůz porouchá, dostanete náhradní — neztratíte mobilitu. Žádné skryté poplatky, žádné dokupování.</p>
+   <h2>Kolik to stojí a jak se počítá cena</h2>
+   <p>Cena za měsíc závisí na voze a na délce pronájmu — čím déle, tím nižší měsíční sazba. U nás je sleva za délku 6 % od 3 měsíců, 16 % od 6 měsíců a 24 % od 12 měsíců. V ceně měsíčního paketu je velkorysý kilometrový limit; pokud najezdíte víc, doplatíte jen férovou sazbu za kilometr, která se s délkou pronájmu nemění. Přesnou částku pro konkrétní vůz si spočítáte v konfigurátoru za pár vteřin.</p>
+   <h2>Pronájem na měsíc vs. operativní leasing</h2>
+   <p>Operativní leasing je obvykle levnější na papíře, ale váže vás na 2–4 roky, řeší se schválením a předem nastaveným ročním nájezdem. Flexibilní pronájem je dražší za měsíc, ale bez závazku — prodloužíte nebo vrátíte podle potřeby a auto měníte podle situace. Pro období v řádu týdnů až měsíců vychází flexibilní pronájem jako rozumnější volba. Více v článku <a data-post="5-duvodu-proc-je-nas-flexibilni-pronajem-aut-lepsi-nez-operativni-leasing" style="color:var(--green-d);cursor:pointer">5 důvodů, proč je flexibilní pronájem lepší než leasing</a>, nebo si přečtěte, <a data-post="dlouhodoby-pronajem-auta-kdy-je-to-vyhodnejsi-a-pro-koho" style="color:var(--green-d);cursor:pointer">kdy se vyplatí dlouhodobý pronájem</a>.</p>
+   <h2>Jak si auto na měsíc objednáte</h2>
+   <p>Vyberete vůz a dobu v konfigurátoru, pošlete nezávaznou poptávku a my vám e-mailem potvrdíme dostupnost. Vůz si vyzvednete na provozovně v Praze 9 — Čakovicích, nebo vám ho přivezeme (u pronájmu od 30 dnů po Praze zdarma).</p>`,
+  faq:[
+   ['Jaká je minimální doba pronájmu?','Záleží na voze — od jednoho dne u vyšších tříd po několik dní u úsporných modelů. Měsíční sazbu získáte už od 1 měsíce, nejvýhodnější je od 6 a 12 měsíců.'],
+   ['Je v měsíční ceně pojištění a servis?','Ano. V ceně je havarijní i povinné pojištění (vč. čelního skla, EU), servis, pneu, dálniční známka, asistence 24/7 i náhradní vůz při poruše.'],
+   ['Co když najedu víc kilometrů, než je v paketu?','Doplatíte jen sazbu za kilometr nad limit, kterou vám řekneme dopředu. Sazba za kilometr se nemění podle délky pronájmu.']
+  ]
+ },
+ 'auto-pro-bolt-a-uber':{
+  title:'Auto pro Bolt a Uber v Praze: co potřebujete vědět',
+  date:'12. 6. 2026', read:'5 min', cat:'Pro řidiče',
+  kw:'pronájem auta Bolt Uber Praha',
+  perex:'Chcete jezdit pro Bolt nebo Uber a hledáte vůz připravený na taxi provoz? Shrnuli jsme, co pronájem pro přepravu osob obnáší — od přepisu provozovatele po pojištění a náklady na kilometr.',
+  body:`
+   <h2>Auto připravené na taxi provoz</h2>
+   <p>Pro řidiče Bolt a Uber nabízíme vozy s vyšším kilometrovým paketem (6 500 km/měs), o jejichž servis, pneumatiky a dálniční známku se staráme my. Vy se soustředíte na jízdy a výdělek — auto je vždy v provozuschopném stavu a při poruše dostanete náhradní vůz.</p>
+   <h2>Pojištění a přepis provozovatele</h2>
+   <p>U přepravy osob (Bolt, Uber, taxi) si pojištění pro přepravu osob i přepis provozovatele zajišťuje řidič sám — rádi vám poradíme a nasměrujeme vás. Pojištění samotného vozu zůstává v ceně pronájmu. Tím máte náklady přehledné a platíte jen za to, co opravdu potřebujete.</p>
+   <h2>Náklady na kilometr rozhodují</h2>
+   <p>Při stovkách kilometrů denně je klíčová spotřeba. Proto nabízíme i úsporné vozy na CNG, u kterých jsou náklady na kilometr výrazně nižší než u benzínu. Při celodenním provozu se rozdíl rychle sečte do reálné úspory.</p>
+   <h2>Flexibilní délka pronájmu</h2>
+   <p>Auto si vezmete na týden, na měsíc i dlouhodobě a podle vytížení pronájem prodloužíte nebo vrátíte. Žádný víceletý závazek — hodí se, ať teprve začínáte, nebo jezdíte naplno.</p>
+   <h2>Rozvážíte jídlo?</h2>
+   <p>Pokud jste kurýr pro Wolt nebo Foodoru, přečtěte si <a data-post="pronajem-vozu-pro-kuryry-wolt-foodora-a-dalsi-v-praze" style="color:var(--green-d);cursor:pointer">pronájem vozů pro kurýry</a> — a proč se na rozvoz vyplatí <a data-post="skoda-citigo-g-tec-idealni-auto-pro-kuryry" style="color:var(--green-d);cursor:pointer">úsporná CNG Škoda Citigo</a>.</p>`,
+  faq:[
+   ['Je pojištění pro Bolt/Uber v ceně?','Pojištění pro přepravu osob si jako řidič zajišťujete sám (rádi poradíme). Pojištění vozu zůstává v ceně pronájmu.'],
+   ['Musím řešit přepis provozovatele?','Ano, přepis provozovatele u přepravy osob si zařizuje řidič. Pomůžeme vám s tím, co je potřeba.'],
+   ['Jaké auto se nejvíc vyplatí pro Bolt a Uber?','Pro vysoké denní nájezdy úsporné vozy, ideálně CNG — mají nejnižší náklady na kilometr. Konkrétní cenu spočítá konfigurátor.']
+  ]
+ },
+ 'nova-sluzba-nahradni-vuz-pri-pojistne-udalosti':{
+  title:'Náhradní vůz při pojistné události — jak to funguje', date:'8. 1. 2025', read:'4 min', cat:'Novinka', kw:'náhradní vozidlo pojistná událost Praha',
+  perex:'Bourali jste nebo vám někdo poškodil auto? Po dobu opravy máte obvykle nárok na náhradní vozidlo — a často ho hradí pojišťovna viníka. U nás ho vyřídíte rychle a bez složitého papírování.',
+  body:`<h2>Kdy máte na náhradní vůz nárok</h2><p>Pokud nehodu zavinil někdo jiný, máte z jeho povinného ručení obvykle nárok na náhradní vozidlo po dobu opravy vašeho auta. Platí to i u řady havarijních pojištění. Vždy doporučujeme nárok ověřit u pojišťovny — rádi poradíme, jak na to.</p>
+   <h2>Jak to u nás probíhá</h2><p>Ozvěte se nám, vybereme srovnatelný vůz a domluvíme předání na provozovně v Praze 9 — Čakovicích, nebo vám ho přivezeme. O servis, pojištění i dálniční známku se staráme my, vy jen pokračujete v jízdě.</p>
+   <h2>Co budete potřebovat</h2><p>Občanský a řidičský průkaz, platební kartu a údaje k pojistné události (číslo události, kontakt na pojišťovnu). S vyúčtováním přímo na pojišťovnu vám pomůžeme. Vybíráte půjčovnu? Mrkněte na <a data-post="autopujcovna-5-znaku-kvalitni-pujcovny-aut-v-praze" style="color:var(--green-d);cursor:pointer">5 znaků kvalitní autopůjčovny</a>.</p>`,
+  faq:[['Kdo platí náhradní vůz?','Při zavinění druhou stranou obvykle pojišťovna viníka z povinného ručení. Konkrétní podmínky ověříme s vaší pojišťovnou.'],['Jak rychle vůz dostanu?','Zpravidla obratem podle dostupnosti — ozvěte se nám a domluvíme předání co nejdříve.'],['Jaké auto dostanu?','Snažíme se nabídnout srovnatelnou třídu, aby vám náhrada plnohodnotně posloužila.']]
+ },
+ 'pronajem-vozu-pro-kuryry-wolt-foodora-a-dalsi-v-praze':{
+  title:'Pronájem vozů pro kurýry Wolt, Foodora a další v Praze', date:'28. 4. 2024', read:'5 min', cat:'Pro řidiče', kw:'pronájem auta pro kurýry Praha',
+  perex:'Rozvážíte jídlo nebo balíky? Půjčíme vám úsporný vůz s nízkými náklady na kilometr. O servis, pneumatiky i pojištění se staráme my — vy se soustředíte na rozvoz a výdělek.',
+  body:`<h2>Proč na nákladech na kilometr záleží</h2><p>Při stovkách kilometrů denně rozhoduje spotřeba. Proto nabízíme i vozy na CNG, u kterých jsou náklady na kilometr výrazně nižší než u benzínu — rozdíl se přes den nasčítá do reálné úspory.</p>
+   <h2>Vůz připravený na celodenní provoz</h2><p>V ceně máte servis, sezónní pneumatiky, dálniční známku, pojištění (vč. čelního skla, EU) a asistenci 24/7. Když se vůz porouchá, dostanete náhradní — rozvoz se nezastaví.</p>
+   <h2>Flexibilní délka</h2><p>Auto si vezmete na týden, měsíc i dlouhodobě a podle vytížení pronájem prodloužíte nebo vrátíte. Bez víceletého závazku. Pro nejnižší náklady na km zvažte <a data-post="skoda-citigo-g-tec-idealni-auto-pro-kuryry" style="color:var(--green-d);cursor:pointer">úspornou CNG Citigo</a>; vozíte i cestující? Čtěte <a data-post="auto-pro-bolt-a-uber" style="color:var(--green-d);cursor:pointer">auto pro Bolt a Uber</a>.</p>`,
+  faq:[['Jaké auto je pro kurýra nejlevnější na provoz?','Úsporné vozy, ideálně na CNG — mají nejnižší náklady na kilometr.'],['Je v ceně servis a pojištění?','Ano, servis, pneu, dálniční známka, pojištění i asistence 24/7 jsou v ceně.'],['Můžu auto vrátit, když přestanu rozvážet?','Ano, pronájem je flexibilní — prodloužíte nebo vrátíte podle potřeby.']]
+ },
+ 'pronajem-auta-muze-byt-lepsi-nez-jeho-vlastnictvi-proc-tomu-tak-je':{
+  title:'Proč může být pronájem auta lepší než jeho vlastnictví', date:'15. 11. 2022', read:'6 min', cat:'Rádce', kw:'pronájem auta vs vlastní auto',
+  perex:'Vlastní auto znamená pořizovací cenu, odpisy, pojistky, servis a starosti s prodejem. Flexibilní pronájem tohle všechno řeší za vás v jedné měsíční ceně — a auto vrátíte, až ho přestanete potřebovat.',
+  body:`<h2>Co všechno k vlastnictví patří</h2><p>Kromě ceny auta platíte pojištění, servis, pneumatiky, dálniční známku a nesete riziko poruch i ztrátu hodnoty (odpis). To jsou náklady, které nejsou na první pohled vidět.</p>
+   <h2>Co řeší pronájem</h2><p>U flexibilního pronájmu máte všechny tyto položky v jedné měsíční ceně, bez vázání kapitálu v autě a bez starosti s pozdějším prodejem. Při poruše dostanete náhradní vůz.</p>
+   <h2>Pro koho se to hodí</h2><p>Pro toho, kdo potřebuje auto na měsíce, nechce velký jednorázový výdaj nebo chce mít náklady předvídatelné. Když potřebu pomine, jednoduše vrátíte. Více v článcích <a data-post="pronajem-auta-na-mesic" style="color:var(--green-d);cursor:pointer">pronájem na měsíc</a> a <a data-post="5-duvodu-proc-je-nas-flexibilni-pronajem-aut-lepsi-nez-operativni-leasing" style="color:var(--green-d);cursor:pointer">pronájem vs leasing</a>.</p>`,
+  faq:[['Je pronájem dražší než vlastní auto?','Za měsíc zaplatíte víc než „jen" splátku, ale v ceně máte servis, pojištění i náhradní vůz a nenesete odpis ani riziko oprav.'],['Pro koho se pronájem nevyplatí?','Pro toho, kdo auto potřebuje roky a má ho zajeté — tam dává smysl spíš vlastnictví nebo leasing.'],['Můžu pronájem kdykoli ukončit?','Ano, flexibilní pronájem prodloužíte nebo vrátíte podle potřeby.']]
+ },
+ 'skoda-citigo-g-tec-idealni-auto-pro-kuryry':{
+  title:'Škoda Citigo G-tec: úsporné CNG auto pro kurýry i město', date:'15. 9. 2022', read:'4 min', cat:'Vozy', kw:'Škoda Citigo CNG pronájem',
+  perex:'Malá, obratná a hlavně levná na provoz. Škoda Citigo na CNG má jedny z nejnižších nákladů na kilometr na trhu — ideální pro kurýry i městské ježdění.',
+  body:`<h2>Proč CNG</h2><p>Stlačený zemní plyn (CNG) je na kilometr výrazně levnější palivo. Při vysokém nájezdu, typickém pro rozvoz, se úspora rychle nasčítá. Citigo G-tec navíc snadno zaparkujete kdekoli ve městě.</p>
+   <h2>Pro koho je Citigo</h2><p>Pro kurýry Wolt a Foodora, pro městské popojíždění a pro každého, kdo chce co nejnižší náklady na kilometr. Pozor — je to vůz pro ČR, ne pro dlouhé cesty do zahraničí.</p>
+   <h2>Co je v ceně</h2><p>Servis, pneumatiky, dálniční známka, pojištění i asistence. O údržbu se staráme ve vlastní dílně. Hodí se i na rozvoz — viz <a data-post="pronajem-vozu-pro-kuryry-wolt-foodora-a-dalsi-v-praze" style="color:var(--green-d);cursor:pointer">pronájem vozů pro kurýry</a>.</p>`,
+  faq:[['Kolik ušetřím na CNG oproti benzínu?','Na palivu jde řádově o desítky procent na kilometr; přesná úspora závisí na nájezdu a aktuálních cenách.'],['Dá se Citigo G-tec půjčit dlouhodobě?','Ano, na týdny i měsíce. Pro vysoké nájezdy je to jeden z nejlevnějších vozů.'],['Můžu s Citigo do zahraničí?','Citigo nabízíme pro provoz v ČR; na cesty do EU doporučíme jiný vůz.']]
+ },
+ '5-duvodu-proc-je-nas-flexibilni-pronajem-aut-lepsi-nez-operativni-leasing':{
+  title:'5 důvodů, proč je flexibilní pronájem lepší než operativní leasing', date:'20. 11. 2019', read:'5 min', cat:'Rádce', kw:'flexibilní pronájem vs operativní leasing',
+  perex:'Operativní leasing vás váže na roky a předem nastavený nájezd. Flexibilní pronájem dává stejné výhody (vše v ceně), ale bez dlouhého závazku — prodloužíte nebo vrátíte podle potřeby.',
+  body:`<h2>1. Bez víceletého závazku</h2><p>Leasing se sjednává na 2–4 roky. U nás si auto vezmete na týden, měsíc i déle a kdykoli vrátíte.</p>
+   <h2>2. Bez schvalování a akontace</h2><p>Žádné dlouhé schvalování ani vysoká první splátka — stačí běžné doklady a platba předem.</p>
+   <h2>3. Nájezd vás nesvazuje</h2><p>Nemusíte na začátku odhadovat roční kilometry a hlídat limit po celé roky.</p>
+   <h2>4. Vše v ceně a vlastní servis</h2><p>Pojištění, servis, pneu, známka i náhradní vůz. Údržbu řešíme ve vlastní dílně = férové ceny.</p>
+   <h2>5. Měníte vůz podle situace</h2><p>Dnes malé auto, příště kombi — podle toho, co zrovna potřebujete. Souvisí: <a data-post="dlouhodoby-pronajem-auta-kdy-je-to-vyhodnejsi-a-pro-koho" style="color:var(--green-d);cursor:pointer">kdy se vyplatí dlouhodobý pronájem</a> a <a data-post="pronajem-auta-na-mesic" style="color:var(--green-d);cursor:pointer">pronájem na měsíc</a>.</p>`,
+  faq:[['Je flexibilní pronájem dražší než leasing?','Za měsíc obvykle ano, ale platíte za svobodu — žádný víceletý závazek a žádné riziko nadlimitních kilometrů.'],['Potřebuju velkou akontaci?','Ne. Platí se předem za sjednané období, bez akontace jako u leasingu.'],['Kdy zvolit leasing?','Když auto potřebujete na roky a víte to dopředu.']]
+ },
+ 'a-jsou-tady-skoda-superb-po-faceliftu-k-pronajmu':{
+  title:'Škoda Superb k pronájmu — reprezentativní vůz pro firmy i cesty', date:'14. 10. 2019', read:'4 min', cat:'Vozy', kw:'pronájem Škoda Superb Praha',
+  perex:'Prostorný, pohodlný a reprezentativní. Škoda Superb je ideální na delší cesty, firemní jízdy i odvoz klientů — s plným servisem a pojištěním v ceně.',
+  body:`<h2>Pro koho je Superb</h2><p>Pro firmy, které chtějí reprezentativní vůz, pro rodiny na delší cesty i pro každého, kdo ocení velký kufr a pohodlí na dálnici. K dispozici jako liftback i kombi, s automatem.</p>
+   <h2>Co dostanete v ceně</h2><p>Servis, pneumatiky, dálniční známku, pojištění (vč. čelního skla, EU) a asistenci 24/7. Při poruše náhradní vůz.</p>
+   <h2>Na den, měsíc i dlouhodobě</h2><p>Superb si půjčíte krátkodobě i na měsíce — čím déle, tím nižší měsíční sazba. Plánujete velký den? Mrkněte na <a data-post="auto-na-svatbu" style="color:var(--green-d);cursor:pointer">auto na svatbu</a>.</p>`,
+  faq:[['Je Superb vhodný do zahraničí?','Ano, je povolený pro cesty po EU.'],['Liftback, nebo kombi?','Kombi má větší kufr, liftback je nižší a elegantnější — vyberte podle potřeby.'],['Je v ceně automat?','Nabízené Superby jsou s automatickou převodovkou.']]
+ },
+ 'autopujcovna-5-znaku-kvalitni-pujcovny-aut-v-praze':{
+  title:'Autopůjčovna v Praze: 5 znaků kvalitní půjčovny', date:'28. 3. 2019', read:'5 min', cat:'Rádce', kw:'kvalitní autopůjčovna Praha',
+  perex:'Než si půjčíte auto, vyplatí se vědět, podle čeho poznat férovou půjčovnu. Shrnuli jsme pět znaků, na které se zaměřit, abyste se vyhnuli skrytým poplatkům.',
+  body:`<h2>1. Transparentní cena</h2><p>Dobrá půjčovna ukáže cenu včetně pojištění, servisu a dálniční známky — bez hvězdiček a doplatků na konci.</p>
+   <h2>2. Jasné podmínky kauce a storna</h2><p>Výši kauce i storno podmínky se dozvíte předem, ne až na místě.</p>
+   <h2>3. Pojištění a asistence v ceně</h2><p>Havarijní i povinné pojištění, čelní sklo a asistence 24/7 by měly být samozřejmostí.</p>
+   <h2>4. Vlastní servis a náhradní vůz</h2><p>Vlastní dílna znamená férové ceny a rychlé řešení; náhradní vůz při poruše udrží vaši mobilitu.</p>
+   <h2>5. Recenze a zkušenost</h2><p>Hodnocení od zákazníků a roky na trhu napoví, jak to v praxi funguje. Zvažujete koupi, nebo pronájem? Čtěte <a data-post="pronajem-auta-muze-byt-lepsi-nez-jeho-vlastnictvi-proc-tomu-tak-je" style="color:var(--green-d);cursor:pointer">pronájem vs vlastnictví</a>.</p>`,
+  faq:[['Na co si dát pozor při půjčení auta?','Hlavně na skryté poplatky, podmínky kauce, limit kilometrů a co je a není v ceně.'],['Je lepší velká síť, nebo lokální půjčovna?','Lokální půjčovna v Praze bývá pro českého zákazníka férovější a osobnější; rozhoduje transparentnost.'],['Co má být v ceně?','Pojištění, servis, pneu, dálniční známka, asistence a ideálně náhradní vůz.']]
+ },
+ 'auto-na-svatbu':{
+  title:'Auto na svatbu: jak vybrat svatební vůz', date:'30. 1. 2019', read:'4 min', cat:'Tipy', kw:'auto na svatbu pronájem Praha',
+  perex:'Svatba si zaslouží reprezentativní vůz. Poradíme, jak vybrat auto pro nevěstu i svatební hosty, aby den klapl bez starostí.',
+  body:`<h2>Vyberte podle stylu svatby</h2><p>Na elegantní svatbu se hodí reprezentativní vůz jako Škoda Superb nebo Mercedes; na neformální menší auto v dobré kondici. Důležitý je čistý, spolehlivý vůz a pohodlný nástup v šatech.</p>
+   <h2>Myslete na termín a rezervaci</h2><p>Svatební sezóna je nabitá — vůz si rezervujte s předstihem. Pošlete nezávaznou poptávku a dostupnost potvrdíme.</p>
+   <h2>Co je v ceně</h2><p>Pojištění, servis i asistence. Auto předáme čisté a připravené; vrátíte ho po obřadu bez stresu. Vybíráte vůz? Oblíbený je <a data-post="a-jsou-tady-skoda-superb-po-faceliftu-k-pronajmu" style="color:var(--green-d);cursor:pointer">Škoda Superb</a> i reprezentativní <a data-post="elegance-luxus-a-komfort-to-je-nas-mercedes-e" style="color:var(--green-d);cursor:pointer">Mercedes-Benz</a>.</p>`,
+  faq:[['Jaké auto se hodí na svatbu?','Reprezentativní a prostorné — oblíbený je Superb nebo Mercedes. Záleží na stylu svatby.'],['Jak dlouho dopředu rezervovat?','V sezóně ideálně několik týdnů předem.'],['Můžu auto na svatbu vyzdobit?','Drobnou výzdobu obvykle ano — domluvíme detaily, ať vůz nepoškodíte.']]
+ },
+ 'damska-jizda-do-lazni-se-spolehlivou-octavii-i-do-deste':{
+  title:'Dámská jízda do lázní spolehlivou Škodou Octavia', date:'27. 9. 2018', read:'4 min', cat:'Tipy', kw:'pronájem auta výlet do lázní',
+  perex:'Víkend v lázních s kamarádkami? Spolehlivá Škoda Octavia vás tam pohodlně doveze za každého počasí — s plným servisem a pojištěním v ceně.',
+  body:`<h2>Proč Octavia na výlet</h2><p>Octavia je pohodlná, úsporná a má velký kufr na kufry i nákupy. Na české i moravské lázně (Karlovy Vary, Mariánské Lázně, Luhačovice) ideální parťák.</p>
+   <h2>Bez starostí za každého počasí</h2><p>Vozy jsou servisované ve vlastní dílně, na sezónních pneumatikách a s asistencí 24/7 — i když venku prší nebo mrzne.</p>
+   <h2>Jak na to</h2><p>Vyberte termín v konfigurátoru, pošlete poptávku a vyrazte. Auto vrátíte po víkendu, nebo si ho necháte déle. Další tipy na cesty: <a data-post="autovylet-do-moravskych-sklipku" style="color:var(--green-d);cursor:pointer">autovýlet do moravských sklípků</a> a <a data-post="vyletnik-aneb-jakubovy-tipy-kam-autem-po-cesku" style="color:var(--green-d);cursor:pointer">kam autem po Česku</a>.</p>`,
+  faq:[['Je Octavia vhodná na delší výlet?','Ano, je pohodlná a úsporná, s velkým kufrem — na výlety ideální.'],['Dostanu zimní pneumatiky?','Vozy jsou na sezónních pneumatikách dle ročního období.'],['Co když se po cestě něco stane?','Máte asistenci 24/7 a při poruše náhradní vůz.']]
+ },
+ 'dlouhodoby-pronajem-auta-kdy-je-to-vyhodnejsi-a-pro-koho':{
+  title:'Dlouhodobý pronájem auta: kdy se vyplatí a pro koho', date:'27. 9. 2018', read:'5 min', cat:'Rádce', kw:'dlouhodobý pronájem auta Praha',
+  perex:'Potřebujete auto na několik měsíců? Dlouhodobý pronájem je levnější než denní sazba a flexibilnější než leasing. Shrnuli jsme, kdy se vyplatí a komu.',
+  body:`<h2>Kdy se dlouhodobý pronájem vyplatí</h2><p>Když potřebujete auto na měsíce, ale nechcete ho kupovat ani se vázat víceletým leasingem. Čím delší pronájem, tím nižší měsíční sazba — u nás sleva 6 % od 3 měsíců, 16 % od 6 a 24 % od 12 měsíců.</p>
+   <h2>Pro koho je ideální</h2><p>Pro firmy řešící sezónní špičku, pro nové zaměstnance čekající na firemní vůz, pro lidi mezi auty i pro každého, kdo chce předvídatelné náklady bez starostí.</p>
+   <h2>Vše v jedné ceně</h2><p>Pojištění, servis, pneu, dálniční známka, asistence i náhradní vůz. Žádné skryté poplatky. Souvisí: <a data-post="pronajem-auta-na-mesic" style="color:var(--green-d);cursor:pointer">pronájem na měsíc</a> a <a data-post="5-duvodu-proc-je-nas-flexibilni-pronajem-aut-lepsi-nez-operativni-leasing" style="color:var(--green-d);cursor:pointer">pronájem vs leasing</a>.</p>`,
+  faq:[['Od kdy platí sleva za délku?','Od 3 měsíců 6 %, od 6 měsíců 16 %, od 12 měsíců 24 %.'],['Je dlouhodobý pronájem levnější než denní?','Ano, přepočteno na den výrazně — čím déle, tím nižší sazba.'],['Liší se od operativního leasingu?','Ano, je flexibilní — bez víceletého závazku a bez akontace.']]
+ },
+ 'elegance-luxus-a-komfort-to-je-nas-mercedes-e':{
+  title:'Elegance a komfort: Mercedes-Benz k pronájmu', date:'27. 9. 2018', read:'4 min', cat:'Vozy', kw:'pronájem Mercedes Praha',
+  perex:'Když má auto udělat dojem. Mercedes-Benz nabízíme na reprezentativní jízdy, odvoz klientů i výjimečné příležitosti — s pohodlím nejvyšší třídy a plným servisem v ceně.',
+  body:`<h2>Pro koho je Mercedes</h2><p>Pro reprezentaci firmy, odvoz VIP klientů, svatby i výjimečné cesty, kde záleží na komfortu a dojmu. Luxusní výbava, tichý a plynulý projev.</p>
+   <h2>Co dostanete v ceně</h2><p>Servis, pojištění (vč. čelního skla, EU) a asistence 24/7. O vůz pečujeme ve vlastní dílně.</p>
+   <h2>Rezervace</h2><p>Luxusní vůz si rezervujte s předstihem — pošlete poptávku a potvrdíme dostupnost. Hodí se i na <a data-post="auto-na-svatbu" style="color:var(--green-d);cursor:pointer">svatbu</a>; alternativou je <a data-post="a-jsou-tady-skoda-superb-po-faceliftu-k-pronajmu" style="color:var(--green-d);cursor:pointer">Škoda Superb</a>.</p>`,
+  faq:[['Na jak dlouho si Mercedes půjčím?','Nabízíme delší pronájmy; kratší reprezentativní jízdy řešíme individuálně.'],['Je v ceně pojištění?','Ano, pojištění vozu vč. čelního skla (EU) i asistence jsou v ceně.'],['Hodí se na svatbu?','Ano, patří k nejoblíbenějším svatebním vozům.']]
+ },
+ 'autovylet-do-moravskych-sklipku':{
+  title:'Autovýlet do moravských sklípků: tipy na cestu', date:'12. 1. 2017', read:'5 min', cat:'Tipy', kw:'autovýlet jižní Morava sklípky',
+  perex:'Jižní Morava, vinné sklípky a malebné vesnice. Poradíme, jak naplánovat autovýlet za vínem — a proč se na něj hodí pohodlné kombi.',
+  body:`<h2>Kam vyrazit</h2><p>Oblíbené jsou Mikulov, Valtice, Lednice, Velké Pavlovice nebo Znojmo. Trasy spojíte do víkendového okruhu s zastávkami u sklípků a památek UNESCO (Lednicko-valtický areál).</p>
+   <h2>Proč kombi</h2><p>Do velkého kufru se vejdou kufry i nákup vína. Pohodlná Octavia nebo Superb kombi zvládnou delší trasu bez únavy.</p>
+   <h2>Myslete na řidiče</h2><p>Degustace a řízení nejdou dohromady — domluvte se, kdo zůstane střízlivý, nebo přespěte na místě. Další inspirace: <a data-post="vyletnik-aneb-jakubovy-tipy-kam-autem-po-cesku" style="color:var(--green-d);cursor:pointer">kam autem po Česku</a> a <a data-post="damska-jizda-do-lazni-se-spolehlivou-octavii-i-do-deste" style="color:var(--green-d);cursor:pointer">dámská jízda do lázní</a>.</p>`,
+  faq:[['Jaké auto na výlet za vínem?','Pohodlné kombi s velkým kufrem — Octavia nebo Superb.'],['Dá se auto půjčit na víkend?','Ano, krátkodobě i na delší dobu.'],['Můžu jet do zahraničí (Rakousko)?','Většina našich vozů je povolená pro EU — ověřte u konkrétního vozu.']]
+ },
+ 'klidna-sila-pri-stehovani-trojkova-oktavka':{
+  title:'Stěhování autem: kombi Škoda Octavia jako pomocník', date:'10. 1. 2017', read:'4 min', cat:'Tipy', kw:'auto na stěhování pronájem kombi',
+  perex:'Menší stěhování nebo odvoz nábytku zvládne i pohodlné kombi. Škoda Octavia combi má velký kufr a po složení sedaček pobere překvapivě hodně.',
+  body:`<h2>Co kombi uveze</h2><p>Po složení zadních sedaček nabídne Octavia combi velký rovný prostor — krabice, menší nábytek, spotřebiče. Na menší stěhování levnější a obratnější než dodávka.</p>
+   <h2>Tipy na naložení</h2><p>Těžké věci dolů a dopředu, křehké zajistěte. Vůz vracíте čistý, ať se vyhnete poplatku za úklid.</p>
+   <h2>Na den i víkend</h2><p>Auto si půjčíte klidně jen na den stěhování a pak vrátíte. Na delší dobu zvažte <a data-post="dlouhodoby-pronajem-auta-kdy-je-to-vyhodnejsi-a-pro-koho" style="color:var(--green-d);cursor:pointer">dlouhodobý pronájem</a> nebo prostorný <a data-post="a-jsou-tady-skoda-superb-po-faceliftu-k-pronajmu" style="color:var(--green-d);cursor:pointer">Superb kombi</a>.</p>`,
+  faq:[['Uveze kombi nábytek?','Menší ano — po složení sedaček má velký prostor. Na velké stěhování je lepší dodávka.'],['Můžu si auto půjčit jen na jeden den?','Ano, podle vozu i na krátkou dobu.'],['Musím vrátit auto uklizené?','Ano, vůz vracíte v čistém stavu, jinak může být účtován úklid.']]
+ },
+ 'vyletnik-aneb-jakubovy-tipy-kam-autem-po-cesku':{
+  title:'Kam autem po Česku: tipy na výlety', date:'9. 1. 2017', read:'6 min', cat:'Tipy', kw:'výlety autem po Česku tipy',
+  perex:'Česko je plné míst na víkendový výlet autem. Vybrali jsme tipy na hrady, přírodu i města, kam se nejlépe dostanete vlastním tempem za volantem.',
+  body:`<h2>Hrady a zámky</h2><p>Karlštejn, Český Krumlov, Hluboká nebo Kutná Hora — klasika dostupná autem z Prahy na den.</p>
+   <h2>Příroda</h2><p>České Švýcarsko, Adršpašské skály, Šumava nebo Český ráj. Autem se dostanete i k méně turistickým místům.</p>
+   <h2>Města a lázně</h2><p>Karlovy Vary, Mariánské Lázně, Olomouc nebo Brno se hodí na víkendový okruh. Pohodlné auto udělá z cesty zážitek, ne povinnost. Konkrétní tipy: <a data-post="autovylet-do-moravskych-sklipku" style="color:var(--green-d);cursor:pointer">moravské sklípky</a> a <a data-post="damska-jizda-do-lazni-se-spolehlivou-octavii-i-do-deste" style="color:var(--green-d);cursor:pointer">výlet do lázní</a>.</p>`,
+  faq:[['Jaké auto na výlety po Česku?','Pohodlné a úsporné — Octavia nebo kombi na delší trasy a zavazadla.'],['Půjčím si auto jen na víkend?','Ano, krátkodobý pronájem je možný.'],['Je dálniční známka v ceně?','Ano, dálniční známka pro ČR je v ceně pronájmu.']]
+ }
+};
+const blogList=()=>Object.keys(BLOGPOSTS);
+/* tematické shluky pro interní prolinkování (SEO + LLM) */
+const RELATED={
+ 'pronajem-auta-na-mesic':['dlouhodoby-pronajem-auta-kdy-je-to-vyhodnejsi-a-pro-koho','5-duvodu-proc-je-nas-flexibilni-pronajem-aut-lepsi-nez-operativni-leasing','pronajem-auta-muze-byt-lepsi-nez-jeho-vlastnictvi-proc-tomu-tak-je'],
+ 'auto-pro-bolt-a-uber':['pronajem-vozu-pro-kuryry-wolt-foodora-a-dalsi-v-praze','skoda-citigo-g-tec-idealni-auto-pro-kuryry','dlouhodoby-pronajem-auta-kdy-je-to-vyhodnejsi-a-pro-koho'],
+ 'nova-sluzba-nahradni-vuz-pri-pojistne-udalosti':['autopujcovna-5-znaku-kvalitni-pujcovny-aut-v-praze','pronajem-auta-muze-byt-lepsi-nez-jeho-vlastnictvi-proc-tomu-tak-je','dlouhodoby-pronajem-auta-kdy-je-to-vyhodnejsi-a-pro-koho'],
+ 'pronajem-vozu-pro-kuryry-wolt-foodora-a-dalsi-v-praze':['skoda-citigo-g-tec-idealni-auto-pro-kuryry','auto-pro-bolt-a-uber','dlouhodoby-pronajem-auta-kdy-je-to-vyhodnejsi-a-pro-koho'],
+ 'pronajem-auta-muze-byt-lepsi-nez-jeho-vlastnictvi-proc-tomu-tak-je':['5-duvodu-proc-je-nas-flexibilni-pronajem-aut-lepsi-nez-operativni-leasing','dlouhodoby-pronajem-auta-kdy-je-to-vyhodnejsi-a-pro-koho','pronajem-auta-na-mesic'],
+ 'skoda-citigo-g-tec-idealni-auto-pro-kuryry':['pronajem-vozu-pro-kuryry-wolt-foodora-a-dalsi-v-praze','auto-pro-bolt-a-uber','autopujcovna-5-znaku-kvalitni-pujcovny-aut-v-praze'],
+ '5-duvodu-proc-je-nas-flexibilni-pronajem-aut-lepsi-nez-operativni-leasing':['dlouhodoby-pronajem-auta-kdy-je-to-vyhodnejsi-a-pro-koho','pronajem-auta-muze-byt-lepsi-nez-jeho-vlastnictvi-proc-tomu-tak-je','pronajem-auta-na-mesic'],
+ 'a-jsou-tady-skoda-superb-po-faceliftu-k-pronajmu':['elegance-luxus-a-komfort-to-je-nas-mercedes-e','auto-na-svatbu','klidna-sila-pri-stehovani-trojkova-oktavka'],
+ 'autopujcovna-5-znaku-kvalitni-pujcovny-aut-v-praze':['pronajem-auta-muze-byt-lepsi-nez-jeho-vlastnictvi-proc-tomu-tak-je','dlouhodoby-pronajem-auta-kdy-je-to-vyhodnejsi-a-pro-koho','nova-sluzba-nahradni-vuz-pri-pojistne-udalosti'],
+ 'auto-na-svatbu':['elegance-luxus-a-komfort-to-je-nas-mercedes-e','a-jsou-tady-skoda-superb-po-faceliftu-k-pronajmu','damska-jizda-do-lazni-se-spolehlivou-octavii-i-do-deste'],
+ 'damska-jizda-do-lazni-se-spolehlivou-octavii-i-do-deste':['autovylet-do-moravskych-sklipku','vyletnik-aneb-jakubovy-tipy-kam-autem-po-cesku','auto-na-svatbu'],
+ 'dlouhodoby-pronajem-auta-kdy-je-to-vyhodnejsi-a-pro-koho':['pronajem-auta-na-mesic','5-duvodu-proc-je-nas-flexibilni-pronajem-aut-lepsi-nez-operativni-leasing','pronajem-auta-muze-byt-lepsi-nez-jeho-vlastnictvi-proc-tomu-tak-je'],
+ 'elegance-luxus-a-komfort-to-je-nas-mercedes-e':['a-jsou-tady-skoda-superb-po-faceliftu-k-pronajmu','auto-na-svatbu','klidna-sila-pri-stehovani-trojkova-oktavka'],
+ 'autovylet-do-moravskych-sklipku':['vyletnik-aneb-jakubovy-tipy-kam-autem-po-cesku','damska-jizda-do-lazni-se-spolehlivou-octavii-i-do-deste','dlouhodoby-pronajem-auta-kdy-je-to-vyhodnejsi-a-pro-koho'],
+ 'klidna-sila-pri-stehovani-trojkova-oktavka':['a-jsou-tady-skoda-superb-po-faceliftu-k-pronajmu','autovylet-do-moravskych-sklipku','pronajem-auta-na-mesic'],
+ 'vyletnik-aneb-jakubovy-tipy-kam-autem-po-cesku':['autovylet-do-moravskych-sklipku','damska-jizda-do-lazni-se-spolehlivou-octavii-i-do-deste','auto-na-svatbu']
+};
+const relatedFor=s=>(RELATED[s]||blogList().filter(x=>x!==s)).filter(x=>x!==s&&BLOGPOSTS[x]).slice(0,3);
 let CURR='home';
 const EXTRAS=[{id:'driver',label:'Druhý řidič',price:'+ 0 Kč'},{id:'seat',label:'Dětská sedačka',price:'na vyžádání'},{id:'box',label:'Střešní box Thule',price:'+ 80 Kč/den',only:['sup3lb','sup3co','oct4a','oct4s']},{id:'deliver',label:'Přistavení a vyzvednutí vozu',price:'od 500 Kč (30+ dní zdarma)'}];
 const DISC=m=>m>=12?24:m>=6?16:m>=3?6:0;
@@ -664,14 +856,14 @@ home:()=>`
   <p class="muted" style="margin-top:14px;font-size:13px">+ při úhradě do 24 h sleva −5 %, věrnostní sleva −5 / −8 / −12 % a 500 Kč za plnou nádrž. Slevy se propíšou do cen u vozů výše.</p>
 </div></section>
 
-<section class="sec tint"><div class="wrap center">
-  <div class="eyebrow">Jak to probíhá</div>
-  <h2 style="font-size:30px;margin:8px 0 28px">Tři kroky bez překvapení</h2>
-  <div class="step-row" style="grid-template-columns:repeat(3,1fr);text-align:center">
+<section class="sec tint"><div class="wrap">
+  <div class="eyebrow center" style="display:block">Jak to probíhá</div>
+  <h2 class="center" style="font-size:30px;margin:8px 0 26px">Tři kroky bez překvapení</h2>
+  <div class="grid3">
     ${[['Spočítáte cenu','Konfigurátor okamžitě ukáže fér cenu podle vozu, doby a nájezdu. Při 6 měsících ušetříte 16 %, při 12 měsících 24 %.'],
        ['Domluvíte rezervaci','Pošlete poptávku a my vám e-mailem potvrdíme dostupnost vozu i rezervaci. Vůz pro vás držíme 24 hodin — žádný stres.'],
        ['Vyzvednete v Čakovicích','Provozovna Cukrovarská 991. Předání trvá 20 minut: instruktáž, společné foto stavu vozu, klíče. Nebo vám vůz přivezeme — ceny viz níže.']
-      ].map((s,i)=>`<div class="fcard"><div class="snum">${i+1}</div><h3>${s[0]}</h3><p>${s[1]}</p></div>`).join('')}
+      ].map((s,i)=>`<div class="fcard" style="text-align:center"><div class="snum" style="margin:0 auto 10px">${i+1}</div><h3 style="margin:0 0 6px">${s[0]}</h3><p style="margin:0">${s[1]}</p></div>`).join('')}
   </div>
 </div></section>
 
@@ -800,7 +992,7 @@ cenik:()=>`<section class="sec"><div class="wrap">
   <p class="muted" style="font-size:13px;margin-top:12px">Měsíční sazby jsou pro nejnižší km balíček; vyšší nájezd = vyšší balíček (1 500–9 000 km/měs, vidíte v konfigurátoru, cena se hned přepočítá). Nad nejvyšší balíček řešíme individuálně. Minimální doba pronájmu se liší podle vozu.</p>
   <div style="margin-top:36px"><div class="eyebrow">Rezervace a platba</div><h2 style="font-size:24px;margin:8px 0 18px">Jednoduše a bez skrytých kroků</h2>
   <div class="grid3">
-    ${[['💳','Platba předem drží vůz','Pronájem uhradíte předem (kartou, převodem nebo QR kódem) — tím vám vůz držíme na termín. Při nevyužití se platba nevrací.'],
+    ${[['💳','Záloha 20 % drží vůz','Rezervaci potvrdíte zálohou 20 % z ceny (kartou, převodem nebo QR kódem) — tím vám vůz držíme na termín. Doplatek při převzetí; při zrušení záloha propadá.'],
        ['🚗','Přistavení dle požadavku','Vůz vyzvednete v Čakovicích, nebo vám ho přistavíme — cenu řekneme dopředu podle adresy.'],
        ['🔒','Vratná kauce','Podle vozu 10 000–50 000 Kč — výši vždy řekneme dopředu. Po vrácení vozu se vrací.']
       ].map(c=>`<div class="fcard"><div class="ic">${c[0]}</div><h3>${c[1]}</h3><p>${c[2]}</p></div>`).join('')}
@@ -878,7 +1070,6 @@ firmy:()=>`<section class="sec"><div class="wrap">
   <div class="grid4">
     ${[['🧾','Jedna přehledná faktura','Fakturace na IČO, vše na jednom dokladu.'],['💰','Nejvýhodnější sazba u delších paketů','Pakety 3, 6 a 12 měsíců.'],['🔧','Plný servis v ceně','Prohlídky, pneumatiky i dálniční známka.'],['🛡️','Pojištění vč. čelního skla (EU)','Spoluúčast 10 000 Kč, vždy říkáme dopředu.'],['🚗','Náhradní vůz při poruše','Provoz se nezastaví.'],['📞','Asistenční služba 24/7','Pomoc kdykoli na cestě.'],['🚙','Desítky vozů skladem','Od městských aut po kombi a prostorné vozy.'],['🗓️','Flexibilní délka','Na den, týden i na celé měsíce.']].map(c=>`<div class="fcard"><div class="ic">${c[0]}</div><h3>${c[1]}</h3><p>${c[2]}</p></div>`).join('')}
   </div>
-  <div class="center" style="margin-top:30px"><a class="btn lg" data-route="cfg">Spočítat cenu →</a></div>
 </div></section>`,
 
 bolt:()=>`<section class="sec"><div class="wrap">
@@ -948,6 +1139,24 @@ kontakt:()=>`<section class="sec"><div class="wrap">
       </div>
     </div>
   </div>
+
+  <div style="margin-top:36px">
+    <div class="eyebrow">Dokumenty a podmínky</div>
+    <h2 style="font-size:24px;margin:8px 0 14px">Vše důležité na jednom místě</h2>
+    <div class="grid3">
+      <a class="fcard" data-route="op" style="cursor:pointer;text-decoration:none;color:inherit"><div class="ic">📄</div><h3>Obchodní podmínky</h3><p>Podmínky pronájmu, rezervace, platby a storno.</p></a>
+      <a class="fcard" data-route="gdpr" style="cursor:pointer;text-decoration:none;color:inherit"><div class="ic">🔒</div><h3>Ochrana osobních údajů</h3><p>Jak nakládáme s vašimi údaji (GDPR) a jaká máte práva.</p></a>
+      <a class="fcard" data-route="cookies" style="cursor:pointer;text-decoration:none;color:inherit"><div class="ic">🍪</div><h3>Zásady cookies</h3><p>Které cookies používáme a jak souhlas spravovat.</p></a>
+    </div>
+    <div class="fcard" style="margin-top:14px">
+      <h3 style="margin-bottom:8px">Údaje o provozovateli</h3>
+      <p class="muted" style="font-size:13.5px;line-height:1.75;margin:0">
+        MODRÝ ANDĚL s.r.o. · Sídlo: Českomoravská 1181/21, 190 00 Praha 9 · Provozovna: Cukrovarská 991, Praha 9 — Čakovice<br>
+        IČO 27218422 · DIČ CZ27218422 · spisová značka C 105306/MSPH vedená u Městského soudu v Praze<br>
+        Dozorový orgán: Česká obchodní inspekce (coi.cz) — zde lze řešit i spotřebitelské spory mimosoudně. Dozor nad ochranou osobních údajů: ÚOOÚ (uoou.cz).
+      </p>
+    </div>
+  </div>
 </div></section>`,
 
 ucet:()=>`<section class="sec"><div class="wrap">
@@ -968,8 +1177,8 @@ ucet:()=>`<section class="sec"><div class="wrap">
       </div>
       <div id="resetForm" style="display:none">
         <h3 style="margin-bottom:8px;font-size:16px">Obnovení hesla</h3>
-        <p class="muted" style="font-size:13px;margin-bottom:12px">Zadejte e-mail a pošleme vám odkaz pro nastavení nového hesla.</p>
-        <label>E-mail</label><input type="email" placeholder="vas@email.cz" style="margin-bottom:14px">
+        <p class="muted" style="font-size:13px;margin-bottom:12px">Heslo tady nezadáváte. Vyplňte e-mail svého účtu a pošleme vám bezpečný odkaz, na kterém si nové heslo nastavíte.</p>
+        <label>E-mail účtu</label><input type="email" placeholder="vas@email.cz" style="margin-bottom:14px">
         <button class="btn block">Poslat odkaz pro obnovení</button>
         <p class="muted center" id="resetBack" style="font-size:13px;margin-top:10px;cursor:pointer">← Zpět na přihlášení</p>
       </div>
@@ -977,7 +1186,7 @@ ucet:()=>`<section class="sec"><div class="wrap">
         <label>Jméno a příjmení</label><input type="text" placeholder="Jan Novák" style="margin-bottom:12px">
         <label>E-mail</label><input type="email" placeholder="vas@email.cz" style="margin-bottom:12px">
         <label>Telefon</label><input type="tel" placeholder="+420 …" style="margin-bottom:12px">
-        <label>Heslo</label><input type="password" placeholder="Zvolte heslo" style="margin-bottom:14px">
+        <label>Heslo</label><input type="password" placeholder="Zvolte heslo (min. 8 znaků)" style="margin-bottom:14px">
         <label style="display:flex;gap:8px;align-items:flex-start;font-size:13px;margin-bottom:12px"><input type="checkbox" style="margin-top:3px;width:auto"><span class="muted">Souhlasím se zpracováním osobních údajů. <u data-route="gdpr" style="cursor:pointer">Zásady</u>.</span></label>
         <button class="btn block">Vytvořit účet</button>
       </div>
@@ -998,51 +1207,97 @@ blog:()=>`<section class="sec"><div class="wrap">
   <div class="eyebrow">Blog</div>
   <h1 style="font-size:34px;margin:8px 0 10px">Rady k pronájmu aut</h1>
   <p class="lead">Praktické články o tom, kdy se vyplatí pronájem, jak vybrat auto na měsíc i na rok a na co myslet, když jezdíte pro Bolt, Uber nebo rozvážíte jídlo.</p>
-  ${annot('<b>✦ Úprava (RF):</b> blog nově obsahuje <b>všech 16 článků přenesených z produkce</b> (popojedu.cz/blog) i s odkazy. Při spuštění je nutné zachovat URL / nastavit 301, ať se neztratí SEO.')}
+  ${annot('<b>✦ Úprava (RF 23.6.):</b> všech 16 článků z produkce je nově jako <b>interní detail</b> (psaný pro SEO/LLM, autor Popojedu, vlastní URL = slug). Při spuštění zachovat URL / nastavit 301.')}
   <div class="grid3" style="margin-top:22px">
-    ${[
-      ['Nová služba: Náhradní vůz při pojistné události','8. 1. 2025','https://www.popojedu.cz/nova-sluzba-nahradni-vuz-pri-pojistne-udalosti/'],
-      ['Pronájem vozů pro Bolt a Uber v Praze','28. 4. 2024','https://www.popojedu.cz/pronajem-vozu-pro-bolt-a-uber-v-praze/'],
-      ['Pronájem vozů pro kurýry Wolt, Foodora a další v Praze','28. 4. 2024','https://www.popojedu.cz/pronajem-vozu-pro-kuryry-wolt-foodora-a-dalsi-v-praze/'],
-      ['Pronájem auta může být lepší než jeho vlastnictví. Proč tomu tak je?','15. 11. 2022','https://www.popojedu.cz/pronajem-auta-muze-byt-lepsi-nez-jeho-vlastnictvi-proc-tomu-tak-je/'],
-      ['Škoda Citigo G-tec: Ideální auto pro kurýry','15. 9. 2022','https://www.popojedu.cz/skoda-citigo-g-tec-idealni-auto-pro-kuryry/'],
-      ['5 důvodů, proč je náš flexibilní pronájem aut lepší než operativní leasing','20. 11. 2019','https://www.popojedu.cz/5-duvodu-proc-je-nas-flexibilni-pronajem-aut-lepsi-nez-operativni-leasing/'],
-      ['A jsou tady! Škoda Superb po faceliftu k pronájmu','14. 10. 2019','https://www.popojedu.cz/a-jsou-tady-skoda-superb-po-faceliftu-k-pronajmu/'],
-      ['Potřebujete pronájem auta na měsíc? Jak na to?','6. 9. 2019','https://www.popojedu.cz/potrebujete-pronajem-auta-na-mesic-jak-na-to/'],
-      ['Autopůjčovna – 5 znaků kvalitní půjčovny aut v Praze','28. 3. 2019','https://www.popojedu.cz/autopujcovna-5-znaku-kvalitni-pujcovny-aut-v-praze/'],
-      ['TOP 5 nejlepších aut na svatbu','30. 1. 2019','https://www.popojedu.cz/auto-na-svatbu/'],
-      ['Dámská jízda do lázní: se spolehlivou octávií i do deště','27. 9. 2018','https://www.popojedu.cz/damska-jizda-do-lazni-se-spolehlivou-octavii-i-do-deste/'],
-      ['Dlouhodobý pronájem auta? Kdy je to výhodnější a pro koho?','27. 9. 2018','https://www.popojedu.cz/dlouhodoby-pronajem-auta-kdy-je-to-vyhodnejsi-a-pro-koho/'],
-      ['Elegance, luxus a komfort. To je náš Mercedes-Benz třídy E','27. 9. 2018','https://www.popojedu.cz/elegance-luxus-a-komfort-to-je-nas-mercedes-e/'],
-      ['Autovýlet do moravských sklípků','12. 1. 2017','https://www.popojedu.cz/autovylet-do-moravskych-sklipku/'],
-      ['Klidná síla při stěhování – trojková oktávka','10. 1. 2017','https://www.popojedu.cz/klidna-sila-pri-stehovani-trojkova-oktavka/'],
-      ['Výletník aneb Jakubovy tipy, kam autem po Česku','9. 1. 2017','https://www.popojedu.cz/vyletnik-aneb-jakubovy-tipy-kam-autem-po-cesku/']
-    ].map(a=>`<div class="fcard"><div class="muted" style="font-size:12px;margin-bottom:4px">${a[1]}</div><h3 style="font-size:16px">${a[0]}</h3><a class="bonus" href="${a[2]}" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px">Číst →</a></div>`).join('')}
+    ${blogList().map(slug=>{const p=BLOGPOSTS[slug];return `<div class="fcard" data-post="${slug}" style="cursor:pointer"><div class="muted" style="font-size:12px;margin-bottom:4px">${p.date}${/2026/.test(p.date)?' · <span class="tag">nové</span>':''}</div><h3 style="font-size:16px">${p.title}</h3><p style="font-size:13.5px;margin:6px 0 0">${p.perex.slice(0,115)}…</p><span class="bonus" style="display:inline-block;margin-top:10px">Číst →</span></div>`;}).join('')}
   </div>
 </div></section>`,
 
+blogpost:()=>{const p=BLOGPOSTS[S.post]||BLOGPOSTS[blogList()[0]];
+  const faqLd={"@context":"https://schema.org","@type":"FAQPage","mainEntity":p.faq.map(q=>({"@type":"Question","name":q[0],"acceptedAnswer":{"@type":"Answer","text":q[1]}}))};
+  const artLd={"@context":"https://schema.org","@type":"BlogPosting","headline":p.title,"datePublished":"2026-06","inLanguage":"cs","author":{"@type":"Organization","name":"Popojedu.cz"},"publisher":{"@type":"Organization","name":"Popojedu.cz"},"keywords":p.kw,"description":p.perex};
+  return `<section class="sec"><div class="wrap" style="max-width:780px">
+  <style>.blogbody h2{font-size:21px;margin:26px 0 8px}.blogbody p{margin:0 0 12px;line-height:1.7}.blogbody ul{margin:0 0 14px;padding-left:20px}.blogbody li{margin:5px 0;line-height:1.6}</style>
+  <div class="muted" style="font-size:13px;margin-bottom:6px"><a data-route="blog" style="cursor:pointer;color:var(--green-d)">Blog</a> › ${p.cat}</div>
+  <h1 style="font-size:33px;margin:4px 0 8px;line-height:1.25">${p.title}</h1>
+  <div class="muted" style="font-size:13px;margin-bottom:16px">${p.date} · ${p.read} čtení · Popojedu.cz</div>
+  <p class="lead">${p.perex}</p>
+  <div class="blogbody">${p.body}</div>
+  <div class="fcard" style="margin-top:24px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--soft)">
+    <div><b>Spočítejte si cenu na míru.</b> Vyberte vůz, dobu a nájezd — cenu uvidíte hned, vč. všech služeb.</div>
+    <a class="btn" data-route="cfg">Spočítat cenu →</a>
+  </div>
+  <h2 style="font-size:22px;margin:32px 0 12px">Časté dotazy</h2>
+  <div class="faq">${p.faq.map((q,i)=>`<details class="qa"${i===0?' open':''}><summary>${q[0]}</summary><div class="a">${q[1]}</div></details>`).join('')}</div>
+  <div style="margin-top:30px"><div class="eyebrow">Související články</div>
+    <div class="grid3" style="margin-top:10px">${relatedFor(S.post).map(slug=>{const o=BLOGPOSTS[slug];return `<div class="fcard" data-post="${slug}" style="cursor:pointer"><div class="muted" style="font-size:12px;margin-bottom:4px">${o.date}</div><h3 style="font-size:15px">${o.title}</h3><span class="bonus" style="display:inline-block;margin-top:8px">Číst →</span></div>`;}).join('')}</div>
+  </div>
+  <script type="application/ld+json">${JSON.stringify(artLd)}<\/script>
+  <script type="application/ld+json">${JSON.stringify(faqLd)}<\/script>
+</div></section>`;},
+
 op:()=>`<section class="sec"><div class="wrap" style="max-width:820px">
   <div class="eyebrow">Obchodní podmínky</div>
-  <h1 style="font-size:32px;margin:8px 0 14px">Obchodní podmínky</h1>
-  ${annot('<b>✦ Oprava:</b> dnes je odkaz mrtvý (href="#"). Stránka musí existovat — odkazuje na ni ceník i formuláře. Níže je kostra; finální text dodá právník.')}
-  <p class="muted">Provozovatel: MODRÝ ANDĚL s.r.o., Českomoravská 1181/21, 190 00 Praha 9, IČO 27218422, DIČ CZ27218422, spisová značka C 105306/MSPH.</p>
-  <h3 style="margin:22px 0 8px">1. Předmět</h3><p class="muted">Pronájem motorových vozidel za podmínek uvedených ve smlouvě a v ceníku.</p>
-  <h3 style="margin:22px 0 8px">2. Rezervace a platby</h3><p class="muted">Pronájem se hradí předem (kartou, převodem nebo QR kódem) — úhradou vám vůz držíme na termín. Při nevyužití se platba nevrací. Kauce formou pre-authorization na kartě 10 000–50 000 Kč.</p>
-  <h3 style="margin:22px 0 8px">3. Pojištění a spoluúčast</h3><p class="muted">Vozy jsou havarijně i povinně pojištěné vč. čelního skla (EU). Spoluúčast při škodě 10 000 Kč.</p>
-  <h3 style="margin:22px 0 8px">4. Storno</h3><p class="muted">Uhrazený pronájem se při zrušení nebo nevyužití nevrací. Další podmínky storna dle smlouvy.</p>
-  <p class="muted" style="margin-top:22px;font-style:italic">[Kompletní znění dodá právník před spuštěním.]</p>
+  <h1 style="font-size:32px;margin:8px 0 14px">Všeobecné obchodní podmínky pronájmu vozidel</h1>
+  ${annot('<b>✦ Návrh (Claude, jako u PTC):</b> věcně dle rozhodnutí RF 23.6. — záloha 20 % při rezervaci, řidič od 18 let, standardní smluvní pokuty. Před spuštěním právní revize.')}
+  <p class="muted">Provozovatel (pronajímatel): <b>MODRÝ ANDĚL s.r.o.</b>, se sídlem Českomoravská 1181/21, 190 00 Praha 9, IČO 27218422, DIČ CZ27218422, zapsaná v obchodním rejstříku u Městského soudu v Praze, sp. zn. C 105306. Provozovna: Cukrovarská 991, Praha 9 — Čakovice. Kontakt: info@popojedu.cz, +420 731 683 203.</p>
+
+  <h3 style="margin:22px 0 8px">1. Úvodní ustanovení</h3><p class="muted">Tyto podmínky upravují pronájem motorových vozidel pronajímatele nájemci a jsou nedílnou součástí nájemní smlouvy. Odchylná ujednání ve smlouvě mají přednost před těmito podmínkami.</p>
+
+  <h3 style="margin:22px 0 8px">2. Kdo si může vůz pronajmout</h3><p class="muted">Nájemce i řidič musí být starší 18 let a mít platný řidičský průkaz odpovídající skupiny. Při převzetí se prokazuje totožnost (občanský průkaz nebo cestovní pas) a řidičský průkaz; u firem IČO a fakturační údaje. Pronajímatel si vyhrazuje právo pronájem odmítnout.</p>
+
+  <h3 style="margin:22px 0 8px">3. Rezervace a platba</h3><p class="muted">Rezervaci provedete přes konfigurátor a poptávkový formulář; dostupnost potvrdíme e-mailem nejpozději následující pracovní den. Rezervace je závazná po uhrazení <b>zálohy ve výši 20 % z ceny pronájmu</b> (kartou, převodem nebo QR kódem) — úhradou zálohy vám vůz držíme na termín. <b>Doplatek</b> zbývající části ceny se hradí nejpozději při převzetí vozu.</p>
+
+  <h3 style="margin:22px 0 8px">4. Storno a nevyužití</h3><p class="muted">Při zrušení rezervace ze strany nájemce nebo při nedostavení se k převzetí <b>uhrazená záloha 20 % propadá</b> jako storno poplatek a doplatek se nehradí. Zruší-li rezervaci pronajímatel (např. pro nedostupnost vozu), vrací zálohu v plné výši. O přesun termínu lze požádat — vyjdeme vstříc podle dostupnosti.</p>
+
+  <h3 style="margin:22px 0 8px">5. Kauce</h3><p class="muted">Při převzetí se skládá vratná kauce, zpravidla 10 000–50 000 Kč podle vozu (formou blokace na platební kartě). Výši kauce sdělíme předem. Kauce se po vrácení vozu bez závad vrací; lze z ní uhradit spoluúčast, smluvní pokuty nebo nedoplatky.</p>
+
+  <h3 style="margin:22px 0 8px">6. Cena, kilometry a palivo</h3><p class="muted">Cena vychází z platného ceníku a zvoleného balíčku průměrného denního nájezdu. V ceně je servis, pojištění (vč. čelního skla, EU), dálniční známka pro ČR, sezónní pneumatiky a asistenční služba. Vůz se vrací s plnou nádrží; při nedotankování účtujeme cenu paliva a manipulační poplatek 300 Kč.</p>
+
+  <h3 style="margin:22px 0 8px">7. Pojištění a spoluúčast</h3><p class="muted">Vozy jsou havarijně i povinně pojištěné, včetně čelního skla v rámci EU. Spoluúčast nájemce při škodě je 10 000 Kč. U přepravy osob (Bolt, Uber, taxi) si pojištění pro přepravu osob a přepis provozovatele zajišťuje nájemce sám.</p>
+
+  <h3 style="margin:22px 0 8px">8. Užívání vozu</h3><p class="muted">Vůz lze užívat jen k obvyklému účelu a řídit smí pouze osoba uvedená ve smlouvě. Zakázáno je řízení pod vlivem alkoholu či návykových látek, kouření ve voze, tažení, závodění a cesty mimo povolené území (některé vozy jen ČR, jiné v rámci EU — uvedeno u vozu).</p>
+
+  <h3 style="margin:22px 0 8px">9. Smluvní pokuty (návrh částek)</h3><p class="muted">Kouření ve voze 2 000 Kč; hrubé znečištění vyžadující speciální čištění 1 500 Kč; ztráta klíče nebo dokladů od vozu dle skutečných nákladů (min. 5 000 Kč); pozdní vrácení jedna denní sazba za každý započatý den prodlení; administrativní poplatek za vyřízení přestupku či pokuty 350 Kč. Konkrétní částky stanoví pronajímatel v ceníku.</p>
+
+  <h3 style="margin:22px 0 8px">10. Předání a vrácení</h3><p class="muted">Při převzetí i vrácení se pořizuje společný záznam o stavu vozu včetně fotodokumentace. Vůz se vrací v dohodnutém termínu, čistý a s plnou nádrží, na provozovně nebo dle domluvy (přistavení a vyzvednutí dle ceníku).</p>
+
+  <h3 style="margin:22px 0 8px">11. Odpovědnost a škody</h3><p class="muted">Nájemce odpovídá za škody způsobené porušením podmínek nebo smlouvy nad rámec pojistného plnění. Při nehodě je povinen událost nahlásit policii (je-li to nutné) i pronajímateli a doložit potřebné doklady.</p>
+
+  <h3 style="margin:22px 0 8px">12. Reklamace a řešení sporů</h3><p class="muted">Reklamace vyřizujeme na info@popojedu.cz. Spotřebitel má právo na mimosoudní řešení spotřebitelského sporu u České obchodní inspekce (coi.cz). Dozor nad ochranou osobních údajů vykonává ÚOOÚ (uoou.cz).</p>
+
+  <h3 style="margin:22px 0 8px">13. Závěrečná ustanovení</h3><p class="muted">Smluvní vztahy se řídí právním řádem České republiky. Tyto podmínky nabývají účinnosti dnem zveřejnění; pronajímatel je může měnit, pro uzavřenou smlouvu však platí znění účinné v době jejího uzavření.</p>
+
+  <p class="muted" style="margin-top:22px;font-style:italic">Návrh — před spuštěním doporučujeme právní revizi. (Toto není právní poradenství.)</p>
 </div></section>`,
 
 gdpr:()=>`<section class="sec"><div class="wrap" style="max-width:820px">
   <div class="eyebrow">Ochrana osobních údajů</div>
   <h1 style="font-size:32px;margin:8px 0 14px">Zásady zpracování osobních údajů</h1>
-  ${annot('<b>✦ Oprava:</b> dnes je odkaz mrtvý a formuláře sbírají údaje bez jakéhokoli GDPR textu. Stránka i souhlas u formulářů jsou nutné před spuštěním.')}
-  <p class="muted">Správce: MODRÝ ANDĚL s.r.o., IČO 27218422. Kontakt: info@popojedu.cz.</p>
-  <h3 style="margin:22px 0 8px">Jaké údaje zpracováváme</h3><p class="muted">Jméno, kontaktní údaje, údaje z dokladů totožnosti a řidičského průkazu (KYC), platební údaje (přes Stripe), historie pronájmů.</p>
-  <h3 style="margin:22px 0 8px">Účel a právní titul</h3><p class="muted">Uzavření a plnění smlouvy, zákonné povinnosti (daňové doklady), oprávněný zájem (ochrana majetku).</p>
-  <h3 style="margin:22px 0 8px">Zpracovatelé</h3><p class="muted">Stripe, HubSpot, ABRA Gen, e-podpis, KYC nástroj, Microsoft 365 — se zpracovatelskými smlouvami.</p>
-  <h3 style="margin:22px 0 8px">Vaše práva</h3><p class="muted">Přístup, oprava, výmaz, omezení, námitka, přenositelnost. Stížnost u ÚOOÚ.</p>
-  <p class="muted" style="margin-top:22px;font-style:italic">[Kompletní znění dodá právník před spuštěním.]</p>
+  ${annot('<b>✦ Návrh (Claude, jako u PTC):</b> plné GDPR zásady + souhlas u formulářů. Před spuštěním právní revize.')}
+  <p class="muted">Správce osobních údajů: <b>MODRÝ ANDĚL s.r.o.</b>, IČO 27218422, Českomoravská 1181/21, 190 00 Praha 9. Kontakt: info@popojedu.cz, +420 731 683 203.</p>
+  <h3 style="margin:22px 0 8px">Jaké údaje zpracováváme</h3><p class="muted">Identifikační a kontaktní údaje (jméno, e-mail, telefon, adresa), údaje z dokladu totožnosti a řidičského průkazu (ověření nájemce / KYC), fakturační údaje firmy, platební údaje (zpracovává poskytovatel platební brány), údaje o pronájmech a komunikaci s námi.</p>
+  <h3 style="margin:22px 0 8px">Účel a právní titul</h3><p class="muted">Uzavření a plnění nájemní smlouvy (čl. 6/1/b GDPR), plnění zákonných povinností jako účetnictví a daně (6/1/c), oprávněný zájem na ochraně majetku a vymáhání nároků (6/1/f) a u marketingu váš souhlas (6/1/a).</p>
+  <h3 style="margin:22px 0 8px">Doba uchování</h3><p class="muted">Po dobu trvání smlouvy a poté po dobu danou zákonem (daňové a účetní doklady zpravidla 10 let), případně po dobu nutnou k ochraně právních nároků. Údaje zpracovávané na základě souhlasu do jeho odvolání.</p>
+  <h3 style="margin:22px 0 8px">Příjemci a zpracovatelé</h3><p class="muted">Poskytovatel platební brány (Stripe), CRM (HubSpot), ekonomický systém (ABRA Gen), nástroj pro e-podpis (Signi), nástroj pro ověření totožnosti, Microsoft 365 a IT/hostingoví dodavatelé — vždy na základě zpracovatelských smluv. Údaje nepředáváme mimo EU bez odpovídajících záruk.</p>
+  <h3 style="margin:22px 0 8px">Cookies</h3><p class="muted">Web používá cookies — podrobnosti a správu souhlasu najdete v <u data-route="cookies" style="cursor:pointer">Zásadách cookies</u>.</p>
+  <h3 style="margin:22px 0 8px">Automatizované rozhodování</h3><p class="muted">Neprovádíme automatizované rozhodování ani profilování s právními účinky pro subjekt údajů.</p>
+  <h3 style="margin:22px 0 8px">Vaše práva</h3><p class="muted">Máte právo na přístup, opravu, výmaz, omezení zpracování, námitku, přenositelnost a odvolání souhlasu. Žádost zašlete na info@popojedu.cz. Stížnost můžete podat u Úřadu pro ochranu osobních údajů (uoou.cz).</p>
+  <p class="muted" style="margin-top:22px;font-style:italic">Návrh — před spuštěním doporučujeme právní revizi.</p>
+</div></section>`,
+
+cookies:()=>`<section class="sec"><div class="wrap" style="max-width:820px">
+  <div class="eyebrow">Cookies</div>
+  <h1 style="font-size:32px;margin:8px 0 14px">Zásady používání cookies</h1>
+  ${annot('<b>✦ Doplněno:</b> samostatná stránka cookies + napojení na cookie lištu (souhlas dle Complianz/GDPR). Finální text potvrdí právník.')}
+  <p class="muted">Cookies jsou malé soubory, které web ukládá do prohlížeče. Nezbytné cookies používáme vždy (běh webu), analytické a marketingové jen po vašem souhlasu.</p>
+  <h3 style="margin:22px 0 8px">Kategorie cookies</h3>
+  <p class="muted"><b>Nezbytné</b> — fungování webu, košík poptávky, souhlas. <b>Analytické</b> — Google Analytics 4 (anonymizované měření návštěvnosti). <b>Marketingové</b> — Google Ads (měření konverzí, remarketing).</p>
+  <h3 style="margin:22px 0 8px">Správa souhlasu</h3>
+  <p class="muted">Souhlas udělujete v cookie liště při první návštěvě a kdykoli ho můžete změnit nebo odvolat. Bez souhlasu se analytické a marketingové cookies nenačtou.</p>
+  <h3 style="margin:22px 0 8px">Doba uložení</h3>
+  <p class="muted">Nezbytné po dobu relace, analytické a marketingové dle nastavení dané služby (zpravidla do 24 měsíců).</p>
+  <p class="muted" style="margin-top:22px;font-style:italic">[Kompletní seznam cookies a dob uložení dodá právník / vygeneruje cookie nástroj před spuštěním.]</p>
 </div></section>`,
 
 cfg:()=>`<section class="sec"><div class="wrap">
@@ -1144,7 +1399,7 @@ potvrzeni:()=>`<section class="sec"><div class="wrap">
     <div class="tl">
       <div class="it"><span class="n">✓</span><div><b>Poptávka přijata</b><br><span class="muted" style="font-size:13px">Potvrzení jsme poslali na váš e-mail.</span></div></div>
       <div class="it muted"><span class="n">2</span><div><b>Ověříme dostupnost a ozveme se</b><br><span class="muted" style="font-size:13px">Nejpozději následující pracovní den (Po–Pá 8–18, So 9–13). Když vůz nevyjde, nabídneme alternativu.</span></div></div>
-      <div class="it muted"><span class="n">3</span><div><b>Potvrdíme termín a pošleme smlouvu</b><br><span class="muted" style="font-size:13px">Pronájem uhradíte předem — tím vám vůz držíme na termín.</span></div></div>
+      <div class="it muted"><span class="n">3</span><div><b>Potvrdíme termín a pošleme smlouvu</b><br><span class="muted" style="font-size:13px">Zálohou 20 % vám vůz držíme na termín, doplatek hradíte při převzetí.</span></div></div>
       <div class="it muted"><span class="n">4</span><div><b>Vyzvednutí v Čakovicích nebo přistavení dle požadavku</b><br><span class="muted" style="font-size:13px">Vratná kauce (pre-auth na kartě) až na místě.</span></div></div>
     </div>
     <div style="margin-top:24px"><a class="btn ghost" data-route="home">Zpět na úvod</a></div>
@@ -1171,7 +1426,32 @@ admin:()=>`<section class="sec"><div class="wrap">
       <td style="text-align:left;font-size:12px;color:var(--muted)">běžný${SEG_CARS.kuryr.includes(c.id)?' · kurýr':''}${SEG_CARS.taxi.includes(c.id)?' · přeprava osob':''}</td>
     </tr>`).join('')}
   </table></div>
-  <p class="muted" style="font-size:12.5px;margin-top:8px">U každého vozu navíc: název, popis, kategorie, palivo, převodovka, počet míst, EU/jen ČR, galerie fotek, stav (skladem / na dotaz), pořadí.</p>
+  <p class="muted" style="font-size:12.5px;margin-top:8px">Klik na vůz otevře jeho editor (níže) — tam se mění <b>fotky i popis</b> a všechny parametry.</p>
+
+  <div class="eyebrow" style="margin-top:22px">Editace vozu</div>
+  <h2 style="font-size:22px;margin:6px 0 12px">Kde se mění fotky a popisy — ukázka (Škoda Octávia IV)</h2>
+  <div class="split">
+    <div class="fcard">
+      <h3>Fotogalerie</h3>
+      <p class="muted" style="font-size:12.5px;margin:2px 0 8px">Přetažením seřadíte · ⭐ hlavní · nahrát / smazat</p>
+      <div class="gthumbs">
+        <div class="gthumb on"><img src="${PH.oct4s}" alt=""></div>
+        ${(PHG.oct4s||[]).slice(0,3).map(u=>`<div class="gthumb"><img src="${u}" alt=""></div>`).join('')}
+        <div class="gthumb" style="display:grid;place-items:center;color:var(--green-d);font-size:24px;border-style:dashed">＋</div>
+      </div>
+      <div class="adm-row" style="margin-top:8px"><span>Hlavní fotka</span><span class="muted">⭐ první</span></div>
+      <div class="adm-row"><span>Akce</span><span class="muted">nahrát · smazat · seřadit</span></div>
+    </div>
+    <div class="fcard">
+      <h3>Popis a parametry</h3>
+      <label style="font-size:13px">Krátký popis vozu</label>
+      <textarea class="fld adm" style="width:100%;height:78px" readonly>Nejnovější generace Octávie jako kombi — obří kufr, úsporný diesel. Tahoun na dlouhé cesty.</textarea>
+      <div class="adm-row"><span>Kategorie</span><span class="muted">Střední</span></div>
+      <div class="adm-row"><span>Palivo · převodovka</span><span class="muted">diesel · automat</span></div>
+      <div class="adm-row"><span>Počet míst · EU</span><span class="muted">5 · ano</span></div>
+      <div class="adm-row"><span>Stav</span><span class="muted">skladem</span></div>
+    </div>
+  </div>
 
   <div class="eyebrow" style="margin-top:28px">Cenová pravidla</div>
   <h2 style="font-size:22px;margin:6px 0 12px">Globální nastavení cen</h2>
@@ -1213,13 +1493,39 @@ admin:()=>`<section class="sec"><div class="wrap">
     </div>
   </div>
 
-  <div class="eyebrow" style="margin-top:28px">Obsah a texty</div>
+  <div class="eyebrow" style="margin-top:28px">Co dál spravovat přes redakční systém</div>
+  <div class="grid2">
+    <div class="fcard"><h3>Stránky a obsah</h3>
+      <div class="adm-row"><span>Homepage – bloky a texty</span><span class="muted">editovat</span></div>
+      <div class="adm-row"><span>Stránky Bolt/Uber · kurýři · firmy</span><span class="muted">texty + fotky</span></div>
+      <div class="adm-row"><span>FAQ · „Co je v ceně"</span><span class="muted">seznamy</span></div>
+      <div class="adm-row"><span>Akce / banner</span><span class="muted">zap/vyp, platnost</span></div>
+    </div>
+    <div class="fcard"><h3>Blog</h3>
+      <div class="adm-row"><span>Články</span><span class="muted">psát · foto · publikovat</span></div>
+      <div class="adm-row"><span>Kategorie / štítky</span><span class="muted">spravovat</span></div>
+      <div class="adm-row"><span>SEO článku</span><span class="muted">titulek · popis · OG</span></div>
+    </div>
+    <div class="fcard"><h3>SEO &amp; technické</h3>
+      <div class="adm-row"><span>Meta per stránka (title/desc/OG)</span><span class="muted">editovat</span></div>
+      <div class="adm-row"><span>Sitemap · llms.txt (pro AI)</span><span class="muted">auto z dat</span></div>
+      <div class="adm-row"><span>Přesměrování 301</span><span class="muted">důležité při migraci</span></div>
+    </div>
+    <div class="fcard"><h3>Média a přístupy</h3>
+      <div class="adm-row"><span>Knihovna fotek</span><span class="muted">nahrávat · třídit</span></div>
+      <div class="adm-row"><span>Kontakt / otevírací doba</span><span class="muted">editovat</span></div>
+      <div class="adm-row"><span>Recenze / Google hodnocení</span><span class="muted">text · známka · odkaz</span></div>
+      <div class="adm-row"><span>Uživatelé a role</span><span class="muted">kdo smí editovat</span></div>
+    </div>
+  </div>
+
+  <div class="eyebrow" style="margin-top:28px">Co se spravuje JINDE (ne v redakčním systému)</div>
   <div class="fcard">
-    <div class="adm-row"><span>Trust pruh + Google hodnocení</span><span class="muted">text · známka · odkaz</span></div>
-    <div class="adm-row"><span>FAQ</span><span class="muted">otázky a odpovědi</span></div>
-    <div class="adm-row"><span>„Co je v ceně"</span><span class="muted">seznam položek</span></div>
-    <div class="adm-row"><span>Kontakt / otevírací doba</span><span class="muted">telefon, e-mail, hodiny</span></div>
-    <div class="adm-row"><span>Akce / banner</span><span class="muted">zap/vyp, text, platnost</span></div>
+    <div class="adm-row"><span>Rezervace, poptávky, zákazníci</span><span class="muted">rezervační systém / CRM (HubSpot, ABRA)</span></div>
+    <div class="adm-row"><span>Platby, faktury, QR</span><span class="muted">Stripe / ABRA</span></div>
+    <div class="adm-row"><span>Smlouvy / e-podpis</span><span class="muted">Signi</span></div>
+    <div class="adm-row"><span>Kód, šablona, nové funkce webu</span><span class="muted">vývoj (Martin)</span></div>
+    <div class="adm-row"><span>Doména, certifikát, hosting</span><span class="muted">hosting / DNS</span></div>
   </div>
   <div class="center" style="margin-top:24px"><a class="btn ghost" data-route="home">← Zpět na web</a></div>
 </div></section>`
@@ -1293,6 +1599,7 @@ document.addEventListener('click',e=>{
   const gi=e.target.closest('[data-gimg]');if(gi){var gm=document.getElementById('galMain');if(gm)gm.src=gi.dataset.gimg;document.querySelectorAll('.gthumb').forEach(b=>b.classList.toggle('on',b===gi));return;}
   const pk=e.target.closest('[data-pick]');if(pk){S.car=pk.dataset.pick;S.detailCar=pk.dataset.pick;go('poptavka');return;}
   const car=e.target.closest('[data-car]');if(car){S.detailCar=car.dataset.car;go('detail');return;}
+  const bp=e.target.closest('[data-post]');if(bp){S.post=bp.dataset.post;go('blogpost');return;}
   const p=e.target.closest('[data-p]');if(p){S.purpose=p.dataset.p;syncSegmentUI();paintCfg();return;}
   const pp=e.target.closest('[data-pp]');if(pp){S.purpose=pp.dataset.pp;syncSegmentUI();paintHome();return;}
   const kp=e.target.closest('[data-kmpkg]');if(kp){S.kmIdx=+kp.dataset.kmpkg;paintHome();return;}
@@ -1301,6 +1608,7 @@ document.addEventListener('click',e=>{
   const at=e.target.closest('#acctabs button');if(at){document.querySelectorAll('#acctabs button').forEach(b=>b.classList.toggle('on',b===at));const reg=at.dataset.acttab==='reg';var lf=document.getElementById('loginForm'),rf=document.getElementById('regForm'),rs0=document.getElementById('resetForm');if(rs0)rs0.style.display='none';if(lf)lf.style.display=reg?'none':'';if(rf)rf.style.display=reg?'':'none';return;}
   const fgl=e.target.closest('#forgotLink');if(fgl){var l1=document.getElementById('loginForm'),r1=document.getElementById('regForm'),s1=document.getElementById('resetForm');if(l1)l1.style.display='none';if(r1)r1.style.display='none';if(s1)s1.style.display='';return;}
   const rbk=e.target.closest('#resetBack');if(rbk){var s2=document.getElementById('resetForm'),l2=document.getElementById('loginForm');if(s2)s2.style.display='none';if(l2)l2.style.display='';document.querySelectorAll('#acctabs button').forEach(b=>b.classList.toggle('on',b.dataset.acttab==='login'));return;}
+  const ey=e.target.closest('[data-pweye]');if(ey){var inp=ey.parentElement.querySelector('input');if(inp){var show=inp.type==='password';inp.type=show?'text':'password';ey.textContent=show?'Skrýt':'Zobrazit';}return;}
   const ct=e.target.closest('#custType button');if(ct){document.querySelectorAll('#custType button').forEach(b=>b.classList.toggle('on',b===ct));const ff=ct.dataset.ct==='firma';const f1=document.getElementById('fFirma1'),f2=document.getElementById('fFirma2');if(f1)f1.style.display=ff?'':'none';if(f2)f2.style.display=ff?'':'none';return;}
   const rc=e.target.closest('[data-reco]');if(rc){S.car=rc.dataset.reco;paintCfg();return;}
   const ex=e.target.closest('[data-extra]');if(ex&&!ex.classList.contains('dis')){const id=ex.dataset.extra;S.extras.has(id)?S.extras.delete(id):S.extras.add(id);ex.classList.toggle('sel');var db=document.getElementById('deliverBox');if(db&&id==='deliver')db.style.display=S.extras.has('deliver')?'':'none';paintCfg();if(document.getElementById('extrasP'))paintSummary();return;}
@@ -1330,8 +1638,8 @@ function injectMachineData(){
   var faq={"@context":"https://schema.org","@type":"FAQPage","mainEntity":FAQ.map(function(q){return {"@type":"Question","name":q[0],"acceptedAnswer":{"@type":"Answer","text":q[1]}};})};
   [ld,faq].forEach(function(o){var s=document.createElement('script');s.type='application/ld+json';s.textContent=JSON.stringify(o);document.head.appendChild(s);});
   var data={provider:{name:"Popojedu.cz",phone:"+420731683203",email:"info@popojedu.cz",address:"Cukrovarská 991, Praha 9 — Čakovice",since:2017},currency:"CZK",
-    pricing_rules:{included_km_per_month:4500,included_km_per_month_courier:6500,included_km_per_day:50,over_limit_km_czk:[2.0,2.5],length_discount_pct:{"1":0,"3":6,"6":16,"12":24},extra_discounts:{pay_within_24h_pct:5,loyalty_pct:[5,8,12],full_tank_back_czk:500},deposit_czk:[10000,50000],reservation_deposit_pct:20,reservation_note:"u rezervací 30+ dní dopředu, započítá se do ceny",delivery_czk:{prague_to20km:500,prague_over20km:700,outside_per_km_from:25,free_from_days:30}},
-    price_formula:"Dlouhodobě: měsíční cena = price_month_czk − round(price_month_czk × length_discount_pct/100). Krátkodobě: celkem = price_day_czk × počet_dní (v ceně 50 km/den). Přepravní služba (ucel=taxi): týden ≈ round(price_day_czk×5.45/10)×10, paket 6500 km/měs.",
+    pricing_rules:{included_km_per_month:4500,included_km_per_month_courier:6500,included_km_per_day:50,km_model_note:"cena se řídí zvoleným balíčkem průměrného denního nájezdu (50–300 km/den), který upravuje sazbu; nad nejvyšší balíček individuálně / na dotaz",length_discount_pct:{"1":0,"3":6,"6":16,"12":24},extra_discounts:{pay_within_24h_pct:5,loyalty_pct:[5,8,12],full_tank_back_czk:500},deposit_czk:[10000,50000],reservation_deposit_pct:20,reservation_note:"rezervace závazná po úhradě zálohy 20 % z ceny (drží vůz na termín); doplatek při převzetí; při zrušení nebo nedostavení záloha 20 % propadá",driver_min_age:18,delivery_czk:{prague_to20km:500,prague_over20km:700,outside_per_km_from:25,free_from_days:30}},
+    price_formula:"Dlouhodobě: měsíční cena = price_month_czk − round(price_month_czk × length_discount_pct/100). Krátkodobě: celkem = price_day_czk × počet_dní. Km: cena za km závisí na balíčku km/den, ne na délce pronájmu. Přepravní služba (ucel=taxi): paket 6500 km/měs. Platba: záloha 20 % při rezervaci, doplatek při převzetí; při zrušení záloha propadá. Řidič od 18 let.",
     deeplink:{base:base,params:{vuz:"id vozu z fleet[]",rezim:"long|short",mesice:"1–24",dni:"1–30",km:"500–10000",kmden:"50–500",ucel:"sebe|taxi",open:"cfg|poptavka|detail|vozy"},example:base+"?vuz=fabia&rezim=long&mesice=6&km=3500&open=cfg"},
     fleet:CARS.map(function(c){return {id:c.id,name:carName(c),category:c.cat,transmission:isAuto(c)?"automat":"manuál",fuel:c.fuel,seats:c.seats,eu_allowed:c.eu,min_days:c.min,price_day_czk:c.day,price_month_czk:c.mo,offer_url:base+"?vuz="+c.id+"&open=cfg"};})};
   var sd=document.createElement('script');sd.type='application/json';sd.id='popojedu-data';sd.textContent=JSON.stringify(data,null,2);document.body.appendChild(sd);
@@ -1348,7 +1656,8 @@ try{var q=new URLSearchParams(location.search);var ids=CARS.map(function(c){retu
   if(q.get('km')){var _kv=+q.get('km')||4500;S.kmIdx=KM_LONG.reduce(function(b,t,i){return Math.abs(t-_kv)<Math.abs(KM_LONG[b]-_kv)?i:b;},0);}
   if(q.get('kmden')){var _kd=+q.get('kmden')||50;S.kmIdx=KM_SHORT.reduce(function(b,t,i){return Math.abs(t-_kd)<Math.abs(KM_SHORT[b]-_kd)?i:b;},0);}
   var uc=q.get('ucel');if(uc==='taxi'||uc==='kuryr')S.purpose=uc;else if(uc==='sebe')S.purpose='sebe';
-  var R={cfg:1,poptavka:1,detail:1,vozy:1,admin:1,ucet:1};var op=q.get('open');
+  if(q.get('post')&&BLOGPOSTS[q.get('post')]){S.post=q.get('post');}
+  var R={cfg:1,poptavka:1,detail:1,vozy:1,admin:1,ucet:1,blogpost:1,blog:1,kontakt:1,cookies:1,op:1,gdpr:1};var op=q.get('open');
   var hasCfg=q.has('vuz')||q.has('mesice')||q.has('dni')||q.has('km')||q.has('kmden')||q.has('ucel');
   __start=(op&&R[op])?op:(hasCfg?'cfg':'home');
 }catch(e){}
@@ -1402,8 +1711,8 @@ body.cmt-on #main a,body.cmt-on #main button,body.cmt-on #main input,body.cmt-on
     home:'Domů', vozy:'Naše vozy', detail:'Detail vozu', cenik:'Ceník', jak:'Jak to funguje',
     vyzvednuti:'Vyzvednutí vozu', predani:'Předání vozu', firmy:'Pro firmy', bolt:'Bolt / Uber',
     kuryri:'Pro kurýry', cfg:'Konfigurátor', poptavka:'Poptávka', potvrzeni:'Potvrzení',
-    blog:'Blog', faq:'FAQ', kontakt:'Kontakt', ucet:'Můj účet', op:'Obchodní podmínky',
-    gdpr:'Ochrana údajů', analyza:'Analýza'
+    blog:'Blog', blogpost:'Článek (blog)', faq:'FAQ', kontakt:'Kontakt', ucet:'Můj účet', op:'Obchodní podmínky',
+    gdpr:'Ochrana údajů', cookies:'Cookies', analyza:'Analýza'
   };
   var comments = load();
   var commentMode = false;
