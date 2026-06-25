@@ -64,7 +64,7 @@ img{max-width:100%;display:block}
 /* hero */
 .hero{background:linear-gradient(180deg,#eafaf0,transparent)}
 .hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center;padding:54px 24px 60px}
-.hero h1{font-size:48px}
+.hero h1{font-size:58px;line-height:1.08;letter-spacing:-0.5px}
 .hero .chip{display:inline-block;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600;color:var(--green-d);margin-bottom:18px}
 .hero .photo{position:relative;border-radius:22px;overflow:hidden;box-shadow:var(--shadow)}
 .hero .photo img{aspect-ratio:16/11;object-fit:cover;width:100%}
@@ -265,7 +265,7 @@ body.notes .annot{display:block}
 
 @media(max-width:1024px){
   .nav,.hd .cta{display:none}.burger{display:block}
-  .hero .wrap{grid-template-columns:1fr;padding:34px 24px}.hero h1{font-size:36px}
+  .hero .wrap{grid-template-columns:1fr;padding:34px 24px}.hero h1{font-size:40px}
   .grid4{grid-template-columns:repeat(2,1fr)}.grid3,.step-row,.inclgrid,.discgrid{grid-template-columns:repeat(2,1fr)}
   .cfg{grid-template-columns:1fr}.panel{position:static}.split{grid-template-columns:1fr}.opts{grid-template-columns:repeat(2,1fr)}.reco{grid-template-columns:1fr}.fg{grid-template-columns:1fr}.ft .cols{grid-template-columns:1fr 1fr}
 }
@@ -776,7 +776,12 @@ home:()=>`
   <div>
     <span class="chip">● Praha 9 · Provoz autopůjčovny od roku 2017</span>
     <h1>Pronájem auta v Praze a okolí.<br><span style="color:var(--green)">Spolehlivá Škoda</span> za výhodnou cenu.</h1>
-    <p class="lead" style="margin-top:18px">Většinu naší flotily tvoří Škody — od ekonomické Fabie po Superb L&K. Servisujeme je ve vlastní dílně v Praze 9, takže platíte férovou cenu bez skrytých marží. Pronájem na den, týden i na 12 měsíců. Vůz přivezeme i vyzvedneme.</p>
+    <p class="lead" style="margin-top:20px;font-size:18px;line-height:1.7;max-width:540px">Většinu naší flotily tvoří Škody — od ekonomické Fabie po Superb L&K. Servisujeme je ve vlastní dílně v Praze 9, takže platíte férovou cenu bez skrytých marží. Pronájem na den, týden i na 12 měsíců — vůz přivezeme i vyzvedneme.</p>
+    <div style="margin-top:26px;display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 16px;box-shadow:var(--shadow)">
+      <span style="color:#f5a623;font-size:16px;letter-spacing:1px">★★★★★</span>
+      <b style="font-size:15px">4,9</b>
+      <span class="muted" style="font-size:13.5px">· Google recenze · autopůjčovna od roku 2017</span>
+    </div>
   </div>
   <aside class="qstart">
     <div class="qh"><b>Spočítejte si cenu</b><span>Vyberte dobu a nájezd — ceny u vozů níže se hned přepočítají.</span></div>
