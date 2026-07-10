@@ -206,7 +206,7 @@ input[type=range]{width:100%;accent-color:var(--green)}
 .frm{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px;box-shadow:var(--shadow);max-width:760px;margin:0 auto}
 .fg{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 label{font-size:13px;font-weight:600;color:var(--muted);display:block;margin-bottom:6px}
-input[type=text],input[type=email],input[type=tel],input[type=date],textarea,select.fld{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;font:inherit}
+input[type=text],input[type=email],input[type=tel],input[type=date],input[type=password],textarea,select.fld{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;font:inherit}
 .full{grid-column:1/-1}
 .fine{color:var(--muted);font-size:12.5px;margin-top:14px;text-align:center}
 
@@ -338,6 +338,17 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .vdetail:hover{color:var(--navy)}
 /* jednotné jemné ikony místo emoji */
 .svi{width:13px;height:13px;flex:none;stroke:currentColor;fill:none;vertical-align:-1px}
+/* zvýraznění kalkulačky po prokliku z CTA (hero/footer) */
+.qstart.qhl{animation:qstartPulse 1.8s ease}
+@keyframes qstartPulse{0%,100%{box-shadow:var(--shadow)}25%,60%{box-shadow:0 0 0 6px rgba(0,200,83,.35),var(--shadow)}}
+/* footer CTA pruh — otevření konfigurátoru ze zápatí */
+.ftcta{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:20px 24px;margin-bottom:34px}
+.ftcta .t{display:flex;flex-direction:column;gap:4px}
+.ftcta .t b{color:#fff;font-size:18px}
+.ftcta .t span{color:#cfe0f1;font-size:13.5px}
+.ftcta a.btn{display:inline-flex;color:#fff;padding:16px 26px;flex:none}
+@media(max-width:600px){.ftcta{justify-content:center;text-align:center}.ftcta .t{align-items:center}.ftcta a.btn{width:100%;justify-content:center}}
+
 /* trust pruh (výhodně + spolehlivě) */
 .trust{display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;align-items:center;background:var(--soft);border:1px solid #d8eede;border-radius:14px;padding:13px 18px}
 .trust span,.trust a{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;color:var(--navy);text-decoration:none}
@@ -353,6 +364,30 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
   .mbar .mp b{font-size:17px;color:var(--navy);font-weight:800}
   .mbar .btn{margin-left:auto;flex:none;padding:12px 18px}
   body.mbar-on{padding-bottom:72px}
+}
+
+/* ====== MOBILNÍ BOTTOM SHEET — kalkulačka ceny (qstart) se na mobilu vysouvá zdola ====== */
+.km-sheet,.sheet-backdrop,.qteaser{display:none}
+@media(max-width:1024px){
+  /* inline widget v hero schovat — na mobilu ho nahrazuje teaser + bottom sheet */
+  .hero .qstart{display:none}
+  /* kompaktní teaser řádek místo widgetu */
+  .qteaser{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;margin-top:22px;font:inherit;font-size:15px;font-weight:700;color:var(--navy);background:#fff;border:1.5px solid var(--green);border-radius:14px;padding:14px 16px;cursor:pointer;box-shadow:var(--shadow);text-align:left}
+  .qteaser:active{background:var(--soft)}
+  .qteaser .arr{color:var(--green-d);flex:none}
+  /* backdrop */
+  .sheet-backdrop{display:block;position:fixed;inset:0;background:rgba(10,31,63,.45);z-index:96;opacity:0;pointer-events:none;transition:opacity .28s ease}
+  body.sheet-open .sheet-backdrop{opacity:1;pointer-events:auto}
+  /* panel */
+  .km-sheet{display:flex;flex-direction:column;position:fixed;left:0;right:0;bottom:0;z-index:97;background:#fff;border-radius:20px 20px 0 0;box-shadow:0 -18px 50px rgba(10,31,63,.28);max-height:80vh;transform:translateY(105%);transition:transform .32s cubic-bezier(.32,.72,.24,1)}
+  body.sheet-open .km-sheet{transform:translateY(0)}
+  .sheet-grip{width:44px;height:5px;border-radius:999px;background:#d5dde6;margin:10px auto 2px;flex:none}
+  .sheet-close{position:absolute;top:10px;right:12px;width:34px;height:34px;border:none;border-radius:50%;background:#f0f3f7;color:var(--navy);font:700 18px/1 Inter,sans-serif;cursor:pointer;z-index:2}
+  .sheet-close:active{background:#e2e8f0}
+  .sheet-body{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:4px 16px 24px;flex:1;min-height:0}
+  /* qstart uvnitř sheetu = bez vlastní karty (rámeček dělá sheet) */
+  .sheet-body .qstart{display:block;border:none;box-shadow:none;border-radius:0;padding:8px 0 0}
+  body.sheet-open{overflow:hidden}
 }
 </style>
 </head>
@@ -398,10 +433,22 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 
 <main id="main"></main>
 <div class="mcta"><a class="btn block lg" data-route="cfg">Spočítat cenu →</a></div>
-<div class="mbar" id="mbar"><div class="mp"><small id="mbarLbl">Vaše cena</small><b id="mbarVal">—</b></div><a class="btn" id="mbarBtn" data-route="poptavka">Pokračovat →</a></div>
+<div class="mbar" id="mbar"><div class="mp"><small id="mbarLbl">Orientační cena</small><b id="mbarVal">—</b></div><a class="btn" id="mbarBtn" data-route="poptavka">Pokračovat →</a></div>
+
+<!-- MOBILNÍ BOTTOM SHEET — obsahem je PŘESUNUTÝ živý uzel .qstart z hero (žádná kopie) -->
+<div class="sheet-backdrop" id="sheetBackdrop"></div>
+<div class="km-sheet" id="kmSheet" role="dialog" aria-modal="true" aria-label="Spočítejte si cenu">
+  <div class="sheet-grip"></div>
+  <button class="sheet-close" id="sheetClose" aria-label="Zavřít">×</button>
+  <div class="sheet-body" id="sheetBody"></div>
+</div>
 
 <!-- FOOTER -->
 <footer class="ft"><div class="wrap">
+  <div class="ftcta">
+    <div class="t"><b>Kolik zaplatíte za pronájem?</b><span>Konfigurátor spočítá cenu hned — bez zadávání kontaktů.</span></div>
+    <a class="btn lg" data-opencalc>💰 Spočítat cenu vašeho pronájmu →</a>
+  </div>
   <div class="cols">
     <div>
       <div class="logo" style="margin-bottom:12px"><span class="dot">p</span>popojedu</div>
@@ -465,28 +512,31 @@ merc:[_U+'2018/09/IMG_3440-clean-1-800x552.png',_U+'2018/09/IMG_3441-clean-2-800
 star7:[_U+'2024/11/DSC_0255m1-800x552.jpg',_U+'2024/11/DSC_0258m1-800x552.jpg',_U+'2024/11/WhatsApp-Image-2024-11-13-at-16.18.47-1-800x552.jpeg',_U+'2024/11/WhatsApp-Image-2024-11-13-at-16.18.47-800x552.jpeg',_U+'2024/11/WhatsApp-Image-2024-11-13-at-16.18.48-800x552.jpeg'],
 star9:[_U+'2024/11/DSC_0258m1-800x552.jpg',_U+'2024/11/DSC_0255m1-800x552.jpg',_U+'2024/11/WhatsApp-Image-2024-11-13-at-16.18.47-1-800x552.jpeg',_U+'2024/11/WhatsApp-Image-2024-11-13-at-16.18.48-800x552.jpeg']
 };
+/* ⚠ weekBolt = týdenní sazba pro segment Bolt/Uber (přeprava osob) BEZ POJIŠTĚNÍ TAXI.
+   PLACEHOLDER: zatím počítáno jako 95 % kurýrní týdenní sazby (day×7×0,95, zaokr. na 10 Kč nahoru).
+   Přesnou částku slevy za chybějící pojištění upřesní Martin/RF. */
 const CARS=[
- {id:'citigo',n:'Škoda Citigo G-tec Active (CNG), manuál',short:'Citigo',day:413,mo:6324,min:7,eu:false,seats:4,fuel:'CNG',body:'Hatchback',cat:'Město',ph:PH.citigo,desc:'Nejlevnější auto na provoz v celé flotile — CNG je zhruba třetinová cena oproti benzinu. Malé rozměry usnadní parkování.'},
- {id:'oct3cng',n:'Škoda Octávia III G-tec liftback (CNG), manuál',short:'Octávia III CNG',day:479,mo:8740,min:5,eu:false,seats:5,fuel:'CNG',body:'Liftback',cat:'Střední',ph:PH.oct3cng,desc:'Prostorná Octávia na CNG — nízké náklady na kilometr a velký kufr. Ideální na nájezdy po městě i mimo.'},
- {id:'fabia',n:'Škoda Fabia III Ambition TSi DSG, automat',short:'Fabia III',day:500,mo:8990,min:5,eu:true,seats:5,fuel:'benzín',body:'Hatchback',cat:'Město',ph:PH.fabia,desc:'Svižný a úsporný městský automat. Skvělá volba na dovolenou, víkend i kratší pracovní cesty.'},
- {id:'oct3tdi',n:'Škoda Octávia III TDi liftback, manuál',short:'Octávia III TDi',day:469,mo:8500,min:5,eu:false,seats:5,fuel:'diesel',body:'Liftback',cat:'Střední',ph:PH.oct3tdi,desc:'Spolehlivá diesel Octávia s velkým prostorem — ekonomická na dálnici i při vyšších nájezdech.'},
- {id:'scalaa',n:'Škoda Scala Ambition TSi, manuál',short:'Scala Ambition',day:656,mo:10839,min:3,eu:true,seats:5,fuel:'benzín',body:'Hatchback',cat:'Střední',ph:PH.scala,desc:'Levnější varianta Scaly s manuální převodovkou — úsporný a praktický kompakt do města i na cesty.'},
- {id:'scala',n:'Škoda Scala Top Selection TSi DSG, automat',short:'Scala',day:750,mo:12403,min:3,eu:true,seats:5,fuel:'benzín',body:'Hatchback',cat:'Střední',ph:PH.scala,desc:'Moderní kompakt v top výbavě s automatem. Příjemná na řízení, dobře vybavená.'},
- {id:'oct4a',n:'Škoda Octávia IV combi Ambition TDi, manuál',short:'Octávia IV combi',day:792,mo:14454,min:3,eu:true,seats:5,fuel:'diesel',body:'Combi',cat:'Střední',ph:PH.oct4a,desc:'Nejnovější generace Octávie jako kombi — obří kufr, úsporný diesel. Tahoun na dlouhé cesty.'},
- {id:'oct4s',n:'Škoda Octávia IV combi Style TDi DSG, automat',short:'Octávia IV combi Style',day:895,mo:16979,min:3,eu:true,seats:5,fuel:'diesel',body:'Combi',cat:'Střední',ph:PH.oct4s,desc:'Octávia IV combi v top výbavě Style s automatem — komfort, prostor a nízká spotřeba.'},
- {id:'sup3lb',n:'Škoda Superb III L&K TDi, liftback, automat',short:'Superb III',day:962,mo:18890,min:1,eu:true,seats:5,fuel:'diesel',body:'Liftback',cat:'Prémium',ph:PH.sup3lb,desc:'Vlajková loď Škody ve výbavě Laurin & Klement. Maximum komfortu za rozumnou cenu — i na jeden den.'},
- {id:'sup3co',n:'Škoda Superb III L&K TDi, combi, automat',short:'Superb III combi',day:962,mo:18890,min:1,eu:true,seats:5,fuel:'diesel',body:'Combi',cat:'Prémium',ph:PH.sup3co,desc:'Superb L&K jako kombi — obrovský prostor a reprezentativní vzhled. Pro rodiny i firmy.'},
- {id:'sup4',n:'Škoda Superb IV L&K TDi, liftback, automat',short:'Superb IV',day:995,mo:20975,min:1,eu:true,seats:5,fuel:'diesel',body:'Liftback',cat:'Prémium',ph:PH.sup4,desc:'Nejnovější generace Superbu v top výbavě L&K — masážní sedadla, panorama, ekonomický diesel.'},
- {id:'star7',n:'Hyundai Staria Luxury CDi, 6+1, automat',short:'Staria 7 míst',day:2000,mo:35000,min:30,eu:true,seats:7,fuel:'diesel',body:'Van',cat:'Skupina',ph:PH.star7,desc:'Futuristická Staria v luxusní výbavě, 7 míst včetně řidiče. Pohodlí pro skupinové i rodinné cesty.'},
- {id:'star9',n:'Hyundai Staria Style Premium CDi, 8+1, automat',short:'Staria 9 míst',day:3000,mo:52500,min:30,eu:true,seats:9,fuel:'diesel',body:'Van',cat:'Skupina',ph:PH.star9,desc:'Staria pro 9 osob — ideální na výlety větší skupiny, transfery a skupinovou přepravu.'},
- {id:'merc',n:'Mercedes-Benz S350 d 4MATIC L, automat',short:'Mercedes S',day:2000,mo:50000,min:30,eu:true,seats:5,fuel:'diesel',body:'Limuzína',cat:'Prémium',ph:PH.merc,desc:'Reprezentativní limuzína pro ten nejnáročnější den D, svatbu či důležitou schůzku. K dispozici na den i na delší období.'}
+ {id:'citigo',n:'Škoda Citigo G-tec Active (CNG), manuál',short:'Citigo',day:332,weekBolt:2210,mo:7700,nadlim:2.0,predpl:1.4,min:7,eu:false,seats:4,fuel:'CNG',body:'Hatchback',cat:'Město',ph:PH.citigo,desc:'Nejlevnější auto na provoz v celé flotile — CNG je zhruba třetinová cena oproti benzinu. Malé rozměry usnadní parkování.'},
+ {id:'oct3cng',n:'Škoda Octávia III G-tec liftback (CNG), manuál',short:'Octávia III CNG',day:413,weekBolt:2750,mo:9720,nadlim:2.6,predpl:1.8,min:5,eu:false,seats:5,fuel:'CNG',body:'Liftback',cat:'Střední',ph:PH.oct3cng,desc:'Prostorná Octávia na CNG — nízké náklady na kilometr a velký kufr. Ideální na nájezdy po městě i mimo.'},
+ {id:'fabia',n:'Škoda Fabia III Ambition TSi DSG, automat',short:'Fabia III',day:414,weekBolt:2760,mo:9700,nadlim:2.6,predpl:1.8,min:5,eu:true,seats:5,fuel:'benzín',body:'Hatchback',cat:'Město',ph:PH.fabia,desc:'Svižný a úsporný městský automat. Skvělá volba na dovolenou, víkend i kratší pracovní cesty.'},
+ {id:'oct3tdi',n:'Škoda Octávia III TDi liftback, manuál',short:'Octávia III TDi',day:431,weekBolt:2870,mo:9900,nadlim:2.6,predpl:1.8,min:5,eu:false,seats:5,fuel:'diesel',body:'Liftback',cat:'Střední',ph:PH.oct3tdi,desc:'Spolehlivá diesel Octávia s velkým prostorem — ekonomická na dálnici i při vyšších nájezdech.'},
+ {id:'scalaa',n:'Škoda Scala Ambition TSi, manuál',short:'Scala Ambition',day:490,weekBolt:3260,mo:9900,nadlim:2.6,predpl:1.8,min:3,eu:true,seats:5,fuel:'benzín',body:'Hatchback',cat:'Střední',ph:PH.scala,desc:'Levnější varianta Scaly s manuální převodovkou — úsporný a praktický kompakt do města i na cesty.'},
+ {id:'scala',n:'Škoda Scala Top Selection TSi DSG, automat',short:'Scala',day:561,weekBolt:3740,mo:12100,nadlim:3.1,predpl:2.2,min:3,eu:true,seats:5,fuel:'benzín',body:'Hatchback',cat:'Střední',ph:PH.scala,desc:'Moderní kompakt v top výbavě s automatem. Příjemná na řízení, dobře vybavená.'},
+ {id:'oct4a',n:'Škoda Octávia IV combi Ambition TDi, manuál',short:'Octávia IV combi',day:683,weekBolt:4550,mo:13750,nadlim:3.6,predpl:2.5,min:3,eu:true,seats:5,fuel:'diesel',body:'Combi',cat:'Střední',ph:PH.oct4a,desc:'Nejnovější generace Octávie jako kombi — obří kufr, úsporný diesel. Tahoun na dlouhé cesty.'},
+ {id:'oct4s',n:'Škoda Octávia IV combi Style TDi DSG, automat',short:'Octávia IV combi Style',day:823,weekBolt:5480,mo:16500,nadlim:4.3,predpl:3.0,min:3,eu:true,seats:5,fuel:'diesel',body:'Combi',cat:'Střední',ph:PH.oct4s,desc:'Octávia IV combi v top výbavě Style s automatem — komfort, prostor a nízká spotřeba.'},
+ {id:'sup3lb',n:'Škoda Superb III L&K TDi, liftback, automat',short:'Superb III',day:885,weekBolt:5890,mo:20900,nadlim:5.4,predpl:3.8,min:1,eu:true,seats:5,fuel:'diesel',body:'Liftback',cat:'Prémium',ph:PH.sup3lb,desc:'Vlajková loď Škody ve výbavě Laurin & Klement. Maximum komfortu za rozumnou cenu — i na jeden den.'},
+ {id:'sup3co',n:'Škoda Superb III L&K TDi, combi, automat',short:'Superb III combi',day:885,weekBolt:5890,mo:20900,nadlim:5.4,predpl:3.8,min:1,eu:true,seats:5,fuel:'diesel',body:'Combi',cat:'Prémium',ph:PH.sup3co,desc:'Superb L&K jako kombi — obrovský prostor a reprezentativní vzhled. Pro rodiny i firmy.'},
+ {id:'sup4',n:'Škoda Superb IV L&K TDi, liftback, automat',short:'Superb IV',day:893,weekBolt:5940,mo:20900,nadlim:5.4,predpl:3.8,min:1,eu:true,seats:5,fuel:'diesel',body:'Liftback',cat:'Prémium',ph:PH.sup4,desc:'Nejnovější generace Superbu v top výbavě L&K — masážní sedadla, panorama, ekonomický diesel.'},
+ {id:'star7',n:'Hyundai Staria Luxury CDi, 6+1, automat',short:'Staria 7 míst',day:2300,weekBolt:15300,mo:40250,nadlim:10.6,predpl:7.4,min:30,eu:true,seats:7,fuel:'diesel',body:'Van',cat:'Skupina',ph:PH.star7,desc:'Futuristická Staria v luxusní výbavě, 7 míst včetně řidiče. Pohodlí pro skupinové i rodinné cesty.'},
+ {id:'star9',n:'Hyundai Staria Style Premium CDi, 8+1, automat',short:'Staria 9 míst',day:3450,weekBolt:22950,mo:34000,nadlim:9.0,predpl:6.3,min:30,eu:true,seats:9,fuel:'diesel',body:'Van',cat:'Skupina',ph:PH.star9,desc:'Staria pro 9 osob — ideální na výlety větší skupiny, transfery a skupinovou přepravu.'},
+ {id:'merc',n:'Mercedes-Benz S350 d 4MATIC L, automat',short:'Mercedes S',day:2300,weekBolt:15300,mo:57500,nadlim:15.1,predpl:10.6,min:30,eu:true,seats:5,fuel:'diesel',body:'Limuzína',cat:'Prémium',ph:PH.merc,desc:'Reprezentativní limuzína pro ten nejnáročnější den D, svatbu či důležitou schůzku. K dispozici na den i na delší období.'}
 ];
 const FAQ=[
  ['Na jak dlouho si můžu vůz půjčit?','Den, týden i celé měsíce. U dlouhodobých paketů (3, 6 a 12 měsíců) máte nejvýhodnější měsíční sazbu.'],
  ['Jak je to s kaucí?','Vratná kauce je 10 000 až 50 000 Kč podle kategorie vozu — výši vždy říkáme dopředu. Po vrácení vozu se vrací.'],
  ['Jak funguje rezervace a platba?','Rezervaci potvrdíte úhradou zálohy 20 % z ceny pronájmu (kartou, převodem nebo QR kódem) — tím vám vůz držíme na termín. Doplatek hradíte nejpozději při převzetí vozu. Pokud rezervaci zrušíte nebo se nedostavíte, záloha 20 % propadá jako storno poplatek.'],
  ['Co je v ceně pronájmu?','Plný servis, havarijní i povinné pojištění včetně čelního skla s územním rozsahem EU, dálniční známka, sezónní pneumatiky, asistenční služba 24/7 a náhradní vůz při poruše.'],
- ['Co když najedu více kilometrů?','Nadlimitní kilometr stojí 2,00–2,50 Kč podle vozu. Účtuje se až po skončení pronájmu podle reálného nájezdu.'],
+ ['Co když najedu více kilometrů?','V ceně je 1 500 km/měs (u kurýrů 6 500 km/měs). Kdo jede víc, doplatí nadlimitní sazbu podle vozu (1,4–15,1 Kč/km) — nebo si km koupí předem, o 30 % levněji. Doplatek se účtuje až po skončení pronájmu podle reálného nájezdu.'],
  ['Jak jsou vozy pojištěné?','Každý vůz má havarijní i povinné pojištění v ceně, včetně čelního skla v rámci EU. Při škodě se hradí spoluúčast 10 000 Kč.'],
  ['Kde si vůz vyzvednu a vrátím?','V provozovně Cukrovarská 991, Praha 9 — Čakovice (areál Cukrovar Čakovice). U pronájmů od 30 dnů vůz zdarma přistavíme po Praze.'],
  ['Co potřebuju k pronájmu vozu?','Občanský průkaz (nebo pas), platný řidičský průkaz a platební kartu. U firmy navíc IČO a fakturační údaje.'],
@@ -516,7 +566,7 @@ const IC={
 function ic(n){return `<svg class="svi" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[n]||''}</svg>`;}
 
 /* ============ STATE ============ */
-const S={purpose:'sebe',scale:'long',months:6,km:3500,car:'fabia',extras:new Set(['driver']),detailCar:'sup4',vozyCount:6,vozySort:'asc',vozyTrans:'all',days:3,kmDay:50,vat:false,kmIdx:0,heroCar:null,post:'pronajem-auta-na-mesic'};
+const S={touched:false,/* true = uživatel už provedl aspoň jednu interakci s konfigurátorem (auto, segment, slidery, checkbox) — do té doby mbar ukazuje orientační cenu "od…" */purpose:'sebe',purposeSub:'kuryr',scale:'long',months:6,weeks:26,km:3500,car:'fabia',extras:new Set(['driver']),detailCar:'sup4',vozyCount:6,vozySort:'asc',vozyTrans:'all',days:3,kmDay:50,vat:false,kmIdx:0,kmPlan:1500,heroCar:null,post:'pronajem-auta-na-mesic'};
 
 /* ====== BLOG — interní články (SEO + LLM ready) ====== */
 const BLOGPOSTS={
@@ -537,7 +587,7 @@ const BLOGPOSTS={
    <h2>Co všechno je v ceně</h2>
    <p>U flexibilního měsíčního pronájmu platíte jednu měsíční částku a v ní máte havarijní i povinné pojištění (včetně čelního skla, platné v EU), pravidelný servis, sezónní přezutí pneumatik, dálniční známku a asistenční službu 24/7. Když se vůz porouchá, dostanete náhradní — neztratíte mobilitu. Žádné skryté poplatky, žádné dokupování.</p>
    <h2>Kolik to stojí a jak se počítá cena</h2>
-   <p>Cena za měsíc závisí na voze a na délce pronájmu — čím déle, tím nižší měsíční sazba. U nás je sleva za délku 6 % od 3 měsíců, 16 % od 6 měsíců a 24 % od 12 měsíců. V ceně měsíčního paketu je velkorysý kilometrový limit; pokud najezdíte víc, doplatíte jen férovou sazbu za kilometr, která se s délkou pronájmu nemění. Přesnou částku pro konkrétní vůz si spočítáte v konfigurátoru za pár vteřin.</p>
+   <p>Cena za měsíc závisí na voze a na délce pronájmu — čím déle, tím nižší měsíční sazba. U nás je sleva za délku 5 % od 3 měsíců, 10 % od 6 měsíců a 15 % od 12 měsíců. V ceně měsíčního paketu je velkorysý kilometrový limit; pokud najezdíte víc, doplatíte jen férovou sazbu za kilometr, která se s délkou pronájmu nemění. Přesnou částku pro konkrétní vůz si spočítáte v konfigurátoru za pár vteřin.</p>
    <h2>Pronájem na měsíc vs. operativní leasing</h2>
    <p>Operativní leasing je obvykle levnější na papíře, ale váže vás na 2–4 roky, řeší se schválením a předem nastaveným ročním nájezdem. Flexibilní pronájem je dražší za měsíc, ale bez závazku — prodloužíte nebo vrátíte podle potřeby a auto měníte podle situace. Pro období v řádu týdnů až měsíců vychází flexibilní pronájem jako rozumnější volba. Více v článku <a data-post="5-duvodu-proc-je-nas-flexibilni-pronajem-aut-lepsi-nez-operativni-leasing" style="color:var(--green-d);cursor:pointer">5 důvodů, proč je flexibilní pronájem lepší než leasing</a>, nebo si přečtěte, <a data-post="dlouhodoby-pronajem-auta-kdy-je-to-vyhodnejsi-a-pro-koho" style="color:var(--green-d);cursor:pointer">kdy se vyplatí dlouhodobý pronájem</a>.</p>
    <h2>Jak si auto na měsíc objednáte</h2>
@@ -649,10 +699,10 @@ const BLOGPOSTS={
  'dlouhodoby-pronajem-auta-kdy-je-to-vyhodnejsi-a-pro-koho':{
   title:'Dlouhodobý pronájem auta: kdy se vyplatí a pro koho', date:'27. 9. 2018', read:'5 min', cat:'Rádce', kw:'dlouhodobý pronájem auta Praha',
   perex:'Potřebujete auto na několik měsíců? Dlouhodobý pronájem je levnější než denní sazba a flexibilnější než leasing. Shrnuli jsme, kdy se vyplatí a komu.',
-  body:`<h2>Kdy se dlouhodobý pronájem vyplatí</h2><p>Když potřebujete auto na měsíce, ale nechcete ho kupovat ani se vázat víceletým leasingem. Čím delší pronájem, tím nižší měsíční sazba — u nás sleva 6 % od 3 měsíců, 16 % od 6 a 24 % od 12 měsíců.</p>
+  body:`<h2>Kdy se dlouhodobý pronájem vyplatí</h2><p>Když potřebujete auto na měsíce, ale nechcete ho kupovat ani se vázat víceletým leasingem. Čím delší pronájem, tím nižší měsíční sazba — u nás sleva 5 % od 3 měsíců, 10 % od 6 a 15 % od 12 měsíců.</p>
    <h2>Pro koho je ideální</h2><p>Pro firmy řešící sezónní špičku, pro nové zaměstnance čekající na firemní vůz, pro lidi mezi auty i pro každého, kdo chce předvídatelné náklady bez starostí.</p>
    <h2>Vše v jedné ceně</h2><p>Pojištění, servis, pneu, dálniční známka, asistence i náhradní vůz. Žádné skryté poplatky. Souvisí: <a data-post="pronajem-auta-na-mesic" style="color:var(--green-d);cursor:pointer">pronájem na měsíc</a> a <a data-post="5-duvodu-proc-je-nas-flexibilni-pronajem-aut-lepsi-nez-operativni-leasing" style="color:var(--green-d);cursor:pointer">pronájem vs leasing</a>.</p>`,
-  faq:[['Od kdy platí sleva za délku?','Od 3 měsíců 6 %, od 6 měsíců 16 %, od 12 měsíců 24 %.'],['Je dlouhodobý pronájem levnější než denní?','Ano, přepočteno na den výrazně — čím déle, tím nižší sazba.'],['Liší se od operativního leasingu?','Ano, je flexibilní — bez víceletého závazku a bez akontace.']]
+  faq:[['Od kdy platí sleva za délku?','Od 3 měsíců 5 %, od 6 měsíců 10 %, od 12 měsíců 15 %.'],['Je dlouhodobý pronájem levnější než denní?','Ano, přepočteno na den výrazně — čím déle, tím nižší sazba.'],['Liší se od operativního leasingu?','Ano, je flexibilní — bez víceletého závazku a bez akontace.']]
  },
  'elegance-luxus-a-komfort-to-je-nas-mercedes-e':{
   title:'Elegance a komfort: Mercedes-Benz k pronájmu', date:'27. 9. 2018', read:'4 min', cat:'Vozy', kw:'pronájem Mercedes Praha',
@@ -710,13 +760,19 @@ const RELATED={
 const relatedFor=s=>(RELATED[s]||blogList().filter(x=>x!==s)).filter(x=>x!==s&&BLOGPOSTS[x]).slice(0,3);
 let CURR='home';
 const EXTRAS=[{id:'driver',label:'Druhý řidič',price:'+ 0 Kč'},{id:'seat',label:'Dětská sedačka',price:'na vyžádání'},{id:'box',label:'Střešní box Thule',price:'+ 80 Kč/den',only:['sup3lb','sup3co','oct4a','oct4s']},{id:'deliver',label:'Přistavení a vyzvednutí vozu',price:'od 500 Kč (30+ dní zdarma)'}];
-const DISC=m=>m>=12?24:m>=6?16:m>=3?6:0;
-/* Kilometrové balíčky (ekonomika dle produkce: vyšší nájezd = vyšší sazba; faktor 50 km/den ×1,0 … 300 km/den ×1,85, lineárně). Nad nejvyšší balíček = individuálně. */
+const DISC=m=>m>=12?15:m>=6?10:m>=3?5:0;
+const DISC_WEEK=w=>w>=52?15:w>=26?10:w>=13?5:0;
+/* Km navíc: základ 1 500 km/měs (kurýr 6 500 km/měs), nad limit sazba c.nadlim (doplatek po vrácení) nebo c.predpl (koupeno předem, o 30 % levněji) — obě per-car v CARS. KM_LONG/KM_SHORT/KM_COURIER/kmFactor zůstávají jen pro starší logiku na stránce shrnutí objednávky (calc()). */
 const KM_LONG=[1500,3000,4500,6000,7500,9000];
 const KM_SHORT=[50,100,150,200,250,300];
+const KM_COURIER=[6500,8000,9500,11000,12500,14000];
 const kmFactor=i=>1+i*(0.85/(KM_SHORT.length-1));
 const isCourier=()=>S.purpose==='taxi'||S.purpose==='kuryr';
 const isTaxi=()=>S.purpose==='taxi';
+/* Podtyp přepravního segmentu: 'kuryr' (Wolt/Foodora — týdenní sazba day×7, pojištění v ceně)
+   vs 'bolt' (Bolt/Uber přeprava osob — týdenní sazba c.weekBolt BEZ pojištění TAXI, řidič si ho hradí sám). */
+const isBolt=()=>S.purposeSub==='bolt';
+function syncPurposeSub(){S.purposeSub=(S.purpose==='taxi')?'bolt':'kuryr';}
 const SEG_CARS={kuryr:['citigo','oct3cng','oct3tdi','fabia'],taxi:['oct3cng','oct3tdi','fabia','scala','oct4a','oct4s','sup3lb']};
 
 /* ============ TEMPLATES ============ */
@@ -729,19 +785,32 @@ function vcardHTML(c){const tr=/automat/i.test(c.n)?'Automat':'Manuál';const md
   <a class="btn ghost block" data-car="${c.id}" style="margin-top:12px">Detail vozu</a></div></div>`;}
 function cheapest(){var l=homeList(),best=null;l.forEach(function(c){var pl=priceLines(c);var v=parseInt(String(pl.big).replace(/[^0-9]/g,''),10);if(!isNaN(v)&&(best===null||v<best.v))best={v:v,c:c,per:pl.per};});return best;}
 function animNum(el,to){var from=parseInt(el.dataset.v||'',10);el.dataset.v=to;if(isNaN(from)){el.textContent=fmt(to)+' Kč';return;}var t0=Date.now();(function s(){var p=Math.min(1,(Date.now()-t0)/350);var v=Math.round(from+(to-from)*p);el.textContent=fmt(v)+' Kč';if(p<1)requestAnimationFrame(s);})();}
-function detailPriceHTML(c){var pl=priceLines(c);return '<div class="row" style="align-items:baseline"><span>'+(isCourier()?'Přepravní — týdně':(S.scale==='short'?'Za '+S.days+' '+(S.days===1?'den':S.days<5?'dny':'dní'):'Měsíčně'))+'</span><b style="color:var(--green-d);font-size:22px">'+pl.big+(pl.big==='na dotaz'?'':' Kč')+'<small style="font-weight:600;color:var(--muted)">'+pl.per+'</small></b></div>'+pl.stats.map(function(x){return '<div class="row"><span>'+x[0]+'</span><b>'+x[1]+'</b></div>';}).join('')+'<div class="row"><span>Min. pronájem</span><b>'+c.min+(c.min===1?' den':' dní')+'</b></div>';}
+/* Mobilní spodní lišta (.mbar) — JEDINÉ místo, které plní #mbarLbl/#mbarVal.
+   Před první interakcí (S.touched===false) NEukazujeme "Vaše cena" (uživatel si nic nezvolil) →
+   label "Orientační cena" + cena NEJLEVNĚJŠÍHO vozu pro aktuální režim s prefixem "od".
+   Po první interakci (S.touched===true) → "Vaše cena" + reálně spočítaná částka předaná volajícím. */
+function syncMbar(touchedVal){
+  var lbl=document.getElementById('mbarLbl'),val=document.getElementById('mbarVal');
+  if(!lbl||!val)return;
+  if(S.touched){lbl.textContent='Vaše cena';val.textContent=touchedVal;}
+  else{lbl.textContent='Orientační cena';var b=cheapest();val.textContent=b?('od '+fmt(b.v)+' Kč '+b.per):'—';}
+}
+function detailPriceHTML(c){var pl=priceLines(c);return '<div class="row" style="align-items:baseline"><span>'+(isCourier()?'Přepravní — týdně':(S.scale==='short'?'Za '+S.days+' '+(S.days===1?'den':S.days<5?'dny':'dní'):'Měsíčně'))+'</span><b style="color:var(--green-d);font-size:22px">'+pl.big+(pl.big==='na dotaz'?'':' Kč')+'<small style="font-weight:600;color:var(--muted)">'+pl.per+'</small></b></div>'+pl.stats.map(function(x){return '<div class="row"><span>'+x[0]+'</span><b>'+x[1]+'</b></div>';}).join('')+'<div class="row"><span>Předplacená km (koupíte předem)</span><b>'+fmt(c.predpl)+' Kč/km</b></div>'+'<div class="row"><span>Min. pronájem</span><b>'+c.min+(c.min===1?' den':' dní')+'</b></div>'+(isCourier()&&isBolt()?annot('<b>⚠ placeholder (weekBolt):</b> týdenní sazba Bolt/Uber bez pojištění TAXI = zatím 95 % kurýrní sazby — přesnou částku slevy za chybějící pojištění upřesní Martin/RF.'):'');}
 function paintDetail(){var c=CARS.find(function(x){return x.id===S.detailCar;})||CARS[0];var pb=document.getElementById('dpricebox');if(pb)pb.innerHTML=detailPriceHTML(c);
   document.querySelectorAll('#dscale button').forEach(function(b){b.classList.toggle('on',b.dataset.ds===S.scale);});
   var dur=document.getElementById('ddur'),dl=document.getElementById('ddurlbl');
   if(dur){if(S.scale==='short'){dur.min=1;dur.max=30;dur.step=1;dur.value=S.days;if(dl)dl.textContent=S.days+(S.days===1?' den':S.days<5?' dny':' dní');}else{dur.min=1;dur.max=24;dur.step=1;dur.value=S.months;if(dl)dl.textContent=S.months+(S.months>=5?' měsíců':S.months===1?' měsíc':' měsíce');}}
-  var km=document.getElementById('dkm'),kl=document.getElementById('dkmlbl');
-  if(km){if(isCourier()){km.disabled=true;km.style.opacity=.4;if(kl)kl.textContent='6 500 km/měs (paket)';}else{km.disabled=false;km.style.opacity=1;km.value=S.kmIdx;var T=S.scale==='short'?KM_SHORT:KM_LONG,u=S.scale==='short'?' km/den':' km/měs';if(kl)kl.textContent=fmt(T[S.kmIdx])+u;}}}
-function priceLines(c){const fct=isCourier()?1:kmFactor(S.kmIdx);const day=P(Math.round(c.day*fct));const week=Math.round(P(c.day)*5.45/10)*10;
-  if(isCourier())return {big:fmt(week),per:'/ týden',stats:[['Za den',fmt(P(c.day))+' Kč'],['V ceně','6 500 km/měs']]};
-  if(S.scale==='short')return {big:fmt(day),per:'/ den',stats:[['Za '+S.days+' dní',fmt(day*S.days)+' Kč'],['V ceně',KM_SHORT[S.kmIdx]+' km/den']]};
-  const base=P(Math.round(c.mo*fct));if(!base)return {big:'na dotaz',per:'',stats:[['Měsíční cena','na dotaz'],['',' ']]};
+}
+/* Sdílený týdenní výpočet pro přepravní segment — kurýr (Wolt/Foodora) = day×7 vč. pojištění; Bolt/Uber = c.weekBolt BEZ pojištění TAXI (⚠ placeholder 95 % — upřesní Martin/RF).
+   JEDINÝ zdroj pravdy pro týdenní cenu: používá ho priceLines() (homepage) i calc() (stránka Poptávka), aby se čísla nikdy nerozjela. */
+function courierWeek(c){const weekBase=(isBolt()&&c.weekBolt)?P(c.weekBolt):P(c.day*7);const pct=DISC_WEEK(S.weeks);const disc=Math.round(weekBase*pct/100);return{base:weekBase,week:weekBase-disc,disc:disc,pct:pct};}
+function priceLines(c){const day=P(c.day);
+  const week=courierWeek(c).week;
+  if(isCourier())return {big:fmt(week),per:'/ týden',stats:[['Za '+S.weeks+' týdnů',fmt(week*S.weeks)+' Kč'],['V ceně 6 500 km/měs','nad limit '+fmt(c.nadlim)+' Kč/km']].concat(isBolt()?[['Týdenní sazba','bez pojištění TAXI (hradíte sám)']]:[])};
+  if(S.scale==='short')return {big:fmt(day),per:'/ den',stats:[['Za '+S.days+' dní',fmt(day*S.days)+' Kč'],['Nadlimitní km',fmt(c.nadlim)+' Kč/km']]};
+  const base=P(c.mo);if(!base)return {big:'na dotaz',per:'',stats:[['Měsíční cena','na dotaz'],['',' ']]};
   const mo=base-Math.round(base*DISC(S.months)/100);
-  return {big:fmt(mo),per:'/ měsíc',stats:[['Celkem za '+S.months+' měs',fmt(mo*S.months)+' Kč'],['V ceně',fmt(KM_LONG[S.kmIdx])+' km/měs']]};}
+  return {big:fmt(mo),per:'/ měsíc',stats:[['Celkem za '+S.months+' měs',fmt(mo*S.months)+' Kč'],['V ceně 1 500 km/měs','nad limit '+fmt(c.nadlim)+' Kč/km']]};}
 function homeCardHTML(c){const pl=priceLines(c);const tr=/automat/i.test(c.n)?'Automat':'Manuál';const md=c.min===1?'1 den':(c.min<5?c.min+' dny':c.min+' dní');const un=(S.scale==='short'&&S.days<c.min);const dtxt=S.days+' '+(S.days===1?'den':(S.days<5?'dny':'dní'));return `<div class="vcard${un?' dim':''}">
   <div class="ph" style="background-image:url('${c.ph}')"><span class="vbadge">${c.cat}</span></div>
   <div class="b"><h3>${carName(c)}</h3>
@@ -756,17 +825,43 @@ function paintHome(){const g=document.getElementById('homeCars');if(!g)return;
   const mw=document.getElementById('qmonthsWrap');if(mw)mw.style.display=S.scale==='short'?'none':'';
   const dw=document.getElementById('qdaysWrap');if(dw)dw.style.display=S.scale==='short'?'':'none';
   const dvv=document.getElementById('qdval');if(dvv)dvv.textContent=S.days;
-  const _rng=document.getElementById('qkmrange'),_kl=document.getElementById('qkmlbl'),_kh=document.getElementById('qkmhint');
-  if(_rng){if(isCourier()){_rng.disabled=true;_rng.style.opacity=.4;if(_kl)_kl.textContent='6 500 km/měs';if(_kh)_kh.textContent='Kurýrní / taxi paket';}
-    else{_rng.disabled=false;_rng.style.opacity=1;_rng.value=S.kmIdx;var _T=S.scale==='short'?KM_SHORT:KM_LONG,_u=S.scale==='short'?' km/den':' km/měs';if(_kl)_kl.textContent=fmt(_T[S.kmIdx])+_u;if(_kh)_kh.textContent='Vyšší nájezd = vyšší cena. Nad nejvyšší balíček individuálně.';}}
+  const _wv=document.getElementById('qwval');if(_wv)_wv.textContent=S.weeks;
+  const _qwd=document.getElementById('qwdisc');if(_qwd){var _tw=S.weeks>=52?52:S.weeks>=26?26:S.weeks>=13?13:1;_qwd.querySelectorAll('.qlad').forEach(function(el){el.classList.toggle('on',+el.dataset.t===_tw);});}
   var _sel=document.getElementById('qodSel');
   if(_sel){var _L=homeList();if(!_L.some(function(c){return c.id===S.heroCar;}))S.heroCar=_L.length?_L[0].id:null;
     _sel.innerHTML=_L.map(function(c){return '<option value="'+c.id+'"'+(c.id===S.heroCar?' selected':'')+'>'+c.short+'</option>';}).join('');
     var _car=_L.find(function(c){return c.id===S.heroCar;})||_L[0];
-    if(_car){var _pl=priceLines(_car),_v=parseInt(String(_pl.big).replace(/[^0-9]/g,''),10),_op=document.getElementById('qodPrice'),_opr=document.getElementById('qodPer');if(_op&&!isNaN(_v))animNum(_op,_v);if(_opr)_opr.textContent=_pl.per;}}
+    if(_car){var _pl=priceLines(_car),_v=parseInt(String(_pl.big).replace(/[^0-9]/g,''),10),_op=document.getElementById('qodPrice'),_opr=document.getElementById('qodPer');if(_op&&!isNaN(_v))animNum(_op,_v);if(_opr)_opr.textContent=_pl.per;
+      if(CURR==='home')syncMbar(isNaN(_v)?String(_pl.big):fmt(_v)+' Kč '+_pl.per);}}
   const mv=document.getElementById('qmval');if(mv)mv.textContent=S.months;
   const qd=document.getElementById('qdisc');if(qd){var t=S.months>=12?12:S.months>=6?6:S.months>=3?3:1;qd.querySelectorAll('.qlad').forEach(function(el){el.classList.toggle('on',+el.dataset.t===t);});}
-  const hc=document.getElementById('homeCount');if(hc)hc.textContent='Zobrazeno '+homeList().length+' vozů';}
+  const hc=document.getElementById('homeCount');if(hc)hc.textContent='Zobrazeno '+homeList().length+' vozů';
+  paintKmPlan();}
+
+/* Km-kalkulačka (odhad doplatku nad základní nájezd) — NEOVLIVŇUJE základní cenu, jen informativní odhad. */
+function paintKmPlan(){var el=document.getElementById('qkmplan');if(!el)return;
+  var courier=isCourier(),base=courier?6500:1500,min=courier?6500:1500,max=courier?20000:6000,step=courier?500:250;
+  if(S.kmPlan<min||S.kmPlan>max)S.kmPlan=base;
+  el.min=min;el.max=max;el.step=step;el.value=S.kmPlan;
+  var v=document.getElementById('qkmplanVal');if(v)v.textContent=fmt(S.kmPlan);
+  var est=document.getElementById('qkmplanEst'),hero=document.getElementById('qodKmEst');
+  var c=CARS.find(function(x){return x.id===S.heroCar;})||CARS.find(function(x){return x.id===S.car;})||CARS[0];
+  if(S.kmPlan<=base){
+    if(est)est.innerHTML='<span style="color:var(--green-d);font-weight:600">✓ V ceně, nic nedoplácíte.</span>';
+    if(hero)hero.innerHTML=(!courier&&S.scale==='short')?'':'<span style="color:var(--green-d);font-weight:600">✓ '+fmt(S.kmPlan)+' km/měs je v ceně, nic nedoplácíte.</span>';
+    return;}
+  var over=S.kmPlan-base;
+  if(!c){if(est)est.innerHTML='<span class="muted">Vyberte auto níže pro přesný odhad.</span>';if(hero)hero.innerHTML='';return;}
+  var rate=function(n){return String(n).replace('.',',');};
+  if(est)est.innerHTML='<span class="muted">Nad limit +'+fmt(over)+' km/měs ('+c.short+'):</span><br>Doplatek po vrácení: <b>~'+fmt(Math.round(over*c.nadlim))+' Kč/měs</b> <span class="muted">(nadlimitní sazba '+rate(c.nadlim)+' Kč/km)</span><br>Nebo předem: <b>~'+fmt(Math.round(over*c.predpl))+' Kč/měs</b> <span class="muted">(předplacená sazba '+rate(c.predpl)+' Kč/km, o 30 % levnější)</span>';
+  /* Živý odhad přímo u hlavní ceny vozu — základní cena (#qodPrice) se NEMĚNÍ (garantovaná sazba, km na ni nemá vliv),
+     tento druhý řádek se přepočítává při každém pohybu posuvníku i při změně vozu (volá se z paintHome i z input eventu). */
+  if(hero){var pl=priceLines(c),bv=parseInt(String(pl.big).replace(/[^0-9]/g,''),10);
+    /* Jednotky: nadlim/predpl doplatek je MĚSÍČNÍ (baseline 1500/6500 km/měs). Kurýr platí týdně → doplatek přepočíst na týden (÷4,345 = prům. týdnů v měsíci). Krátkodobý denní pronájem: měsíční km limit u pár dní nedává smysl → odhad nezobrazovat. */
+    if(isNaN(bv)||(!courier&&S.scale==='short')){hero.innerHTML='';}
+    else{var kmDiv=courier?4.345:1;
+      var withNad=bv+Math.round(over*c.nadlim/kmDiv),withPre=bv+Math.round(over*c.predpl/kmDiv);
+      hero.innerHTML='<span class="muted">Odhad s doplatkem za km (+'+fmt(over)+' km/měs'+(courier?', přepočteno na týden':'')+'):</span> <b>'+fmt(withNad)+' Kč '+pl.per.replace('/ ','/')+'</b><br><span class="muted">při předplacení km:</span> <b>'+fmt(withPre)+' Kč '+pl.per.replace('/ ','/')+'</b>';}}}
 
 function annot(t){return `<div class="annot">${t}</div>`;}
 
@@ -782,9 +877,11 @@ home:()=>`
       <b style="font-size:15px">4,9</b>
       <span class="muted" style="font-size:13.5px">· Google recenze · autopůjčovna od roku 2017</span>
     </div>
+    <button class="qteaser" data-opensheet><span>Od ${fmt(Math.min.apply(null,CARS.filter(function(c){return c.day;}).map(function(c){return P(c.day);})))} Kč/den — spočítejte si cenu</span><span class="arr">→</span></button>
   </div>
   <aside class="qstart">
     <div class="qh"><b>Spočítejte si cenu</b><span>Vyberte dobu a nájezd — ceny u vozů níže se hned přepočítají.</span></div>
+    <div id="qscaleBlock" style="${isCourier()?'display:none':''}">
     <div class="qlbl">Jak dlouho?</div>
     <div class="qseg" id="qscale">
       <button data-s="short" class="${S.scale==='short'?'on':''}">Krátkodobě</button>
@@ -795,30 +892,48 @@ home:()=>`
       <div style="display:flex;justify-content:space-between;font-size:13px"><span class="muted">Délka pronájmu</span><span><b id="qmval">${S.months}</b> měsíců</span></div>
       <div id="qdisc" class="qladder">
         <div class="qlad" data-t="1"><span>1 měs</span><b>základ</b></div>
-        <div class="qlad" data-t="3"><span>3 měs</span><b>−6 %</b></div>
-        <div class="qlad" data-t="6"><span>6 měs</span><b>−16 %</b></div>
-        <div class="qlad" data-t="12"><span>12 měs</span><b>−24 %</b></div>
+        <div class="qlad" data-t="3"><span>3 měs</span><b>−5 %</b></div>
+        <div class="qlad" data-t="6"><span>6 měs</span><b>−10 %</b></div>
+        <div class="qlad" data-t="12"><span>12 měs</span><b>−15 %</b></div>
       </div>
     </div>
     <div id="qdaysWrap" style="${S.scale==='short'?'':'display:none'};margin-top:10px">
       <input type="range" min="1" max="30" value="${S.days}" id="qdays" style="width:100%">
       <div style="display:flex;justify-content:space-between;font-size:13px"><span class="muted">Počet dní</span><span><b id="qdval">${S.days}</b> dní</span></div>
     </div>
-    <div class="qlbl">Kolik najedete?</div>
-    <input type="range" min="0" max="5" step="1" value="${S.kmIdx}" id="qkmrange" style="width:100%">
-    <div style="display:flex;justify-content:space-between;font-size:13px;margin-top:2px"><span class="muted" id="qkmhint">Vyšší nájezd = vyšší cena</span><b id="qkmlbl"></b></div>
+    </div>
+    <div id="qweeksWrap" style="${isCourier()?'':'display:none'};margin-top:10px">
+      <div class="qlbl">Počet týdnů</div>
+      <input type="range" min="1" max="60" value="${S.weeks}" id="qweeks" style="width:100%">
+      <div style="display:flex;justify-content:space-between;font-size:13px"><span class="muted">Doba pronájmu</span><span><b id="qwval">${S.weeks}</b> týdnů</span></div>
+      <div id="qwdisc" class="qladder">
+        <div class="qlad" data-t="1"><span>1 týd</span><b>základ</b></div>
+        <div class="qlad" data-t="13"><span>13 týd</span><b>−5 %</b></div>
+        <div class="qlad" data-t="26"><span>26 týd</span><b>−10 %</b></div>
+        <div class="qlad" data-t="52"><span>52 týd</span><b>−15 %</b></div>
+      </div>
+    </div>
+    <div class="muted" style="font-size:12.5px;margin-top:8px">V ceně je vždy základní nájezd — 1 500 km/měs (u kurýrů 6 500 km/měs). Nad limit se doplácí podle vozu, nebo si km koupíte předem levněji. Přesnou sazbu uvidíte u vybraného vozu níže.</div>
+    <div id="qkmplanWrap" style="margin-top:12px">
+      <div class="qlbl">Kolik km plánujete najet za měsíc?</div>
+      <input type="range" min="${isCourier()?6500:1500}" max="${isCourier()?20000:6000}" step="${isCourier()?500:250}" value="${S.kmPlan}" id="qkmplan" style="width:100%">
+      <div style="display:flex;justify-content:space-between;font-size:13px"><span class="muted">Odhad nájezdu</span><span><b id="qkmplanVal">${fmt(S.kmPlan)}</b> km/měs</span></div>
+      <div id="qkmplanEst" style="font-size:12.5px;margin-top:6px;line-height:1.55"></div>
+    </div>
     <label class="qcheck" style="margin-top:12px"><input type="checkbox" id="qtransport" ${isCourier()?'checked':''}> 🚖 Jsem řidič přepravní nebo kurýrní služby</label>
     <div id="qsub" class="qseg" style="${isCourier()?'':'display:none'};margin-top:8px">
       <button data-pp="kuryr" class="${S.purpose==='kuryr'?'on':''}">Kurýr (Wolt, Foodora)</button>
       <button data-pp="taxi" class="${S.purpose==='taxi'?'on':''}">Přeprava osob (Bolt, Uber)</button>
     </div>
     <div id="qsubnote" class="muted" style="${isCourier()?'':'display:none'};font-size:12px;margin-top:6px">${isTaxi()?'U přepravy osob (Bolt, Uber, Liftago) si pojištění TAXI hradíte sám. Níže vidíte jen vhodné vozy.':'Kurýrní pojištění (rozvoz zboží) je v ceně. Níže vidíte jen úsporné vozy pro rozvoz.'}</div>
+    ${annot('<b>⚠ placeholder (weekBolt):</b> týdenní sazba pro Bolt/Uber (přeprava osob, BEZ pojištění TAXI) je zatím spočítaná jako 95 % kurýrní týdenní sazby — přesnou částku slevy za chybějící pojištění upřesní Martin/RF. Kurýr (Wolt/Foodora) má týdenní sazbu vč. pojištění beze změny.')}
     <div class="qod">
       <div style="display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:8px">
         <span class="muted" style="font-size:13px">Spočítat pro:</span>
         <select id="qodSel" class="fld" style="width:auto;max-width:64%"></select>
       </div>
       <b id="qodPrice">—</b> <span id="qodPer" class="muted" style="font-size:13px"></span>
+      <div id="qodKmEst" style="font-size:12.5px;margin-top:6px;line-height:1.55;border-top:1px dashed var(--line);padding-top:6px"></div>
     </div>
     <a class="btn lg block" href="#homeCars" style="margin-top:12px">Zobrazit ceny u vozů ↓</a>
     <div class="qnote">Nezávazné · vyberte vůz níže a doplňte kontakt</div>
@@ -854,9 +969,9 @@ home:()=>`
   <h2 style="font-size:28px;margin:8px 0 18px">Čím déle, tím výhodněji</h2>
   <div class="discgrid">
     <div class="disc"><div class="muted">1 měsíc</div><div class="pct" style="color:var(--navy)">základ</div></div>
-    <div class="disc"><div class="muted">3 měsíce</div><div class="pct">−6 %</div></div>
-    <div class="disc"><div class="muted">6 měsíců</div><div class="pct">−16 %</div></div>
-    <div class="disc best"><div class="muted">12 měsíců · nejvýhodnější</div><div class="pct">−24 %</div></div>
+    <div class="disc"><div class="muted">3 měsíce</div><div class="pct">−5 %</div></div>
+    <div class="disc"><div class="muted">6 měsíců</div><div class="pct">−10 %</div></div>
+    <div class="disc best"><div class="muted">12 měsíců · nejvýhodnější</div><div class="pct">−15 %</div></div>
   </div>
   <p class="muted" style="margin-top:14px;font-size:13px">+ při úhradě do 24 h sleva −5 %, věrnostní sleva −5 / −8 / −12 % a 500 Kč za plnou nádrž. Slevy se propíšou do cen u vozů výše.</p>
 </div></section>
@@ -865,7 +980,7 @@ home:()=>`
   <div class="eyebrow center" style="display:block">Jak to probíhá</div>
   <h2 class="center" style="font-size:30px;margin:8px 0 26px">Tři kroky bez překvapení</h2>
   <div class="grid3">
-    ${[['Spočítáte cenu','Konfigurátor okamžitě ukáže fér cenu podle vozu, doby a nájezdu. Při 6 měsících ušetříte 16 %, při 12 měsících 24 %.'],
+    ${[['Spočítáte cenu','Konfigurátor okamžitě ukáže fér cenu podle vozu, doby a nájezdu. Při 6 měsících ušetříte 10 %, při 12 měsících 15 %.'],
        ['Domluvíte rezervaci','Pošlete poptávku a my vám e-mailem potvrdíme dostupnost vozu i rezervaci. Vůz pro vás držíme 24 hodin — žádný stres.'],
        ['Vyzvednete v Čakovicích','Provozovna Cukrovarská 991. Předání trvá 20 minut: instruktáž, společné foto stavu vozu, klíče. Nebo vám vůz přivezeme — ceny viz níže.']
       ].map((s,i)=>`<div class="fcard" style="text-align:center"><div class="snum" style="margin:0 auto 10px">${i+1}</div><h3 style="margin:0 0 6px">${s[0]}</h3><p style="margin:0">${s[1]}</p></div>`).join('')}
@@ -950,8 +1065,7 @@ detail:()=>{
         <div class="seg" id="dscale"><button data-ds="short"${S.scale==='short'?' class="on"':''}>Krátkodobě</button><button data-ds="long"${S.scale==='long'?' class="on"':''}>Dlouhodobě</button></div>
         <div style="margin:10px 0 2px;display:flex;justify-content:space-between;font-size:13px"><span class="muted">Doba pronájmu</span><b id="ddurlbl"></b></div>
         <input type="range" id="ddur" style="width:100%">
-        <div style="margin:10px 0 2px;display:flex;justify-content:space-between;font-size:13px"><span class="muted">Kolik najedete</span><b id="dkmlbl"></b></div>
-        <input type="range" min="0" max="5" step="1" value="${S.kmIdx}" id="dkm" style="width:100%">
+        <div class="muted" style="font-size:12.5px;margin-top:8px">V ceně ${isCourier()?'6 500':'1 500'} km/${isCourier()?'měs':'měs'}. Nad limit ${fmt(c.nadlim)} Kč/km, předem koupené km ${fmt(c.predpl)} Kč/km.</div>
         <div class="pricebox" id="dpricebox" style="margin-top:12px"></div>
         <div style="margin-top:8px">${vatSwitch()}</div>
         <p class="muted" style="font-size:12.5px;margin-top:6px">Hrajte si s dobou a nájezdem — cena tohoto vozu se hned přepočítá.</p>
@@ -978,23 +1092,23 @@ cenik:()=>`<section class="sec"><div class="wrap">
   <div class="eyebrow">Ceník</div>
   <h1 style="font-size:36px;margin:8px 0 10px">Férový ceník — co vidíte, to platíte</h1>
   <p class="lead">Žádné skryté poplatky, žádné hvězdičky. Cenu počítáme transparentně podle vozu, délky pronájmu a nájezdu. Čím déle, tím nižší měsíční sazba.</p>
-  ${annot('<b>✦ Oprava:</b> sleva za 12 měsíců je všude <b>24 %</b> (dnes je na HP omylem 22 %). Administrativní poplatek za pokutu sjednocen na <b>350 Kč</b> (dnes ceník 200 vs FAQ 350) — finální částku potvrdit s Romanem.')}
+  ${annot('<b>✦ Oprava:</b> sleva za 12 měsíců byla sjednocena na <b>15 %</b> (dřív 24 %, pak omylem 22 % na HP — teď 15 % všude). Administrativní poplatek za pokutu sjednocen na <b>350 Kč</b> (dnes ceník 200 vs FAQ 350) — finální částku potvrdit s Romanem.')}
   <div class="step-row" style="margin:28px 0">
     ${[['Vyberete vůz','Každý vůz má svou týdenní a měsíční sazbu — viz tabulka níže.'],['Zvolíte délku','Týden, nebo paket na 3, 6 či 12 měsíců. Delší = nižší cena.'],['Přidáte nájezd','V ceně je férový limit km. Nadlimitní doúčtujeme podle reálu.']].map((s,i)=>`<div class="fcard"><div class="snum">${i+1}</div><h3>${s[0]}</h3><p>${s[1]}</p></div>`).join('')}
   </div>
   <div class="center"><div class="eyebrow">Sleva za délku</div><h2 style="font-size:26px;margin:8px 0 18px">Čím déle, tím výhodněji</h2></div>
   <div class="discgrid" style="margin-bottom:40px">
     <div class="disc"><div class="muted">1 měsíc</div><div class="pct" style="color:var(--navy)">základ</div></div>
-    <div class="disc"><div class="muted">3 měsíce</div><div class="pct">−6 %</div></div>
-    <div class="disc"><div class="muted">6 měsíců</div><div class="pct">−16 %</div></div>
-    <div class="disc best"><div class="muted">12 měsíců · nejvýhodnější</div><div class="pct">−24 %</div></div>
+    <div class="disc"><div class="muted">3 měsíce</div><div class="pct">−5 %</div></div>
+    <div class="disc"><div class="muted">6 měsíců</div><div class="pct">−10 %</div></div>
+    <div class="disc best"><div class="muted">12 měsíců · nejvýhodnější</div><div class="pct">−15 %</div></div>
   </div>
   <div class="eyebrow">Sazby vozů</div><h2 style="font-size:24px;margin:8px 0 14px">Ceník podle vozu</h2>
   <table class="ptable"><tr><th>Vůz</th><th>Týden</th><th>Měsíc</th></tr>
   ${CARS.map(c=>`<tr><td>${c.n.replace(', automat','').replace(', manuál','')}</td><td>${c.mo?fmt(Math.round(P(c.day)*5.45/10)*10):'na dotaz'} Kč</td><td>${c.mo?fmt(P(c.mo))+' Kč':'na dotaz'}</td></tr>`).join('')}
   </table>
   <div style="margin-top:14px">${vatSwitch()}</div>
-  <p class="muted" style="font-size:13px;margin-top:12px">Měsíční sazby jsou pro nejnižší km balíček; vyšší nájezd = vyšší balíček (1 500–9 000 km/měs, vidíte v konfigurátoru, cena se hned přepočítá). Nad nejvyšší balíček řešíme individuálně. Minimální doba pronájmu se liší podle vozu.</p>
+  <p class="muted" style="font-size:13px;margin-top:12px">Měsíční sazby platí pro nájezd do 1 500 km/měs. Kdo jede víc, doplatí nadlimitní sazbu podle vozu, nebo si km koupí předem levněji — přesnou sazbu ukáže konfigurátor u vybraného auta. Minimální doba pronájmu se liší podle vozu.</p>
   <div style="margin-top:36px"><div class="eyebrow">Rezervace a platba</div><h2 style="font-size:24px;margin:8px 0 18px">Jednoduše a bez skrytých kroků</h2>
   <div class="grid3">
     ${[['💳','Záloha 20 % drží vůz','Rezervaci potvrdíte zálohou 20 % z ceny (kartou, převodem nebo QR kódem) — tím vám vůz držíme na termín. Doplatek při převzetí; při zrušení záloha propadá.'],
@@ -1011,7 +1125,7 @@ jak:()=>`<section class="sec"><div class="wrap">
   <p class="lead">Transparentní cena, klidná rezervace a společné foto stavu při převzetí. Plný servis, pojištění i asistence máte po celou dobu v ceně. Plus férové bonusy za dobrou komunikaci.</p>
   ${annot('<b>✦ Oprava:</b> „Jak to funguje" je <b>samostatná stránka</b> (dnes jen kotva na homepage /#how — rankující URL /jak-to-probiha/ by měla mít vlastní stránku, ne 301 na homepage).')}
   <div style="display:flex;flex-direction:column;gap:14px;margin-top:24px">
-    ${[['Spočítáte cenu','Konfigurátor okamžitě ukáže fér cenu podle modelu, doby a nájezdu. Žádné skryté poplatky. Při 6 měs ušetříte 16 %, při 12 měs 24 %.','⚡ Bonus: při úhradě do 24 h sleva 5 %.'],
+    ${[['Spočítáte cenu','Konfigurátor okamžitě ukáže fér cenu podle modelu, doby a nájezdu. Žádné skryté poplatky. Při 6 měs ušetříte 10 %, při 12 měs 15 %.','⚡ Bonus: při úhradě do 24 h sleva 5 %.'],
        ['Domluvíte rezervaci','Pošlete poptávku a my vám e-mailem potvrdíme dostupnost vozu i rezervaci. Vůz držíme 24 hodin.','🛡️ U paketu od 6 měsíců osobní schůzka.'],
        ['Vyzvednete na Cukrovaru Čakovice','Provozovna Cukrovarská 991. Předání 20 minut: instruktáž, společné foto stavu vozu, klíče. Přistavení a vyzvednutí: po Praze od 500 Kč (do 20 km 500 Kč, nad 20 km 700 Kč), mimo Prahu od 25 Kč/km jednosměrně — u paketu od 30 dnů po Praze zdarma.','🎁 Vrátíte v plné nádrži → 500 Kč sleva na další pronájem.']
       ].map((s,i)=>`<div class="fcard" style="display:flex;gap:16px;align-items:flex-start"><div class="snum" style="margin:0;flex:none">${i+1}</div><div><h3>${s[0]}</h3><p>${s[1]}</p><div class="bonus">${s[2]}</div></div></div>`).join('')}
@@ -1257,7 +1371,7 @@ op:()=>`<section class="sec"><div class="wrap" style="max-width:820px">
 
   <h3 style="margin:22px 0 8px">5. Kauce</h3><p class="muted">Při převzetí se skládá vratná kauce, zpravidla 10 000–50 000 Kč podle vozu (formou blokace na platební kartě). Výši kauce sdělíme předem. Kauce se po vrácení vozu bez závad vrací; lze z ní uhradit spoluúčast, smluvní pokuty nebo nedoplatky.</p>
 
-  <h3 style="margin:22px 0 8px">6. Cena, kilometry a palivo</h3><p class="muted">Cena vychází z platného ceníku a zvoleného balíčku průměrného denního nájezdu. V ceně je servis, pojištění (vč. čelního skla, EU), dálniční známka pro ČR, sezónní pneumatiky a asistenční služba. Vůz se vrací s plnou nádrží; při nedotankování účtujeme cenu paliva a manipulační poplatek 300 Kč.</p>
+  <h3 style="margin:22px 0 8px">6. Cena, kilometry a palivo</h3><p class="muted">Cena vychází z platného ceníku vozu a zahrnuje 1 500 km/měs (u kurýrů 6 500 km/měs). Kdo jede víc, doplatí nadlimitní sazbu podle vozu, nebo si km koupí předem levněji. V ceně je servis, pojištění (vč. čelního skla, EU), dálniční známka pro ČR, sezónní pneumatiky a asistenční služba. Vůz se vrací s plnou nádrží; při nedotankování účtujeme cenu paliva a manipulační poplatek 300 Kč.</p>
 
   <h3 style="margin:22px 0 8px">7. Pojištění a spoluúčast</h3><p class="muted">Vozy jsou havarijně i povinně pojištěné, včetně čelního skla v rámci EU. Spoluúčast nájemce při škodě je 10 000 Kč. U přepravy osob (Bolt, Uber, taxi) si pojištění pro přepravu osob a přepis provozovatele zajišťuje nájemce sám.</p>
 
@@ -1336,7 +1450,7 @@ cfg:()=>`<section class="sec"><div class="wrap">
       <div class="sub" id="psub">na 6 měsíců · vč. všech služeb</div>
       <div class="pbox">
         <div class="pline"><span id="pcar">Fabia III</span><span><b id="pbase">9 490</b> Kč</span></div>
-        <div class="pline disc" id="pdiscLine"><span id="pdiscLbl">Sleva 16 % (6 měs)</span><span id="pdisc">−1 520 Kč</span></div>
+        <div class="pline disc" id="pdiscLine"><span id="pdiscLbl">Sleva 10 % (6 měs)</span><span id="pdisc">−1 520 Kč</span></div>
         <div class="pline"><span>Limit <span id="pkm">4 500</span> km/měs</span><span>v ceně</span></div>
       </div>
       <div class="incl-s">✓ Servis · pojištění vč. čelního skla (EU) · dálniční známka · pneu · asistence 24/7 · náhradní vůz</div>
@@ -1357,10 +1471,10 @@ poptavka:()=>`<section class="sec"><div class="wrap">
         <div class="chip"><b>Nájezd</b><span id="sKm">4 500 km/měs</span></div>
       </div>
       <div class="sumprice">
-        <div class="sp-main"><span>Cena / měsíc</span><b id="sPmonth">7 972 Kč</b></div>
+        <div class="sp-main"><span>${isCourier()?'Cena / týden':'Cena / měsíc'}</span><b id="sPmonth">7 972 Kč</b></div>
         <div class="sp-row"><span>Cena / den</span><span id="sPday">650 Kč</span></div>
         <div class="sp-row"><span>Celkem</span><span id="sPtotal">47 832 Kč za 6 měs</span></div>
-        <div class="sp-row disc"><span>Vaše sleva</span><span id="sDisc">−1 518 Kč/měs (−16 %)</span></div>
+        <div class="sp-row disc"><span>Vaše sleva</span><span id="sDisc">−1 518 Kč/měs (−10 %)</span></div>
       </div>
       <div id="sNext" class="muted" style="margin-top:10px;font-size:13px"></div>
       <div id="sExtras" style="margin-top:8px;font-size:13px;color:var(--muted)"></div>
@@ -1461,15 +1575,16 @@ admin:()=>`<section class="sec"><div class="wrap">
   <div class="eyebrow" style="margin-top:28px">Cenová pravidla</div>
   <h2 style="font-size:22px;margin:6px 0 12px">Globální nastavení cen</h2>
   <div class="grid2">
-    <div class="fcard"><h3>Kilometrové balíčky</h3>
-      ${KM_LONG.map((t,i)=>`<div class="adm-row"><span>${fmt(t)} km/měs</span><span class="muted">×${kmFactor(i).toFixed(2)}</span></div>`).join('')}
-      <p class="muted" style="font-size:12px;margin-top:6px">Nad nejvyšší balíček: na dotaz. (Koeficient/ceny potvrdí Roman.)</p>
+    <div class="fcard"><h3>Kilometry navíc — nadlimitní a předplacená sazba</h3>
+      <div class="adm-row"><span>V ceně (běžný zákazník)</span><span class="muted">1 500 km/měs</span></div>
+      <div class="adm-row"><span>V ceně (kurýr/taxi)</span><span class="muted">6 500 km/měs</span></div>
+      <p class="muted" style="font-size:12px;margin-top:6px">Sazba za km navíc se zadává <b>zvlášť u každého vozu</b> (ne globálně) — nadlimitní (doplatí se po vrácení) a předplacená (koupí se předem, o 30 % levněji). Příklad: Fabia 2,6 / 1,8 Kč/km, Mercedes 15,1 / 10,6 Kč/km. Celá tabulka je v ClickUp úkolu.</p>
     </div>
     <div class="fcard"><h3>Slevy za délku</h3>
       <div class="adm-row"><span>1 měsíc</span><span class="muted">základ</span></div>
-      <div class="adm-row"><span>3 měsíce</span><span class="muted">−6 %</span></div>
-      <div class="adm-row"><span>6 měsíců</span><span class="muted">−16 %</span></div>
-      <div class="adm-row"><span>12 měsíců</span><span class="muted">−24 %</span></div>
+      <div class="adm-row"><span>3 měsíce</span><span class="muted">−5 %</span></div>
+      <div class="adm-row"><span>6 měsíců</span><span class="muted">−10 %</span></div>
+      <div class="adm-row"><span>12 měsíců</span><span class="muted">−15 %</span></div>
     </div>
     <div class="fcard"><h3>Daně a kauce</h3>
       <div class="adm-row"><span>Sazba DPH</span><input class="fld adm" style="width:80px" value="21 %" readonly></div>
@@ -1540,8 +1655,11 @@ admin:()=>`<section class="sec"><div class="wrap">
 function recoCars(){let pool=CARS.filter(c=>c.mo);pool=isCourier()?pool.filter(c=>['citigo','oct3cng','oct3tdi','fabia'].includes(c.id)):pool.filter(c=>['fabia','oct4s','sup3lb','scala','oct3tdi'].includes(c.id));return pool.slice(0,3);}
 function calc(){const c=CARS.find(x=>x.id===S.car);const fct=isCourier()?1:kmFactor(S.kmIdx);
   const kmIncl=isCourier()?6500:(S.scale==='short'?KM_SHORT[S.kmIdx]:KM_LONG[S.kmIdx]);
+  if(isCourier()){/* přepravní segment: STEJNÁ cenová logika jako priceLines() na homepage — sdílený courierWeek() (týdenní billing dle vybraného vozu, weekBolt u Bolt/Uber, sleva DISC_WEEK dle S.weeks) */
+    const w=courierWeek(c);
+    return{main:w.week,base:w.base,disc:w.disc,pct:w.pct,kmIncl,car:c,sub:'týdenní sazba · '+S.weeks+' týdnů · vč. všech služeb',per:'/týden'};}
   if(S.scale==='short'){const d=P(Math.round(c.day*fct));return{main:d,base:d,disc:0,pct:0,kmIncl,car:c,sub:'denní sazba · vč. všech služeb',per:'/den'};}
-  const base=isCourier()?P(9500):P(Math.round(c.mo*fct));const pct=DISC(S.months);const disc=Math.round(base*pct/100);
+  const base=P(Math.round(c.mo*fct));const pct=DISC(S.months);const disc=Math.round(base*pct/100);
   return{main:base-disc,base,disc,pct,kmIncl,car:c,sub:'na '+S.months+' měsíc'+(S.months>=5?'ů':(S.months===1?'':'e'))+' · vč. všech služeb',per:'/měs'};}
 function paintCfg(){
   if(!document.getElementById('reco'))return;
@@ -1556,32 +1674,74 @@ function paintCfg(){
   document.getElementById('pbase').textContent=fmt(c.base);
   document.getElementById('pkm').textContent=fmt(c.kmIncl);
   const dl=document.getElementById('pdiscLine');
-  if(c.disc>0&&S.scale==='long'){dl.style.display='';document.getElementById('pdiscLbl').textContent='Sleva '+c.pct+'% ('+S.months+' měs)';document.getElementById('pdisc').textContent='−'+fmt(c.disc)+' Kč';}else dl.style.display='none';
+  if(c.disc>0&&(isCourier()||S.scale==='long')){dl.style.display='';document.getElementById('pdiscLbl').textContent='Sleva '+c.pct+'% ('+(isCourier()?S.weeks+' týd':S.months+' měs')+')';document.getElementById('pdisc').textContent='−'+fmt(c.disc)+' Kč';}else dl.style.display='none';
   document.getElementById('kmHint').textContent=isCourier()?'Kurýrní paket: v ceně 6 500 km/měs.':'V ceně paketu je 4 500 km/měs.';
   document.getElementById('durWrap').style.opacity=S.scale==='short'?.45:1;
   document.getElementById('months').disabled=S.scale==='short';
-  var _mv=document.getElementById('mbarVal');if(_mv)_mv.textContent=fmt(c.main)+' Kč'+c.per;
+  syncMbar(fmt(c.main)+' Kč'+c.per);
 }
 function paintSummary(){const c=calc();const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
-  var _mv=document.getElementById('mbarVal');if(_mv)_mv.textContent=(S.scale==='short'?fmt(c.main*S.days)+' Kč':fmt(c.main)+' Kč/měs');
-  set('sCar',carName(c.car));set('sDur',S.scale==='short'?'krátkodobě (dny)':S.months+' měsíců');set('sKm',fmt(c.kmIncl)+(S.scale==='short'?' km/den':' km/měs'));set('sPday',fmt(S.scale==='short'?c.main:P(c.car.day))+' Kč');
+  syncMbar(isCourier()?fmt(c.main)+' Kč/týden':(S.scale==='short'?fmt(c.main*S.days)+' Kč':fmt(c.main)+' Kč/měs'));
+  set('sCar',carName(c.car));set('sDur',isCourier()?S.weeks+' týdnů':(S.scale==='short'?'krátkodobě (dny)':S.months+' měsíců'));set('sKm',fmt(c.kmIncl)+(!isCourier()&&S.scale==='short'?' km/den':' km/měs'));set('sPday',fmt(isCourier()?Math.round(c.main/7):(S.scale==='short'?c.main:P(c.car.day)))+' Kč');
   var sn=document.getElementById('sNext');
   var se=document.getElementById('sExtras');if(se){var elb=EXTRAS.filter(e=>S.extras.has(e.id)).map(e=>e.label);se.textContent=elb.length?('Doplňky: '+elb.join(', ')):'';}
-  if(S.scale==='short'){set('sPmonth','—');set('sPtotal',fmt(c.main*S.days)+' Kč za '+S.days+' dní');set('sDisc','—');if(sn)sn.textContent='Tip: u dlouhodobého pronájmu (měsíce) získáte slevu až −24 %.';return;}
+  if(isCourier()){/* přepravní segment — týdenní billing, čísla identická s priceLines() na homepage */
+    set('sPmonth',fmt(c.main)+' Kč');set('sPtotal',fmt(c.main*S.weeks)+' Kč za '+S.weeks+' týd');set('sDisc',c.disc>0?('−'+fmt(c.disc)+' Kč/týden (−'+c.pct+' %)'):'bez slevy (do 12 týdnů)');
+    if(sn){if(S.weeks<52){var wk52=c.base-Math.round(c.base*DISC_WEEK(52)/100);sn.textContent='Když prodloužíte na 52 týdnů: −15 % → '+fmt(wk52)+' Kč/týden (ušetříte dalších '+fmt(Math.max(0,c.main-wk52))+' Kč/týden).';}else sn.textContent='Máte nejvyšší slevu −15 % za 52 týdnů. 🎉';}return;}
+  if(S.scale==='short'){set('sPmonth','—');set('sPtotal',fmt(c.main*S.days)+' Kč za '+S.days+' dní');set('sDisc','—');if(sn)sn.textContent='Tip: u dlouhodobého pronájmu (měsíce) získáte slevu až −15 %.';return;}
   set('sPmonth',fmt(c.main)+' Kč');set('sPtotal',fmt(c.main*S.months)+' Kč za '+S.months+' měs');set('sDisc',c.disc>0?('−'+fmt(c.disc)+' Kč/měs (−'+c.pct+' %)'):'bez slevy (1 měsíc)');
-  if(sn){if(S.months<12){var b=isCourier()?P(9500):P(c.car.mo);var mo12=b?b-Math.round(b*24/100):0;sn.textContent='Když prodloužíte na 12 měsíců: −24 % → '+fmt(mo12)+' Kč/měs (ušetříte dalších '+fmt(Math.max(0,c.main-mo12))+' Kč/měs).';}else sn.textContent='Máte nejvyšší slevu −24 % za 12 měsíců. 🎉';}}
+  if(sn){if(S.months<12){var b=P(c.car.mo);var mo12=b?b-Math.round(b*DISC(12)/100):0;sn.textContent='Když prodloužíte na 12 měsíců: −15 % → '+fmt(mo12)+' Kč/měs (ušetříte dalších '+fmt(Math.max(0,c.main-mo12))+' Kč/měs).';}else sn.textContent='Máte nejvyšší slevu −15 % za 12 měsíců. 🎉';}}
 
-function syncSegmentUI(){var t2=isCourier();
+function syncSegmentUI(){syncPurposeSub();var t2=isCourier();
   document.querySelectorAll('[data-p]').forEach(function(o){o.classList.toggle('sel',o.dataset.p===S.purpose);});
   document.querySelectorAll('#qtransport,#qtransport2').forEach(function(c){c.checked=t2;});
   document.querySelectorAll('[data-pp]').forEach(function(b){b.classList.toggle('on',b.dataset.pp===S.purpose);});
   var note=document.getElementById('qsubnote');if(note){note.style.display=t2?'':'none';note.textContent=isTaxi()?'U přepravy osob (Bolt, Uber, Liftago) si pojištění TAXI hradíte sám. Níže vidíte jen vhodné vozy.':'Kurýrní pojištění (rozvoz zboží) je v ceně. Níže vidíte jen úsporné vozy pro rozvoz.';}
   var a=document.getElementById('qsub'),b=document.getElementById('qsub2');
-  if(a)a.style.display=t2?'':'none';if(b)b.style.display=t2?'':'none';}
+  if(a)a.style.display=t2?'':'none';if(b)b.style.display=t2?'':'none';
+  var qs=document.getElementById('qscaleBlock'),qw=document.getElementById('qweeksWrap');
+  if(qs)qs.style.display=t2?'none':'';if(qw)qw.style.display=t2?'':'none';}
+
+/* ============ MOBILNÍ BOTTOM SHEET (kalkulačka ceny) ============ */
+/* Do sheetu se PŘESOUVÁ živý DOM uzel .qstart z hero — stejné ID, stejné delegované eventy,
+   stejné paint funkce (paintHome/paintKmPlan). Žádná duplikovaná kopie markupu/stavu. */
+function isMobileSheet(){return window.matchMedia('(max-width:1024px)').matches;}
+function openKmSheet(){
+  if(!isMobileSheet())return;
+  var q=document.querySelector('.qstart');
+  if(!q){go('home');q=document.querySelector('.qstart');}
+  var body=document.getElementById('sheetBody');
+  if(!q||!body)return;
+  if(q.parentElement!==body)body.appendChild(q);
+  document.body.classList.add('sheet-open');
+  paintHome();
+}
+function closeKmSheet(){
+  document.body.classList.remove('sheet-open');
+  var body=document.getElementById('sheetBody');
+  var q=body?body.querySelector('.qstart'):null;
+  var dock=document.querySelector('.hero .wrap');
+  if(q&&dock)dock.appendChild(q);/* vrátit uzel na původní místo (poslední dítě hero gridu) */
+}
+
+/* SDÍLENÉ CTA „otevřít konfigurátor" (hero, footer, kdekoli přes [data-opencalc]):
+   mobil → bottom sheet (openKmSheet), desktop → smooth scroll na .qstart + krátké zvýraznění.
+   Funguje z jakékoli stránky — když .qstart není v DOM (jiná routa), nejdřív go('home'). */
+function openCalc(){
+  if(isMobileSheet()){openKmSheet();return;}
+  var q=document.querySelector('.qstart');
+  if(!q){go('home');q=document.querySelector('.qstart');}
+  if(!q)return;
+  q.scrollIntoView({behavior:'smooth',block:'center'});
+  q.classList.remove('qhl');void q.offsetWidth;/* restart animace při opakovaném kliku */
+  q.classList.add('qhl');
+  setTimeout(function(){q.classList.remove('qhl');},1900);
+}
 
 /* ============ ROUTER ============ */
 function go(route){
   if(route==='cfg')route='home';/* #11: samostatný konfigurátor zrušen → vše jede přes konfigurátor na homepage */
+  closeKmSheet();/* bottom sheet: vrátit .qstart do hero PŘED přepsáním #main (žádné duplicitní ID) */
   CURR=route;
   const fn=PAGES[route]||PAGES.home;
   document.getElementById('main').innerHTML=fn();
@@ -1593,32 +1753,38 @@ function go(route){
   if(route==='detail')paintDetail();
   if(route==='home')paintHome();
   var _mc=document.querySelector('.mcta');if(_mc)_mc.style.display=['home','cfg','poptavka','potvrzeni'].includes(route)?'none':'';
-  var _mb=document.getElementById('mbar');if(_mb){var _onb=(route==='cfg'||route==='poptavka');_mb.classList.toggle('on',_onb);document.body.classList.toggle('mbar-on',_onb);if(_onb){var _bt=document.getElementById('mbarBtn');if(route==='cfg'){_bt.dataset.route='poptavka';_bt.textContent='Pokračovat →';}else{_bt.dataset.route='potvrzeni';_bt.textContent='Odeslat poptávku →';}}}
+  var _mb=document.getElementById('mbar');if(_mb){var _onb=(route==='home'||route==='cfg'||route==='poptavka');_mb.classList.toggle('on',_onb);document.body.classList.toggle('mbar-on',_onb);if(_onb){var _bt=document.getElementById('mbarBtn');if(route==='home'){_bt.removeAttribute('data-route');_bt.setAttribute('data-opensheet','');_bt.textContent='Spočítat cenu →';}else{_bt.removeAttribute('data-opensheet');if(route==='cfg'){_bt.dataset.route='poptavka';_bt.textContent='Pokračovat →';}else{_bt.dataset.route='potvrzeni';_bt.textContent='Odeslat poptávku →';}}}}
   window.scrollTo({top:0,behavior:'instant'in window?'instant':'auto'});
 }
 
 /* ============ EVENTS ============ */
 document.addEventListener('click',e=>{
+  const os=e.target.closest('[data-opensheet]');if(os){e.preventDefault();openKmSheet();return;}
+  const oc=e.target.closest('[data-opencalc]');if(oc){e.preventDefault();openCalc();return;}
+  const mc=e.target.closest('.mcta a');if(mc&&isMobileSheet()){e.preventDefault();openKmSheet();return;}
+  const sba=e.target.closest('#sheetBody a[href^="#"]');if(sba){closeKmSheet();}/* kotva uvnitř sheetu (Zobrazit ceny u vozů) → zavřít a nechat proskrolovat */
   const vt=e.target.closest('[data-vat]');if(vt){S.vat=(vt.dataset.vat==='inc');go(CURR);return;}
   const r=e.target.closest('[data-route]');if(r){go(r.dataset.route);return;}
   const gi=e.target.closest('[data-gimg]');if(gi){var gm=document.getElementById('galMain');if(gm)gm.src=gi.dataset.gimg;document.querySelectorAll('.gthumb').forEach(b=>b.classList.toggle('on',b===gi));return;}
-  const pk=e.target.closest('[data-pick]');if(pk){S.car=pk.dataset.pick;S.detailCar=pk.dataset.pick;go('poptavka');return;}
+  const pk=e.target.closest('[data-pick]');if(pk){S.touched=true;S.car=pk.dataset.pick;S.detailCar=pk.dataset.pick;go('poptavka');return;}
   const car=e.target.closest('[data-car]');if(car){S.detailCar=car.dataset.car;go('detail');return;}
   const bp=e.target.closest('[data-post]');if(bp){S.post=bp.dataset.post;go('blogpost');return;}
-  const p=e.target.closest('[data-p]');if(p){S.purpose=p.dataset.p;syncSegmentUI();paintCfg();return;}
-  const pp=e.target.closest('[data-pp]');if(pp){S.purpose=pp.dataset.pp;syncSegmentUI();paintHome();return;}
-  const kp=e.target.closest('[data-kmpkg]');if(kp){S.kmIdx=+kp.dataset.kmpkg;paintHome();return;}
-  const dsc=e.target.closest('#dscale button');if(dsc){S.scale=dsc.dataset.ds;paintDetail();return;}
-  const sc=e.target.closest('#scale button,#qscale button');if(sc){S.scale=sc.dataset.s;document.querySelectorAll('#scale button,#qscale button').forEach(b=>b.classList.toggle('on',b.dataset.s===S.scale));paintCfg();paintHome();return;}
+  const p=e.target.closest('[data-p]');if(p){S.touched=true;S.purpose=p.dataset.p;syncSegmentUI();paintCfg();return;}
+  const pp=e.target.closest('[data-pp]');if(pp){S.touched=true;S.purpose=pp.dataset.pp;syncSegmentUI();paintHome();return;}
+  const kp=e.target.closest('[data-kmpkg]');if(kp){S.touched=true;S.kmIdx=+kp.dataset.kmpkg;paintHome();return;}
+  const dsc=e.target.closest('#dscale button');if(dsc){S.touched=true;S.scale=dsc.dataset.ds;paintDetail();return;}
+  const sc=e.target.closest('#scale button,#qscale button');if(sc){S.touched=true;S.scale=sc.dataset.s;document.querySelectorAll('#scale button,#qscale button').forEach(b=>b.classList.toggle('on',b.dataset.s===S.scale));paintCfg();paintHome();return;}
   const at=e.target.closest('#acctabs button');if(at){document.querySelectorAll('#acctabs button').forEach(b=>b.classList.toggle('on',b===at));const reg=at.dataset.acttab==='reg';var lf=document.getElementById('loginForm'),rf=document.getElementById('regForm'),rs0=document.getElementById('resetForm');if(rs0)rs0.style.display='none';if(lf)lf.style.display=reg?'none':'';if(rf)rf.style.display=reg?'':'none';return;}
   const fgl=e.target.closest('#forgotLink');if(fgl){var l1=document.getElementById('loginForm'),r1=document.getElementById('regForm'),s1=document.getElementById('resetForm');if(l1)l1.style.display='none';if(r1)r1.style.display='none';if(s1)s1.style.display='';return;}
   const rbk=e.target.closest('#resetBack');if(rbk){var s2=document.getElementById('resetForm'),l2=document.getElementById('loginForm');if(s2)s2.style.display='none';if(l2)l2.style.display='';document.querySelectorAll('#acctabs button').forEach(b=>b.classList.toggle('on',b.dataset.acttab==='login'));return;}
   const ey=e.target.closest('[data-pweye]');if(ey){var inp=ey.parentElement.querySelector('input');if(inp){var show=inp.type==='password';inp.type=show?'text':'password';ey.textContent=show?'Skrýt':'Zobrazit';}return;}
   const ct=e.target.closest('#custType button');if(ct){document.querySelectorAll('#custType button').forEach(b=>b.classList.toggle('on',b===ct));const ff=ct.dataset.ct==='firma';const f1=document.getElementById('fFirma1'),f2=document.getElementById('fFirma2');if(f1)f1.style.display=ff?'':'none';if(f2)f2.style.display=ff?'':'none';return;}
-  const rc=e.target.closest('[data-reco]');if(rc){S.car=rc.dataset.reco;paintCfg();return;}
+  const rc=e.target.closest('[data-reco]');if(rc){S.touched=true;S.car=rc.dataset.reco;paintCfg();return;}
   const ex=e.target.closest('[data-extra]');if(ex&&!ex.classList.contains('dis')){const id=ex.dataset.extra;S.extras.has(id)?S.extras.delete(id):S.extras.add(id);ex.classList.toggle('sel');var db=document.getElementById('deliverBox');if(db&&id==='deliver')db.style.display=S.extras.has('deliver')?'':'none';paintCfg();if(document.getElementById('extrasP'))paintSummary();return;}
 });
 document.addEventListener('input',e=>{
+  /* Jakýkoli konfigurátorový slider = interakce uživatele → S.touched (mbar přepne z "Orientační cena od…" na "Vaše cena") */
+  if(['months','km','qmonths','qkmrange','ddur','dkm','qkm','qdays','qweeks','qkmday','qkmplan'].indexOf(e.target.id)>-1)S.touched=true;
   if(e.target.id==='months'){S.months=+e.target.value;document.getElementById('mval').textContent=S.months;paintCfg();}
   if(e.target.id==='km'){S.km=+e.target.value;document.getElementById('kmval').textContent=fmt(S.km);}
   if(e.target.id==='qmonths'){S.months=+e.target.value;paintHome();}
@@ -1627,12 +1793,17 @@ document.addEventListener('input',e=>{
   if(e.target.id==='dkm'){S.kmIdx=+e.target.value;paintDetail();}
   if(e.target.id==='qkm'){S.km=+e.target.value;paintHome();}
   if(e.target.id==='qdays'){S.days=+e.target.value;paintHome();}
+  if(e.target.id==='qweeks'){S.weeks=+e.target.value;paintHome();}
   if(e.target.id==='qkmday'){S.kmDay=+e.target.value;paintHome();}
+  if(e.target.id==='qkmplan'){S.kmPlan=+e.target.value;paintKmPlan();}
 });
-document.addEventListener('change',e=>{if(e.target.id==='qodSel'){S.heroCar=e.target.value;paintHome();return;}if(e.target.id==='vsort'){S.vozySort=e.target.value;go('vozy');}if(e.target.id==='vtrans'){S.vozyTrans=e.target.value;go('vozy');}if(e.target.id==='hsort'){S.vozySort=e.target.value;paintHome();}if(e.target.id==='htrans'){S.vozyTrans=e.target.value;paintHome();}if(e.target.id==='qtransport'||e.target.id==='qtransport2'){S.purpose=e.target.checked?'kuryr':'sebe';syncSegmentUI();paintCfg();paintHome();}});
+document.addEventListener('change',e=>{if(e.target.id==='qodSel'){S.touched=true;S.heroCar=e.target.value;paintHome();return;}if(e.target.id==='vsort'){S.vozySort=e.target.value;go('vozy');}if(e.target.id==='vtrans'){S.vozyTrans=e.target.value;go('vozy');}if(e.target.id==='hsort'){S.vozySort=e.target.value;paintHome();}if(e.target.id==='htrans'){S.vozyTrans=e.target.value;paintHome();}if(e.target.id==='qtransport'||e.target.id==='qtransport2'){S.touched=true;const wasCourier=isCourier();S.purpose=e.target.checked?'kuryr':'sebe';if(isCourier()&&!wasCourier)S.kmIdx=0;if(isCourier()!==wasCourier)S.kmPlan=isCourier()?6500:1500;syncSegmentUI();paintCfg();paintHome();}});
 document.getElementById('jump').addEventListener('change',e=>go(e.target.value));
 document.getElementById('noteToggle').addEventListener('click',function(){document.body.classList.toggle('notes');this.classList.toggle('on');});
 document.getElementById('menuBtn').addEventListener('click',()=>{const m=document.getElementById('mobnav');m.style.display=m.style.display==='flex'?'none':'flex';});
+document.getElementById('sheetBackdrop').addEventListener('click',closeKmSheet);
+document.getElementById('sheetClose').addEventListener('click',closeKmSheet);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeKmSheet();});
 function closeCookie(){document.getElementById('cookie').style.display='none';}
 
 /* ====== LLM / AGENT-READY VRSTVA (strojová data, JSON-LD nabídky, deep-link) ====== */
@@ -1643,8 +1814,8 @@ function injectMachineData(){
   var faq={"@context":"https://schema.org","@type":"FAQPage","mainEntity":FAQ.map(function(q){return {"@type":"Question","name":q[0],"acceptedAnswer":{"@type":"Answer","text":q[1]}};})};
   [ld,faq].forEach(function(o){var s=document.createElement('script');s.type='application/ld+json';s.textContent=JSON.stringify(o);document.head.appendChild(s);});
   var data={provider:{name:"Popojedu.cz",phone:"+420731683203",email:"info@popojedu.cz",address:"Cukrovarská 991, Praha 9 — Čakovice",since:2017},currency:"CZK",
-    pricing_rules:{included_km_per_month:4500,included_km_per_month_courier:6500,included_km_per_day:50,km_model_note:"cena se řídí zvoleným balíčkem průměrného denního nájezdu (50–300 km/den), který upravuje sazbu; nad nejvyšší balíček individuálně / na dotaz",length_discount_pct:{"1":0,"3":6,"6":16,"12":24},extra_discounts:{pay_within_24h_pct:5,loyalty_pct:[5,8,12],full_tank_back_czk:500},deposit_czk:[10000,50000],reservation_deposit_pct:20,reservation_note:"rezervace závazná po úhradě zálohy 20 % z ceny (drží vůz na termín); doplatek při převzetí; při zrušení nebo nedostavení záloha 20 % propadá",driver_min_age:18,delivery_czk:{prague_to20km:500,prague_over20km:700,outside_per_km_from:25,free_from_days:30}},
-    price_formula:"Dlouhodobě: měsíční cena = price_month_czk − round(price_month_czk × length_discount_pct/100). Krátkodobě: celkem = price_day_czk × počet_dní. Km: cena za km závisí na balíčku km/den, ne na délce pronájmu. Přepravní služba (ucel=taxi): paket 6500 km/měs. Platba: záloha 20 % při rezervaci, doplatek při převzetí; při zrušení záloha propadá. Řidič od 18 let.",
+    pricing_rules:{included_km_per_month:1500,included_km_per_month_courier:6500,included_km_per_day:50,km_model_note:"v ceně je 1500 km/měs (kurýr 6500 km/měs); km navíc se účtuje sazbou per vůz — nadlimitní (po vrácení) nebo předplacená (koupeno předem, o 30% levněji)",length_discount_pct:{"1":0,"3":5,"6":10,"12":15},extra_discounts:{pay_within_24h_pct:5,loyalty_pct:[5,8,12],full_tank_back_czk:500},deposit_czk:[10000,50000],reservation_deposit_pct:20,reservation_note:"rezervace závazná po úhradě zálohy 20 % z ceny (drží vůz na termín); doplatek při převzetí; při zrušení nebo nedostavení záloha 20 % propadá",driver_min_age:18,delivery_czk:{prague_to20km:500,prague_over20km:700,outside_per_km_from:25,free_from_days:30}},
+    price_formula:"Dlouhodobě: měsíční cena = price_month_czk − round(price_month_czk × length_discount_pct/100), v ceně 1500 km/měs. Krátkodobě: celkem = price_day_czk × počet_dní. Přepravně/kurýrně: týdenní cena = price_day_czk × 7, v ceně 6500 km/měs, sleva podle length_discount_pct na týdenní bázi (13/26/52 týd = 5/10/15%). Km navíc: nadlimitní_km_czk (po vrácení) nebo predplacena_km_czk (koupeno předem, o 30% levněji) — obě per vůz. Platba: záloha 20% při rezervaci, doplatek při převzetí; při zrušení záloha propadá. Řidič od 18 let.",
     deeplink:{base:base,params:{vuz:"id vozu z fleet[]",rezim:"long|short",mesice:"1–24",dni:"1–30",km:"500–10000",kmden:"50–500",ucel:"sebe|taxi",open:"cfg|poptavka|detail|vozy"},example:base+"?vuz=fabia&rezim=long&mesice=6&km=3500&open=cfg"},
     fleet:CARS.map(function(c){return {id:c.id,name:carName(c),category:c.cat,transmission:isAuto(c)?"automat":"manuál",fuel:c.fuel,seats:c.seats,eu_allowed:c.eu,min_days:c.min,price_day_czk:c.day,price_month_czk:c.mo,offer_url:base+"?vuz="+c.id+"&open=cfg"};})};
   var sd=document.createElement('script');sd.type='application/json';sd.id='popojedu-data';sd.textContent=JSON.stringify(data,null,2);document.body.appendChild(sd);
@@ -1660,7 +1831,7 @@ try{var q=new URLSearchParams(location.search);var ids=CARS.map(function(c){retu
   if(q.get('dni')){S.scale='short';S.days=Math.min(30,Math.max(1,+q.get('dni')||S.days));}
   if(q.get('km')){var _kv=+q.get('km')||4500;S.kmIdx=KM_LONG.reduce(function(b,t,i){return Math.abs(t-_kv)<Math.abs(KM_LONG[b]-_kv)?i:b;},0);}
   if(q.get('kmden')){var _kd=+q.get('kmden')||50;S.kmIdx=KM_SHORT.reduce(function(b,t,i){return Math.abs(t-_kd)<Math.abs(KM_SHORT[b]-_kd)?i:b;},0);}
-  var uc=q.get('ucel');if(uc==='taxi'||uc==='kuryr')S.purpose=uc;else if(uc==='sebe')S.purpose='sebe';
+  var uc=q.get('ucel');if(uc==='taxi'||uc==='kuryr')S.purpose=uc;else if(uc==='sebe')S.purpose='sebe';syncPurposeSub();
   if(q.get('post')&&BLOGPOSTS[q.get('post')]){S.post=q.get('post');}
   var R={cfg:1,poptavka:1,detail:1,vozy:1,admin:1,ucet:1,blogpost:1,blog:1,kontakt:1,cookies:1,op:1,gdpr:1};var op=q.get('open');
   var hasCfg=q.has('vuz')||q.has('mesice')||q.has('dni')||q.has('km')||q.has('kmden')||q.has('ucel');
