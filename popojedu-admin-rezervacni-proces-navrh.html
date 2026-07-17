@@ -215,6 +215,19 @@ body.commenting{cursor:crosshair}
 .mark{position:absolute;top:36%;left:60%;width:46px;height:46px;border:3px solid var(--red);border-radius:50%;box-shadow:0 0 0 2px rgba(255,255,255,.65)}
 .mtag{position:absolute;top:25%;left:59%;background:var(--red);color:#fff;font-size:10.5px;font-weight:800;border-radius:999px;padding:2px 9px}
 
+/* ===== Doklady totožnosti — KYC (navrh-kyc, 17. 7. 2026) ===== */
+.kycgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:6px}
+@media(max-width:920px){.kycgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.kycgrid{grid-template-columns:1fr}}
+.kyctile{border:1px solid var(--line);border-radius:12px;padding:10px;background:#fbfcfe;display:flex;flex-direction:column;gap:7px;min-width:0}
+.kyctile .ph{aspect-ratio:8/5;border-radius:8px;background:linear-gradient(150deg,#dfe7f0,#c3cfdd);display:grid;place-items:center;font-size:22px;color:#6f8098}
+.kyctile.miss .ph{background:#f6f7f9;border:1.5px dashed #c8d2dd}
+.kyctile b{font-size:12.5px;line-height:1.3}
+.kyctile .pill{align-self:flex-start}
+.kyctile .btnrow{margin-top:0;display:flex;flex-wrap:wrap;gap:6px}
+.kyctile .btn{padding:6px 11px;font-size:12px}
+/* ===== /navrh-kyc ===== */
+
 /* ===== POJISTKA (poslední vrstva — příčiny přetečení řešeny výše u gridů/.scrollx):
    dokument nesmí horizontálně scrollovat; overflow-x:clip na rozdíl od hidden neláme position:sticky lišty ===== */
 html,body{overflow-x:hidden;overflow-x:clip}
@@ -342,6 +355,23 @@ html,body{overflow-x:hidden;overflow-x:clip}
       <div class="hint">Doklady generuje a posílá web (vlastní grafika dle CI, číselná řada W2026-####). Do ABRA jde účetní zápis frontou — když ABRA nejede, zákazník doklad stejně dostane (rozhodnutí V1&nbsp;→&nbsp;V3 z 16.–17.&nbsp;7.). Daňový doklad k přijaté platbě vzniká do 15 dnů od přijetí (plátce DPH).</div>
     </div>
   </div>
+
+  <!-- navrh-kyc (17. 7. 2026): Doklady totožnosti (KYC) — zdroj: popojedu_proces_zakaznika_analyza_2026-07-17.md, sekce 5c -->
+  <div class="fcard new" style="margin-bottom:18px">
+    <h3>Doklady totožnosti (KYC) <span class="badge-new">Nové</span> <span class="badge-demo">ukázka</span></h3>
+    <div class="kycgrid">
+      <div class="kyctile"><div class="ph">🪪</div><b>OP — přední strana</b><span class="pill ok">ověřeno ✓ 16. 7.</span></div>
+      <div class="kyctile"><div class="ph">🪪</div><b>OP — zadní strana</b><span class="pill ok">ověřeno ✓ 16. 7.</span></div>
+      <div class="kyctile"><div class="ph">🪪</div><b>ŘP — přední</b><span class="pill wait">čeká na kontrolu</span>
+        <div class="btnrow"><button class="btn" type="button">Ověřit ✓</button><button class="btn warn" type="button">Vrátit (důvod)</button></div></div>
+      <div class="kyctile miss"><div class="ph">📷</div><b>ŘP — zadní</b><span class="pill bad">chybí</span>
+        <div class="btnrow"><button class="btn ghost" type="button">✉ Vyžádat od zákazníka</button></div></div>
+    </div>
+    <div class="adm-row" style="margin-top:10px"><span>Jméno na dokladu odpovídá smlouvě <span style="color:var(--green-d)">✓</span></span><span>platnost OP do 03/2031 <span style="color:var(--green-d)">✓</span></span></div>
+    <div class="hint">Vrácení dokladu (nečitelný, prošlý…) pošle zákazníkovi notifikaci s důvodem. Kontroluje se: čitelnost, platnost, shoda jména se smlouvou, věk/praxe dle podmínek.</div>
+    <div class="note"><b>Pro Martina:</b> doklady se ukládají <b>šifrovaně k zákazníkovi</b> (ne k rezervaci — opakovaný zákazník je nenahrává znovu, hlídá se jen expirace), stavy <b>nahráno → ověřeno / vráceno (s důvodem)</b>. U segmentu <b>kurýr / přeprava osob</b> blokují neověřené doklady <b>schválení poptávky</b> (fronta „Chybí doklad (ŘP)“ v Dnešku); u ostatních blokují <b>uzavření předávacího protokolu</b>. Fáze 1 = ruční ověření pracovníkem zde v adminu, přístup jen provozní role; automatická KYC služba (brief §10) = možný pozdější upgrade beze změny procesu.</div>
+  </div>
+  <!-- /navrh-kyc -->
 
   <div class="grid2" style="margin-bottom:18px">
     <!-- Vyúčtování -->

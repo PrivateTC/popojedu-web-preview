@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Popojedu.cz — kompletní web (návrh v1-3 — Můj účet, 17. 7. 2026)</title>
 <!-- v1-2 návrh (14. 7. 2026, Claude+RF): textová dieta konfigurátoru, nový formát nadlimitních km s cenovou hierarchií, klikací chips délky (mobil bez slideru měsíců/týdnů), krátkodobě celková cena, větší křížek sheetu. Změny hledej podle komentářů "v1-2". -->
-<!-- navrh-ucet (17. 7. 2026, Claude): KOPIE v1-2 + sekce "Můj účet" — routa #/ucet (přehled účtu + detail rezervace dle stavové mapy 9 stavů z popojedu_proces_zakaznika_analyza_2026-07-17.md), demo přepínač stavů vpravo dole, deep-link ?screen=ucet&stav=N. Všechny přidané bloky jsou označené komentářem "navrh-ucet". -->
+<!-- navrh-ucet (17. 7. 2026, Claude): KOPIE v1-2 + sekce "Můj účet" — routa #/ucet (přehled účtu + detail rezervace dle stavové mapy 9 stavů z popojedu_proces_zakaznika_analyza_2026-07-17.md), demo přepínač stavů vpravo dole, deep-link ?screen=ucet&stav=N. Všechny přidané bloky jsou označené komentářem "navrh-ucet". Doplněk 17. 7. (KYC): karta Doklady totožnosti + proužek v detailu — bloky "navrh-ucet-kyc" dle analýzy, sekce 5c. -->
 <!-- navrh-protokol (17. 7. 2026, Claude): detail rezervace doplněn o kartu „Protokoly" (sekce 5 analýzy procesu — předávací/vratkový protokol, 9 fotografií, podpis Signi na mobilu zákazníka, jednostranná vratka s námitkou 24 h) + demo checkbox „vratka bez zákazníka (námitka 24 h)". Změny značeny komentářem "navrh-protokol". -->
 <style>
 :root{
@@ -490,6 +490,21 @@ body.route-ucet .mcta,body.route-ucet .km-sheet,body.route-ucet .sheet-backdrop{
 .uc-fotky .f{width:54px;height:54px;flex:none;border-radius:10px;background:#e8ecf2;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:19px;color:#93a1b3}
 .uc-fotky .cap{font-size:12.5px;color:var(--muted)}
 .uc-tag.solo{background:#ffe9d4;color:#a4520a;white-space:normal;text-align:left}
+/* navrh-ucet-kyc (17. 7. 2026): Doklady totožnosti — přepínač OP/pas, 4 upload dlaždice (prázdná / nahráno / ověřeno) + upozorňovací proužek v detailu rezervace. Zdroj: analýza procesu, sekce 5c. */
+.uc-kyc{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.uc-kyctile{border:1.5px dashed #c8d2dd;border-radius:12px;background:#f7f9fc;padding:12px 10px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}
+.uc-kyctile .th{width:100%;height:52px;border-radius:8px;background:#e8ecf2;display:flex;align-items:center;justify-content:center;font-size:22px;color:#93a1b3}
+.uc-kyctile .lb{font-size:12px;font-weight:700;line-height:1.3}
+.uc-kyctile .act{font-size:12px;color:var(--green-d);font-weight:700;cursor:pointer}
+.uc-kyctile.up{border-style:solid;border-color:#e9c84a;background:#fffdf4}
+.uc-kyctile.ver{border:1.5px solid var(--green);background:var(--soft)}
+.uc-kyctile.ver .th{background:#d9efe0;color:#5d9b74}
+.uc-kycstrip{border-radius:12px;padding:11px 14px;font-size:13.5px;line-height:1.5;margin:0 0 18px;border:1px solid}
+.uc-kycstrip.warn{background:#fff3e0;border-color:#f0b429;color:#6b4a0a}
+.uc-kycstrip.ok{background:var(--soft);border-color:var(--green);color:var(--green-d)}
+.uc-kycstrip a{color:var(--green-d);font-weight:700;cursor:pointer;white-space:nowrap}
+.uc-kycstrip a:hover{text-decoration:underline}
+/* /navrh-ucet-kyc */
 @media(max-width:900px){.uc-cols{grid-template-columns:1fr}}
 @media(max-width:600px){.uc-cmp{grid-template-columns:1fr}.uc-demo{bottom:132px;right:10px;width:218px}.uc-qrbox{gap:14px}.uc-head h1{font-size:26px!important}.uc-tag{white-space:normal;text-align:right}.uc-sec,.uc-now{overflow-x:auto}}
 </style>
@@ -1845,7 +1860,7 @@ function openCalc(){
    a popojedu_platby_rozhodovaci_podklad_2026-07-16.md.
    Dva pohledy: přehled účtu (ACC.view=prehled) a detail rezervace (detail);
    login = původní obrazovka v1-2. Demo přepínač stavů = panel vpravo dole. */
-var ACC={view:'prehled',stav:'2a',kuryr:false,seg:'osobni',min:false,jedno:false};/* navrh-protokol: jedno=true → vratkový protokol sepsán bez zákazníka (námitka 24 h), působí ve stavech 8–9 */
+var ACC={view:'prehled',stav:'2a',kuryr:false,seg:'osobni',min:false,jedno:false,doklady:false,dtyp:'op'};/* navrh-ucet-kyc: doklady=true → vše 4/4 ověřeno (demo checkbox), dtyp = zvolený typ dokladu op|pas *//* navrh-protokol: jedno=true → vratkový protokol sepsán bez zákazníka (námitka 24 h), působí ve stavech 8–9 */
 if(window.innerWidth<768)ACC.min=true;/* navrh-ucet-fix2: na mobilu (<768 px) startuje demo panel minimalizovany (pilulka DEMO ▸); plati i pri deep-linku ?stav=N — deep-link ACC.min nemeni */
 var ACC_REZ={cislo:'POP-2026-0007',vuz:'Škoda Fabia III Ambition TSi DSG',termin:'20.–25. 7. 2026',dni:'6 dní',denni:'414 Kč/den',celkem:'2 484 Kč',zaloha:'497 Kč',doplatek:'1 987 Kč',kauce:'10 000 Kč',sazbaKm:'4,3 Kč/km',vs:'20260007',banka:'123456789/0100'};
 var ACC_STEPS=['Poptávka','Schválení','Smlouva','Záloha','Potvrzeno','Převzetí','Pronájem','Vyúčtování','Uzavřeno'];
@@ -2057,6 +2072,43 @@ function accProtokoly(){
   }
   return '<div class="uc-sec"><h3>Protokoly</h3>'+body+'</div>';
 }
+/* ============ navrh-ucet-kyc (17. 7. 2026) ============
+   Doklady totožnosti (KYC) — zdroj: popojedu_proces_zakaznika_analyza_2026-07-17.md, sekce 5c.
+   Zákazník nahrává OP NEBO cestovní pas (volba typu) + ŘP — vždy obě strany (4 snímky; u pasu datová stránka).
+   Dlaždice 3 stavy: prázdná (foťák, „Vyfotit / nahrát“) → nahráno (šedý náhled, „čeká na ověření“) → ověřeno (zelený rámeček).
+   Demo data: OP přední+zadní ověřené, ŘP přední nahraný (čeká), ŘP zadní chybí → 2/4 ověřeno.
+   Checkbox „doklady ověřeny (4/4)“ v demo panelu přepne dlaždice v přehledu i proužek v detailu na hotovo. */
+function accKycTile(label,st){
+  if(st==='ver')return '<div class="uc-kyctile ver"><div class="th">🖼️</div><div class="lb">'+label+'</div><span class="uc-tag">ověřeno ✓</span></div>';
+  if(st==='up')return '<div class="uc-kyctile up"><div class="th">🖼️</div><div class="lb">'+label+'</div><span class="uc-tag wait">čeká na ověření</span></div>';
+  return '<div class="uc-kyctile"><div class="th">📷</div><div class="lb">'+label+'</div><span class="act">Vyfotit / nahrát</span></div>';
+}
+function accKycCard(){
+  var v=ACC.doklady;
+  var typ='<div class="seg" style="margin:2px 0 10px"><button type="button" data-accdtyp="op"'+(ACC.dtyp==='op'?' class="on"':'')+'>Občanský průkaz</button><button type="button" data-accdtyp="pas"'+(ACC.dtyp==='pas'?' class="on"':'')+'>Cestovní pas</button></div>';
+  var tiles='<div class="uc-kyc">'
+    +accKycTile('OP/pas — přední strana','ver')
+    +accKycTile('OP/pas — zadní strana / datová stránka','ver')
+    +accKycTile('ŘP — přední',v?'ver':'up')
+    +accKycTile('ŘP — zadní',v?'ver':'empty')
+    +'</div>';
+  var stav=v?'<span class="uc-tag">4/4 ověřeno ✓</span>':'<span class="uc-tag wait">2/4 ověřeno</span>';
+  return '<div class="uc-sec"><h3 style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap">Doklady totožnosti '+stav+'</h3>'
+    +'<p class="muted" style="font-size:13px;margin:0 0 6px">K pronájmu potřebujeme občanský průkaz nebo cestovní pas + řidičský průkaz — vždy obě strany (u pasu datovou stránku). Stačí fotka z mobilu.</p>'
+    +typ+tiles
+    +'<p class="uc-note">Doklady ukládáme šifrovaně a vidí je jen provozní tým. Po skončení pronájmů můžete požádat o výmaz.</p></div>';
+}
+/* Proužek v detailu rezervace: stavy 5+6 vždy (oranžový 2/4 / zelený 4/4); segment kurýr = tvrdší varianta už od stavu 1 (doklady blokují schválení poptávky) */
+function accKycStrip(){
+  var s=ACC.stav;
+  var prevz=(s==='5'||s==='6');
+  var pred=['1','2a','2b','3','4'].indexOf(s)>=0;
+  if(!prevz&&!(ACC.kuryr&&pred))return'';
+  if(ACC.doklady)return '<div class="uc-kycstrip ok"><b>Doklady totožnosti ověřeny ✓ (4/4)</b> — na převzetí si vezměte originály s sebou.</div>';
+  if(ACC.kuryr)return '<div class="uc-kycstrip warn"><b>U kurýrů ověřujeme doklady před schválením poptávky.</b> Zatím 2/4 hotovo (chybí ŘP) — bez ověřených dokladů poptávku neschválíme. <a data-accview="prehled">Nahrát v účtu →</a></div>';
+  return '<div class="uc-kycstrip warn"><b>Před převzetím potřebujeme ověřené doklady (OP/pas + ŘP)</b> — 2/4 hotovo. <a data-accview="prehled">Nahrát v účtu →</a></div>';
+}
+/* ============ /navrh-ucet-kyc ============ */
 function accDemoPanel(){
   var order=['1','2a','2b','3','4','5','6','7','8','9','exp','storno','zamit'];
   var names={'1':'1 · poptávka','2a':'2a · schváleno','2b':'2b · alternativa','3':'3 · smlouva','4':'4 · záloha','5':'5 · potvrzeno','6':'6 · převzetí','7':'7 · pronájem','8':'8 · vyúčtování','9':'9 · uzavřeno','exp':'✕ expirace','storno':'✕ storno','zamit':'✕ zamítnuto'};
@@ -2064,6 +2116,7 @@ function accDemoPanel(){
     +order.map(function(k){return '<button type="button" data-accstav="'+k+'"'+(ACC.stav===k?' class="on"':'')+'>'+names[k]+'</button>';}).join('')
     +'</div><label><input type="checkbox" id="accKuryr"'+(ACC.kuryr?' checked':'')+' style="width:auto;margin:2px 0 0"> segment kurýr / přeprava osob (zádržné 2 000 Kč ve stavech 8–9)</label>'
     +'<label><input type="checkbox" id="accJedno"'+(ACC.jedno?' checked':'')+' style="width:auto;margin:2px 0 0"> vratka bez zákazníka (námitka 24 h) — protokoly ve stavech 8–9</label>'/* navrh-protokol: přepínač jednostranného vratkového protokolu */
+    +'<label><input type="checkbox" id="accDoklady"'+(ACC.doklady?' checked':'')+' style="width:auto;margin:2px 0 0"> doklady ověřeny (4/4) — dlaždice v přehledu + proužek v detailu</label>'/* navrh-ucet-kyc */
     +'<div style="margin-top:9px"><a data-accview="prehled">← přehled účtu</a> · <a data-accview="login">login obrazovka</a></div></div></div>';
 }
 function accPrehled(){
@@ -2106,6 +2159,7 @@ function accPrehled(){
       <p class="uc-note">Uloženou kartu používáme na blokaci kauce a doúčtování dle smlouvy (nadlimitní km, škody, pokuty).</p>
       <div class="uc-row"><button class="btn ghost" style="font-size:13.5px;padding:9px 16px">Upravit údaje</button></div>
     </div>
+    ${accKycCard()/* navrh-ucet-kyc: karta Doklady totožnosti — hned pod Profilem (před Archivem dokladů ve vizuálním toku účtu) */}
    </div>
   </div>
 </div></section>${accDemoPanel()}`;
@@ -2120,6 +2174,7 @@ function accDetail(){
   ${accStepBar()}
   ${accCountdown()}
   ${accNow()}
+  ${accKycStrip()/* navrh-ucet-kyc: upozornění na doklady pod hlavní akční kartou */}
   <div class="uc-sec"><h3>Platby</h3><table class="uc-table">${accPayRows()}</table></div>
   <div class="uc-sec"><h3>Smlouva</h3>${accContract()}</div>
   ${accProtokoly()/* navrh-protokol: karta Protokoly (zobrazí se ve stavech 6–9) */}
@@ -2178,10 +2233,12 @@ document.addEventListener('click',function(e){
   var v=e.target.closest('[data-accview]');if(v){ACC.view=v.dataset.accview;accRepaint();return;}
   var s=e.target.closest('[data-accstav]');if(s){ACC.stav=s.dataset.accstav;ACC.view='detail';accRepaint();return;}
   var g=e.target.closest('[data-accseg]');if(g){ACC.seg=g.dataset.accseg;accRepaint();return;}
+  var d=e.target.closest('[data-accdtyp]');if(d){ACC.dtyp=d.dataset.accdtyp;accRepaint();return;}/* navrh-ucet-kyc: přepínač OP / cestovní pas */
 });
 document.addEventListener('change',function(e){
   if(e.target&&e.target.id==='accKuryr'){ACC.kuryr=e.target.checked;accRepaint();}
   if(e.target&&e.target.id==='accJedno'){ACC.jedno=e.target.checked;accRepaint();}/* navrh-protokol */
+  if(e.target&&e.target.id==='accDoklady'){ACC.doklady=e.target.checked;accRepaint();}/* navrh-ucet-kyc */
 });
 /* ============ /navrh-ucet ============ */
 
