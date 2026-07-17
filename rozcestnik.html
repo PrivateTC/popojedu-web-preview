@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Popojedu — rozcestník podkladů nového webu</title>
+<link rel="icon" href="web/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--green:#00c853;--soft:#eef7f0;--navy:#0a1f3f;--muted:#5a6b82;--line:#e3e9ef;--orange:#f59e0b;--blue:#1e88b5}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:clip}
+body{font-family:Inter,-apple-system,"Segoe UI",sans-serif;background:#f6f9f7;color:var(--navy);line-height:1.55}
+.top{background:var(--navy);color:#fff;padding:10px 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:18px}
+.logo .zn{width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
+.top small{opacity:.75}
+.wrap{max-width:960px;margin:0 auto;padding:28px 18px 60px}
+h1{font-size:28px;margin:6px 0 6px;letter-spacing:-.5px}
+.lead{color:var(--muted);font-size:15px;margin-bottom:8px}
+.rule{background:var(--soft);border:1px solid #cdeeda;border-radius:12px;padding:12px 16px;font-size:13.5px;margin:14px 0 26px}
+h2{font-size:15px;text-transform:uppercase;letter-spacing:1.2px;color:var(--green);margin:30px 0 12px;border-bottom:2px solid var(--line);padding-bottom:6px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:12px;box-shadow:0 1px 3px rgba(10,31,63,.05)}
+.card a.t{font-size:16.5px;font-weight:700;color:var(--navy);text-decoration:none}
+.card a.t:hover{color:var(--green)}
+.card p{font-size:13.5px;color:var(--muted);margin-top:5px}
+.badge{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.6px;padding:3px 9px;border-radius:999px;vertical-align:2px;margin-left:8px;white-space:nowrap}
+.b-live{background:var(--green);color:#fff}
+.b-navrh{background:#fff4e0;color:#b45309;border:1px solid var(--orange)}
+.b-arch{background:#eef1f5;color:#5a6b82}
+.b-dev{background:#e3f2fb;color:#0f6a94;border:1px solid var(--blue)}
+.b-doc{background:var(--soft);color:#0b7a3e;border:1px solid #bfe8cd}
+.hint{font-size:12.5px;color:var(--muted);margin-top:8px}
+footer{margin-top:40px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+code{background:#eef1f5;border-radius:5px;padding:1px 6px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="top"><div class="logo"><span class="zn">p</span> popojedu</div><small>· rozcestník podkladů nového webu · aktualizováno 17. 7. 2026</small></div>
+<div class="wrap">
+<h1>Rozcestník — nový web Popojedu</h1>
+<p class="lead">Všechny verze předlohy, návrhy a dokumenty na jednom místě. U návrhů funguje <b>Režim komentářů</b> (tlačítko vpravo nahoře na každé stránce): klikáte na konkrétní místa, píšete poznámky, „Zkopírovat komentáře" je vyexportuje jako text.</p>
+<div class="rule"><b>Jak se verze řídí:</b> podle verze <b>v1-2</b> se právě staví — je závazná a nemění se. <b>v1-3</b> je připravovaná další etapa (do stavby se zatím nezapracovává). Po nasazení a odsouhlasení v1-2 se v1-3 stane platnou předlohou etapy 2.</div>
+
+<h2>1 · Web pro zákazníky (předloha)</h2>
+<div class="card"><a class="t" href="popojedu_web_v1-2.html">Předloha v1-2</a><span class="badge b-live">AKTUÁLNÍ — podle ní se staví</span>
+<p>Závazný vzhled i chování nového webu: homepage s konfigurátorem, vozy, ceník, poptávka, kontakt. Jediný zdroj pravdy pro současnou stavbu.</p></div>
+<div class="card"><a class="t" href="popojedu_web_v1-3-ucet-navrh.html">Předloha v1-3 — účet zákazníka</a><span class="badge b-navrh">NÁVRH — připravovaná etapa</span>
+<p>Celý web v1-2 + nová sekce „Můj účet": rezervace se stavovým pásem (schválení → smlouva → záloha → převzetí → vyúčtování), QR platby, smlouvy, protokoly a doklady. Otevřete menu → Můj účet; stavy přepínáte tmavou pilulkou <b>DEMO</b> vpravo dole.</p></div>
+<div class="card"><a class="t" href="popojedu_web_v1-1.html">Předloha v1-1</a><span class="badge b-arch">ARCHIV</span>
+<p>Předchozí verze — jen pro porovnání historie, nepoužívat.</p></div>
+
+<h2>2 · Administrace (pro provoz)</h2>
+<div class="card"><a class="t" href="popojedu-admin-rezervacni-proces-navrh.html">Admin — rezervační proces</a><span class="badge b-navrh">NÁVRH — připravovaná etapa</span>
+<p>6 obrazovek: rozšířený detail rezervace (platby, kauce, smlouva, doklady, vyúčtování, pokuty), potvrzování s návrhem náhradních vozů, kalendář flotily, fronta plateb, dashboard „Dnešek" a mobilní předávací/vratkový protokol s fotoprůvodcem.</p></div>
+<div class="card"><a class="t" href="https://new.popojedu.cz/admin" target="_blank" rel="noopener">Živý admin (new.popojedu.cz/admin)</a><span class="badge b-dev">VÝVOJOVÉ PROSTŘEDÍ</span>
+<p>Skutečná administrace rozestavěného webu (Filament) — vyžaduje přihlášení. Zatím obsahuje obsah, poptávky, rezervace, vozy a ceny; obrazovky z návrhu výše přibudou v etapě 2.</p></div>
+<div class="card"><a class="t" href="https://new.popojedu.cz/" target="_blank" rel="noopener">Rozestavěný web (new.popojedu.cz)</a><span class="badge b-dev">VÝVOJOVÉ PROSTŘEDÍ</span>
+<p>Aktuální stav Martinovy stavby podle v1-2 — tady se kontroluje, jak realizace odpovídá předloze.</p></div>
+
+<h2>3 · Dokumenty a doklady</h2>
+<div class="card"><a class="t" href="popojedu-doklady-pro-ucetni-navrh.html">Dokument pro účetní — doklady a ABRA</a><span class="badge b-doc">K PŘIPOMÍNKÁM</span>
+<p>Jaké doklady web vystavuje a kdy, číselná řada, zápis do ABRA Gen přes API, automatické párování úhrad (denní import výpisů KB) a zavržená varianta s odůvodněním.</p></div>
+<div class="card"><a class="t" href="popojedu-faktura-navrh.html">Grafický návrh faktur a dokladů</a><span class="badge b-navrh">NÁVRH</span>
+<p>Tři doklady ve firemním stylu: výzva k platbě s QR kódem, daňový doklad k přijaté platbě a konečné vyúčtování s rozpisem DPH.</p></div>
+
+<h2>4 · CI — logo a značka</h2>
+<div class="card"><a class="t" href="logo/popojedu-logo.svg">Logo Popojedu (plné, SVG)</a><span class="badge b-live">SCHVÁLENO 13. 7. 2026</span>
+<p>Plné logo A0. Doplňky: <a href="logo/popojedu-znacka.svg">značka (kruh „p")</a> · <a href="logo/popojedu-znacka-mala.svg">značka malá / favicon</a> · <a href="https://github.com/PrivateTC/popojedu-web-preview/blob/main/ZADANI-CI-DEV.md" target="_blank" rel="noopener">zadání zakomponování CI do webu</a>.</p></div>
+
+<h2>5 · Analýzy a podklady</h2>
+<div class="card"><a class="t" href="popojedu_cta_navrh_vs_dev.html">CTA hierarchie — návrh vs. realizace</a><span class="badge b-arch">PODKLAD (10. 6.)</span>
+<p>Srovnání tlačítek a hierarchie výzev k akci mezi návrhem a rozestavěným webem.</p></div>
+<div class="card"><a class="t" href="https://github.com/PrivateTC/popojedu-web-preview/blob/main/popojedu_flow_analyza_2026-06-11.md" target="_blank" rel="noopener">Hloubková analýza flow a CTA (11. 6.)</a><span class="badge b-arch">PODKLAD</span>
+<p>Textová analýza průchodu zákazníka webem.</p></div>
+<div class="card"><a class="t" href="https://github.com/PrivateTC/popojedu-web-preview/blob/main/popojedu_mobile_ux_audit_2026-06-10.md" target="_blank" rel="noopener">Mobilní UX audit (10. 6.)</a><span class="badge b-arch">PODKLAD</span>
+<p>14 stránek dev webu na mobilu, nálezy P0–P2.</p></div>
+
+<footer>Poznámky: výchozí adresa <code>privatetc.github.io/popojedu-web-preview/</code> vede přímo na aktuální předlohu v1-2 (závazné pro stavbu). Složky <code>ptcz/</code> a <code>hermes-scout/</code> v repu patří k jinému projektu (PrivateToursCzech) a s Popojedu nesouvisí. Komentáře z návrhů se ukládají jen ve vašem prohlížeči — export tlačítkem „Zkopírovat komentáře".</footer>
+</div>
+</body>
+</html>
