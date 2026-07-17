@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Popojedu — účetní doklady nového webu a napojení na ABRA Gen (návrh)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#00c853;--green-d:#009e42;--mint:#eef7f0;--navy:#0a1f3f;
+  --muted:#5b6b80;--line:#e3e9f2;--red:#d64561;--note:#ffd54f;--note-b:#ffe28a;--bg:#f4f7fa
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--navy);
+  font-size:15px;line-height:1.62;overflow-x:clip}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+
+/* ===== sticky lišta s nástroji ===== */
+.proto{position:sticky;top:0;z-index:120;background:var(--navy);color:#fff;border-bottom:3px solid var(--green)}
+.proto .wrap{display:flex;align-items:center;gap:10px;min-height:52px;flex-wrap:wrap;padding-top:6px;padding-bottom:6px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:17px}
+.logo .dot{width:30px;height:30px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-weight:800;font-size:16px}
+.proto b.t{font-size:12.5px;letter-spacing:.04em;color:#cfe0f5;font-weight:600}
+.proto .sp{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.proto .tg{background:transparent;border:1px solid var(--note-b);color:var(--note);border-radius:999px;padding:6px 12px;font:inherit;font-size:12.5px;cursor:pointer;white-space:nowrap}
+.proto .tg.on{background:var(--note-b);color:var(--navy);font-weight:700}
+.proto .tg2{background:transparent;border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:6px 12px;font:inherit;font-size:12.5px;cursor:pointer;white-space:nowrap}
+
+/* ===== banner NÁVRH ===== */
+.draftbar{background:var(--note);color:var(--navy);font-size:13px;font-weight:700;text-align:center;padding:7px 14px;letter-spacing:.02em}
+
+/* ===== dokumentová typografie ===== */
+.page{padding:30px 0 90px}
+h1{font-size:26px;line-height:1.25;font-weight:800;margin:0 0 8px}
+.docmeta{color:var(--muted);font-size:13px;margin:0 0 30px;border-bottom:1px solid var(--line);padding-bottom:18px}
+h2{font-size:19px;font-weight:800;margin:40px 0 12px;padding-left:12px;border-left:4px solid var(--green)}
+p{margin:0 0 14px}
+ul{margin:0 0 14px;padding-left:22px}
+li{margin-bottom:9px}
+small,.small{font-size:12.5px;color:var(--muted)}
+
+/* tabulky */
+.scrollx{overflow-x:auto;margin:0 0 16px;border:1px solid var(--line);border-radius:12px;background:#fff}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:13.5px}
+th{background:var(--navy);color:#fff;text-align:left;padding:10px 14px;font-weight:600;white-space:nowrap}
+td{padding:10px 14px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even) td{background:var(--mint)}
+
+/* zvýrazněné boxy */
+.box{background:var(--mint);border:1px solid #cdeeda;border-left:5px solid var(--green);border-radius:12px;padding:14px 18px;margin:0 0 16px}
+.box b.h{display:block;color:var(--green-d);font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
+.warn{background:#fff8e1;border:1px solid var(--note-b);border-left:5px solid var(--note);border-radius:12px;padding:12px 16px;margin:0 0 16px;font-size:13.5px}
+.ask{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0 16px}
+.ask ol{margin:8px 0 0;padding-left:22px}
+.ask ol li{margin-bottom:6px}
+.foot{margin-top:44px;border-top:1px solid var(--line);padding-top:16px;font-size:12.5px;color:var(--muted);font-style:italic}
+.kd{background:#fff3cd;border-radius:6px;padding:1px 6px;font-size:12.5px;font-weight:600;white-space:normal}
+
+/* ===== komentovací vrstva ===== */
+#cLayer{position:absolute;top:0;left:0;width:100%;height:0;overflow:visible;z-index:500}
+#cLayer .pin{position:absolute;width:26px;height:26px;border-radius:50%;background:var(--red);color:#fff;font-size:13px;font-weight:800;display:grid;place-items:center;transform:translate(-50%,-50%);cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.3);border:2px solid #fff}
+#cEdit{position:absolute;z-index:700;width:min(320px,calc(100vw - 28px));background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 18px 50px rgba(10,31,63,.3);padding:12px;display:none;font-size:13px}
+#cEdit .sec-name{font-size:11.5px;color:var(--muted);margin-bottom:6px}
+#cEdit textarea{width:100%;font:inherit;font-size:13px;border:1px solid var(--line);border-radius:8px;padding:8px;min-height:64px;resize:vertical}
+#cEdit .row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+#cEdit .row button{font:inherit;font-size:12.5px;border-radius:999px;padding:6px 13px;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--navy)}
+#cEdit .row button.save{background:var(--green);color:#fff;border-color:var(--green);font-weight:700}
+#cEdit .row button.del{color:var(--red);border-color:#f3cdd4}
+body.commenting{cursor:crosshair}
+#cHint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-size:12.5px;border-radius:999px;padding:8px 18px;z-index:650;display:none;box-shadow:0 8px 24px rgba(10,31,63,.35);white-space:nowrap}
+@media(max-width:640px){#cHint{white-space:normal;max-width:calc(100vw - 24px);text-align:center;border-radius:14px}}
+</style>
+</head>
+<body>
+
+<div class="proto"><div class="wrap">
+  <div class="logo"><span class="dot">p</span>popojedu</div>
+  <b class="t">DOKLADY PRO ÚČETNÍ · návrh</b>
+  <div class="sp">
+    <button class="tg2" id="btnExport" type="button">Zkopírovat komentáře</button>
+    <button class="tg" id="btnComment" type="button">💬 Režim komentářů</button>
+  </div>
+</div></div>
+
+<div class="draftbar">NÁVRH k připomínkám · 17. 7. 2026 · Popojedu × ABRA Gen</div>
+
+<main class="page"><div class="wrap">
+
+<h1>Popojedu — účetní doklady nového webu a napojení na ABRA Gen</h1>
+<p class="docmeta">Podklad pro účetní · 17. 7. 2026 · Modrý anděl s.r.o. (plátce DPH, DIČ CZ27218422) · připravil Claude (asistent RF), rozhodnutí RF 16.–17. 7. 2026</p>
+
+<h2>1) Princip ve dvou větách</h2>
+<p>Nový web Popojedu (rezervační systém půjčovny) <b>vystavuje zákaznické doklady sám</b> — vlastní číselná řada, vlastní grafika ve firemním stylu, automatické odeslání zákazníkovi. <b>ABRA Gen zůstává jediným účetnictvím</b> — každý doklad z webu se do ní automaticky zapisuje přes její API (rozhraní pro propojení systémů), takže účetní evidence je úplná bez ručního přepisování.</p>
+
+<h2>2) Jaké doklady web vystavuje, kdy a jak</h2>
+<div class="scrollx">
+<table>
+<thead><tr><th>Doklad</th><th>Kdy vzniká</th><th>Povaha</th></tr></thead>
+<tbody>
+<tr><td><b>Výzva k platbě</b> (záloha 20&nbsp;%, doplatek, měsíční nájem u dlouhodobých)</td><td>automaticky při daném kroku rezervace; obsahuje QR kód, číslo účtu (KB) a variabilní symbol = číslo rezervace</td><td>NENÍ daňový ani účetní doklad (obdoba proformy) — jen platební instrukce</td></tr>
+<tr><td><b>Daňový doklad k přijaté platbě</b></td><td>automaticky ihned po spárování platby s výzvou (splněna lhůta do 15 dnů od přijetí)</td><td>daňový doklad, DPH 21&nbsp;%</td></tr>
+<tr><td><b>Konečné vyúčtování</b> (daňový doklad)</td><td>po vrácení vozu, nejpozději do 3 pracovních dnů — nájemné + nadlimitní km + případné škody/čištění − uhrazená záloha a platby</td><td>daňový doklad</td></tr>
+<tr><td><b>Doklad k přeúčtované pokutě</b> (+ administrativní poplatek 300&nbsp;Kč)</td><td>při došlé pokutě po pronájmu (stržení z uložené karty nebo faktura se splatností 10 dní)</td><td>daňový doklad</td></tr>
+<tr><td><b>Opravný daňový doklad</b></td><td>při stornu po vystavení dokladu / vratce</td><td>opravný doklad</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><b>Kauce (jistota 10&nbsp;000&nbsp;Kč):</b> není výnos a nevzniká k ní daňový doklad. Dvě podoby: (a)&nbsp;blokace na platební kartě — peníze fyzicky nikam nepřijdou, účetně se neděje nic, dokud se případně část nestrhne (pak jde stržená část do vyúčtování); (b)&nbsp;složení převodem — na výpisu KB bude příjem a po vrácení vozu vratka (obvykle týž den po vyúčtování); web ke kauci generuje jen potvrzení o přijetí/vrácení, ne daňový doklad. U segmentu kurýr/přeprava osob se z kauce zadržuje 2&nbsp;000&nbsp;Kč po dobu 30 dnů (na pozdější pokuty) — pořád jde o jistotu, ne výnos.</p>
+
+<p><b>Číselná řada:</b> všechny doklady z webu mají jednu souvislou řadu <b>W2026-####</b> (rok se mění). Rekapitulace za období vždy doloží úplnost řady (žádné díry).</p>
+
+<div class="box"><b class="h">Důležitá dohoda</b>
+<b>ABRA tyto doklady přijímá s jejich čísly a nevystavuje k nim vlastní duplicitní doklady.</b> Řady v Abře pro cokoli mimo web (interní faktury, náklady…) zůstávají beze změny.</div>
+
+<h2>3) Jak probíhá zápis do ABRA Gen (zvolená varianta)</h2>
+<ul>
+<li>Každý vystavený doklad se ihned zařadí do <b>fronty</b> a systém ho <b>zapíše do ABRA přes její API</b> jako příslušný doklad (faktura vydaná / doklad k přijaté platbě) — se stejným číslem, částkami, DPH rozpisem a vazbou na zákazníka.</li>
+<li>Zápis je <b>asynchronní</b>: web na Abru nečeká. Když ABRA nebo její API zrovna neběží, zákazník svůj doklad stejně dostane a zápisy se automaticky doženou, jakmile je ABRA dostupná. Nic se neztrácí — u každého dokladu je v administraci webu vidět stav zápisu (✓&nbsp;zapsáno / čeká).</li>
+<li><b>Párování úhrad:</b> web si platby páruje sám proti bance (čtení pohybů KB) kvůli řízení rezervací. V Abře doporučujeme párovat úhrady standardně z bankovního výpisu jako dosud — k odsouhlasení s vámi. <span class="kd">(K dořešení: kdo páruje úhrady v Abře — viz otázka pro účetní)</span></li>
+<li><b>Kontrola pro účetní:</b> měsíční rekapitulační sestava (počet dokladů, součty základů a DPH, kontrola souvislosti řady) + kdykoli přístup do administrace webu pro nahlédnutí.</li>
+<li><b>Náběhové období:</b> než se API napojení společně odladí (je k dispozici testovací sandbox ABRA), lze doklady přenášet dávkou (export ISDOC/CSV k importu) — čísla i proces jsou stejné, mění se jen způsob přenosu.</li>
+</ul>
+
+<div class="ask"><b>Co potřebujeme od vás (účetní):</b>
+<ol>
+<li>potvrdit mapování — kódy DPH, předkontace/účty, případně střediska pro doklady z webu;</li>
+<li>potvrdit, že instance ABRA Gen má API publikované a je dostupná pro zápis (API klíč máme);</li>
+<li>krátký společný test na několika dokladech před ostrým provozem.</li>
+</ol></div>
+
+<h2>4) Zavržená alternativní varianta (pro úplnost)</h2>
+<p><b>Varianta B — doklady by vystavovala přímo ABRA:</b> web by při každé platbě zavolal ABRA API, doklad by vznikl v Abře (její číselná řada) a web by zákazníkovi jen přeposlal PDF vytvořené Abrou.</p>
+<p>Výhoda: jediný systém vystavuje, žádná dohoda o řadách.</p>
+<div class="warn"><b>Proč jsme ji zavrhli (rozhodnutí RF 17. 7. 2026):</b>
+<ol style="margin:8px 0 0;padding-left:20px">
+<li style="margin-bottom:8px"><b>Závislost webu na nonstop běhu Abry</b> — kdyby ABRA nebo její API nebyly dostupné, zákazník by nedostal doklad a proces rezervace by se zastavil. Půjčovna běží večer i o víkendu; účetní systém takto vytěžovat nechceme.</li>
+<li><b>Vzhled dokladů</b> — PDF z Abry je omezené jejími tiskovými sestavami. Chceme graficky pěkné faktury ve firemním stylu Popojedu (logo, barvy, přehledná struktura), přesně podle našich představ — to umí naše vlastní šablona, a její úpravy dělá náš vývojář, ne konzultant Abry.</li>
+</ol></div>
+<p>Zvolená varianta (bod 3) obě omezení řeší: zákazník dostává hezký doklad z webu okamžitě a nezávisle na Abře, ABRA dostává kompletní účetní zápis automaticky na pozadí.</p>
+
+<p class="foot">Návaznosti: rozhodovací podklad plateb <b>popojedu_platby_rozhodovaci_podklad_2026-07-16.md</b> (sekce C — analýza variant V1/V2/V3) · procesní analýza <b>popojedu_proces_zakaznika_analyza_2026-07-17.md</b> · ABRA API dokumentace: help.abra.eu, apidoc.abra.eu, apisandbox.abra.eu.</p>
+
+</div></main>
+
+<!-- ============ KOMENTOVACÍ VRSTVA ============ -->
+<div id="cLayer"></div>
+<div id="cEdit">
+  <div class="sec-name" id="cEditSec"></div>
+  <textarea id="cEditText" placeholder="Napiš připomínku k tomuto místu…"></textarea>
+  <div class="row">
+    <button type="button" class="save" id="cEditSave">Uložit</button>
+    <button type="button" class="del" id="cEditDel">Smazat</button>
+    <button type="button" id="cEditClose">Zavřít</button>
+  </div>
+</div>
+<div id="cHint">Režim komentářů: klikni kamkoli v návrhu → přidá se číslovaný pin s textovým polem</div>
+
+<script>
+/* KOMENTOVACÍ VRSTVA — piny + textarea + export do schránky (localStorage) */
+(function(){
+  var KEY="popojedu-doklady-ucetni-comments";
+  var on=false,current=-1;
+  var layer=document.getElementById("cLayer"),
+      edit=document.getElementById("cEdit"),
+      ta=document.getElementById("cEditText"),
+      secName=document.getElementById("cEditSec"),
+      hint=document.getElementById("cHint"),
+      btn=document.getElementById("btnComment");
+
+  function load(){try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){return[]}}
+  function save(c){localStorage.setItem(KEY,JSON.stringify(c))}
+
+  function nearestHeading(y){
+    var hs=document.querySelectorAll("h1,h2,h3"),best="";
+    for(var i=0;i<hs.length;i++){
+      var top=hs[i].getBoundingClientRect().top+window.scrollY;
+      if(top<=y)best=hs[i].textContent.replace(/\s+/g," ").trim();
+    }
+    return best;
+  }
+
+  function render(){
+    var c=load();layer.innerHTML="";
+    c.forEach(function(it,i){
+      var p=document.createElement("div");
+      p.className="pin";p.textContent=i+1;
+      p.style.left=it.x+"px";p.style.top=it.y+"px";
+      p.title=it.text||"(bez textu — klikni a doplň)";
+      p.addEventListener("click",function(e){e.stopPropagation();openEditor(i);});
+      layer.appendChild(p);
+    });
+  }
+
+  function openEditor(i){
+    var c=load();if(!c[i])return;
+    current=i;
+    secName.textContent="Pin "+(i+1)+" · sekce: "+(c[i].sec||"—");
+    ta.value=c[i].text||"";
+    var left=Math.max(8,Math.min(c[i].x+14,document.documentElement.clientWidth-340));
+    edit.style.left=left+"px";
+    edit.style.top=(c[i].y+14)+"px";
+    edit.style.display="block";
+    ta.focus();
+  }
+  function closeEditor(){edit.style.display="none";current=-1;}
+
+  document.getElementById("cEditSave").addEventListener("click",function(){
+    if(current<0)return;
+    var c=load();c[current].text=ta.value.trim();save(c);render();closeEditor();
+  });
+  document.getElementById("cEditDel").addEventListener("click",function(){
+    if(current<0)return;
+    var c=load();c.splice(current,1);save(c);render();closeEditor();
+  });
+  document.getElementById("cEditClose").addEventListener("click",closeEditor);
+
+  window.toggleComments=function(){
+    on=!on;
+    document.body.classList.toggle("commenting",on);
+    btn.classList.toggle("on",on);
+    btn.textContent=on?"💬 Komentáře: ZAPNUTO":"💬 Režim komentářů";
+    hint.style.display=on?"block":"none";
+    if(!on)closeEditor();
+    render();
+  };
+
+  window.exportComments=function(){
+    var c=load();
+    if(!c.length){alert("Žádné komentáře — zapni režim komentářů a klikni do návrhu.");return;}
+    var lines=["KOMENTÁŘE K NÁVRHU — Popojedu: doklady pro účetní (17. 7. 2026)",""];
+    c.forEach(function(it,i){
+      lines.push((i+1)+". [sekce: "+(it.sec||"—")+"] "+(it.text||"(bez textu)"));
+    });
+    var t=lines.join("\n");
+    function done(){alert("Zkopírováno do schránky ("+c.length+" komentářů):\n\n"+t);}
+    function fallback(){window.prompt("Zkopíruj ručně (Ctrl/Cmd+C):",t);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(done,fallback);
+    }else{fallback();}
+  };
+
+  btn.addEventListener("click",function(){window.toggleComments();});
+  document.getElementById("btnExport").addEventListener("click",function(){window.exportComments();});
+
+  /* klik v režimu komentářů = nový pin (capture, ať nespouští tlačítka/odkazy pod ním) */
+  document.addEventListener("click",function(e){
+    if(!on)return;
+    if(e.target.closest(".proto")||e.target.closest("#cEdit")||e.target.closest(".pin"))return;
+    e.preventDefault();e.stopPropagation();
+    var c=load();
+    c.push({x:e.pageX,y:e.pageY,text:"",sec:nearestHeading(e.pageY)});
+    save(c);render();openEditor(c.length-1);
+  },true);
+
+  render();
+})();
+</script>
+</body>
+</html>
