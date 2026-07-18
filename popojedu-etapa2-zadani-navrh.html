@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Popojedu — Zadání etapy 2 (návrh k připomínkám)</title>
+<style>
+:root{--green:#00c853;--green-d:#00a847;--navy:#0a1f3f;--muted:#5b6b7e;--line:#e6ebf1;--bg:#fafbfc;--note:#fff4d6}
+*{box-sizing:border-box}
+body{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:var(--navy);background:var(--bg);margin:0;line-height:1.65}
+.wrap{max-width:900px;margin:0 auto;padding:32px 20px 120px}
+.banner{background:var(--navy);color:#fff;padding:14px 20px;font-size:14px;text-align:center}
+.banner b{color:var(--green)}
+h1{font-size:30px;line-height:1.25;margin:18px 0 6px}
+h2{font-size:22px;margin:38px 0 10px;padding-top:14px;border-top:2px solid var(--line)}
+h3{font-size:17px;margin:24px 0 8px}
+p,li{font-size:15.5px}
+em{color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:14px 0}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#eef7f0;color:var(--navy)}
+code{background:#eef1f5;padding:1px 5px;border-radius:4px;font-size:13px}
+a{color:var(--green-d)}
+blockquote{border-left:3px solid var(--green);margin:12px 0;padding:4px 14px;color:var(--muted)}
+/* komentáře */
+#cbar{position:fixed;bottom:16px;right:16px;background:var(--navy);color:#fff;border-radius:999px;padding:10px 16px;display:flex;gap:10px;align-items:center;box-shadow:0 8px 30px rgba(10,31,63,.35);z-index:99;font-size:14px}
+#cbar button{border:0;border-radius:999px;padding:7px 13px;cursor:pointer;font-size:13.5px;background:#fff;color:var(--navy)}
+#cbar button.on{background:var(--green);color:#fff}
+.cpin{position:absolute;width:26px;height:26px;border-radius:50%;background:var(--green);color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.3);z-index:50}
+.cbox{position:absolute;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 40px rgba(10,31,63,.25);padding:10px;z-index:60;width:280px}
+.cbox textarea{width:100%;min-height:70px;border:1px solid var(--line);border-radius:8px;padding:8px;font:inherit;font-size:13.5px}
+.cbox .row{display:flex;gap:8px;margin-top:8px}
+.cbox button{flex:1;border:0;border-radius:8px;padding:7px;cursor:pointer;font-size:13px}
+.cbox .save{background:var(--green);color:#fff}
+.cbox .del{background:#fdeef0;color:#b33449}
+body.cmode{cursor:crosshair}
+</style>
+</head>
+<body>
+<div class="banner">🗄️ <b>ETAPA 2 — NÁVRH ZADÁNÍ (šuplík)</b> · do aktuální stavby v1-2 nezapracovávat · komentuj tlačítkem „Zapnout" vpravo dole → klikni na místo → napiš → „Kopírovat" a pošli Claudovi</div>
+<div class="wrap" id="doc">
+<h1>POPOJEDU — ZADÁNÍ ETAPY 2: Rezervační proces, platby, doklady, účet zákazníka</h1>
+<p><em>Návrh v1 · 17. 7. 2026 · připravil Claude (asistent RF) z rozhodnutí RF 10.–17. 7. 2026 · stav: </em><em>ŠUPLÍK — nepředávat, dokud RF neřekne</em>**</p>
+<hr />
+<h2>0) Pravidla tohoto zadání</h2>
+<ul>
+<li><strong>Kdy se předává Martinovi:</strong> až po splnění tří podmínek — (1) v1-2 je na produkci popojedu.cz, (2) RF produkci akceptoval, (3) proběhla stabilizace po launchi. Do té doby dokument zraje v šuplíku a doplňuje se changelogem (§10).</li>
+<li><strong>Etapy se nemíchají:</strong> nic z tohoto dokumentu se nestaví do v1-2. Vizuální předloha etapy 2 = <code>popojedu_web_v1-3-ucet-navrh.html</code> (samostatný soubor s banner pruhem, root index se nepřepíná).</li>
+<li><strong>Pořadí balíků 2.1 → 2.6 je závazné</strong> — každý balík je samostatně nasaditelný celek, prochází kontrolou (control cyklus v ClickUp + vizuální brána) a teprve pak se pokračuje. Žádný velký třesk.</li>
+<li><strong>Snapshot princip všude:</strong> cenové a smluvní podmínky se v okamžiku vzniku rezervace/smlouvy kopírují do záznamu; pozdější změna ceníku nikdy nemění existující rezervace.</li>
+<li><strong>Peníze a živé zásahy:</strong> vše, co odesílá peníze, strhává z karty nebo publikuje zákazníkovi, projde v testech sandbox režimem; ostré zapnutí každé platební funkce schvaluje RF.</li>
+</ul>
+<h2>1) Cíl etapy</h2>
+<p>Z webu, který sbírá poptávky, udělat systém, který <strong>vede celý pronájem od potvrzení po vrácení vozu</strong>: potvrzení/alternativy, smlouva, záloha a platby s automatickým párováním, vlastní doklady s automatickým zápisem do ABRA, protokoly předání/vrácení s fotodokumentací, zákaznický účet s KYC — a převzetí ~50 běžících smluv do systému.</p>
+<p><strong>Zdroje pravdy</strong> (vše na https://privatetc.github.io/popojedu-web-preview/rozcestnik.html):</p>
+<table>
+<thead>
+<tr>
+<th>Dokument</th>
+<th>Co pokrývá</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>popojedu_proces_zakaznika_analyza_2026-07-17.md</code> (Drive)</td>
+<td>stavová mapa, pořadí kroků, kauce/pokuty, pravidelné platby, KYC, §7 migrace smluv</td>
+</tr>
+<tr>
+<td><code>popojedu_platby_rozhodovaci_podklad_2026-07-16.md</code> (Drive)</td>
+<td>rozhodnutí platebních kanálů, dlouhodobé platby, doklady V1→V3, KB</td>
+</tr>
+<tr>
+<td><code>popojedu_doklady_pro_ucetni_2026-07-17.md</code> + HTML</td>
+<td>doklady, číselná řada, ABRA zápis, párování, přílohy</td>
+</tr>
+<tr>
+<td><code>popojedu-faktura-navrh.html</code> (GitHub)</td>
+<td>CI grafika všech 6 typů dokladů (A–F)</td>
+</tr>
+<tr>
+<td><code>popojedu-admin-rezervacni-proces-navrh.html</code> (GitHub)</td>
+<td>admin obrazovky A–F + KYC karta</td>
+</tr>
+<tr>
+<td><code>popojedu_web_v1-3-ucet-navrh.html</code> (GitHub)</td>
+<td>účet zákazníka — 13 stavů, protokoly, KYC (deep-linky <code>?screen=ucet&amp;stav=N</code>)</td>
+</tr>
+</tbody>
+</table>
+<h2>2) Balík 2.1 — Platby a doklady (jádro)</h2>
+<p><strong>2.1.1 KB párování příchozích plateb</strong>
+- Web čte pohyby na účtu KB přes <strong>KB API (ADAA, ~100 Kč/měs)</strong> každou hodinu; aktivaci služby zajistí RF.
+- Párování podle <strong>VS = číslo rezervace</strong>; nespárované pohyby do fronty „k ručnímu přiřazení" v adminu.
+- Nezávisle na tom ABRA denně importuje elektronický výpis KB (vestavěný ovladač) a páruje pro účetnictví — dvojí strojová kontrola, web na ABRA nečeká.</p>
+<p><strong>2.1.2 QR výzvy k platbě</strong>
+- Formát SPD (QR platba): částka, účet KB, VS = číslo rezervace, zpráva pro příjemce.
+- Výzva k platbě NENÍ daňový doklad (proforma) — vystavuje se pro zálohu, doplatek i pravidelné platby.</p>
+<p><strong>2.1.3 Záloha a doplatek</strong>
+- Rezervace závazná po úhradě <strong>zálohy 20 %</strong> (nevratná — při zrušení/nedostavení propadá); po odeslání nabídky/smlouvy drží systém vůz <strong>48 h</strong> na úhradu zálohy.
+- <strong>Doplatek do D-1</strong> před převzetím (QR výzva automaticky).</p>
+<p><strong>2.1.4 Pravidelné platby dlouhodobých pronájmů</strong>
+- Kurýři/přeprava <strong>týdně</strong>, ostatní <strong>měsíčně</strong>, vždy <strong>předem</strong>.
+- Při převzetí alikvotní část do nejbližší kotvy; pak kotvy = <strong>1. den měsíce</strong> (měsíční) / <strong>pondělí</strong> (týdenní).
+- Doba neurčitá: výpovědní doba default <strong>1 měsíc</strong> (nastavitelné per smlouva).
+- Sleva za délku (5/10/15 %) se při dřívějším ukončení <strong>zpětně přepočítá</strong> dle skutečné doby a rozdíl vstoupí do konečného vyúčtování.
+- Neplatič: automatické upomínky; právo na vrácení vozu <strong>3 dny po splatnosti</strong> (nastavitelné per zápůjčka i per zákazník).</p>
+<p><strong>2.1.5 Vlastní doklady — řada W2026-####</strong>
+Jedna souvislá číselná řada za rok, vlastní CI PDF šablony přesně dle <code>popojedu-faktura-navrh.html</code> (A–F):</p>
+<table>
+<thead>
+<tr>
+<th>Doklad</th>
+<th>Kdy automaticky</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A. Výzva k platbě (QR)</td>
+<td>při každém platebním kroku</td>
+</tr>
+<tr>
+<td>B. Daňový doklad k přijaté platbě</td>
+<td>ihned po spárování platby (limit 15 dnů splněn s rezervou)</td>
+</tr>
+<tr>
+<td>C. Konečné vyúčtování</td>
+<td>po vrácení vozu, nejpozději do 3 pracovních dnů</td>
+</tr>
+<tr>
+<td>D. Doklad k přeúčtované pokutě (+300 Kč popl.)</td>
+<td>při zaevidování pokuty; <strong>povinná příloha = scan výměru</strong> (bez přílohy nejde vystavit); zákazník dostane výměr e-mailem s dokladem</td>
+</tr>
+<tr>
+<td>E. Opravný daňový doklad</td>
+<td>storno/vratka</td>
+</tr>
+<tr>
+<td>F. Potvrzení o kauci (přijetí/vrácení)</td>
+<td>kauce převodem — není daňový doklad</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Přílohy dokladů</strong> (požadavek účetní 17. 7.): u pokuty povinný výměr; u vyúčtování škod fotky + kalkulace servisu. Přílohy se ukládají k rezervaci, posílají zákazníkovi a <strong>přenášejí do ABRA k dokladu</strong>.</li>
+<li>DPH 21 %, ceny bez/s DPH dle segmentu (přepínač už ve v1-2).</li>
+</ul>
+<p><strong>2.1.6 Zápis do ABRA Gen (asynchronně)</strong>
+- Každý doklad → fronta → zápis přes ABRA API (help.abra.eu; API klíč máme) se stejným číslem, částkami, DPH rozpisem, vazbou na zákazníka a přílohou.
+- Web na ABRA <strong>nečeká</strong> — výpadek ABRA nesmí zastavit proces; fronta se dožene, stav zápisu (✓ zapsáno / čeká) viditelný v adminu u dokladu.
+- ABRA doklady z webu přijímá s jejich čísly, nevystavuje duplicitní (dohodnuto s účetní).
+- <strong>Před ostrým provozem: společný test na ABRA sandboxu s účetní</strong> (mapování DPH kódů, předkontace, střediska) + náběhová možnost dávkového exportu ISDOC/CSV.
+- Měsíční rekapitulační sestava pro účetní (počty, součty základů a DPH, kontrola souvislosti řady).</p>
+<p><strong>2.1.7 Kauce (jistota)</strong>
+- Standard 10 000 Kč (dle vozu až 50 000). Dvě formy: blokace na kartě (viz 2.6 Stripe — do té doby převodem) nebo složení převodem.
+- Vratka po vyúčtování, obvykle <strong>do 3 pracovních dnů</strong>. U kurýr/taxi segmentu zádržné <strong>2 000 Kč po 30 dní</strong> na pozdější pokuty.</p>
+<p><strong>Akceptace 2.1:</strong> E2E: rezervace → QR záloha → (testovací) platba → automatické spárování → daňový doklad → doplatek → vyúčtování → zápis všeho do ABRA sandbox vč. přílohy; fronta přežije simulovaný výpadek ABRA; rekapitulace sedí na koruny.</p>
+<h2>3) Balík 2.2 — Migrace stávajících smluv (§7 procesní analýzy)</h2>
+<ul>
+<li>Admin akce <strong>„Převzít stávající smlouvu"</strong>: rychlý formulář (předvyplnění z vozu, vše editovatelné) + <strong>CSV import</strong> (šablona = pole formuláře) pro dávky; objem ~do 50 smluv.</li>
+<li><strong>Vše přepsatelné per smlouva</strong> (snapshot): cena, km limit, nadlimitní i předplacená sazba, kauce, slevy, perioda (týden/měsíc), splatnost, výpovědní doba.</li>
+<li>Příznak <strong>„převzatá smlouva"</strong> (odlišení v přehledech a reportech).</li>
+<li><strong>Finance až od migrace:</strong> zadává se skutečné datum začátku, podmínky a <strong>stav tachometru k převzetí do systému</strong> (od něj běží km vyúčtování). Platby/doklady od data zadání dál; starší platby zůstávají v ABRA, nedozadávají se.</li>
+<li>Smlouvy zůstávají v platnosti — <strong>podepsané přes RAYNET</strong>: pole „odkaz na smlouvu (RAYNET)" + příloha PDF. Žádné nové podepisování.</li>
+<li>Zákaznické účty se nezakládají automaticky; párování přes e-mail/telefon, účet lze připojit později. KYC se doplní při nejbližší příležitosti.</li>
+<li>Od převzetí platí standardní procesy (upomínky, prodloužení, vyúčtování, protokoly).</li>
+</ul>
+<p><strong>Akceptace 2.2:</strong> import vzorového CSV s 10 smlouvami s odlišnými podmínkami; kontrola snapshotů; první pravidelná platba se vygeneruje ke správné kotvě; vyúčtování počítá km od zadaného tachometru.</p>
+<h2>4) Balík 2.3 — Rezervační proces v adminu</h2>
+<p>Dle mockupu <code>popojedu-admin-rezervacni-proces-navrh.html</code> (sekce A–F) a stavové mapy (§3 procesní analýzy, 9 stavů):</p>
+<ul>
+<li><strong>A. Detail rezervace</strong> — časová osa stavů, platby (spárované pohyby KB), doklady, smlouva, kauce, pokuty s přílohami, vyúčtování, audit log každé akce.</li>
+<li><strong>B. Potvrzení / alternativy</strong> — potvrzení dostupnosti; při konfliktu nabídka 1–2 náhradních vozů stejné/vyšší třídy nebo jiného termínu; alternativa jde zákazníkovi ke <strong>souhlasu</strong> (mint stavy nabídkového kroku dle v1-2/869e583wj); ruční režim (Možnost A — žádné auto-potvrzování).</li>
+<li><strong>C. Kalendář výpůjček</strong> — obsazenost všech vozů, rezervace + servisní blokace, drag náhled; overlap check už existuje (Fáze 1A) — napojit.</li>
+<li><strong>D. Fronta plateb</strong> — co čeká na úhradu, po splatnosti, upomínky, ruční přiřazení nespárovaných.</li>
+<li><strong>E. „Dnešek"</strong> — dnešní předání/vrácení, chybějící KYC, blížící se splatnosti, končící 48h holdy.</li>
+<li><strong>F. Mobilní protokol</strong> — viz balík 2.4.</li>
+<li>Role a práva: pracovník (provoz) vs. admin (vše vč. ceníku a storna dokladů).</li>
+</ul>
+<p><strong>Akceptace 2.3:</strong> projít celou stavovou mapu na testovací rezervaci vč. větve alternativa-souhlas a větve zamítnutí; každá akce zapsaná v audit logu.</p>
+<h2>5) Balík 2.4 — Smlouvy (Signi) a protokoly předání/vrácení</h2>
+<ul>
+<li><strong>Pořadí: smlouva → záloha</strong> (rozhodnuto §1 procesní analýzy): po potvrzení jde zákazníkovi smlouva k podpisu přes <strong>Signi</strong>, po podpisu QR výzva na zálohu (48h hold běží od nabídky).</li>
+<li>Podpis <strong>na místě</strong> při předání: Signi na tabletu/telefonu; <strong>canvas fallback</strong> (podpis prstem do formuláře), když Signi nejede.</li>
+<li><strong>Protokol předání i vrácení:</strong> 9 povinných fotopozic (celky rohů, tachometr, palivoměr, interiér, klíče+doklady), kontrolní položky (palivo, čistota, klíče/TP/zelená karta/výbava, dálniční známka, AdBlue), poznámky, podpisy obou stran.</li>
+<li><strong>Jednostranný režim</strong> (zákazník nepřítomen) jen na povolení pracovníka — protokol se odešle zákazníkovi s <strong>24h lhůtou na námitku</strong>.</li>
+<li>Mobilní tok pro pracovníka: focení přímo z telefonu do procesu (admin F), offline tolerance (fronta uploadů).</li>
+<li>Protokoly se propisují do účtu zákazníka (v1-3 karta Protokoly) a do konečného vyúčtování (tachometr, palivo, poškození).</li>
+</ul>
+<p><strong>Akceptace 2.4:</strong> kompletní předání + vrácení na zkoušku vč. fotek z telefonu, jednostranného režimu a propsání tachometru do vyúčtování; Signi podpis i canvas fallback.</p>
+<h2>6) Balík 2.5 — Účet zákazníka (v1-3) + KYC</h2>
+<ul>
+<li>Realizace 1:1 dle <code>popojedu_web_v1-3-ucet-navrh.html</code>: <strong>13 stavů</strong> poptávky/pronájmu (čeká na schválení → schváleno / alternativní návrh → smlouva → záloha → termín převzetí (mapa/navigace nebo přistavení) → probíhá → vrácení → vyúčtování → čeká na pokuty → uzavřeno; deep-linky <code>?screen=ucet&amp;stav=N</code>), karta Protokoly, karta Dokumenty (doklady ke stažení).</li>
+<li><strong>KYC:</strong> zákazník nahrává <strong>OP nebo pas + řidičský průkaz, obě strany</strong> (4 snímky). Povinné před převzetím vozu; kurýři/přeprava <strong>před schválením</strong>. Fáze 1: ruční ověření pracovníkem v adminu (schválit/vrátit s důvodem). Uložení šifrovaně, přístup jen oprávněné role, nikdy e-mailem.</li>
+<li>Znovuzapnutí „Můj účet" na webu (bylo pro launch v1-2 skryté) — menu se vrací na 7 položek dle předlohy.</li>
+<li>Registrace/přihlášení, reset hesla (M365 odesílání už funguje), propojení poptávek s účtem (user_id na leadu), napojení převzatých smluv (2.2).</li>
+</ul>
+<p><strong>Akceptace 2.5:</strong> zákaznický průchod všemi 13 stavy na testovací rezervaci; KYC upload z mobilu; pracovník vidí a schvaluje doklady; bez schváleného KYC nejde dokončit předání.</p>
+<h2>7) Balík 2.6 — Stripe (karty)</h2>
+<ul>
+<li><strong>Pre-auth kauce</strong> na kartě (blokace místo převodu) — uvolnění po vyúčtování.</li>
+<li><strong>Uložená karta</strong> (souhlas ve smlouvě): dovyúčtování, škody a pokuty do sjednaného limitu se strhávají z karty; nad limit / bez karty → faktura se splatností 10 dní.</li>
+<li>Stripe jako doplněk — QR/KB zůstává primární pro nájemné; žádný veřejný „platit kartou" checkout v této etapě (jen kauce + uložená karta).</li>
+</ul>
+<p><strong>Akceptace 2.6:</strong> testovací pre-auth + částečné stržení + uvolnění zbytku; stržení pokuty z uložené karty vč. dokladu D s přílohou.</p>
+<h2>8) Průběžně (mimo pořadí balíků)</h2>
+<ul>
+<li><strong>HubSpot zrcadlo (portál 148819647):</strong> one-way — stavy rezervace se propisují do dealu (pipeline „Popojedu — pronájmy"); měna CZK a TZ Praha už nastaveny; <code>popojedu_test</code> flag pro testovací záznamy; idempotence (fix duplicit z 869dkwz2j) platí i tady.</li>
+<li><strong>Bezpečnost:</strong> šifrování KYC a příloh, role-based přístup, rate-limit, audit log, žádné osobní údaje v URL.</li>
+<li><strong>Kvalita (gate každého balíku):</strong> testy zelené, PHPStan L8, vizuální brána, mobilní QA (tap targety ≥ 44 px, bez přetečení), Lighthouse bez regrese.</li>
+</ul>
+<h2>9) Co NENÍ v etapě 2</h2>
+<ul>
+<li>Online checkout kartou pro veřejnost, věrnostní program a extra slevy (RF 17. 7.: žádné slevy kromě délkových 5/10/15 %), AI chat, automatické potvrzování rezervací bez pracovníka, KYC přes externího vendora (ruční ověření stačí), letiště landing/meet&amp;greet (definitivně zrušeno).</li>
+</ul>
+<h2>10) Otevřené body a changelog</h2>
+<table>
+<thead>
+<tr>
+<th>Datum</th>
+<th>Změna / otevřený bod</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>17. 7.</td>
+<td>v1 dokumentu — sestaveno z rozhodnutí RF 10.–17. 7.</td>
+</tr>
+<tr>
+<td>17. 7.</td>
+<td>Lenka (účetní) #1: povinná příloha výměru u dokladu k pokutě → zapracováno (2.1.5)</td>
+</tr>
+<tr>
+<td>otevřené</td>
+<td>další komentáře účetní k dokladům (čeká se)</td>
+</tr>
+<tr>
+<td>otevřené</td>
+<td>bublinové komentáře RF k v1-3 účtu, admin mockupu a fakturám (před předáním zapracovat)</td>
+</tr>
+<tr>
+<td>otevřené</td>
+<td>poznatky ze stabilizace v1-2 po launchi (chování reálných poptávek)</td>
+</tr>
+<tr>
+<td>otevřené</td>
+<td>přesný limit pro stržení škod z karty (sjednaná částka do smlouvy) — doplní RF</td>
+</tr>
+<tr>
+<td>otevřené</td>
+<td>ceny/fotky vozů ladí Roman ručně — etapa 2 je nesmí přepsat (seed se dat nedotýká)</td>
+</tr>
+</tbody>
+</table>
+<p><em>Před předáním Martinovi: projít changelog, zapracovat vše otevřené, finální kontrola proti komentářům — teprve pak založit ClickUp strukturu (master + balíky 2.1–2.6) a přiřadit.</em></p>
+</div>
+<div id="cbar"><span id="ccount">Komentáře (0)</span><button id="ccopy">📋 Kopírovat</button><button id="cclear">🗑</button><button id="ctoggle">💬 Zapnout</button></div>
+<script>
+(function(){
+var KEY='etapa2-comments-v1',mode=false,doc=document.getElementById('doc');
+function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return[]}}
+function save(a){localStorage.setItem(KEY,JSON.stringify(a));render()}
+function ctx(x,y){var hs=[].slice.call(doc.querySelectorAll('h1,h2,h3')),best='(začátek)';hs.forEach(function(h){var r=h.getBoundingClientRect(),top=r.top+window.scrollY;if(top<=y)best=h.textContent.trim()});return best}
+function render(){[].slice.call(document.querySelectorAll('.cpin,.cbox')).forEach(function(e){e.remove()});var a=load();document.getElementById('ccount').textContent='Komentáře ('+a.length+')';a.forEach(function(c,i){var p=document.createElement('div');p.className='cpin';p.textContent=i+1;p.style.left=(c.x-13)+'px';p.style.top=(c.y-13)+'px';p.onclick=function(ev){ev.stopPropagation();openBox(i)};document.body.appendChild(p)})}
+function openBox(i){var a=load(),c=a[i];closeBoxes();var b=document.createElement('div');b.className='cbox';b.style.left=(c.x+18)+'px';b.style.top=(c.y-10)+'px';b.innerHTML='<div style="font-size:12px;color:#5b6b7e;margin-bottom:6px">#'+(i+1)+' · '+c.sec+'</div><textarea>'+(c.t||'')+'</textarea><div class="row"><button class="save">Uložit</button><button class="del">Smazat</button></div>';b.querySelector('.save').onclick=function(){a[i].t=b.querySelector('textarea').value;save(a);closeBoxes()};b.querySelector('.del').onclick=function(){a.splice(i,1);save(a);closeBoxes()};b.onclick=function(e){e.stopPropagation()};document.body.appendChild(b);b.querySelector('textarea').focus()}
+function closeBoxes(){[].slice.call(document.querySelectorAll('.cbox')).forEach(function(e){e.remove()})}
+document.getElementById('ctoggle').onclick=function(){mode=!mode;document.body.classList.toggle('cmode',mode);this.classList.toggle('on',mode);this.textContent=mode?'💬 Komentování ZAP':'💬 Zapnout'};
+document.getElementById('ccopy').onclick=function(){var a=load(),out='KOMENTÁŘE K NÁVRHU — Popojedu: zadání etapy 2 ('+new Date().toLocaleDateString('cs-CZ')+')\n\n';a.forEach(function(c,i){out+=(i+1)+'. [sekce: '+c.sec+'] '+(c.t||'(bez textu)')+'\n'});navigator.clipboard.writeText(out).then(function(){alert('Zkopírováno — vlož Claudovi do chatu.')})};
+document.getElementById('cclear').onclick=function(){if(confirm('Smazat všechny komentáře?'))save([])};
+document.body.addEventListener('click',function(e){if(!mode)return;if(e.target.closest('#cbar')||e.target.closest('.cbox')||e.target.classList.contains('cpin'))return;var x=e.pageX,y=e.pageY,a=load();a.push({x:x,y:y,sec:ctx(x,y),t:''});save(a);openBox(a.length-1)});
+render();
+})();
+</script>
+</body>
+</html>
