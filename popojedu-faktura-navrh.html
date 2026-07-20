@@ -149,7 +149,7 @@ body.commenting{cursor:crosshair}
     <div class="dlogo"><span class="dot">p</span>popojedu</div>
     <div class="dtype">
       <div class="k">VÝZVA K PLATBĚ</div>
-      <div class="n">W2026-0034</div>
+      <div class="n">VP2026-0034</div>
       <div class="s">není daňový doklad</div>
     </div>
   </div>
@@ -213,14 +213,14 @@ body.commenting{cursor:crosshair}
     <div class="dlogo"><span class="dot">p</span>popojedu</div>
     <div class="dtype">
       <div class="k">DAŇOVÝ DOKLAD K PŘIJATÉ PLATBĚ</div>
-      <div class="n">W2026-0035</div>
+      <div class="n">DP2026-0035</div>
     </div>
   </div>
 
   <div class="meta">
     <div><b>Datum vystavení</b>17. 7. 2026</div>
-    <div><b>DUZP</b>17. 7. 2026</div>
-    <div><b>Forma úhrady</b>převodem (spárováno s výzvou W2026-0034)</div>
+    <div><b>DUZP</b>17. 7. 2026 <small style="color:var(--muted)">(datum přijetí platby)</small></div>
+    <div><b>Forma úhrady</b>převodem (spárováno s výzvou VP2026-0034)</div>
     <div><b>Variabilní symbol</b>20260012</div>
   </div>
 
@@ -271,7 +271,7 @@ body.commenting{cursor:crosshair}
     <div class="dlogo"><span class="dot">p</span>popojedu</div>
     <div class="dtype">
       <div class="k">KONEČNÉ VYÚČTOVÁNÍ · DAŇOVÝ DOKLAD</div>
-      <div class="n">W2026-0036</div>
+      <div class="n">FV2026-0021</div>
     </div>
   </div>
 
@@ -305,8 +305,8 @@ body.commenting{cursor:crosshair}
       <tr><td>Nadlimitní kilometry</td><td class="r">130 km × 4,3&nbsp;Kč/km</td><td class="r">559&nbsp;Kč</td></tr>
       <tr><td>Poškození — oděrka zadní nárazník <small style="color:var(--muted)">(běžné opotřebení)</small></td><td class="r">—</td><td class="r">0&nbsp;Kč</td></tr>
       <tr class="sum"><td>Mezisoučet</td><td class="r"></td><td class="r">3&nbsp;043&nbsp;Kč</td></tr>
-      <tr class="minus"><td>Uhrazená záloha (doklad W2026-0035)</td><td class="r"></td><td class="r">−497&nbsp;Kč</td></tr>
-      <tr class="minus"><td>Uhrazený doplatek</td><td class="r"></td><td class="r">−1&nbsp;987&nbsp;Kč</td></tr>
+      <tr class="minus"><td>Uhrazená záloha — zdaněno daňovým dokladem <b>DP2026-0035</b></td><td class="r"><small style="color:var(--muted)">základ 410,74 + DPH 86,26</small></td><td class="r">−497,00&nbsp;Kč</td></tr>
+      <tr class="minus"><td>Uhrazený doplatek — zdaněno daňovým dokladem <b>DP2026-0041</b></td><td class="r"><small style="color:var(--muted)">základ 1&nbsp;642,15 + DPH 344,85</small></td><td class="r">−1&nbsp;987,00&nbsp;Kč</td></tr>
       <tr class="due"><td>K úhradě <small style="font-weight:600">(strženo z kauce)</small></td><td class="r"></td><td class="r">559&nbsp;Kč</td></tr>
       <tr class="kauce"><td>Vratka kauce</td><td class="r">10&nbsp;000 − 559&nbsp;Kč</td><td class="r">9&nbsp;441&nbsp;Kč — odeslána 28. 7. 2026</td></tr>
     </tbody>
@@ -317,7 +317,9 @@ body.commenting{cursor:crosshair}
   <table>
     <thead><tr><th>Rekapitulace DPH</th><th class="r">Základ</th><th class="r">DPH</th><th class="r">Celkem</th></tr></thead>
     <tbody>
-      <tr><td>Sazba 21&nbsp;%</td><td class="r">2&nbsp;514,88&nbsp;Kč</td><td class="r">528,12&nbsp;Kč</td><td class="r">3&nbsp;043,00&nbsp;Kč</td></tr>
+      <tr><td>Sazba 21&nbsp;% — plnění celkem</td><td class="r">2&nbsp;514,88&nbsp;Kč</td><td class="r">528,12&nbsp;Kč</td><td class="r">3&nbsp;043,00&nbsp;Kč</td></tr>
+      <tr class="minus"><td>Již uplatněno — zdaněné přijaté platby (DP2026-0035, DP2026-0041)</td><td class="r">−2&nbsp;052,89&nbsp;Kč</td><td class="r">−431,11&nbsp;Kč</td><td class="r">−2&nbsp;484,00&nbsp;Kč</td></tr>
+      <tr class="due"><td>Celkem</td><td class="r">461,99&nbsp;Kč</td><td class="r">97,01&nbsp;Kč</td><td class="r">559,00&nbsp;Kč</td></tr>
     </tbody>
   </table>
   </div>
@@ -342,7 +344,7 @@ body.commenting{cursor:crosshair}
     <div class="dlogo"><span class="dot">p</span>popojedu</div>
     <div class="dtype">
       <div class="k">DOKLAD K PŘEÚČTOVANÉ POKUTĚ · DAŇOVÝ DOKLAD</div>
-      <div class="n">W2026-0051</div>
+      <div class="n">PP2026-0051</div>
     </div>
   </div>
 
@@ -372,23 +374,23 @@ body.commenting{cursor:crosshair}
   <table>
     <thead><tr><th>Položka</th><th class="r">Základ</th><th class="r">DPH 21&nbsp;%</th><th class="r">Celkem</th></tr></thead>
     <tbody>
-      <tr><td>Přeúčtování pokuty — Radar Praha 5, přestupek 22. 7. 2026 (doručeno od MP Praha 14. 8.) <small style="color:var(--muted)">(mimo předmět DPH — přeúčtování)</small></td>
-        <td class="r">—</td><td class="r">—</td><td class="r">1&nbsp;000,00&nbsp;Kč</td></tr>
+      <tr><td>Přeúčtování pokuty — Radar Praha 5, přestupek 22. 7. 2026 (doručeno od MP Praha 14. 8.) <small style="color:var(--muted)">(sazba DPH 0&nbsp;%)</small></td>
+        <td class="r">1&nbsp;000,00&nbsp;Kč</td><td class="r">0,00&nbsp;Kč</td><td class="r">1&nbsp;000,00&nbsp;Kč</td></tr>
       <tr><td>Administrativní poplatek — identifikace řidiče a přeposlání</td>
         <td class="r">247,93&nbsp;Kč</td><td class="r">52,07&nbsp;Kč</td><td class="r">300,00&nbsp;Kč</td></tr>
-      <tr class="due"><td>Celkem — strženo z uložené karty 15. 8. 2026 ✓</td><td class="r"></td><td class="r"></td><td class="r">1&nbsp;300&nbsp;Kč</td></tr>
+      <tr class="due"><td>Celkem — strženo z uložené karty 15. 8. 2026 ✓</td><td class="r">1&nbsp;247,93&nbsp;Kč</td><td class="r">52,07&nbsp;Kč</td><td class="r">1&nbsp;300,00&nbsp;Kč</td></tr>
     </tbody>
   </table>
   </div>
 
   <div class="greensum">
     <div class="gi"><b>Celkem strženo</b><span class="v">1&nbsp;300&nbsp;Kč</span></div>
-    <div class="gi"><b>Z toho mimo DPH</b><span class="v small">1&nbsp;000,00&nbsp;Kč</span></div>
-    <div class="gi"><b>Základ daně</b><span class="v small">247,93&nbsp;Kč</span></div>
+    <div class="gi"><b>Základ 0&nbsp;% (pokuta)</b><span class="v small">1&nbsp;000,00&nbsp;Kč</span></div>
+    <div class="gi"><b>Základ 21&nbsp;% (poplatek)</b><span class="v small">247,93&nbsp;Kč</span></div>
     <div class="gi"><b>DPH 21&nbsp;%</b><span class="v small">52,07&nbsp;Kč</span></div>
   </div>
 
-  <div class="notebox">Režim DPH u přeúčtování pokuty potvrdí účetní.</div>
+  <div class="notebox">✓ Režim DPH potvrzen účetním týmem 20. 7. 2026 — přeúčtovaná pokuta v sazbě 0&nbsp;% (uvedena v základu), administrativní poplatek 21&nbsp;%. Povinná příloha dokladu: scan výměru pokuty.</div>
 
   <div class="dfoot">
     <span><b>info@popojedu.cz</b> · +420 731 683 203 · popojedu.cz</span>
@@ -405,14 +407,14 @@ body.commenting{cursor:crosshair}
     <div class="dlogo"><span class="dot">p</span>popojedu</div>
     <div class="dtype">
       <div class="k">OPRAVNÝ DAŇOVÝ DOKLAD</div>
-      <div class="n">W2026-0040</div>
-      <div class="s">k daňovému dokladu W2026-0038 (doplatek 1&nbsp;987&nbsp;Kč)</div>
+      <div class="n">OD2026-0040</div>
+      <div class="s">k daňovému dokladu DP2026-0038 (doplatek 1&nbsp;987&nbsp;Kč)</div>
     </div>
   </div>
 
   <div class="meta">
     <div><b>Datum vystavení</b>19. 7. 2026</div>
-    <div><b>Opravovaný doklad</b>W2026-0038</div>
+    <div><b>Opravovaný doklad</b>DP2026-0038</div>
     <div><b>Důvod opravy</b>storno rezervace zákazníkem 19. 7. 2026</div>
     <div><b>Rezervace</b>REZ-2026-0012</div>
   </div>
@@ -443,7 +445,7 @@ body.commenting{cursor:crosshair}
   </table>
   </div>
 
-  <div class="notebox"><b>Rezervační záloha 20&nbsp;% (497&nbsp;Kč) je dle smlouvy nevratná</b> — vrací se pouze doplatek.</div>
+  <div class="notebox"><b>Rezervační záloha 20&nbsp;% (497&nbsp;Kč) je dle smlouvy nevratná</b> — vrací se pouze doplatek. Na propadlou zálohu systém současně vystaví <b>fakturu FV2026-0018</b> (zúčtování zdaněné zálohy DP2026-0035) — dle připomínky účetního týmu 20. 7.</div>
 
   <div class="greensum">
     <div class="gi"><b>Vratka</b><span class="v">1&nbsp;987&nbsp;Kč</span><small style="color:var(--muted)">na účet odesílatele do 5 pracovních dnů</small></div>
@@ -464,7 +466,7 @@ body.commenting{cursor:crosshair}
     <div class="dlogo"><span class="dot">p</span>popojedu</div>
     <div class="dtype">
       <div class="k">POTVRZENÍ</div>
-      <div class="n">Kauce · REZ-2026-0012</div>
+      <div class="n">KC2026-0044</div>
       <div class="s">není daňový doklad</div>
     </div>
   </div>
@@ -501,7 +503,7 @@ body.commenting{cursor:crosshair}
     <div class="party">
       <div class="h">2 · Vrácení kauce — 28. 7. 2026</div>
       <div class="nm">9&nbsp;441&nbsp;Kč</div>
-      po konečném vyúčtování W2026-0036<br>
+      po konečném vyúčtování FV2026-0021<br>
       strženo 559&nbsp;Kč — nadlimitní kilometry
       <div class="sub">odesláno na účet, ze kterého kauce přišla</div>
     </div>
@@ -519,7 +521,11 @@ body.commenting{cursor:crosshair}
 <div class="designnote">
   <b class="h">Poznámky k návrhu</b>
   <ul>
-    <li>Čísla dokladů běží v jedné souvislé řadě <b>W2026-####</b> (rok se mění).</li>
+    <li><b>v2 (20. 7.) — zapracovány připomínky účetního týmu (Radek Mach).</b></li>
+    <li>Každý typ dokladu má <b>vlastní souvislou řadu</b>: VP (výzvy) · DP (daňové doklady k platbě) · FV (faktury/vyúčtování) · PP (pokuty) · OD (opravné) · KC (kauce); rok se mění.</li>
+    <li><b>DUZP daňového dokladu k platbě = datum přijetí platby</b> (vystavení do 15 dnů). Každá přijatá platba (záloha i doplatek) má vlastní doklad DP.</li>
+    <li>Vyúčtování odečítá <b>zdaněné přijaté platby s odkazem na čísla DP dokladů</b>; rekapitulace DPH = plnění / mínus již uplatněno / celkem.</li>
+    <li><b>Roční předěl:</b> pronájem přes 31. 12. → automatická faktura za část do konce roku (výnosy do správného období).</li>
     <li>Doklady <b>generuje web automaticky</b> v příslušném kroku rezervace.</li>
     <li>PDF jde zákazníkovi <b>e-mailem i do jeho účtu</b> na popojedu.cz.</li>
     <li>Do <b>ABRA Gen</b> jde účetní zápis automaticky <b>přes API</b> (se stejným číslem, částkami a DPH rozpisem).</li>
