@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="cs"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Popojedu — Data pro přehled o businessu (analýza, návrh)</title>
+<style>
+:root{--green:#00c853;--green-d:#00a847;--navy:#0a1f3f;--muted:#5b6b7e;--line:#e6ebf1;--bg:#fafbfc;--mint:#eef7f0}
+*{box-sizing:border-box}body{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;background:var(--bg);color:var(--navy);margin:0;line-height:1.6}
+.banner{position:sticky;top:0;z-index:50;background:#fff4d6;color:#8a6d1a;padding:10px 16px;font-size:13.5px;border-bottom:1px solid #eadfae}
+.banner b{color:#6b5410}
+.wrap{max-width:900px;margin:0 auto;padding:24px 20px 80px}
+h1{font-size:26px;line-height:1.25}h2{font-size:20px;margin-top:38px;border-bottom:2px solid var(--mint);padding-bottom:6px}h3{font-size:16.5px;margin-top:26px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin:14px 0}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:var(--mint)}tr:nth-child(even) td{background:#fff}
+code{background:#eef1f5;padding:1px 5px;border-radius:4px;font-size:0.9em}
+blockquote{border-left:3px solid var(--green);margin:12px 0;padding:4px 14px;color:var(--muted)}
+hr{border:none;border-top:1px solid var(--line);margin:28px 0}
+em{color:var(--muted)}
+#cbar{position:fixed;bottom:14px;right:14px;z-index:100;display:flex;gap:8px;background:var(--navy);padding:9px 12px;border-radius:999px;box-shadow:0 8px 26px rgba(10,31,63,.35);align-items:center}
+#cbar span{color:#fff;font-size:13px;font-weight:600}
+#cbar button{border:none;border-radius:999px;padding:7px 13px;font-size:13px;font-weight:700;cursor:pointer;background:#fff;color:var(--navy)}
+#cbar button.on{background:var(--green);color:#fff}
+.cpin{position:absolute;width:24px;height:24px;border-radius:50%;background:var(--green);color:#fff;font-size:12.5px;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:60;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.cbox{position:absolute;z-index:70;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;width:280px;box-shadow:0 10px 30px rgba(10,31,63,.2)}
+.cbox textarea{width:100%;height:70px;border:1px solid var(--line);border-radius:6px;padding:6px;font:inherit;font-size:13px}
+.cbox .row{display:flex;gap:6px;justify-content:flex-end;margin-top:6px}
+.cbox button{border:none;border-radius:6px;padding:5px 10px;font-size:12.5px;font-weight:700;cursor:pointer}
+.cbox .save{background:var(--green);color:#fff}.cbox .del{background:#f3f4f6;color:#b3261e}
+body.cmode article{cursor:crosshair}
+</style></head>
+<body>
+<div class="banner">✦ <b>NÁVRH k připomínkám</b> — analýza datových potřeb pro přehled o businessu (etapa 3 podklad). Zapni komentáře tlačítkem vpravo dole, klikni na místo v textu, napiš poznámku a nakonec „Zkopírovat" — text vlož do chatu Claudovi.</div>
+<div class="wrap"><article id="doc" style="position:relative"><h1>POPOJEDU — Jaká data potřebujeme, abychom měli optimální přehled o businessu</h1>
+<p><em>21. 7. 2026 · analýza pro RF · navazuje na <code>_handover/handover_statistiky-rentabilita-pro-web_2026-07-21.md</code> (finance — NEduplikuje se, jen doplňuje), <code>popojedu_etapa2_zadani_2026-07-17.md</code>, procesní analýzu 17. 7. a smluvní analýzu 20. 7.</em></p>
+<hr />
+<h2>1) Manažerské shrnutí</h2>
+<p>Finance a rentabilita jsou zmapované dobře (handover: CF vozu, obsazenost, režie, výsledek vs. cíl +100 000 Kč/měs., deadline 15. 10. 2026). <strong>Co dnes vidíme:</strong> poptávky z webu (vůz, termín, cena, odkud zákazník přišel), smlouvy a excelovou obsazenost, faktury v ABRA. <strong>Co nevidíme:</strong> proč poptávky NEdopadnou, poptávky mimo web (telefon/e-mail — dnes se nikde neevidují), proč vozy stojí, kolik nás stojí získání jednoho zákazníka, jestli se zákazníci vracejí a proč odcházejí, a kolik hodin reálně tráví dílna na čem.</p>
+<p><strong>5 nejcennějších dat, která zatím nikdo nesbírá:</strong>
+1. <strong>Poptávky mimo web + důvod ztráty/zamítnutí</strong> — bez toho je obchodní trychtýř slepý a nikdy nezjistíme, kolik byznysu proteklo kolem.
+2. <strong>Důvod neobsazenosti vozu</strong> (číselník: servis, bez poptávky, depozit…) — v handoveru navržen jako pohled, ale sbírat se musí ode dne go-live, zpětně nejde.
+3. <strong>Segment zákazníka</strong> (B2C / kurýr / Bolt-taxi / firma) jako povinné pole — dnes jen „v hlavě Romana"; bez něj nejde počítat, který segment vydělává.
+4. <strong>Důvod ukončení smlouvy</strong> (vlastní vůz, konkurence, cena, nespokojenost, neplatič…) — klíč k prodloužením a udržení, teď se nikde nezapisuje.
+5. <strong>Hodiny dílny per zakázka</strong> — vzorec marže servisu (faktury − díly − hodiny Aleše × 450 Kč) bez evidence hodin nejde spočítat.</p>
+<hr />
+<h2>2) Datová mapa byznysu po oblastech</h2>
+<h3>2.1 Akvizice a marketing (poptávka → smlouva)</h3>
+<p><strong>a) Otázky majitele:</strong> Kolik poptávek přišlo a odkud? Kolik z nich skončilo smlouvou a proč ostatní ne? Kolik mě stojí jeden nový zákazník z Ads? Který vůz/segment se poptává a nemáme ho?</p>
+<p><strong>b) Potřebná data (pole):</strong>
+- Poptávka: <code>zdroj</code> (web / telefon / e-mail / osobně / doporučení), <code>kanál</code> (UTM source/medium/campaign + gclid), <code>vůz</code>, <code>termín od–do</code>, <code>cena nabídnutá</code>, <code>segment zákazníka</code>, <code>datum+čas vzniku</code>.
+- Stavové přechody poptávky <strong>s časovými razítky</strong> (vznik → schváleno/alternativa/zamítnuto → smlouva → záloha → potvrzeno → expirace/storno) — z nich se počítá konverze každého kroku i rychlost naší reakce.
+- <code>důvod zamítnutí</code> (my) a <code>důvod ztráty</code> (zákazník necouvl podpisem/zálohou): číselník — vůz nedostupný, cena, nesplnil podmínky/KYC, nereagoval, našel jinde…
+- Marketing: útrata Ads per kampaň/den (účet 279-937-8205), web eventy (view_vehicle → begin_calculator → calculator_completed → begin_reservation → generate_lead).
+- <code>poptávaný vůz nedostupný</code> flag — signál, co dokoupit/přecenit.</p>
+<p><strong>c) Kde vznikají:</strong> web (formulář + GA4/GTM po go-live), HubSpot 148819647 (deal per poptávka), Google Ads (útrata), <strong>admin ručně</strong> (telefonní/e-mailové poptávky — musí existovat tlačítko „nová poptávka" na 30 sekund).</p>
+<p><strong>d) Už pokryto:</strong> web ukládá vůz, termín, cenu (amount v dealu), UTM+gclid s persistencí, test flag ✓ (stav k 21. 7.). Stavová mapa 9/13 stavů = etapa 2 (balík 2.3/2.5). HubSpot zrcadlo stavů = etapa 2 „průběžně". GA4 eventy definovány, nasazení při go-live ✓.</p>
+<p><strong>e) GAP:</strong> offline poptávky (telefon/e-mail) se neevidují vůbec · důvod zamítnutí/ztráty není nikde jako pole · časová razítka přechodů nejsou explicitně v zadání (audit log je, ale reporting nad ním ne) · propojení útraty Ads ↔ poptávka (cena akvizice) nikdo nepočítá · flag „poptávaný vůz nedostupný".</p>
+<h3>2.2 Zákazníci a smlouvy</h3>
+<p><strong>a) Otázky:</strong> Kolik mi zákazník za život přinese (LTV = součet všech jeho nájmů)? Kdo prodlužuje a kdo odchází — a proč? Kdo platí pozdě? Který segment je nejziskovější?</p>
+<p><strong>b) Potřebná data:</strong>
+- Zákazník: <code>segment</code> (B2C / kurýr / přeprava osob / firma / odkup), <code>typ</code> (FO/PO), <code>datum první smlouvy</code>, <code>počet smluv celkem</code>, <code>celkový obrat bez DPH</code>, <code>stav KYC + expirace dokladů</code>, <code>blacklist/poznámka rizika</code> (neplatič, poškození).
+- Smlouva: vše z etapy 2 (snapshot ceny, km, kauce, perioda, výpovědní doba) + <strong><code>důvod ukončení</code></strong> (číselník: doba uplynula, výpověď zákazník — proč, výpověď my — proč, předčasně dohodou, porušení podmínek) + <code>prodlouženo ano/ne</code> (dodatek).
+- Platební morálka: per platba <code>dní po splatnosti</code>, počet upomínek, čerpání kauce na dluh — agregát per zákazník („průměrné zpoždění").
+- Typ smlouvy standardní / individuální „na ruku" / odkupová + kanál platby (faktura firmě × pokladna RF × účet RF) — už v handoveru §1, web musí umět zaevidovat i tyhle.</p>
+<p><strong>c) Kde vznikají:</strong> web/admin (smlouvy, dodatky, ukončení), KB párování (splatnost vs. úhrada), HubSpot (kontakt), migrace ~50 smluv (etapa 2.2 — příznak „převzatá").</p>
+<p><strong>d) Už pokryto:</strong> snapshot podmínek, dodatky vč. předčasného ukončení (dohodou/porušením — dva režimy DPH), upomínky a lhůta neplatiče (nastavitelná per smlouva i zákazník), KYC vč. expirace dokladů, migrace s tachometrem — vše etapa 2.</p>
+<p><strong>e) GAP:</strong> <code>segment zákazníka</code> jako povinné strukturované pole (v zadání jen implicitně přes platební cyklus) · <code>důvod ukončení</code> smlouvy · LTV/obrat per zákazník jako pohled · agregovaná platební morálka (data vzniknou v 2.1.1, ale nikdo je neskládá per zákazník) · blacklist/riziková poznámka.</p>
+<h3>2.3 Flotila a provoz</h3>
+<p><strong>a) Otázky:</strong> Které auto vydělává a které stojí — a PROČ stojí? Jak dlouho trvá otočka vozu mezi nájmy? Kolik km auta jezdí (opotřebení vs. výnos)? Kde se hromadí škody a pokuty?</p>
+<p><strong>b) Potřebná data:</strong>
+- Vůz (klíč SPZ, dle handoveru §1): + <code>stav</code> (dostupný / pronajato / servis / depozit / nepojištěn / na prodej), <code>datum změny stavu</code> a <strong><code>důvod nedostupnosti</code></strong> (číselník z handoveru pohledu 3).
+- Obsazenost: generovat ze smluv/rezervací + servisních blokací (nahrazuje excel — handover §1) ✓; navíc <strong><code>doba otočky</code></strong> = hodiny mezi vrácením a dalším předáním (z protokolů).
+- Km: stav tachometru z každého protokolu (předání i vrácení) → měsíční nájezd per vůz → krmí servisní paušál i nadlimitní vyúčtování.
+- Škody: registr poškození per vůz (etapa 2.4) + u každého nového poškození <code>viník</code> (zákazník/nezjištěn), <code>vyúčtováno Kč</code>, <code>pojistná událost ano/ne</code>.
+- Pokuty: per vůz i per zákazník (kdo řídil), stav přeúčtování (+300 Kč), zaplaceno.
+- Předávky: počet protokolů per den/pracovník, podíl jednostranných, námitky zákazníků.</p>
+<p><strong>c) Kde vznikají:</strong> admin (stavy vozu, blokace), mobilní protokol (km, palivo, poškození, fotky — etapa 2.4), evidence pokut (2.1.5 doklad D), KB/Stripe (kauce).</p>
+<p><strong>d) Už pokryto:</strong> kalendář výpůjček + overlap check (2.3 C), protokoly s 9 fotopozicemi a tachometrem (2.4), registr poškození a výbavy u vozu (2.4), pokuty s povinnou přílohou (2.1.5), alerty smluv/servisu/obsazenosti (handover pohled 6).</p>
+<p><strong>e) GAP:</strong> <strong>důvod neobsazenosti se musí zadávat od go-live</strong> (v handoveru jen jako pohled etapy 3 — ale bez sběru nebude co zobrazit) · doba otočky (data budou v protokolech, chybí metrika) · vazba poškození → vyúčtovaná částka → pojistná událost (dnes tři nespojené věci) · pokuty per zákazník jako rizikový signál.</p>
+<h3>2.4 Servis a dílna</h3>
+<p><strong>a) Otázky:</strong> Vydělává dílna, nebo je to nákladové středisko? Kolik stojí servis vlastní flotily vs. kolik vynáší práce pro řidiče? Je Aleš vytížený?</p>
+<p><strong>b) Potřebná data:</strong>
+- Zakázka dílny: <code>typ</code> (interní — vůz flotily / externí — fakturace řidiči), <code>vůz (SPZ)</code>, <code>zákazník</code>, <code>díly Kč (bez DPH)</code>, <strong><code>hodiny práce</code></strong>, <code>datum</code>, <code>druh úkonu</code> (číselník úkonů = ceník, edituje Roman — handover §2).
+- Interní zakázky → náklad vozu (krmí Ø opravu v CF vzorci a validuje servisní paušál); externí → výnos (marže = faktura − díly − hodiny × 450 Kč, handover §2).
+- Vytížení: Σ hodin Aleše / fond měsíce; poměr interní × externí hodiny.</p>
+<p><strong>c) Kde vznikají:</strong> dnes ABRA (faktury za díly a vydané faktury) + papír/hlava; cílově admin webu (jednoduchá zakázka dílny), ABRA zůstává pro doklady.</p>
+<p><strong>d) Už pokryto:</strong> metodika marže servisu a servisní paušály dle km (handover §2), servisní blokace v kalendáři (2.3), ceník úkonů jako číselník (handover, koriguje Roman).</p>
+<p><strong>e) GAP:</strong> celá <strong>evidence zakázek dílny jako entita</strong> (hodiny, díly, typ, vazba na SPZ) — bez ní je „marže servisu" jen odhad z faktur; není v etapě 2 ani 3 → navrhnout jako malý modul (klidně etapa 3+, ale hodiny začít psát aspoň do sdílené tabulky hned) · přiřazení ABRA nákladových faktur k SPZ (inventura nákladů z ABRY je otevřený bod handoveru §5).</p>
+<h3>2.5 Finance a cash-flow (jen doplňky k handoveru)</h3>
+<p>Metodika CF vozu, ekonomický CF, režie, výsledek vs. cíl = hotovo v handoveru, neopakuji. <strong>Co v handoveru chybí:</strong></p>
+<ul>
+<li><strong>Pohledávky (saldo):</strong> ke každému dokladu <code>uhrazeno / po splatnosti X dní</code>; souhrn „kdo nám dluží kolik" — data vzniknou z KB párování (2.1.1), chybí jen pohled.</li>
+<li><strong>Kauce v držení:</strong> Σ přijatých nevyúčtovaných kaucí (závazek — nejsou to naše peníze) + zádržné 2 000 Kč s daty vratek; rozlišit převod × kartová blokace.</li>
+<li><strong>DPH pozice:</strong> Σ DPH na výstupu z dokladů DP/FV/PP za období (odhad, kolik odvedeme) — přesné číslo dělá ABRA, web jen orientační ukazatel.</li>
+<li><strong>Cash pozice:</strong> zůstatek KB účtu (z ADAA API) vedle měsíčního výsledku — výsledovka může být −360 tis. a přitom cash drží, nebo naopak.</li>
+<li><strong>Kanály mimo účet:</strong> platby „do pokladny RF / na účet RF" (handover §1) musí mít v adminu aspoň ruční záznam, jinak výsledovka lže.</li>
+<li>Vnitroskupinové přefakturace MA↔CO: příznak <code>vnitroskupina</code> na dokladu (vyloučení ze skupinového výsledku — handover §1).</li>
+</ul>
+<h3>2.6 Rizika a compliance</h3>
+<p><strong>a) Otázky:</strong> Co mi může způsobit škodu nebo pokutu jako firmě? Nekončí něco, o čem nevím?</p>
+<p><strong>b) Potřebná data + c) zdroje:</strong>
+- Termíny per vůz: STK, dálniční známka (obojí v servisním paušálu ✓), <strong>konec pojistky/zelené karty</strong>, konec leasingu/splátek (alert „financovaný → splacený" = handover pohled 6 ✓), lhůta výměny oleje.
+- Pojistné události: <code>datum</code>, <code>vůz</code>, <code>viník</code>, <code>spoluúčast 10 000 Kč — kdo nese</code>, <code>plnění pojišťovny Kč</code>, <code>stav</code> (nahlášeno/plněno/uzavřeno) — dnes nikde strukturovaně.
+- GDPR: retence KYC (šifrovaně, výmaz po promlčení — etapa 2.5 ✓), retence fotek protokolů (promlčecí lhůty ✓), <strong>žádost o výmaz</strong> (proces v účtu ✓), evidence souhlasů (Consent Mode v2 na webu ✓), RČ ven ze smluv (rozpor #5, otevřeno s právníkem).
+- Smluvní: verze VOP ke každé smlouvě (snapshot ✓), námitkové lhůty 24 h / 5 dní ✓.
+- Audit log všech akcí v adminu (2.3 A ✓) — kdo co změnil, nutné i pro spory.</p>
+<p><strong>d/e) GAP:</strong> <strong>evidence pojistných událostí a spoluúčastí</strong> jako entita (napojená na registr poškození) · konec pojistné smlouvy per vůz jako alert (handover má pojistné netto, ale ne datum konce) · souhrnný „compliance semafor" (počet vozů s prošlou STK/pojistkou/známkou = má být vždy 0).</p>
+<hr />
+<h2>3) Prioritizace</h2>
+<p><strong>P0 — musí sbírat web/admin od go-live (zpětně nedohnatelné):</strong>
+- Časová razítka všech stavových přechodů poptávky/rezervace — funnel a rychlost reakce se jinak nikdy nedopočítá.
+- Důvod zamítnutí/ztráty poptávky (číselník + volný text) — ztracený byznys beze stopy.
+- Ruční zadání offline poptávky (telefon/e-mail) v adminu — jinak měříme jen část trhu.
+- Segment zákazníka jako povinné pole poptávky/zákazníka — bez něj žádná segmentová analýza nikdy.
+- Důvod nedostupnosti vozu při každé blokaci (číselník z handoveru) — heatmapa etapy 3 jinak nebude mít data.
+- UTM+gclid persistence — ✓ už hotovo, jen nerozbít.
+- GA4/GTM/Clarity nasazení v den go-live (ne později) — každý den zpoždění = díra v datech.</p>
+<p><strong>P1 — etapa 2 (většina už v zadání, doplnit tučné):</strong>
+- Platby, párování, doklady, kauce vč. zdrojového účtu — v zadání ✓.
+- Protokoly s km/palivem/poškozeními, registr poškození — v zadání ✓; <strong>doplnit: viník + vazba na vyúčtování + flag pojistná událost</strong>.
+- Migrace 50 smluv s tachometrem — v zadání ✓; <strong>doplnit: segment a důvod ukončení i u převzatých</strong>.
+- <strong>Důvod ukončení smlouvy (číselník) při každém ukončení/výpovědi.</strong>
+- <strong>Kanál platby (účet/pokladna RF/faktura) u individuálních smluv.</strong>
+- <strong>Zůstatek KB + fronta pohledávek jako admin pohled</strong> (data z 2.1.1 už budou).</p>
+<p><strong>P2 — etapa 3 statistiky (nad daty z P0/P1):</strong>
+- 7 pohledů z handoveru (výsledkovka, žebříček vozů, obsazenost, režie, ceny, alerty, rentabilita projektu) — schváleno.
+- Navíc: funnel poptávek s konverzemi kroků · LTV a obrat per zákazník · platební morálka per zákazník · saldo pohledávek + kauce v držení · doba otočky vozu · compliance semafor.</p>
+<p><strong>P3 — nice-to-have (později):</strong>
+- Modul zakázek dílny (hodiny Aleše, interní/externí) — do té doby hodiny psát do sdílené tabulky, ať data rostou.
+- Cena akvizice ze spojení Ads útrata ↔ poptávky (jde počítat i ručně měsíčně).
+- Evidence pojistných událostí jako entita · benchmark cen konkurence automaticky (dnes ručně, handover pohled 5) · „Popojedu Klid" upsell data (backlog etapy 2).</p>
+<h2>4) Napojení na zdroje</h2>
+<table>
+<thead>
+<tr>
+<th>Zdroj</th>
+<th>Data</th>
+<th>Jak do adminu</th>
+<th>Frekvence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Web (Laravel)</td>
+<td>poptávky, rezervace, stavy, smlouvy, protokoly, doklady</td>
+<td>nativně (je to tentýž systém)</td>
+<td>živě</td>
+</tr>
+<tr>
+<td>KB API (ADAA)</td>
+<td>pohyby na účtu, párování VS, zdrojový účet kauce, zůstatek</td>
+<td>API (etapa 2.1.1)</td>
+<td>à 1 h</td>
+</tr>
+<tr>
+<td>ABRA Gen</td>
+<td>zápis dokladů tam; zpět: nákladové faktury (opravy, díly) per SPZ</td>
+<td>API zápis (2.1.6); náklady zprvu BI export/CSV import</td>
+<td>doklady živě (fronta), náklady měsíčně</td>
+</tr>
+<tr>
+<td>HubSpot 148819647</td>
+<td>zrcadlo dealů (jen ven)</td>
+<td>API one-way (etapa 2 průběžně)</td>
+<td>živě</td>
+</tr>
+<tr>
+<td>Google Ads 279-937-8205</td>
+<td>útrata per kampaň, konverze</td>
+<td>zprvu ručně/CSV měsíčně; API později (P3)</td>
+<td>měsíčně</td>
+</tr>
+<tr>
+<td>GA4 + GTM + Clarity</td>
+<td>web eventy, chování, zdroje návštěv</td>
+<td>nasazení při go-live; čtení přes GA4 rozhraní (ne nutně v adminu)</td>
+<td>denně</td>
+</tr>
+<tr>
+<td>Stripe (etapa 2.6)</td>
+<td>pre-auth kauce, stržení z karty</td>
+<td>API</td>
+<td>živě</td>
+</tr>
+<tr>
+<td>Signi</td>
+<td>stav podpisů smluv/dodatků/protokolů</td>
+<td>API/webhook (2.4)</td>
+<td>živě</td>
+</tr>
+<tr>
+<td>SharePoint excely (Lenka)</td>
+<td>režie.xlsx, vozový park — přechodně</td>
+<td>ruční import/přepis do admin číselníků; excel postupně končí (handover §5)</td>
+<td>měsíčně do náhrady</td>
+</tr>
+<tr>
+<td>Ručně v adminu</td>
+<td>offline poptávky, důvody (ztráta/neobsazenost/ukončení), platby mimo účet, zakázky dílny, pojistné události</td>
+<td>formuláře adminu (P0/P1)</td>
+<td>průběžně</td>
+</tr>
+</tbody>
+</table>
+<h2>5) Otevřené otázky pro RF (max 7)</h2>
+<ol>
+<li><strong>Offline poptávky:</strong> souhlasíš, že Roman (a kdokoli u telefonu) zadává KAŽDOU telefonickou/e-mailovou poptávku do adminu — i tu hned odmítnutou? Doporučení: ano, formulář na 30 sekund; jinak funnel nikdy nebude úplný.</li>
+<li><strong>Číselník důvodů ztráty poptávky</strong> — návrh: cena / vůz nedostupný / termín / nesplnil podmínky (KYC, věk) / nereagoval / našel jinde / jiné. Doporučení: schválit tento seznam, Roman může doplňovat.</li>
+<li><strong>Segmenty zákazníka</strong> — návrh: B2C krátkodobý / B2C dlouhodobý / kurýr / přeprava osob (Bolt-taxi) / firma / odkupový. Doporučení: potvrdit, je to páteř všech budoucích analýz.</li>
+<li><strong>Zakázky dílny:</strong> začne Aleš/Roman psát hodiny a díly per zakázka hned (sdílená tabulka jako mezikrok, modul později)? Doporučení: ano od srpna — jinak je marže servisu (páka k cíli +100 tis.) nespočitatelná; navazuje na otevřený bod „výnosy servisu z faktur" (handover §5).</li>
+<li><strong>Platby mimo účet</strong> („do pokladny RF / na účet RF"): mají se evidovat v adminu (jen záznam, žádné doklady)? Doporučení: ano — bez nich výsledovka půjčovny není úplná; citlivost vyřešit rolí (viz otázka 7).</li>
+<li><strong>Pojistné události a spoluúčasti:</strong> stačí zatím pole u poškození (pojistka ano/ne, plnění Kč, spoluúčast nese kdo), nebo chceš samostatnou evidenci? Doporučení: pole u poškození v etapě 2.4, entita až podle objemu.</li>
+<li><strong>Role a citlivá data</strong> (navazuje na handover §5): potvrdit matici — RF+Lenka vše · Roman provoz bez marží a nákupních cen · pracovník jen protokoly a kalendář? Doporučení: takto, ať to Martin založí správně od začátku.</li>
+</ol>
+<hr />
+<p><em>Připravil Claude (Fable) na pokyn RF, 21. 7. 2026. Navazuje na handover statistiky-rentabilita a zadání etapy 2.</em></p></article></div>
+<div id="cbar"><span id="cnt">0 komentářů</span><button id="ctoggle">Komentáře: VYP</button><button id="ccopy">Zkopírovat</button><button id="cclear">Smazat vše</button></div>
+<script>
+(function(){var KEY='data-prehled-comments-v1',doc=document.getElementById('doc'),mode=false,comments=JSON.parse(localStorage.getItem(KEY)||'[]');
+function save(){localStorage.setItem(KEY,JSON.stringify(comments));render();}
+function nearestHeading(y){var hs=[].slice.call(doc.querySelectorAll('h1,h2,h3')),best='(začátek)';hs.forEach(function(h){if(h.offsetTop<=y)best=h.textContent.trim();});return best;}
+function render(){[].slice.call(doc.querySelectorAll('.cpin,.cbox')).forEach(function(e){e.remove()});
+comments.forEach(function(c,i){var p=document.createElement('div');p.className='cpin';p.textContent=i+1;p.style.left=(c.x-12)+'px';p.style.top=(c.y-12)+'px';p.onclick=function(e){e.stopPropagation();openBox(i)};doc.appendChild(p);});
+document.getElementById('cnt').textContent=comments.length+' komentářů';}
+function openBox(i){var c=comments[i];var b=document.createElement('div');b.className='cbox';b.style.left=Math.min(c.x,doc.clientWidth-290)+'px';b.style.top=(c.y+14)+'px';
+b.innerHTML='<div style="font-size:11.5px;color:#5b6b7e;margin-bottom:4px">#'+(i+1)+' · '+c.sec+'</div><textarea>'+(c.text||'')+'</textarea><div class="row"><button class="del">Smazat</button><button class="save">Uložit</button></div>';
+b.querySelector('.save').onclick=function(){c.text=b.querySelector('textarea').value;b.remove();save();};
+b.querySelector('.del').onclick=function(){comments.splice(i,1);b.remove();save();};
+doc.appendChild(b);b.querySelector('textarea').focus();}
+doc.addEventListener('click',function(e){if(!mode)return;if(e.target.closest('.cpin,.cbox'))return;var r=doc.getBoundingClientRect();var x=e.clientX-r.left,y=e.clientY-r.top;comments.push({x:x,y:y,sec:nearestHeading(y),text:''});save();openBox(comments.length-1);});
+document.getElementById('ctoggle').onclick=function(){mode=!mode;this.textContent='Komentáře: '+(mode?'ZAP':'VYP');this.classList.toggle('on',mode);document.body.classList.toggle('cmode',mode);};
+document.getElementById('ccopy').onclick=function(){var t='KOMENTÁŘE K NÁVRHU — Data pro přehled o businessu (21. 7. 2026)\n'+comments.map(function(c,i){return (i+1)+'. [sekce: '+c.sec+'] '+(c.text||'(bez textu)')}).join('\n');navigator.clipboard.writeText(t).then(function(){alert('Zkopírováno ('+comments.length+')')});};
+document.getElementById('cclear').onclick=function(){if(confirm('Smazat všechny komentáře?')){comments=[];save();}};
+render();})();
+</script></body></html>
