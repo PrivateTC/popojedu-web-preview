@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PŘEDLOHA v1-2.1 — Homepage v8 FINÁL | Popojedu.cz facelift</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   POPOJEDU FACELIFT v1-2.1 — HOMEPAGE v8 „FINÁL — KANONICKÁ" (předloha; základ v7 TRENDY 2026)
+   FINÁLNÍ KANONICKÁ PŘEDLOHA. v8 = v7 + dvě úpravy dle RF (8. 8. 2026):
+   A) BEZ TEPLÉHO PÍSKU — podklad zpět čistě bílý, střídání sekcí velmi
+      světlou chladně-neutrální šedou #F6F8FA (jako v6). Proměnné
+      --sand/--sand-deep/--sand-line přemapovány na neutrál; teplé
+      hnědavé stíny vráceny na chladné rgba(0,32,64,…).
+   B) JEMNÉ PŘEPÍNAČE (RF: „přepínátka mi přijdou humpolácké") —
+      všechny segmentové přepínače (Krátkodobě/Dlouhodobě, Osobní/
+      Přepravní, s DPH/bez DPH 2×, převodovka, osoba/firma) přepracovány
+      z těžkých navy pilulek na lehký iOS-like segmented: světlá lišta,
+      aktivní = bílá dlaždice s jemným stínem a navy textem, menší
+      typografie, přechod 0,2 s, tap target ≥40 px. JS a logika beze změny.
+   Níže původní popis v7 (vše ostatní z v7 zachováno):
+   Druhá ukázka faceliftu: v6 ODLEHČENO + kurátorsky vybrané web
+   design trendy 2026 vhodné pro DŮVĚRYHODNOU autopůjčovnu.
+   CO v7 PŘIDÁVÁ PROTI v6 (v6 zůstává beze změny jako srovnání):
+   1) VÝRAZNÁ HERO TYPOGRAFIE — headline jako hlavní vizuální
+      prvek stránky: 32 px mobil / 52 px desktop, váha 800,
+      prostrkání −.025/−.03em, zvýrazněné slovo zeleným
+      „fixou" podtržením (gradient na <em>); podnadpis lehčí
+   2) [v8 ODEBRÁNO — viz blok A výše] TEPLÝ MINIMALISMUS — pískový neutrál
+      --sand (v8 přemapováno na #F6F8FA) střídá bílou v sekcích (hero, konfigurátor,
+      sleva, přistavení, formulář); brand zelená/navy BEZE ZMĚNY,
+      jen zasazené do teplejšího podkladu; kontrast textů ≥ 4,5:1
+   3) JEMNÉ MICRO-ANIMACE — scroll-reveal (IntersectionObserver,
+      fade + slide-up 14 px, luxury easing cubic-bezier(.22,.61,.36,1),
+      .7 s, stagger 70 ms); hover lift karet (translateY + stín) jen
+      na hover zařízeních; prefers-reduced-motion vše vypíná;
+      BEZ JS je vše viditelné (třídy přidává až JS) + pojistka 2 s
+   4) TACTILE KARTY (jemný neumorphism) — dvojitý stín light/dark
+      + inset světlá linka nahoře na konfigurátoru, kartách vozů,
+      dlaždicích a formuláři; velmi decentní, žádné gumové bubliny
+   5) KLIDNĚJŠÍ FORMULÁŘ — 3 vizuální kroky (Kdo poptává ·
+      Kontaktní údaje · Termín a poznámka) s číslem a jemným
+      oddělovačem místo stěny polí; pole i logika beze změny
+   Z v6 zachováno VŠE beze změny: odlehčení (vzduch 48/84,
+   jemné stíny, málo emoji, klidná škála písma), sticky cenový
+   box (cena a CTA pod sebou, nikdy se nepřekrývají), cenový
+   model z lookup tabulky CARS (týdenní/měsíční sazby per vůz,
+   NIKDY nedopočítávat), km radio (předem −30 % default /
+   doplatek), celková cena za dobu, Osobní/Přepravní, slevy
+   3/6/12, DPH přepínač (s DPH výchozí), slidery bez scroll-trapu
+   (touch-action:manipulation + tameSlider), fonty 16 px, kurýři
+   skrytí nad foldem, telefon jen v patičce, spoluúčast 10 % ze
+   škody min. 10 000 Kč, platba převod/QR, jediná poptávka,
+   toolbar Desktop/Mobil 390 + Změny, komentovací vrstva (klíč v8).
+   Odkazy: detail → v1-2.1-detail-vozu-v5.html · ceník → v1-2.1-cenik-v3.html
+   Brand: zelená #00C853 · navy #002040 · bílá + neutrální šedá #F6F8FA
+   ============================================================ */
+:root{
+  --green:#00C853; --green-dark:#00A946; --green-tint:#eafaf1;
+  --navy:#002040; --ink:#22384e; --muted:#5b6b80; --soft:#8a99ad;
+  --line:#e8edf3; --bg:#f7f9fb; --amber:#b45309; --amber-bg:#fef3e2;
+  /* v8: chladně-neutrální podklad (RF: teplý písek odebrán) — proměnné
+     --sand ponechány kvůli všem použitím, jen přemapovány na neutrál */
+  --sand:#f6f8fa; --sand-deep:#eef1f5; --sand-line:#e8edf3;
+  /* v7: „luxury" easing — pomalé, klidné dojezdy */
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --radius:10px; --radius-lg:16px;
+  --shadow:0 1px 2px rgba(0,32,64,.04),0 6px 18px rgba(0,32,64,.06);
+  /* v7: tactile (jemný neumorphism) — dvojitý stín + světlý inset */
+  --shadow-tactile:inset 0 1px 0 rgba(255,255,255,.85),0 1px 2px rgba(0,32,64,.04),0 10px 26px rgba(0,32,64,.07);
+  --font:'Inter',-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font);color:var(--ink);background:#fff;line-height:1.6;position:relative}
+img{display:block;max-width:100%}
+a{color:var(--navy)}
+button{font-family:var(--font)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 18px}
+h1,h2,h3,h4{color:var(--navy);line-height:1.25}
+h2{font-size:22px;font-weight:700;letter-spacing:-.01em}
+h3{font-weight:600}
+.kicker{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--green-dark);margin-bottom:10px}
+.sec-sub{font-size:14px;color:var(--muted);margin-top:8px;max-width:62ch}
+section{padding:48px 0}
+/* v8: střídání sekcí chladně-neutrální světlou šedou (písek odebrán) */
+.sand{background:var(--sand)}
+@media(min-width:821px){
+  section{padding:84px 0}
+  h2{font-size:27px}
+}
+
+/* ---------- v7: SCROLL-REVEAL (jemné micro-animace) ----------
+   Třídy .rv přidává až JS (bez JS je vše normálně viditelné);
+   prefers-reduced-motion animace úplně vypíná. */
+@media(prefers-reduced-motion:no-preference){
+  html.js-anim .rv{opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  html.js-anim .rv.in{opacity:1;transform:none}
+}
+
+/* ---------- header — bez telefonu ---------- */
+.hd{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.hd-in{display:flex;align-items:center;gap:8px;min-height:60px}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;margin-right:auto}
+.logo-p{width:32px;height:32px;border-radius:50%;background:var(--green);color:#fff;font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center;flex:0 0 32px}
+.logo b{font-size:17.5px;color:var(--navy);font-weight:800;letter-spacing:-.01em}
+.hd-nav{display:none;gap:2px;align-items:center}
+.hd-nav a{font-size:14px;font-weight:500;text-decoration:none;padding:8px 12px;border-radius:8px;color:var(--ink)}
+.hd-nav a:hover{background:var(--bg)}
+.hd-nav a.cta{background:var(--green);color:var(--navy);font-weight:700;margin-left:8px}
+.menu-btn{border:1px solid var(--line);background:#fff;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--navy);padding:9px 14px;cursor:pointer;min-height:44px}
+.m-nav{display:none;background:#fff;border-bottom:1px solid var(--line);padding:6px 18px 14px}
+.m-nav.open{display:block}
+.m-nav a{display:block;padding:13px 4px;font-size:15px;font-weight:500;text-decoration:none;border-bottom:1px solid var(--bg)}
+@media(min-width:821px){
+  .hd-nav{display:flex}
+  .menu-btn{display:none}
+}
+
+/* ---------- hero — v8: typografie jako hlavní prvek + neutrální podklad ---------- */
+.hero{background:linear-gradient(180deg,var(--sand) 0%,#fff 88%);padding:32px 0 40px}
+.hero-grid{display:grid;gap:28px}
+.badge{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:500;color:var(--green-dark);background:var(--green-tint);border-radius:999px;padding:5px 13px;margin-bottom:14px}
+.badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green)}
+.hero h1{font-size:32px;font-weight:800;letter-spacing:-.025em;line-height:1.12;margin-bottom:14px}
+/* v7: zvýrazněné slovo — zelený „fixou" podtah (gradient, ne barva textu) */
+.hero h1 em{font-style:normal;background:linear-gradient(180deg,transparent 64%,rgba(0,200,83,.30) 64%)}
+.hero .lead{font-size:15px;font-weight:400;color:var(--muted);max-width:52ch}
+.stars{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);margin:16px 0 22px}
+.stars b{color:var(--navy)}
+.stars .st{color:#f5a623;letter-spacing:1px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:12px 24px;background:var(--green);color:var(--navy);font-weight:700;font-size:15px;border:none;border-radius:var(--radius);cursor:pointer;text-decoration:none;transition:filter .3s var(--ease),transform .3s var(--ease);text-align:center}
+.btn:hover{filter:brightness(1.05)}
+.btn.block{display:flex;width:100%}
+.btn.ghost{background:#fff;border:1px solid var(--navy);color:var(--navy);font-weight:600}
+.hero .under{font-size:12.5px;color:var(--muted);margin-top:12px}
+.hero .under b{color:var(--navy)}
+.hero-img{border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow)}
+.hero-img img{width:100%;aspect-ratio:16/10;object-fit:cover}
+@media(min-width:900px){
+  .hero{padding:64px 0 72px}
+  .hero-grid{grid-template-columns:1.05fr .95fr;align-items:center;gap:56px}
+  .hero h1{font-size:52px;letter-spacing:-.03em}
+  .hero .lead{font-size:16px}
+  .hero .btn{width:auto}
+}
+
+/* ---------- trust strip — v6: světlý, jen 2 tvrzení + recenze ---------- */
+.trust{background:#fff;border-bottom:1px solid var(--line);padding:16px 0}
+.trust-in{display:flex;gap:10px 32px;flex-wrap:wrap;justify-content:center}
+.trust-in span,.trust-in a{font-size:13px;font-weight:500;color:var(--muted);display:inline-flex;align-items:center;gap:7px;text-decoration:none}
+.trust-in .tick{color:var(--green-dark);font-weight:700}
+.trust-in a b{color:var(--navy)}
+.trust-in a .st{color:#f5a623}
+
+/* ---------- konfigurátor (sheet) — v8: neutrální podklad + tactile karta ---------- */
+.cfg-sec{background:var(--sand)}
+.cfg-card{background:#fff;border:1px solid var(--sand-line);border-radius:var(--radius-lg);box-shadow:var(--shadow-tactile);overflow:hidden;max-width:680px;margin:0 auto}
+.cfg-head{padding:24px 22px 6px}
+.cfg-head h2{font-size:21px}
+.cfg-head p{font-size:13.5px;color:var(--muted);margin-top:5px}
+.cfg-body{padding:16px 22px 4px}
+/* v8: JEMNÉ PŘEPÍNAČE (RF: „přepínátka mi přijdou humpolácké") —
+   lehký iOS-like segmented místo těžkých navy pilulek: světlá lišta
+   s tenkou linkou, aktivní volba = bílá dlaždice s jemným stínem a
+   navy textem (žádný plný tmavý blok), menší kultivovanější písmo,
+   přechod .2 s. Tap target drží ≥40 px přes min-height. */
+.seg{display:flex;background:var(--sand-deep);border:1px solid var(--line);border-radius:9px;padding:3px;gap:2px}
+.seg button{flex:1;border:none;background:transparent;border-radius:6px;font-size:13px;font-weight:500;letter-spacing:.01em;color:var(--muted);padding:8px 10px;cursor:pointer;min-height:40px;transition:background .2s var(--ease),color .2s var(--ease),box-shadow .2s var(--ease)}
+.seg button:hover{color:var(--navy)}
+/* a11y v8: aktivní dlaždice jistější — jemný 1px okraj (v box-shadow) +
+   výraznější stín, ať je „vybráno" čitelné i na levném displeji; stále lehké */
+.seg button.on{background:#fff;color:var(--navy);font-weight:600;box-shadow:0 0 0 1px rgba(0,32,64,.06),0 1px 2px rgba(0,32,64,.12),0 2px 6px rgba(0,32,64,.14)}
+.seg.small button{min-height:40px;padding:6px 10px;font-size:12.5px}
+@media(prefers-reduced-motion:reduce){.seg button{transition:none}}
+.cfg-row{margin:24px 0}
+.cfg-row>label{display:flex;justify-content:space-between;align-items:baseline;font-size:13.5px;font-weight:600;color:var(--navy);margin-bottom:10px}
+.cfg-row>label output{font-size:15px;font-weight:700;color:var(--green-dark)}
+/* slidery — beze změny z v5: touch-action:manipulation + drag jen za thumb
+   (tameSlider), chipy = primární ovládání */
+input[type=range]{width:100%;appearance:none;-webkit-appearance:none;height:34px;background:transparent;touch-action:manipulation;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:999px;background:linear-gradient(90deg,var(--green) var(--fill,50%),var(--line) var(--fill,50%))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:#fff;border:2px solid var(--green);box-shadow:0 1px 5px rgba(0,32,64,.18);margin-top:-11px}
+input[type=range]::-moz-range-track{height:6px;border-radius:999px;background:var(--line)}
+input[type=range]::-moz-range-progress{height:6px;border-radius:999px;background:var(--green)}
+input[type=range]::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:#fff;border:2px solid var(--green);box-shadow:0 1px 5px rgba(0,32,64,.18)}
+.qchips{display:flex;gap:8px;margin-top:6px}
+.qchips button{flex:1;border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 4px;cursor:pointer;line-height:1.3;min-height:48px;transition:border-color .3s var(--ease),background .3s var(--ease)}
+.qchips button b{display:block;font-size:13.5px;font-weight:600;color:var(--navy)}
+.qchips button span{font-size:11px;color:var(--muted);font-weight:500}
+.qchips button.on{border-color:var(--green);background:var(--green-tint)}
+.qchips button.on span{color:var(--green-dark)}
+.cfg-note{font-size:12px;color:var(--muted);margin-top:8px}
+.kmopt{display:flex;flex-direction:column;gap:8px;margin-top:2px}
+.kmo{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:11px 13px;cursor:pointer;background:#fff;transition:border-color .3s var(--ease),background .3s var(--ease)}
+.kmo.on{border-color:var(--green);background:var(--green-tint)}
+.kmo input{width:20px;height:20px;accent-color:var(--green);margin-top:1px;flex:0 0 20px;cursor:pointer}
+.kmo .t b{display:block;font-size:13.5px;font-weight:600;color:var(--navy)}
+.kmo .t .sub{font-size:12px;color:var(--muted)}
+.kmo .rec{display:inline-block;background:var(--green-tint);color:var(--green-dark);font-size:10.5px;font-weight:700;border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:1px}
+select{width:100%;padding:13px 12px;border:1px solid var(--line);border-radius:var(--radius);font-family:var(--font);font-size:16px;background:#fff;color:var(--navy);min-height:50px}
+.vat-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:18px 0}
+.vat-row .lbl{font-size:13.5px;font-weight:600;color:var(--navy)}
+.vat-row .seg{flex:0 0 190px}
+/* v6 🔴 STICKY VÝSLEDEK (beze změny proporcí, v7 jen jemný blur):
+   cena a CTA se NIKDY nepřekrývají. Mobil: sloupec — cena nahoře, CTA
+   v plné šíři pod ní. Desktop (≥600): řádek s flexem, cena smí zalomit. */
+.cfg-result{position:sticky;bottom:0;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line);box-shadow:0 -4px 14px rgba(0,32,64,.05);padding:14px 22px calc(14px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:12px;z-index:5}
+.cfg-price{min-width:0;line-height:1.3}
+.cfg-price .cap{display:block;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cfg-price b{display:block;font-size:21px;font-weight:700;color:var(--navy)}
+.cfg-price .sub{display:flex;flex-wrap:wrap;gap:2px 14px;font-size:12px;color:var(--muted);margin-top:3px}
+.cfg-result .btn{width:100%}
+@media(min-width:600px){
+  .cfg-result{flex-direction:row;align-items:center;gap:16px}
+  .cfg-price{flex:1}
+  .cfg-result .btn{width:auto;flex:0 0 auto;padding:12px 20px;font-size:14.5px}
+}
+
+/* přepínač účelu (osobní / přepravní služby) + hint */
+.purpose-row{margin-top:10px}
+.purpose-hint{display:none;font-size:11.5px;color:var(--muted);margin-top:8px}
+
+/* ---------- vozy — v7: tactile karty + hover lift ---------- */
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0 24px}
+.filters .f{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:500;color:var(--muted)}
+.filters select{width:auto;min-height:42px;padding:8px 10px;font-size:16px}
+.filters .seg{padding:3px}
+.filters .seg button{min-height:40px;padding:6px 12px;font-size:12.5px;flex:0 0 auto}
+.grid{display:grid;gap:20px}
+@media(min-width:640px){.grid{grid-template-columns:1fr 1fr}}
+@media(min-width:980px){.grid{grid-template-columns:1fr 1fr 1fr;gap:24px}}
+.card{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.85),0 1px 2px rgba(0,32,64,.03);transition:box-shadow .45s var(--ease);display:flex;flex-direction:column}
+.card:hover{box-shadow:var(--shadow)}
+/* v7: hover lift jen na zařízeních s kurzorem a bez reduced-motion */
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+  .card{transition:box-shadow .45s var(--ease),transform .45s var(--ease)}
+  .card:hover{transform:translateY(-4px);box-shadow:0 2px 4px rgba(0,32,64,.05),0 16px 34px rgba(0,32,64,.10)}
+  .btn:hover{transform:translateY(-1px)}
+  button.tile:hover{transform:translateY(-2px)}
+}
+.card .cover{position:absolute;inset:0;z-index:1;border-radius:var(--radius-lg)}
+.card .imgw{position:relative}
+.card img{width:100%;aspect-ratio:3/2;object-fit:cover;background:var(--bg)}
+.card .cat{position:absolute;top:10px;left:10px;background:rgba(255,255,255,.92);color:var(--navy);font-size:11.5px;font-weight:600;border-radius:999px;padding:4px 11px}
+.card .minlock{position:absolute;left:10px;bottom:10px;background:var(--amber-bg);color:var(--amber);font-size:11.5px;font-weight:600;border-radius:999px;padding:4px 11px;display:none}
+.card.locked .minlock{display:inline-block}
+.card.locked img{filter:grayscale(.45);opacity:.85}
+.card .pad{padding:16px 16px 18px;display:flex;flex-direction:column;flex:1}
+.card h3{font-size:15.5px;margin-bottom:6px}
+.card .chips{font-size:12px;color:var(--muted);margin-bottom:12px}
+.price-line{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;margin-bottom:4px;margin-top:auto}
+.price-line b{font-size:18px;font-weight:700;color:var(--navy)}
+.price-line .vat{font-size:11.5px;font-weight:600;color:var(--green-dark)}
+.price-line .alt{font-size:12px;color:var(--muted)}
+.card.locked .price-line{opacity:.5}
+.card .kmnote{font-size:11.5px;color:var(--muted);margin-bottom:12px}
+.card.locked .kmnote{opacity:.5}
+.card .row{display:flex;gap:10px;align-items:center;position:relative;z-index:2}
+.card .row .btn{flex:1;min-height:46px;font-size:14.5px;padding:10px 12px}
+.card.locked .row .btn{background:var(--line);color:var(--soft);pointer-events:none}
+.card .row .dlink{font-size:13.5px;font-weight:500;text-decoration:underline;padding:12px 4px;white-space:nowrap}
+
+/* ---------- sleva / kroky / přistavení — v7: tactile dlaždice ---------- */
+.tiles{display:grid;gap:14px}
+@media(min-width:640px){.tiles{grid-template-columns:repeat(4,1fr)}.tiles.t3{grid-template-columns:repeat(3,1fr)}}
+.tile{border:1px solid var(--sand-line);border-radius:14px;padding:20px 14px;text-align:center;background:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 1px 2px rgba(0,32,64,.03)}
+.tile .big{font-size:20px;font-weight:700;color:var(--green-dark)}
+.tile .cap{font-size:13px;font-weight:500;color:var(--navy);margin-top:3px}
+.tile.hl{border-color:var(--green)}
+button.tile{cursor:pointer;font-family:var(--font);width:100%;transition:border-color .3s var(--ease),transform .3s var(--ease),box-shadow .3s var(--ease)}
+button.tile:hover{border-color:var(--green)}
+button.tile:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.tile .big,.tile .cap{display:block}
+.steps{display:grid;gap:16px;counter-reset:krok}
+@media(min-width:768px){.steps{grid-template-columns:repeat(3,1fr);gap:20px}}
+.step{border:1px solid var(--line);border-radius:14px;padding:22px 20px;background:#fff;position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 1px 2px rgba(0,32,64,.03)}
+.step .num{width:34px;height:34px;border-radius:50%;background:var(--green-tint);color:var(--green-dark);font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.step h3{font-size:15.5px;margin-bottom:6px}
+.step p{font-size:13.5px;color:var(--muted)}
+.dtile{border:1px solid var(--sand-line);border-radius:14px;padding:22px 20px;background:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 1px 2px rgba(0,32,64,.03)}
+.dtile h3{font-size:15px;margin-bottom:5px}
+.dtile p{font-size:13.5px;color:var(--muted)}
+.dtile b{color:var(--navy)}
+
+/* ---------- FAQ ---------- */
+.faq details{border:1px solid var(--line);border-radius:12px;margin-bottom:10px;background:#fff;overflow:hidden}
+.faq details[open]{border-color:#c8e9d5}
+.faq summary{list-style:none;cursor:pointer;font-size:14.5px;font-weight:600;color:var(--navy);padding:16px 46px 16px 18px;position:relative;min-height:48px;display:flex;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:20px;font-weight:400;color:var(--soft)}
+.faq details[open] summary::after{content:'×'}
+.faq .a{padding:0 18px 16px;font-size:13.5px;color:var(--muted)}
+/* v6: servisní box světlý se zeleným proužkem — v8 na neutrálním tónu */
+.servis-note{background:var(--sand);border:1px solid var(--sand-line);border-left:3px solid var(--green);border-radius:12px;color:var(--muted);font-size:13.5px;padding:18px 20px;margin-top:28px}
+.servis-note b{color:var(--navy)}
+
+/* ---------- formulář — v8: neutrální podklad + 3 vizuální kroky ---------- */
+.form-sec{background:var(--sand)}
+.form-card{background:#fff;border:1px solid var(--sand-line);border-radius:var(--radius-lg);box-shadow:var(--shadow-tactile);max-width:680px;margin:0 auto;padding:26px 22px 26px}
+.form-sub{font-size:13.5px;color:var(--muted);margin-top:6px}
+.sum{background:var(--sand);border-radius:12px;padding:16px;margin:18px 0 20px;font-size:13.5px}
+.sum h3{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:9px}
+.sum .r{display:flex;justify-content:space-between;gap:10px;padding:3px 0}
+.sum .r b{color:var(--navy);font-weight:600;text-align:right}
+.sum .r.tot{border-top:1px solid var(--sand-line);margin-top:7px;padding-top:9px}
+.sum .r.tot b{color:var(--green-dark);font-size:15px;font-weight:700}
+/* v7: krokové vedení formuláře — číslo + titulek + jemný oddělovač */
+.f-step{display:flex;align-items:center;gap:10px;margin:26px 0 2px;padding-top:20px;border-top:1px solid var(--line)}
+.f-step.first{margin-top:6px;padding-top:0;border-top:none}
+.f-step .n{width:26px;height:26px;border-radius:50%;background:var(--green-tint);color:var(--green-dark);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:0 0 26px}
+.f-step b{font-size:13.5px;font-weight:600;color:var(--navy)}
+.f-label{display:block;font-size:13px;font-weight:600;color:var(--navy);margin:15px 0 6px}
+.f-in{width:100%;padding:13px 12px;border:1px solid var(--line);border-radius:var(--radius);font-family:var(--font);font-size:16px;background:#fafbfd;min-height:50px;transition:border-color .3s var(--ease),background .3s var(--ease)}
+.f-in:focus{outline:2px solid var(--green);border-color:var(--green);background:#fff}
+textarea.f-in{min-height:80px;resize:vertical}
+.f-2col{display:grid;gap:0 16px}
+@media(min-width:560px){.f-2col{grid-template-columns:1fr 1fr}}
+.firm-only{display:none}
+.form-card.firma .firm-only{display:block}
+.chk{display:flex;gap:12px;align-items:flex-start;font-size:13px;color:var(--muted);line-height:1.5;cursor:pointer;padding:10px 2px;margin-top:10px;border-radius:8px}
+.chk:active{background:var(--bg)}
+.chk input{width:24px;height:24px;flex:0 0 24px;accent-color:var(--green);margin-top:0;cursor:pointer}
+.chk a{color:var(--green-dark)}
+.form-card .btn{margin-top:14px}
+.form-foot{font-size:12.5px;color:var(--muted);text-align:center;margin-top:14px}
+.form-foot b{color:var(--navy)}
+
+/* ---------- footer ---------- */
+footer{background:var(--navy);color:#b9c4d6;padding:44px 0 34px;font-size:13px}
+.ft-grid{display:grid;gap:28px}
+@media(min-width:768px){.ft-grid{grid-template-columns:1.3fr 1fr 1fr 1fr}}
+.ft h4{color:#fff;font-size:13.5px;margin-bottom:12px}
+.ft a{display:block;color:#b9c4d6;text-decoration:none;padding:4px 0}
+.ft a:hover{color:#fff}
+.ft .c{padding:3px 0}
+.ft .c a{display:inline;color:#fff;font-weight:600}
+.legal{border-top:1px solid rgba(255,255,255,.14);margin-top:28px;padding-top:16px;font-size:11.5px;color:#8494ab;line-height:1.7}
+
+/* ---------- sticky CTA lišta (mobil) ---------- */
+.cta-bar{position:fixed;left:0;right:0;bottom:0;z-index:70;background:#fff;border-top:1px solid var(--line);box-shadow:0 -4px 14px rgba(0,32,64,.08);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:flex;gap:10px;align-items:center;transform:translateY(110%);transition:transform .25s ease}
+.cta-bar.show{transform:translateY(0)}
+.cta-bar .btn{flex:1;min-height:50px}
+@media(min-width:821px){.cta-bar{display:none}}
+body.has-bar{padding-bottom:0}
+
+/* ---------- komentovací vrstva ---------- */
+.cmt-fab{position:fixed;right:14px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:90;display:flex;flex-direction:column;gap:8px}
+@media(min-width:821px){.cmt-fab{bottom:22px}}
+.cmt-fab button{width:48px;height:48px;border-radius:50%;border:none;font-size:19px;cursor:pointer;background:var(--navy);color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.cmt-fab button.act{background:#ff7a00}
+body.commenting{cursor:crosshair}
+body.commenting a,body.commenting button:not(.cmt-ui):not(.cmt-pin){pointer-events:none}
+body.commenting .cmt-fab button{pointer-events:auto}
+.cmt-pin{pointer-events:auto;position:absolute;z-index:85;width:26px;height:26px;border-radius:50%;background:#ff7a00;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.35);border:2px solid #fff;transform:translate(-50%,-50%)}
+.cmt-pop{pointer-events:auto;position:absolute;z-index:95;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.25);padding:12px;width:min(300px,86vw)}
+.cmt-pop .ctx{font-size:11px;color:var(--muted);margin-bottom:6px}
+.cmt-pop textarea{width:100%;min-height:70px;border:1.5px solid var(--line);border-radius:8px;font-family:var(--font);font-size:13.5px;padding:8px}
+.cmt-pop .r{display:flex;gap:8px;margin-top:8px}
+.cmt-pop button{flex:1;border:none;border-radius:8px;padding:9px;font-weight:700;font-size:13px;cursor:pointer}
+.cmt-pop .sv{background:var(--green);color:var(--navy)}
+.cmt-pop .dl{background:var(--bg);color:#c0392b}
+.cmt-hint{position:fixed;top:66px;left:50%;transform:translateX(-50%);z-index:90;background:#ff7a00;color:#fff;font-size:12.5px;font-weight:700;border-radius:999px;padding:7px 16px;box-shadow:0 4px 14px rgba(0,0,0,.25);display:none}
+body.commenting .cmt-hint{display:block}
+
+/* ---------- interní sekce Doporučení ---------- */
+.reco{background:#fff8f0;border-top:3px dashed #f0b26b;padding:30px 0 40px}
+.reco h2{font-size:18px;color:#b45309}
+.reco .tag{display:inline-block;background:#b45309;color:#fff;font-size:11px;font-weight:700;border-radius:5px;padding:2px 8px;margin-bottom:8px;letter-spacing:.05em}
+.reco ul{padding-left:20px;font-size:13.5px;color:#5a4632;display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.reco b{color:#7c3e06}
+
+/* ============================================================
+   NÁHLEDOVÝ TOOLBAR (interní nástroj předlohy, nejde na web)
+   ============================================================ */
+.pv-bar{position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:200;display:flex;gap:4px;align-items:center;background:rgba(10,20,34,.88);backdrop-filter:blur(6px);border-radius:999px;padding:4px;box-shadow:0 4px 14px rgba(0,0,0,.28)}
+.pv-bar button{border:none;background:transparent;color:#c8d2df;font-family:var(--font);font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.pv-bar button.on{background:var(--green);color:var(--navy)}
+.pv-bar button#zmToggle.on{background:#ffd54f;color:#4a3a10}
+.pv-bar .pv-sep{width:1px;height:16px;background:rgba(255,255,255,.25)}
+@media(max-width:480px){.pv-bar{transform:translateX(-50%) scale(.92);transform-origin:top center}}
+
+/* ---------- mobilní náhled 390×844 (rámeček telefonu) ----------
+   Základ souboru je MOBILE-FIRST; blok html.force-mobile vrací všechny
+   desktopové min-width overridy zpět na mobilní hodnoty. */
+#pvFrame,#pvScreen{display:contents}
+html.force-mobile{background:#49535f}
+html.force-mobile body{background:#49535f;min-height:100vh}
+html.force-mobile #pvFrame{display:block;box-sizing:content-box;width:390px;height:844px;margin:56px auto 40px;border:12px solid #10151c;border-radius:46px;position:relative;overflow:hidden;background:#fff;box-shadow:0 24px 70px rgba(0,0,0,.45)}
+html.force-mobile #pvFrame::before{content:'';position:absolute;top:9px;left:50%;transform:translateX(-50%);width:96px;height:18px;background:#10151c;border-radius:10px;z-index:120;pointer-events:none}
+html.force-mobile #pvScreen{display:block;height:100%;overflow-y:auto;overflow-x:hidden;position:relative;scroll-behavior:smooth}
+@media(max-width:430px){
+  html.force-mobile #pvFrame{box-sizing:border-box;width:calc(100vw - 16px);height:calc(100vh - 76px);margin:52px auto 12px;border-width:7px;border-radius:30px}
+  html.force-mobile #pvFrame::before{display:none}
+}
+/* návrat min-width overridů na mobilní hodnoty (v7 hodnoty!) */
+html.force-mobile section{padding:48px 0}
+html.force-mobile h2{font-size:22px}
+html.force-mobile .hd-nav{display:none}
+html.force-mobile .menu-btn{display:inline-block}
+html.force-mobile .hero{padding:32px 0 40px}
+html.force-mobile .hero-grid{grid-template-columns:none;gap:28px}
+html.force-mobile .hero h1{font-size:32px;letter-spacing:-.025em}
+html.force-mobile .hero .lead{font-size:15px}
+html.force-mobile .hero .btn{display:flex;width:100%}
+html.force-mobile .grid{grid-template-columns:none;gap:20px}
+html.force-mobile .tiles,html.force-mobile .tiles.t3{grid-template-columns:none}
+html.force-mobile .steps{grid-template-columns:none;gap:16px}
+html.force-mobile .f-2col{grid-template-columns:none}
+html.force-mobile .ft-grid{grid-template-columns:none}
+/* v6: sticky cenový box v rámečku 390 vždy sloupcem (media query kouká na okno) */
+html.force-mobile .cfg-result{flex-direction:column;gap:12px}
+html.force-mobile .cfg-result .btn{width:100%}
+/* sticky/fixed prvky uvnitř rámečku: fixed → absolute vůči #pvFrame */
+html.force-mobile .cta-bar{display:flex;position:absolute}
+html.force-mobile .cmt-fab{position:absolute;bottom:calc(84px + env(safe-area-inset-bottom))}
+html.force-mobile .cmt-hint{position:absolute}
+
+/* ============================================================
+   REŽIM „ZMĚNY" (označení rozdílů proti produkci)
+   ============================================================ */
+html.show-zmeny [data-zmena]{outline:2px dashed var(--green-dark);outline-offset:3px;border-radius:4px}
+html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid var(--green);outline-offset:3px}
+.zm-badge{position:absolute;background:var(--green-dark);color:#fff;font-family:var(--font);font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:5px;z-index:88;pointer-events:none;max-width:270px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.zm-panel{position:fixed;top:52px;right:0;bottom:0;width:310px;max-width:85vw;background:#fff;border-left:1px solid var(--line);box-shadow:-8px 0 24px rgba(0,32,64,.15);z-index:190;transform:translateX(105%);transition:transform .25s ease;overflow-y:auto;padding:14px}
+.zm-panel.open{transform:none}
+.zm-panel h3{font-size:13px;color:var(--navy);margin-bottom:10px}
+.zm-panel .it{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 10px;font-family:var(--font);font-size:12.5px;font-weight:600;color:var(--ink);margin-bottom:6px;cursor:pointer;line-height:1.4}
+.zm-panel .it:hover{border-color:var(--green-dark);background:var(--green-tint)}
+</style>
+</head>
+<body>
+
+<!-- ============ NÁHLEDOVÝ TOOLBAR (interní, jen předloha) ============ -->
+<div class="pv-bar" id="pvBar">
+  <button class="cmt-ui on" id="pvDesk">💻 Desktop</button>
+  <button class="cmt-ui" id="pvMob">📱 Mobil 390</button>
+  <span class="pv-sep"></span>
+  <button class="cmt-ui" id="zmToggle">🔍 Změny</button>
+</div>
+
+<!-- ============ HEADER — bez telefonu ============ -->
+<header class="hd" data-zmena="ZMĚNA v3: hlavička úplně bez telefonu (RF) — číslo jen v patičce">
+  <div class="wrap hd-in">
+    <a class="logo" href="#top"><span class="logo-p">p</span><b>popojedu</b></a>
+    <nav class="hd-nav" data-zmena="ÚPRAVA v5: jednotné menu — Naše vozy · Ceník · Pro firmy · Kontakt">
+      <a href="#vozy">Naše vozy</a>
+      <a href="v1-2.1-cenik-v3.html">Ceník</a>
+      <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+      <a href="https://www.popojedu.cz/kontakt">Kontakt</a>
+      <a class="cta" href="#spocitat">Spočítat cenu</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mNav">☰&nbsp;Menu</button>
+  </div>
+  <nav class="m-nav" id="mNav">
+    <a href="#vozy">Naše vozy</a>
+    <a href="v1-2.1-cenik-v3.html">Ceník</a>
+    <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+    <a href="https://www.popojedu.cz/kontakt">Kontakt</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO — v7: typografie jako hlavní prvek ============ -->
+<section class="hero" id="hero" data-zmena="PŘEPRACOVÁNO v7: hero typografie jako hlavní prvek — 32/52 px, váha 800, těsnější prostrkání, zvýrazněné slovo zeleným podtahem; v8: neutrální podklad (písek odebrán, RF)">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="badge">Praha 9 · Autopůjčovna od roku 2017</span>
+      <h1>Pronájem auta v&nbsp;Praze.<br><em>Spolehlivá Škoda</em> za&nbsp;férovou cenu.</h1>
+      <p class="lead">Flotilu tvoří hlavně Škody — od Fabie po Superb L&amp;K. Servisujeme je ve vlastní dílně, takže platíte férovou cenu bez skrytých marží. Na den, týden i 12 měsíců.</p>
+      <div class="stars"><span class="st">★★★★★</span> <b>4,9</b> · Google recenze</div>
+      <a class="btn block" id="heroCta" href="#spocitat">Spočítat cenu pronájmu →</a>
+      <p class="under" data-zmena="ÚPRAVA v8.2: hero „od“ — denní beze změny + měsíční „od“ ze sazby při 12 měsících (month × 0,85, RF 9. 8.)">Od <b>425 Kč/den s DPH</b> (351 Kč bez DPH, při pronájmu od 7 dní) · dlouhodobě od <b>7 652 Kč/měs s DPH</b> (6 324 Kč bez DPH, při 12 měsících) · nezávazně, bez zadávání kontaktů</p>
+    </div>
+    <div class="hero-img">
+      <img src="https://www.popojedu.cz/storage/vozy/skoda-superb-iv-laurin-klement-g1.webp" alt="Škoda Superb IV L&K z flotily Popojedu" fetchpriority="high">
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST STRIP — v6: světlý, 2 tvrzení + recenze ============ -->
+<div class="trust" data-zmena="ÚPRAVA v6: trust pás odlehčen — světlé pozadí místo navy bloku, 2 tvrzení + recenze místo 4+1">
+  <div class="wrap trust-in">
+    <span><span class="tick">✓</span> Vlastní servis = férové ceny</span>
+    <span><span class="tick">✓</span> Bez skrytých poplatků</span>
+    <a href="https://share.google/GLzX9ectTEKS1QiiL" target="_blank" rel="noopener"><span class="st">★★★★★</span> <b>4,9</b> · Google recenze</a>
+  </div>
+</div>
+
+<!-- ============ KONFIGURÁTOR ============ -->
+<section class="cfg-sec" id="spocitat" data-zmena="ÚPRAVA v8: chladně-neutrální podklad sekce (#F6F8FA, písek odebrán — RF) + tactile karta konfigurátoru (dvojitý stín, jemný neumorphism)">
+  <div class="wrap">
+    <div class="cfg-card" id="konfigurator" data-zmena="ÚPRAVA v5: konfigurátor čte týdenní/měsíční sazby per vůz z lookup tabulky (= ceník/DB) — nedopočítává">
+      <div class="cfg-head">
+        <span class="kicker">Kalkulačka ceny</span>
+        <h2>Spočítejte si cenu</h2>
+        <p>Cena se přepočítává hned — bez zadávání kontaktů.</p>
+      </div>
+      <div class="cfg-body">
+
+        <div class="seg" id="modeSeg" role="group" aria-label="Délka pronájmu" data-zmena="PŘEPRACOVÁNO v8: jemné přepínače — lehká světlá lišta, aktivní = bílá dlaždice s jemným stínem a navy textem (žádný plný navy blok); platí pro všechny segmentové přepínače na stránce (RF)">
+          <button type="button" id="tabShort" aria-pressed="false" onclick="setMode('short')">Krátkodobě</button>
+          <button type="button" id="tabLong" class="on" aria-pressed="true" onclick="setMode('long')">Dlouhodobě</button>
+        </div>
+
+        <div class="purpose-row" data-zmena="NOVÉ v4: přepínač účelu — Osobní použití / Přepravní služby (týdenní kalkulace)">
+          <div class="seg small" role="group" aria-label="Účel pronájmu">
+            <button type="button" id="purOsobni" class="on" aria-pressed="true" onclick="setPurpose('personal')">Osobní použití</button>
+            <button type="button" id="purPrepravni" aria-pressed="false" onclick="setPurpose('transport')">Přepravní služby</button>
+          </div>
+          <p class="purpose-hint" id="purposeHint">Pro kurýry (Wolt, Foodora) a řidiče Bolt/Uber — vlastní týdenní sazby, platí se po týdnech předem. V ceně je 6&nbsp;500 km/měsíc.</p>
+        </div>
+
+        <!-- dlouhodobě -->
+        <div class="cfg-row" id="rowLong">
+          <label>Délka pronájmu <output id="outMonths">6 měsíců</output></label>
+          <div class="qchips" id="chipsMonths" data-zmena="ÚPRAVA v5: chipy 1/3/6/12 = primární ovládání délky, slider jen doplněk">
+            <button type="button" data-m="1"><b>1 měs</b><span>základ</span></button>
+            <button type="button" data-m="3"><b>3 měs</b><span>−5 %</span></button>
+            <button type="button" data-m="6" class="on"><b>6 měs</b><span>−10 %</span></button>
+            <button type="button" data-m="12"><b>12 měs</b><span>−15 %</span></button>
+          </div>
+          <input type="range" id="rMonths" min="1" max="12" step="1" value="6" aria-label="Jemné doladění délky pronájmu v měsících" style="margin-top:10px">
+        </div>
+
+        <!-- krátkodobě -->
+        <div class="cfg-row" id="rowShort" style="display:none">
+          <label>Počet dní <output id="outDays">3 dny</output></label>
+          <input type="range" id="rDays" min="1" max="30" step="1" value="3" aria-label="Počet dní pronájmu">
+          <div class="cfg-note" id="minNote" style="display:none"></div>
+        </div>
+
+        <!-- přepravní služby — délka v týdnech -->
+        <div class="cfg-row" id="rowWeeks" style="display:none" data-zmena="NOVÉ v4: délka v týdnech pro přepravní služby">
+          <label>Délka spolupráce <output id="outWeeks">4 týdny</output></label>
+          <input type="range" id="rWeeks" min="1" max="26" step="1" value="4" aria-label="Délka spolupráce v týdnech">
+        </div>
+
+        <!-- nájezd (v8.2: v přepravním režimu skryto — v ceně je pevných 6 500 km/měs, RF 9. 8.) -->
+        <div class="cfg-row" id="rowKm">
+          <label><span id="kmLbl">Kolik km plánujete najet za měsíc?</span> <output id="outKm">1 500 km</output></label>
+          <input type="range" id="rKm" min="500" max="5000" step="250" value="1500" aria-label="Odhad nájezdu km za měsíc">
+          <div class="cfg-note" id="kmIncNote">V ceně je 1 500 km/měs. Km navíc koupíte předem levněji než doplatkem.</div>
+        </div>
+
+        <!-- volba nadlimitních km -->
+        <div class="cfg-row" id="rowKmMode" style="display:none" data-zmena="NOVÉ v3: volba nadlimitních km (radio) — propisuje se do celkové ceny">
+          <label id="kmModeLbl">Kilometry nad 1 500 km/měs</label>
+          <div class="kmopt">
+            <label class="kmo on" id="kmoPre">
+              <input type="radio" name="kmMode" value="pre" checked>
+              <span class="t"><b>Koupit km předem<span class="rec">Doporučeno</span></b>
+              <span class="sub" id="kmoPreSub"></span></span>
+            </label>
+            <label class="kmo" id="kmoPost">
+              <input type="radio" name="kmMode" value="post">
+              <span class="t"><b>Doplatek po vrácení</b>
+              <span class="sub" id="kmoPostSub"></span></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- vůz -->
+        <div class="cfg-row">
+          <label for="carSel">Spočítat pro který vůz?</label>
+          <select id="carSel"><option value="">— vyberte vůz (nebo listujte níže) —</option></select>
+        </div>
+
+        <!-- DPH -->
+        <div class="vat-row" data-zmena="PŘESUN: přepínač DPH viditelný, s DPH výchozí">
+          <span class="lbl">Zobrazit ceny</span>
+          <div class="seg small" role="group" aria-label="Ceny s DPH nebo bez DPH">
+            <button type="button" id="vatOn" class="on" aria-pressed="true" onclick="setVat(true)">s DPH</button>
+            <button type="button" id="vatOff" aria-pressed="false" onclick="setVat(false)">bez DPH</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- v6 🔴 sticky cena PŘEPRACOVÁNA: cena a CTA pod sebou (mobil), nikdy se nepřekrývají -->
+      <div class="cfg-result" data-zmena="PŘEPRACOVÁNO v6: sticky cena — JEDNA hlavní cena + CTA pod ní; „bez DPH“ a „celkem“ malé sekundární; krátký label vozu; žádné překrývání (v7 jen jemný blur podkladu, proporce beze změny)">
+        <div class="cfg-price">
+          <span class="cap" id="prCap">Orientačně od · Citigo G-tec Active</span>
+          <b id="prMain">8 102 Kč/měs s DPH</b>
+          <span class="sub"><span class="alt" id="prAlt">6 696 Kč/měs bez DPH</span><span class="tot" id="prTot">Celkem za 6 měsíců od 48 613 Kč s DPH</span></span>
+        </div>
+        <a class="btn" id="cfgCta" href="#vozy">Vybrat vůz ↓</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VOZY ============ -->
+<section id="vozy">
+  <div class="wrap">
+    <span class="kicker">Vyberte si vůz</span>
+    <h2>Vozy s vaší cenou</h2>
+    <p class="sec-sub" data-zmena="ÚPRAVA v6: „vše v ceně“ řečeno jednou tady — z karet odstraněn opakovaný řádek (méně šumu)">Ceny se řídí dobou a nájezdem z kalkulačky. U všech vozů je v ceně servis, pojištění i dálniční známka.</p>
+
+    <div class="filters" data-zmena="NOVÉ: filtry vozů — řazení · převodovka · DPH">
+      <span class="f">Řadit
+        <select id="sortSel" aria-label="Řazení vozů">
+          <option value="asc">Od nejlevnějšího</option>
+          <option value="desc">Od nejdražšího</option>
+          <option value="cat">Podle kategorie</option>
+        </select>
+      </span>
+      <span class="f">Převodovka
+        <span class="seg small" role="group" aria-label="Filtr převodovky">
+          <button type="button" class="on" aria-pressed="true" data-g="all">Všechny</button>
+          <button type="button" aria-pressed="false" data-g="Automat">Automat</button>
+          <button type="button" aria-pressed="false" data-g="Manuál">Manuál</button>
+        </span>
+      </span>
+      <span class="f">Ceny
+        <span class="seg small" role="group" aria-label="Ceny s DPH nebo bez DPH">
+          <button type="button" id="vatOn2" class="on" aria-pressed="true" onclick="setVat(true)">s DPH</button>
+          <button type="button" id="vatOff2" aria-pressed="false" onclick="setVat(false)">bez DPH</button>
+        </span>
+      </span>
+    </div>
+
+    <div class="grid" id="carGrid" data-zmena="ÚPRAVA v7: tactile karty vozů — dvojitá měkká hloubka stínu + hover lift (translateY −4 px, jen hover zařízení, respektuje reduced-motion)"></div>
+  </div>
+</section>
+
+<!-- ============ SLEVA ============ -->
+<section class="sand" data-zmena="ÚPRAVA v8: podklad zpět chladně-neutrální (#F6F8FA) — teplý písek odebrán (RF), brand barvy beze změny">
+  <div class="wrap">
+    <span class="kicker">Sleva za délku pronájmu</span>
+    <h2>Čím déle, tím výhodněji</h2>
+    <div class="tiles" style="margin-top:22px" id="slevaTiles" data-zmena="ÚPRAVA v4: dlaždice slev jsou klikací — klik nastaví délku v kalkulačce">
+      <button type="button" class="tile" data-m="1"><span class="big">základ</span><span class="cap">1 měsíc</span></button>
+      <button type="button" class="tile" data-m="3"><span class="big">−5 %</span><span class="cap">3 měsíce</span></button>
+      <button type="button" class="tile" data-m="6"><span class="big">−10 %</span><span class="cap">6 měsíců</span></button>
+      <button type="button" class="tile hl" data-m="12"><span class="big">−15 %</span><span class="cap">12 měsíců · nejvýhodnější</span></button>
+    </div>
+    <p style="font-size:12.5px;color:var(--muted);margin-top:12px">Klepnutím na dlaždici nastavíte délku v kalkulačce. Sleva platí pro dlouhodobý pronájem.</p>
+  </div>
+</section>
+
+<!-- ============ JAK TO PROBÍHÁ ============ -->
+<section data-zmena="NOVÉ v7: sekce se objevují jemným scroll-revealem (fade + slide-up, IntersectionObserver, bez JS vše viditelné)">
+  <div class="wrap">
+    <span class="kicker">Jak to probíhá</span>
+    <h2>Tři kroky bez překvapení</h2>
+    <div class="steps" style="margin-top:22px">
+      <div class="step"><div class="num">1</div><h3>Spočítáte cenu</h3><p>Kalkulačka hned ukáže cenu podle vozu, doby a nájezdu. Při 6 měsících ušetříte 10 %, při 12 měsících 15 %.</p></div>
+      <div class="step" data-zmena="ÚPRAVA v5: krok 2 neslibuje uzavření rezervace — jediné, co drží vůz, je záloha"><div class="num">2</div><h3>Potvrdíme dostupnost</h3><p>Pošlete nezávaznou poptávku a my e-mailem potvrdíme dostupnost. Termín je závazně rezervovaný úhradou zálohy 20 %.</p></div>
+      <div class="step"><div class="num">3</div><h3>Vyzvednete v Čakovicích</h3><p>Provozovna Cukrovarská 991. Předání trvá 20 minut — nebo vám vůz přivezeme, ceny níže.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PŘISTAVENÍ ============ -->
+<section class="sand">
+  <div class="wrap">
+    <span class="kicker">Přivezeme i vyzvedneme</span>
+    <h2>Přistavení a vyzvednutí vozu</h2>
+    <div class="tiles t3" style="margin-top:22px" data-zmena="ÚPRAVA v6: dlaždice bez emoji (🏙️🛣️🎁) — čistý text, prémiovější dojem">
+      <div class="dtile"><h3>Po Praze</h3><p>Do 15 km <b>500 Kč</b>, nad 15 km <b>700 Kč</b> (jednosměrně).</p></div>
+      <div class="dtile"><h3>Mimo Prahu</h3><p><b>Od 30 Kč/km</b> jednosměrně podle vzdálenosti.</p></div>
+      <div class="dtile"><h3>Pronájem od 30 dnů</h3><p>Přistavení i vyzvednutí po Praze <b>zdarma</b>.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq" data-zmena="ZMĚNA: FAQ jako akordeon + oprava kauce vs spoluúčast">
+  <div class="wrap">
+    <span class="kicker">Časté dotazy</span>
+    <h2 style="margin-bottom:20px">Na co se nejčastěji ptáte</h2>
+
+    <details><summary>Na jak dlouho si můžu vůz půjčit?</summary><div class="a">Den, týden i celé měsíce. U dlouhodobých paketů (3, 6 a 12 měsíců) máte nejvýhodnější měsíční sazbu.</div></details>
+    <details><summary>Jak je to s kaucí?</summary><div class="a">Vratná kauce je 10 000 až 50 000 Kč podle kategorie vozu — výši vždy říkáme dopředu. Po vrácení vozu se vrací. Kauce je něco jiného než spoluúčast: spoluúčast (10 % ze škody, min. 10 000 Kč) se platí jen při škodě.</div></details>
+    <details><summary>Jak funguje rezervace a platba?</summary><div class="a">Rezervaci potvrdíte úhradou zálohy 20 % z ceny pronájmu (převodem nebo QR kódem) — tím vám vůz držíme na termín. Doplatek hradíte nejpozději při převzetí vozu. Pokud rezervaci zrušíte nebo se nedostavíte, záloha 20 % propadá jako storno poplatek.</div></details>
+    <details><summary>Co je v ceně pronájmu?</summary><div class="a">Plný servis, havarijní i povinné pojištění včetně čelního skla s územním rozsahem EU, dálniční známka, sezónní pneumatiky a asistenční služba 24/7 (z pojištění vozu). Náhradní vůz při poruše zajistíme v provozní době Po–Pá 8:00–17:30.</div></details>
+    <details><summary>Co když najedu více kilometrů?</summary><div class="a">V ceně běžného pronájmu je 1 500 km/měs. Kdo jede víc, doplatí nadlimitní sazbu podle vozu (2–8 Kč/km bez DPH) — nebo si km koupí předem, levněji. Doplatek se účtuje až po skončení pronájmu podle reálného nájezdu. U kurýrů a řidičů Bolt/Uber (platba týdně) je v ceně 6&nbsp;500 km/měsíc.</div></details>
+    <details><summary>Jak jsou vozy pojištěné?</summary><div class="a">Každý vůz má havarijní i povinné pojištění v ceně, včetně čelního skla, pro územní rozsah EU. Při škodě se hradí spoluúčast 10 % ze škody, min. 10 000 Kč.</div></details>
+
+    <p style="margin-top:16px"><a href="https://www.popojedu.cz/caste-dotazy" style="font-weight:600">Všechny dotazy →</a></p>
+
+    <div class="servis-note" data-zmena="ÚPRAVA v8: servisní box na světlém neutrálním tónu se zeleným proužkem (v6 byl šedý)"><b>Vlastní servis = férové ceny.</b> Údržbu, opravy i pneuservis řešíme ve vlastní dílně v Praze 9 — Čakovicích, bez prostředníků a skrytých marží. 9 let zkušeností s flotilou Škoda.</div>
+  </div>
+</section>
+
+<!-- ============ POPTÁVKA ============ -->
+<section class="form-sec" id="poptavka">
+  <div class="wrap">
+    <div class="form-card" id="formCard" data-zmena="ÚPRAVA v6: jediný formulář poptávky pro všechny segmenty — žádná druhá „rychlá poptávka“ nikde; landingy vedou sem">
+      <span class="kicker">Poslední krok</span>
+      <h2>Nezávazná poptávka</h2>
+      <p class="form-sub">Jedna poptávka pro všechno — osobní i firemní pronájem i přepravní služby.</p>
+
+      <div class="sum" data-zmena="ÚPRAVA v4: souhrn — účel z konfigurátoru + celková cena za dobu">
+        <h3>Vaše konfigurace</h3>
+        <div class="r"><span>Účel</span><b id="sumUcel">Osobní použití</b></div>
+        <div class="r"><span>Vůz</span><b id="sumCar">— vyberte výše</b></div>
+        <div class="r"><span>Doba</span><b id="sumDoba">6 měsíců</b></div>
+        <div class="r"><span>Nájezd</span><b id="sumKm">1 500 km/měs</b></div>
+        <div class="r tot"><span>Orientační cena</span><b id="sumPrice">—</b></div>
+        <div class="r"><span></span><span id="sumPriceAlt" style="font-size:12px;color:var(--muted)"></span></div>
+        <div class="r"><span>Celkem za dobu</span><b id="sumTotal">—</b></div>
+      </div>
+
+      <form onsubmit="event.preventDefault();alert('Předloha — formulář se neodesílá.')" data-zmena="NOVÉ v7: formulář veden ve 3 vizuálních krocích (Kdo poptává · Kontaktní údaje · Termín a poznámka) — jemné oddělovače místo stěny polí; pole i logika beze změny">
+        <!-- v8: skrytá pole — stav konfigurátoru se propíše do odeslání (plní je updateSummary() při každém překreslení souhrnu) -->
+        <input type="hidden" name="segment" id="hSegment" value="osobni">
+        <input type="hidden" name="vuz" id="hVuz" value="">
+        <input type="hidden" name="rezim" id="hRezim" value="dlouhodobe">
+        <input type="hidden" name="doba" id="hDoba" value="">
+        <input type="hidden" name="najezd_km" id="hNajezd" value="">
+        <input type="hidden" name="km_rezim" id="hKmRezim" value="predem">
+        <input type="hidden" name="cena_celkem" id="hCena" value="">
+        <input type="hidden" name="dph" id="hDph" value="s">
+        <div class="f-step first"><span class="n">1</span><b>Kdo poptává</b></div>
+        <span class="f-label">Objednávám jako</span>
+        <div class="seg small" style="max-width:320px">
+          <button type="button" id="tOsoba" class="on" aria-pressed="true" onclick="setTyp('osoba')">Soukromá osoba</button>
+          <button type="button" id="tFirma" aria-pressed="false" onclick="setTyp('firma')">Firma</button>
+        </div>
+
+        <div class="firm-only f-2col">
+          <div><label class="f-label" for="fFirma">Název firmy *</label><input class="f-in" id="fFirma" name="company" autocomplete="organization" placeholder="Firma s.r.o."></div>
+          <div><label class="f-label" for="fIco">IČO *</label><input class="f-in" id="fIco" name="ico" inputmode="numeric" placeholder="12345678"></div>
+        </div>
+
+        <div class="f-step"><span class="n">2</span><b>Kontaktní údaje</b></div>
+        <label class="f-label" for="fName">Jméno a příjmení *</label>
+        <input class="f-in" id="fName" name="name" autocomplete="name" placeholder="Jan Novák" required>
+
+        <div class="f-2col">
+          <div><label class="f-label" for="fTel">Telefon *</label><input class="f-in" id="fTel" name="tel" type="tel" autocomplete="tel" inputmode="tel" placeholder="+420" required></div>
+          <div><label class="f-label" for="fMail">E-mail *</label><input class="f-in" id="fMail" name="email" type="email" autocomplete="email" placeholder="jan@email.cz" required></div>
+        </div>
+
+        <div class="f-step"><span class="n">3</span><b>Termín a poznámka</b></div>
+        <div class="f-2col">
+          <div><label class="f-label" for="fOd">Termín od *</label><input class="f-in" id="fOd" name="from" type="date" required></div>
+          <div><label class="f-label" for="fDo">Termín do</label><input class="f-in" id="fDo" name="to" type="date"></div>
+        </div>
+
+        <label class="f-label" for="fNote">Poznámka</label>
+        <textarea class="f-in" id="fNote" name="note" placeholder="Např. přistavení vozu, dětská sedačka…"></textarea>
+
+        <label class="chk"><input type="checkbox" required> Souhlasím se zpracováním osobních údajů pro vyřízení poptávky. <a href="https://www.popojedu.cz/ochrana-osobnich-udaju" target="_blank" rel="noopener" onclick="event.stopPropagation()">Zásady</a>.</label>
+
+        <button class="btn block" type="submit">Odeslat nezávaznou poptávku →</button>
+        <p class="form-foot">Odesláním se k ničemu nezavazujete — <b>potvrdíme dostupnost vozu</b> a ozveme se nejpozději následující pracovní den.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER — jediné místo s telefonem ============ -->
+<footer>
+  <div class="wrap ft-grid" data-zmena="ÚPRAVA v6: patička bez emoji (📞✉️🚗🏢) — čisté textové řádky">
+    <div class="ft">
+      <a class="logo" href="#top" style="margin-bottom:12px"><span class="logo-p">p</span><b style="color:#fff">popojedu</b></a>
+      <div class="c"><a href="tel:+420731683203">+420 731 683 203</a> · Po–Pá 8:00–17:30</div>
+      <div class="c"><a href="mailto:info@popojedu.cz">info@popojedu.cz</a></div>
+      <div class="c">Provozovna: Cukrovarská 991, Praha 9 — Čakovice</div>
+      <div class="c">Sídlo: Českomoravská 1181/21, Praha 9</div>
+      <div class="c" style="margin-top:8px"><a href="https://www.facebook.com/popojedu">Facebook</a> · <a href="https://www.instagram.com/popojedu.cz/">Instagram</a></div>
+    </div>
+    <div class="ft">
+      <h4>Pronájem</h4>
+      <a href="#spocitat">Konfigurátor</a>
+      <a href="https://www.popojedu.cz/nase-vozy">Naše vozy</a>
+      <a href="v1-2.1-cenik-v3.html">Ceník</a>
+      <a href="https://www.popojedu.cz/dlouhodoby-pronajem-auta-praha">Dlouhodobý pronájem</a>
+      <a href="https://www.popojedu.cz/pujcovna-aut-praha-9-cakovice">Půjčovna aut Praha 9 — Čakovice</a>
+      <a href="https://www.popojedu.cz/vyzvednuti-vozu">Vyzvednutí vozu</a>
+      <a href="https://www.popojedu.cz/predani-vozu">Předání vozu</a>
+    </div>
+    <div class="ft">
+      <h4>Pro koho</h4>
+      <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+      <a href="https://www.popojedu.cz/pronajem-vozu-pro-bolt-a-uber-v-praze">Pro Bolt a Uber</a>
+      <a href="https://www.popojedu.cz/pronajem-vozu-pro-kuryry-wolt-foodora-a-dalsi-v-praze">Pro kurýry</a>
+      <a href="https://www.popojedu.cz/jak-to-probiha">Jak to funguje</a>
+      <a href="https://www.popojedu.cz/blog">Blog</a>
+      <a href="https://www.popojedu.cz/caste-dotazy">FAQ</a>
+    </div>
+    <div class="ft">
+      <h4>Účet a právní</h4>
+      <a href="https://www.popojedu.cz/kontakt">Kontakt</a>
+      <a href="https://www.popojedu.cz/obchodni-podminky">Obchodní podmínky</a>
+      <a href="https://www.popojedu.cz/ochrana-osobnich-udaju">Ochrana osobních údajů</a>
+      <a href="https://www.popojedu.cz/zasady-cookies">Zásady cookies</a>
+      <a href="https://www.popojedu.cz/nastaveni-cookies">Nastavení cookies</a>
+    </div>
+  </div>
+  <div class="wrap legal">© 2026 Popojedu.cz · Autopůjčovna od roku 2017 · spravuje MODRÝ ANDĚL s.r.o. IČO: 27218422 · DIČ: CZ27218422 · spisová značka C 105306/MSPH, Městský soud v Praze</div>
+</footer>
+
+<!-- ============ DOPORUČENÍ (interní, nejde na web) ============ -->
+<section class="reco" id="doporuceni">
+  <div class="wrap">
+    <span class="tag">INTERNÍ — JEN V PŘEDLOZE · v8 FINÁL — KANONICKÁ</span>
+    <h2>Doporučení: co v8 (finální kanonická) obsahuje a jak to přenést na zbylých 5 stránek</h2>
+    <ul>
+      <li><b>v8.3 — DENNÍ EKVIVALENT = VÝPOČET ZE ZOBRAZENÉ CENY (upřesnění RF 9. 8. 2026, nahrazuje bod 2 z v8.2 níže):</b> „≈ X Kč/den" se u týdenní ceny počítá jako <b>zobrazená cena ÷ 7</b>, u měsíční ceny <b>zobrazená cena ÷ 30,4</b> (= 365/12, průměrný počet dnů v měsíci; konstanta <code>DAYS_MONTH</code>). Vždy ze <b>zobrazené částky</b> v aktivním DPH režimu — tedy po slevě za délku a vč. km navíc — zaokrouhleno na celé Kč (helper <code>dayEqStr(per,perDays)</code>). Reálná <code>day</code> sazba z DB se pro ekvivalent už NEPOUŽÍVÁ (ta je cena krátkodobého pronájmu, ne přepočet). Kontrolní příklady: Citigo měsíc s DPH při výchozích 6 měsících 8 102 ÷ 30,4 ≈ <b>267 Kč/den</b> · Fabia týden s DPH 3 684 ÷ 7 ≈ <b>526 Kč/den</b>. Ekvivalent se přepočítá při každé změně délky, vozu, km i DPH přepínače (renderuje se v refresh/updateSummary). Je na kartách vozů a v souhrnu poptávky; do sticky boxu se dál nedává (pravidlo v6) a v hero se nedává záměrně — hero už reálnou denní cenu „od 425 Kč/den" obsahuje. <b>MARTIN:</b> na webu počítat stejně — dělit zobrazenou cenu za období, ne číst day sazbu. Stejná změna promítnuta do ceníku v3 (v3.3).</li>
+      <li><b>v8.2 — TŘI CENOVÉ POKYNY RF (9. 8. 2026), promítnuty sem i do ceníku v3:</b> (1) <b>Přepravní služby mají v ceně 6 500 km/měsíc</b> (kurýři i Bolt/Uber) — nahrazuje dřívější „volné km dle poptávky" všude: hint konfigurátoru, karty vozů, FAQ, souhrn poptávky i skryté pole <code>najezd_km</code> (posílá „6500"). Km slider zůstává v přepravním režimu skrytý — limit je pevný, není co konfigurovat. <b>MARTIN:</b> limit 6 500 km/měs uložit do DB/adminu jako konfigurovatelnou hodnotu per segment, do té doby je v předloze konstanta. (2) <b>Denní ekvivalent:</b> u každé ceny za týden/měsíc se drobně ukazuje „≈ X Kč/den" — <s>reálná day sazba z DB</s> ⚠️ ZPŮSOB VÝPOČTU NAHRAZEN ve v8.3 výše (výpočet ze zobrazené ceny ÷ 7 / ÷ 30,4). Umístění platí dál: karty vozů + souhrn poptávky; do sticky boxu se záměrně nedává (pravidlo v6: žádná třetí cena v boxu). (3) <b>Měsíční „od" cena běžného pronájmu = month × 0,85</b> (sazba při 12 měsících, −15 % — nejnižší dosažitelná) a vždy s dovětkem „při 12 měsících", ať nelže; v hero: Citigo 7 440 × 0,85 = 6 324 Kč/měs bez DPH → „od 7 652 Kč/měs s DPH (při 12 měsících)". Netýká se přepravních týdenních sazeb ani cen za konkrétní zvolenou délku v konfigurátoru.</li>
+      <li><b>v8 — SKRYTÁ POLE POPTÁVKY (pro Martina):</b> Formulář nese skrytá pole <code>segment/vuz/rezim/doba/najezd_km/km_rezim/cena_celkem/dph</code> — napojit na HubSpot/admin jako vlastnosti poptávky, ať se segment a konfigurace neztratí. Plní je <code>updateSummary()</code> při každém překreslení souhrnu (tedy při každé změně konfigurátoru i výběru vozu); <code>segment</code> = osobni/kuryr/ridic (kurýr vs. řidič dle URL <code>?kuryr=1</code>/<code>?ridic=1</code>), <code>cena_celkem</code> = orientační celková cena v aktivním DPH režimu (pole <code>dph</code> = s/bez).</li>
+      <li><b>v8 — ZAPRACOVÁNY 3 OPRAVY Z OPONENTURY (a11y + kontrast) — přenést na ostatní stránky:</b> (1) sekundární ceny a labely (<code>#sumPriceAlt</code>, <code>.cfg-price .cap</code>, <code>.sum h3</code>) přebarveny z <code>--soft</code> (kontrast 2,6–2,9:1) na <code>--muted</code> (≥4,9:1); (2) segmentové přepínače přešly z <code>role="tab"</code> bez tabpanelu na obyčejné <code>&lt;button&gt;</code> s <code>aria-pressed</code>, které JS helper <code>segPress()</code> přepíná ve všech handlerech (setMode, setPurpose, setVat, setTyp, setMonths, filtr převodovky); (3) aktivní dlaždice <code>.seg button.on</code> dostala jemný 1px okraj + výraznější stín (stále lehký styl). <b>Přenos:</b> při kopírování <code>.seg</code> bloků na detail vozu, ceník, Pro firmy a landingy převzít i <code>aria-pressed</code>/<code>segPress()</code> a barvy <code>--muted</code> místo <code>--soft</code> u textů nesoucích informaci.</li>
+      <li><b>v8 — JEMNÉ PŘEPÍNAČE (rozhodnutí RF: „přepínátka mi přijdou humpolácké").</b> Všechny segmentové přepínače (Krátkodobě/Dlouhodobě · Osobní/Přepravní · s DPH/bez DPH 2× · převodovka · osoba/firma) přepracovány z těžkých navy pilulek na lehký iOS-like segmented: světlá lišta <code>#EEF1F5</code> s 1px linkou a radiusem 9 px, aktivní volba = <b>bílá dlaždice s jemným stínem a navy textem</b>, písmo 13/12,5 px (váha 500/600), přechod 0,2 s (vypnutý při reduced-motion), tap target ≥40 px přes <code>min-height</code>. Chipy délky 1/3/6/12 a km radio zůstaly ve svém lehkém stylu (bílá + zelený tint aktivního) — s novými přepínači ladí. <b>Přenos:</b> stejný <code>.seg</code> blok zkopírovat na detail vozu, ceník, Pro firmy i landingy.</li>
+      <li><b>v7 — TREND 1: VÝRAZNÁ HERO TYPOGRAFIE („typografie jako hlavní prvek").</b> H1 zvětšen na <b>32 px mobil / 52 px desktop</b>, váha 800, prostrkání −.025/−.03em, řádkování 1,12; klíčové sousloví zvýrazněno zeleným „fixou" podtahem (<code>&lt;em&gt;</code> s gradientem <code>transparent 64 % → rgba(0,200,83,.30)</code> — barva textu zůstává navy, kontrast se nemění). Podnadpis zůstal lehký (400, muted). <b>Přenos:</b> na detail vozu takto název vozu, na ceníku a Pro firmy hlavní nadpis — vždy JEN JEDEN velký nadpis na stránku, jinak se efekt rozmělní. Na 390 px ověřit zalomení (max ~13 znaků na řádek při 32 px).</li>
+      <li><b>v8 — PÍSEK ODEBRÁN (rozhodnutí RF): chladný neutrál místo teplého minimalismu.</b> Proměnné zůstávají v kódu, ale jsou přemapované: <code>--sand #F6F8FA</code>, <code>--sand-deep #EEF1F5</code>, <code>--sand-line #E8EDF3</code>; teplé hnědavé stíny vráceny na chladné <code>rgba(0,32,64,…)</code>. Rytmus střídání sekcí (bílá / světlá neutrální — nikdy dvě šedé za sebou) i tactile hloubka zůstaly. Brand zelená #00C853 a navy #002040 beze změny. <b>Přenos:</b> na dalších stránkách používat bílou + #F6F8FA, žádný teplý písek.</li>
+      <li><b>v7 — TREND 3: JEMNÉ MICRO-ANIMACE („luxury" klid, ne poskakování).</b> (a) Scroll-reveal: IntersectionObserver, fade + slide-up 14 px, <code>cubic-bezier(.22,.61,.36,1)</code> / 0,7 s, stagger 70 ms (strop 280 ms). <b>Bez JS je vše viditelné</b> — třídy <code>.rv</code> přidává až skript a CSS skrývá jen pod <code>html.js-anim</code>; navíc pojistka: po 2 s se vše zviditelní i kdyby observer selhal. <code>prefers-reduced-motion: reduce</code> vypíná scroll-reveal i hover lift kompletně. (b) Hover lift karet: translateY(−4 px) + hlubší stín, jen <code>@media(hover:hover)</code> — na mobilu nic neposkakuje. (c) Dynamicky překreslované karty vozů (#carGrid) jsou z revealu záměrně VYNECHANÉ — renderCars() je přepisuje při každé změně a mizely by. <b>Přenos:</b> stejný blok CSS+JS zkopírovat 1:1; do selektoru přidávat jen statické prvky, nikdy dynamicky renderované.</li>
+      <li><b>v7 — TREND 4: TACTILE KARTY (jemný neumorphism, decentně).</b> <code>--shadow-tactile: inset 0 1px 0 rgba(255,255,255,.85), 0 1px 2px rgba(0,32,64,.04), 0 10px 26px rgba(0,32,64,.07)</code> na konfigurátoru a formuláři; karty vozů, dlaždice a kroky mají lehčí variantu (inset světlá linka + 1px stín). Stínová barva v8 vrácena do chladné (0,32,64) — písek odebrán. ŽÁDNÉ vystouplé gumové bubliny, žádné inset tlačítka — jen náznak hloubky „na dotek". <b>Přenos:</b> tactile jen na hlavní interaktivní karty (kalkulačka, formulář, karta vozu), nikdy na text nebo celé sekce.</li>
+      <li><b>v7 — TREND 5: KLIDNĚJŠÍ FORMULÁŘ (progresivní vedení).</b> Jediný formulář rozdělen do 3 vizuálních kroků: <b>1 Kdo poptává · 2 Kontaktní údaje · 3 Termín a poznámka</b> — číslo v zeleném kolečku + titulek + jemná linka. Pole, povinnosti, autocomplete i logika (osoba/firma, ?firma=1) beze změny — je to čistě vizuální vrstva, žádný vícekrokový wizard (ten by na předloze lhal o backendu). <b>Přenos:</b> stejné <code>.f-step</code> bloky na poptávkové formuláře landing pages; u krátkých formulářů (do 4 polí) kroky nedávat.</li>
+      <li><b>v7 — CO SE VĚDOMĚ NEPOUŽILO a proč:</b> maximalismus, dopamine/neon barvy, neo-brutalismus, collage, retrofuturismus, 3D/WebGL. U nákupu za desítky tisíc korun snižují důvěru — cíl v7 je „prémiový klid", ne cirkus. Kdyby kdokoli navrhoval tyto směry na další stránky, odkázat sem.</li>
+      <li><b>v7 — drobnosti:</b> sticky výsledek kalkulačky dostal poloprůhledné pozadí + blur (proporce a chování z v6 beze změny); přechody chipů/radio voleb změkčeny na 0,3 s luxury easing; servisní box a souhrn formuláře na světlém neutrálním tónu. Komentovací vrstva má nový localStorage klíč (v8) — komentáře z v7 se nemíchají.</li>
+      <li><b>v6 — 🔴 STICKY CENOVÝ BOX (zachováno beze změny proporcí):</b> cena a CTA <b>pod sebou</b> na mobilu (i v rámečku Mobil 390 přes <code>html.force-mobile .cfg-result</code>), na desktopu ≥600 px řádek s flexem a povoleným zalomením — překryv je konstrukčně nemožný. JEDNA hlavní cena (21 px), „bez DPH" a „Celkem za dobu" malé na jednom řádku, label vozu krátí <code>shortName()</code>.</li>
+      <li><b>v6 — VZDUCH a MÉNĚ ŠUMU (zachováno):</b> sekce 48/84 px, karty padding ≥16 px, trust 2 tvrzení + recenze, „vše v ceně" jednou v úvodu sekce Vozy, žádné emoji v obsahu pro zákazníka (jen interní nástroje 💻📱🔍💬 a ⚠️ ve validaci), váhy písma 700/600, škála h1 32/52 (v7) · h2 22/27 · h3 15,5.</li>
+      <li><b>v8.1 — REÁLNÁ CENOVÁ DATA Z PRODUKCE (9. 8. 2026):</b> lookup tabulka CARS je 1:1 přepis produkčního konfigurátoru (<code>_cenik-data-produkce.json</code>) — všech 14 vozů vč. nově doplněné <b>Škody Scala Style TSi DSG</b> (v předloze dřív chyběla; slug i fotka jsou placeholder, Martin dosadí z DB). Opraveny dřívější chybné přepisy: Staria Luxury měsíc <b>35 575</b> (bylo 40 250), den 3 500 / týden 24 500 (bylo 2 300/16 100), nadlimitní sazby dle DB (např. Mercedes 8 Kč/km, bylo 15,1; Superb IV 3,3, bylo 4,0). Předplacené km čtou reálné pole <code>predpl</code> z DB — už žádný hardcode ×0,7 (sleva zůstává konfigurovatelná v adminu).</li>
+      <li><b>v8.1 — PŘEPRAVNÍ REŽIM = VLASTNÍ SAZBY weekKuryr/weekBolt (potvrzení RF: „přepravní služby mají jiné ceny za týden i jiný volný počet km"):</b> konfigurátor v režimu Přepravní služby počítá z <code>weekKuryr</code> (kurýři) resp. <code>weekBolt</code> (Bolt/Uber, dle URL <code>?kuryr=1</code>/<code>?ridic=1</code>; bez hintu nejnižší dostupná), NE z běžné týdenní sazby. Vozy bez přepravní sazby (null) jsou v tomto režimu označené „Nedostupné pro přepravní služby" (zámek karty, select, sticky box). <b>Km se v přepravním režimu nekonfigurují</b> — v ceně je pevných <b>6 500 km/měs</b> (rozhodnutí RF 9. 8. 2026, viz bullet v8.2 výše; dřívější „dle poptávky" už neplatí).</li>
+      <li><b>v5 — ⚠️ Staria Style Premium 8+1: měsíc 34 000 Kč bez DPH &lt; Staria Luxury 35 575 Kč</b> (větší vůz levnější) — převzato 1:1 z produkce; Martin/RF ověří v DB. Denní/týdenní sazby vozů s min. 30 dní se zákazníkovi prakticky nezobrazí (min. doba je delší).</li>
+      <li><b>v5 — Platba zálohy jen převodem/QR (rozhodnutí RF)</b> — karta až Etapa 2, na webu ji neslibovat. <b>Spoluúčast jednotně „10 % ze škody, min. 10 000 Kč"</b>; kauce (vratná, 10 000–50 000 Kč dle kategorie) je jiný pojem.</li>
+      <li><b>v5/v4/v3 — dále zachováno:</b> „Nezávazná poptávka" jako jediný formulář (landingy vedou sem přes <code>?kuryr=1</code>, <code>?firma=1</code>…); slidery bez scroll-trapu; fonty 16 px; telefon jen v patičce; nadlimitní km jako radio propsané do ceny; celková cena za dobu; klikací dlaždice slev; karty celé klikatelné; min. doba se zámkem karty; kurýři/Bolt jen v patičce + neutrální přepínač účelu; hero „od 425 Kč/den (při pronájmu od 7 dní)" + v8.2 doplněno měsíční „od 7 652 Kč/měs s DPH (při 12 měsících)". Odkazy: detail → v1-2.1-detail-vozu-v5.html, ceník → v1-2.1-cenik-v3.html.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ STICKY CTA LIŠTA (mobil) — bez telefonu ============ -->
+<div class="cta-bar" id="ctaBar" data-zmena="ÚPRAVA v6: sticky lišta bez emoji — jen „Spočítat cenu“">
+  <a class="btn cmt-ui" href="#spocitat">Spočítat cenu →</a>
+</div>
+
+<!-- ============ KOMENTOVACÍ VRSTVA ============ -->
+<div class="cmt-hint">Režim komentářů — klepněte na místo, které chcete okomentovat</div>
+<div class="cmt-fab">
+  <button class="cmt-ui" id="cmtToggle" title="Režim komentářů">💬</button>
+  <button class="cmt-ui" id="cmtExport" title="Zkopírovat komentáře">📋</button>
+</div>
+
+<script>
+/* ================= NÁHLED DESKTOP/MOBIL — restrukturalizace DOM ================= */
+var pvFrame=document.createElement('div');pvFrame.id='pvFrame';
+var pvScreen=document.createElement('div');pvScreen.id='pvScreen';
+pvFrame.appendChild(pvScreen);
+(function(){
+  var kids=Array.prototype.slice.call(document.body.children);
+  document.body.appendChild(pvFrame);
+  kids.forEach(function(k){
+    if(k===pvFrame||k.id==='pvBar'||k.tagName==='SCRIPT')return;
+    if(k.id==='ctaBar'||k.classList.contains('cmt-fab')||k.classList.contains('cmt-hint')){pvFrame.appendChild(k)}
+    else pvScreen.appendChild(k);
+  });
+})();
+
+/* ================= DATA — LOOKUP TABULKA SAZEB (v8.1: REÁLNÁ DATA Z PRODUKCE) =================
+   Sazby BEZ DPH, 1:1 z produkčního konfigurátoru (9. 8. 2026, zdroj: _cenik-data-produkce.json).
+   day/week/month = běžný pronájem · weekKuryr/weekBolt = PŘEPRAVNÍ týdenní sazby (jiné, nižší;
+   null = vůz je pro daný segment nedostupný) · kmOver = nadlimitní km · predpl = předplacené km
+   (reálná sazba z DB, ne ×0,7 hardcode). Cílově čtou web i ceník TYTÉŽ hodnoty z DB — NIKDY se nedopočítává. */
+var IMG='https://www.popojedu.cz/storage/vozy/';
+var CARS=[
+ {slug:'skoda-citigo-g-tec-active',name:'Škoda Citigo G-tec Active (CNG)',cat:'Město',gear:'Manuál',fuel:'CNG',seats:'4 místa',min:7,range:'jen ČR',day:351,week:2457,weekKuryr:1985,weekBolt:null,month:7440,kmOver:2.0,predpl:1.4,courier:true,taxi:false,img:'skoda-citigo-g-tec-active.webp'},
+ {slug:'skoda-octavia-iii-cng-liftback',name:'Škoda Octavia III G-tec liftback (CNG)',cat:'Střední',gear:'Manuál',fuel:'CNG',seats:'5 míst',min:5,range:'jen ČR',day:420,week:2940,weekKuryr:2741,weekBolt:2314,month:9580,kmOver:2.0,predpl:1.4,courier:true,taxi:true,img:'skoda-octavia-iii-cng-liftback.webp'},
+ {slug:'skoda-fabia-iii-ambition-automat',name:'Škoda Fabia III Ambition TSi DSG',cat:'Město',gear:'Automat',fuel:'benzín',seats:'5 míst',min:5,range:'EU',day:435,week:3045,weekKuryr:null,weekBolt:null,month:9900,kmOver:2.5,predpl:1.8,courier:false,taxi:false,img:'skoda-fabia-iii-ambition-automat.webp'},
+ {slug:'skoda-octavia-iii-liftback',name:'Škoda Octavia III TDi liftback',cat:'Střední',gear:'Manuál',fuel:'diesel',seats:'5 míst',min:5,range:'jen ČR',day:408,week:2856,weekKuryr:null,weekBolt:2314,month:9340,kmOver:2.0,predpl:1.4,courier:false,taxi:true,img:'skoda-octavia-iii-liftback.webp'},
+ {slug:'skoda-scala-style',name:'Škoda Scala Style TSi DSG',cat:'Střední',gear:'Automat',fuel:'benzín',seats:'5 míst',min:5,range:'EU',day:570,week:3990,weekKuryr:null,weekBolt:null,month:12530,kmOver:2.5,predpl:1.8,courier:false,taxi:false,img:'skoda-scala-10-benzin-g1.webp'}, /* ⚠️ NOVÝ vůz dle produkce — slug i fotka jsou placeholder (foto sdílí se Scala Top Selection), Martin dosadí z DB */
+ {slug:'skoda-scala-10-benzin',name:'Škoda Scala Top Selection TSi DSG',cat:'Střední',gear:'Automat',fuel:'benzín',seats:'5 míst',min:3,range:'EU',day:600,week:4200,weekKuryr:null,weekBolt:null,month:13620,kmOver:2.5,predpl:1.8,courier:false,taxi:false,img:'skoda-scala-10-benzin-g1.webp',local:'v1-2.1-detail-vozu-v5.html'},
+ {slug:'skoda-octavia-iv-combi-ambition',name:'Škoda Octavia IV combi Ambition TDi',cat:'Střední',gear:'Manuál',fuel:'diesel',seats:'5 míst',min:3,range:'EU',day:626,week:4382,weekKuryr:null,weekBolt:3616,month:14390,kmOver:3.0,predpl:2.1,courier:false,taxi:true,img:'skoda-octavia-iv-combi-ambition-g1.webp'},
+ {slug:'skoda-octavia-iv-combi-style',name:'Škoda Octavia IV combi Style TDi DSG',cat:'Střední',gear:'Automat',fuel:'diesel',seats:'5 míst',min:3,range:'EU',day:790,week:4740,weekKuryr:null,weekBolt:null,month:16500,kmOver:3.0,predpl:2.1,courier:false,taxi:false,img:'skoda-octavia-iv-combi-style.webp'},
+ {slug:'skoda-superb-iii-laurin-klement-2019-facelift',name:'Škoda Superb III L&K TDi, liftback',cat:'Prémium',gear:'Automat',fuel:'diesel',seats:'5 míst',min:1,range:'EU',day:885,week:6195,weekKuryr:null,weekBolt:4628,month:21230,kmOver:3.0,predpl:2.1,courier:false,taxi:true,img:'skoda-superb-iii-laurin-klement-2019-facelift.webp'},
+ {slug:'skoda-superb-kombi-iii-facelift-20-tdi-dsg-lk-2019',name:'Škoda Superb III L&K TDi, combi',cat:'Prémium',gear:'Automat',fuel:'diesel',seats:'5 míst',min:1,range:'EU',day:885,week:6195,weekKuryr:null,weekBolt:4628,month:21230,kmOver:3.0,predpl:2.1,courier:false,taxi:true,img:'skoda-superb-kombi-iii-facelift-20-tdi-dsg-lk-2019.webp'},
+ {slug:'skoda-superb-iv-laurin-klement',name:'Škoda Superb IV L&K TDi, liftback',cat:'Prémium',gear:'Automat',fuel:'diesel',seats:'5 míst',min:1,range:'EU',day:970,week:6790,weekKuryr:null,weekBolt:null,month:24200,kmOver:3.3,predpl:2.3,courier:false,taxi:false,img:'skoda-superb-iv-laurin-klement-g1.webp'},
+ {slug:'hyundai-staria-luxury',name:'Hyundai Staria Luxury CDi, 6+1',cat:'Skupina',gear:'Automat',fuel:'diesel',seats:'7 míst',min:30,range:'EU',day:3500,week:24500,weekKuryr:null,weekBolt:null,month:35575,kmOver:4.0,predpl:2.8,courier:false,taxi:false,img:'hyundai-staria-luxury.webp'},
+ {slug:'hyundai-staria-style-premium',name:'Hyundai Staria Style Premium CDi, 8+1',cat:'Skupina',gear:'Automat',fuel:'diesel',seats:'9 míst',min:30,range:'EU',day:3450,week:24150,weekKuryr:null,weekBolt:null,month:34000,kmOver:4.0,predpl:2.8,courier:false,taxi:false,img:'hyundai-staria-style-premium.webp'},
+ {slug:'mercedes-s-350-d-4matic-l-air',name:'Mercedes-Benz S350 d 4MATIC L',cat:'Prémium',gear:'Automat',fuel:'diesel',seats:'5 míst',min:30,range:'EU',day:2300,week:16100,weekKuryr:null,weekBolt:null,month:57500,kmOver:8.0,predpl:5.6,courier:false,taxi:false,img:'mercedes-s-350-d-4matic-l-air.webp'}
+];
+var CAT_ORDER={'Město':0,'Střední':1,'Prémium':2,'Skupina':3};
+var S={mode:'long',purpose:'personal',months:6,days:3,weeks:4,km:1500,kmMode:'pre',vat:true,car:null,sort:'asc',gear:'all'};
+var VAT=1.21;
+/* PŘEPRAVNÍ sazba vozu dle segmentu: ?kuryr=1 → weekKuryr · ?ridic=1 → weekBolt ·
+   bez URL hintu → nejnižší dostupná přepravní sazba. null = vůz pro přepravu nedostupný. */
+function transRate(c){
+  if(segHint==='ridic')return c.weekBolt;
+  if(segHint==='kuryr')return c.weekKuryr;
+  return c.weekKuryr!=null?c.weekKuryr:c.weekBolt;
+}
+function fmt(n){return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ')}
+function fmtKm(n){return (Math.round(n*10)/10).toString().replace('.',',')}
+function withVat(n){return Math.round(n*VAT)}
+function withVatMaybe(n){return S.vat?withVat(n):Math.round(n)}
+function disc(m){return m>=12?0.15:(m>=6?0.10:(m>=3?0.05:0))}
+function curDays(){return S.purpose==='transport'?S.weeks*7:(S.mode==='long'?S.months*30:S.days)}
+function kmRates(car){
+  if(car)return{over:car.kmOver,pre:car.predpl,from:false};
+  var o=CARS.reduce(function(a,c){return Math.min(a,c.kmOver)},99);
+  var p=CARS.reduce(function(a,c){return Math.min(a,c.predpl)},99);
+  return{over:o,pre:p,from:true};
+}
+function rateStr(n){return fmtKm(S.vat?n*VAT:n)}
+/* v8.3: denní ekvivalent u cen za týden/měsíc = VÝPOČET ze ZOBRAZENÉ ceny za období
+   (upřesnění RF 9. 8.): týdenní cena ÷ 7 · měsíční cena ÷ 30,4 (= 365/12, průměrný
+   měsíc). Počítá se ze zobrazené částky v aktivním DPH režimu (tj. po slevě, vč. km
+   navíc), zaokrouhluje se na celé Kč. Day sazba z DB se pro ekvivalent NEPOUŽÍVÁ —
+   nahrazuje pravidlo v8.2 „reálná day sazba z DB". */
+var DAYS_MONTH=30.4; /* průměrný počet dnů v měsíci = 365/12 */
+function dayEqStr(per,perDays){return '≈ '+fmt(withVatMaybe(per)/perDays)+' Kč/den'}
+/* v6: krátký název vozu pro sticky box — „Citigo G-tec Active" místo
+   „Škoda Citigo G-tec Active (CNG)" (dlouhý label se lámal a přetékal) */
+function shortName(c){
+  return c.name.replace(/^(Škoda|Hyundai|Mercedes-Benz)\s+/,'')
+               .replace(/\s*\(.*?\)/,'')
+               .replace(/,.*$/,'')
+               .split(' ').slice(0,3).join(' ');
+}
+
+/* ================= HLAVIČKA / MENU ================= */
+document.getElementById('menuBtn').onclick=function(){
+  var n=document.getElementById('mNav');n.classList.toggle('open');
+  this.setAttribute('aria-expanded',n.classList.contains('open'));
+};
+
+/* ================= KONFIGURÁTOR ================= */
+/* a11y (oponentura v8): jednotné přepnutí segmentového tlačítka —
+   vizuální třída .on + aria-pressed vždy společně, aby čtečka znala stav */
+function segPress(btn,on){
+  btn.classList.toggle('on',on);
+  btn.setAttribute('aria-pressed',on?'true':'false');
+}
+function setMode(m){S.mode=m;
+  segPress(document.getElementById('tabShort'),m==='short');
+  segPress(document.getElementById('tabLong'),m==='long');
+  syncRows();refresh();
+}
+function syncRows(){
+  var tr=S.purpose==='transport';
+  document.getElementById('modeSeg').style.display=tr?'none':'';
+  document.getElementById('rowWeeks').style.display=tr?'':'none';
+  document.getElementById('rowLong').style.display=(!tr&&S.mode==='long')?'':'none';
+  document.getElementById('rowShort').style.display=(!tr&&S.mode==='short')?'':'none';
+  /* v8.2: v přepravním režimu se km NEKONFIGURUJÍ — v ceně je pevný limit
+     6 500 km/měs (rozhodnutí RF 9. 8. 2026), slider by tu neměl co měnit */
+  document.getElementById('rowKm').style.display=tr?'none':'';
+  document.getElementById('purposeHint').style.display=tr?'block':'none';
+  document.getElementById('kmLbl').textContent='Kolik km plánujete najet za měsíc?';
+  document.getElementById('kmIncNote').textContent='V ceně je 1 500 km/měs. Km navíc koupíte předem levněji než doplatkem.';
+  document.getElementById('kmModeLbl').textContent='Kilometry nad 1 500 km/měs';
+}
+function setPurpose(p){S.purpose=p;
+  segPress(document.getElementById('purOsobni'),p==='personal');
+  segPress(document.getElementById('purPrepravni'),p==='transport');
+  syncRows();refresh();
+}
+function setVat(v){S.vat=v;
+  ['vatOn','vatOn2'].forEach(function(id){segPress(document.getElementById(id),v)});
+  ['vatOff','vatOff2'].forEach(function(id){segPress(document.getElementById(id),!v)});
+  refresh();
+}
+function sliderFill(el){var p=(el.value-el.min)/(el.max-el.min)*100;el.style.setProperty('--fill',p+'%')}
+/* FIX SCROLL-TRAPU (v5, beze změny): drag slideru chytá jen thumb */
+function tameSlider(el){
+  el.addEventListener('pointerdown',function(e){
+    if(e.pointerType!=='touch')return;
+    var r=el.getBoundingClientRect(),min=+el.min,max=+el.max,pad=14;
+    var tx=r.left+pad+((+el.value)-min)/(max-min)*(r.width-2*pad);
+    if(Math.abs(e.clientX-tx)>24)e.preventDefault();
+  });
+}
+['rMonths','rDays','rKm','rWeeks'].forEach(function(id){
+  var el=document.getElementById(id);
+  el.addEventListener('input',function(){sliderFill(el);
+    if(id==='rMonths')S.months=+el.value;
+    if(id==='rDays')S.days=+el.value;
+    if(id==='rKm')S.km=+el.value;
+    if(id==='rWeeks')S.weeks=+el.value;
+    refresh();});
+  sliderFill(el);tameSlider(el);
+});
+/* delegace klikání na volby délky (v4, beze změny) */
+function setMonths(m,scroll){
+  S.purpose='personal';S.mode='long';
+  segPress(document.getElementById('purOsobni'),true);
+  segPress(document.getElementById('purPrepravni'),false);
+  segPress(document.getElementById('tabShort'),false);
+  segPress(document.getElementById('tabLong'),true);
+  S.months=m;document.getElementById('rMonths').value=m;
+  sliderFill(document.getElementById('rMonths'));
+  syncRows();refresh();
+  if(scroll)document.getElementById('spocitat').scrollIntoView({behavior:'smooth'});
+}
+document.addEventListener('click',function(e){
+  if(document.body.classList.contains('commenting'))return;
+  var chip=e.target.closest('#chipsMonths button');
+  if(chip){setMonths(+chip.dataset.m,false);return}
+  var tile=e.target.closest('#slevaTiles .tile');
+  if(tile)setMonths(+tile.dataset.m,true);
+});
+document.querySelectorAll('input[name=kmMode]').forEach(function(i){
+  i.addEventListener('change',function(){S.kmMode=this.value;refresh()});
+});
+var sel=document.getElementById('carSel');
+CARS.forEach(function(c){var o=document.createElement('option');o.value=c.slug;o.textContent=c.name;sel.appendChild(o)});
+sel.onchange=function(){S.car=this.value||null;refresh()};
+
+function daysWord(n){return n===1?'den':(n<5?'dny':'dní')}
+function monthsWord(n){return n===1?'měsíc':(n<5?'měsíce':'měsíců')}
+function weeksWord(n){return n===1?'týden':(n<5?'týdny':'týdnů')}
+
+/* CENOVÝ MODEL (v8.2): sazby z LOOKUP TABULKY per vůz; přepravní režim
+   počítá z weekKuryr/weekBolt (transRate), km navíc se v něm nedopočítávají
+   — v ceně je pevných 6 500 km/měs (rozhodnutí RF 9. 8. 2026) */
+function calc(car){
+  var d=disc(S.mode==='long'?S.months:0);
+  var extraKm=Math.max(0,S.km-1500);
+  var kmRate=S.kmMode==='pre'?car.predpl:car.kmOver;
+  var r={};
+  if(S.purpose==='transport'){
+    var wk=transRate(car);
+    r.perLabel='Kč/týden';
+    r.extra=0;
+    r.per=wk||0;
+    r.total=r.per*S.weeks;
+    r.durText=S.weeks+' '+weeksWord(S.weeks);
+  }else if(S.mode==='long'){
+    r.perLabel='Kč/měs';
+    r.extra=extraKm*kmRate;
+    r.per=car.month*(1-d)+r.extra;
+    r.total=r.per*S.months;
+    r.durText=S.months+' '+monthsWord(S.months);
+  }else{
+    r.perLabel='Kč/den';
+    r.per=car.day;
+    r.extra=0;
+    r.total=car.day*S.days;
+    r.durText=S.days+' '+daysWord(S.days);
+  }
+  return r;
+}
+function priceStr(n,unit){
+  var main=S.vat?withVat(n):Math.round(n);
+  var alt=S.vat?Math.round(n):withVat(n);
+  return {main:fmt(main)+' '+unit+' '+(S.vat?'s DPH':'bez DPH'),alt:fmt(alt)+' '+unit+' '+(S.vat?'bez DPH':'s DPH')};
+}
+/* v6: celkovka ve sticky boxu jen v aktivním DPH režimu (druhá varianta byla
+   třetí cena v boxu — šum; plný rozpis zůstává v souhrnu formuláře) */
+function totalLine(r,from){
+  var main=S.vat?withVat(r.total):Math.round(r.total);
+  return 'Celkem za '+r.durText+(from?' od ':': ')+fmt(main)+' Kč '+(S.vat?'s DPH':'bez DPH');
+}
+
+function updateKmChoice(car){
+  var row=document.getElementById('rowKmMode');
+  var extraKm=Math.max(0,S.km-1500);
+  /* v8.1: jen dlouhodobý běžný pronájem — přepravní režim km nekonfiguruje */
+  var show=S.purpose!=='transport'&&S.mode==='long'&&extraKm>0;
+  row.style.display=show?'':'none';
+  if(!show)return;
+  var rt=kmRates(car);
+  var save=extraKm*(rt.over-rt.pre);
+  var sv=S.vat?withVat(save):Math.round(save);
+  var od=rt.from?'od ':'';
+  document.getElementById('kmoPreSub').textContent=od+rateStr(rt.pre)+' Kč/km · ušetříte '+od+fmt(sv)+' Kč/měs oproti doplatku';
+  document.getElementById('kmoPostSub').textContent=od+rateStr(rt.over)+' Kč/km · účtuje se po vrácení dle reálného nájezdu';
+  document.getElementById('kmoPre').classList.toggle('on',S.kmMode==='pre');
+  document.getElementById('kmoPost').classList.toggle('on',S.kmMode==='post');
+}
+
+function updateSelOptions(){
+  var d=disc(S.mode==='long'?S.months:0);
+  CARS.forEach(function(c,i){
+    var o=sel.options[i+1];if(!o)return;
+    var tr=S.purpose==='transport';
+    if(tr){
+      var wk=transRate(c);
+      o.textContent=wk==null
+        ?c.name+' — pro přepravní služby nedostupné'
+        :c.name+' — od '+fmt(withVatMaybe(wk))+' Kč/týden '+(S.vat?'s DPH':'bez DPH');
+      return;
+    }
+    var n=S.mode==='long'?c.month*(1-d):c.day;
+    var u=S.mode==='long'?' Kč/měs ':' Kč/den ';
+    o.textContent=c.name+' — od '+fmt(withVatMaybe(n))+u+(S.vat?'s DPH':'bez DPH');
+  });
+}
+
+function refresh(){
+  document.getElementById('outMonths').textContent=S.months+' '+monthsWord(S.months)+(disc(S.months)?' · −'+(disc(S.months)*100)+' %':'');
+  document.getElementById('outDays').textContent=S.days+' '+daysWord(S.days);
+  document.getElementById('outWeeks').textContent=S.weeks+' '+weeksWord(S.weeks);
+  document.getElementById('outKm').textContent=fmt(S.km)+' km/'+(S.purpose==='transport'?'týd':'měs');
+  document.querySelectorAll('#chipsMonths button').forEach(function(b){b.classList.toggle('on',+b.dataset.m===S.months)});
+  updateSelOptions();
+
+  var car=CARS.find(function(c){return c.slug===S.car});
+  updateKmChoice(car||null);
+
+  /* cena v result baru — v6: krátké labely přes shortName() */
+  var trM=S.purpose==='transport';
+  var cap=document.getElementById('prCap'),main=document.getElementById('prMain'),alt=document.getElementById('prAlt'),cta=document.getElementById('cfgCta'),tot=document.getElementById('prTot');
+  var mn=document.getElementById('minNote');mn.style.display='none';
+  if(car){
+    var noTrans=trM&&transRate(car)==null;
+    var av=curDays()>=car.min&&!noTrans;
+    if(!av){
+      cap.textContent=shortName(car);
+      if(noTrans){
+        main.textContent='pro přepravu nedostupné';
+        alt.textContent='vyberte jiný vůz níže';
+      }else{
+        main.textContent='min. '+car.min+' '+daysWord(car.min);
+        alt.textContent='prodlužte dobu pronájmu';
+      }
+      cta.textContent=noTrans?'Vybrat vůz ↓':'Upravit dobu ↑';cta.href=noTrans?'#vozy':'#spocitat';
+      tot.textContent='';
+      if(S.mode==='short'&&!trM&&curDays()<car.min){mn.style.display='block';mn.textContent='⚠️ '+car.name+' půjčujeme od '+car.min+' '+daysWord(car.min)+'.';}
+    }else{
+      var r=calc(car),p=priceStr(r.per,r.perLabel);
+      cap.textContent=shortName(car)+' · '+r.durText;
+      main.textContent=p.main; alt.textContent=p.alt;
+      tot.textContent=totalLine(r,false)+(r.extra?' · vč. km navíc':'');
+      cta.textContent='Do poptávky →';cta.href='#poptavka';
+    }
+  }else{
+    var avail=CARS.filter(function(c){return curDays()>=c.min&&(!trM||transRate(c)!=null)});
+    var cheapest=avail.length?avail.reduce(function(a,b){return cardPer(a)<cardPer(b)?a:b}):null;
+    if(cheapest){
+      var r2=calc(cheapest),p2=priceStr(r2.per,r2.perLabel);
+      cap.textContent='Orientačně od · '+shortName(cheapest);
+      main.textContent=p2.main; alt.textContent=p2.alt;
+      tot.textContent=totalLine(r2,true);
+    }else{cap.textContent='Orientační cena';main.textContent='—';alt.textContent='';tot.textContent=''}
+    cta.textContent='Vybrat vůz ↓';cta.href='#vozy';
+  }
+  renderCars();
+  updateSummary(car);
+}
+
+/* ================= KARTY VOZŮ ================= */
+document.getElementById('sortSel').onchange=function(){S.sort=this.value;renderCars()};
+document.querySelectorAll('.filters [data-g]').forEach(function(b){
+  b.onclick=function(){S.gear=b.dataset.g;
+    document.querySelectorAll('.filters [data-g]').forEach(function(x){segPress(x,x===b)});
+    renderCars();};
+});
+function cardPer(c){
+  if(S.purpose==='transport')return transRate(c); /* null = nedostupné; km navíc se u přepravy nedopočítávají */
+  var rate=S.kmMode==='pre'?c.predpl:c.kmOver;
+  if(S.mode==='long')return c.month*(1-disc(S.months))+Math.max(0,S.km-1500)*rate;
+  return c.day;
+}
+function renderCars(){
+  var list=CARS.slice().filter(function(c){return S.gear==='all'||c.gear===S.gear});
+  if(S.sort==='asc')list.sort(function(a,b){return a.day-b.day});
+  if(S.sort==='desc')list.sort(function(a,b){return b.day-a.day});
+  if(S.sort==='cat')list.sort(function(a,b){return CAT_ORDER[a.cat]-CAT_ORDER[b.cat]||a.day-b.day});
+  var trM=S.purpose==='transport';
+  var unit=trM?'Kč/týden':(S.mode==='long'?'Kč/měs':'Kč/den');
+  var g=document.getElementById('carGrid');g.innerHTML='';
+  list.forEach(function(c){
+    var noTrans=trM&&transRate(c)==null;
+    var locked=curDays()<c.min||noTrans;
+    var dUrl=c.local?c.local:'https://www.popojedu.cz/vozy/'+c.slug;
+    var perVal=cardPer(c);
+    var priceLine=noTrans
+      ?'<div class="price-line"><b>pro přepravní služby nedostupné</b></div>'
+      :'<div class="price-line"><b>od '+fmt(withVatMaybe(perVal))+' '+unit+'</b><span class="vat">'+(S.vat?'s DPH':'bez DPH')+'</span><span class="alt">'+fmt(S.vat?Math.round(perVal):withVat(perVal))+' '+unit+' '+(S.vat?'bez DPH':'s DPH')+'</span>'+(unit!=='Kč/den'?'<span class="alt">'+dayEqStr(perVal,unit==='Kč/týden'?7:DAYS_MONTH)+'</span>':'')+'</div>';
+    var segTxt=trM&&!noTrans?((c.courier&&c.taxi)?' · kurýři i Bolt/Uber':(c.courier?' · kurýři':' · Bolt/Uber')):'';
+    var kmnote=trM
+      ?'v ceně 6 500 km/měs · nadlimitní km: '+rateStr(c.kmOver)+' Kč/km'
+      :'nadlimitní km: '+rateStr(c.kmOver)+' Kč/km · předem '+rateStr(c.predpl)+' Kč/km';
+    var el=document.createElement('article');
+    el.className='card'+(locked?' locked':'');
+    el.innerHTML=
+      '<a class="cover" href="'+dUrl+'" aria-label="'+c.name+' — detail vozu"></a>'+
+      '<div class="imgw"><img loading="lazy" src="'+IMG+c.img+'" alt="'+c.name+'">'+
+        '<span class="cat">'+c.cat+'</span>'+
+        '<span class="minlock">'+(noTrans?'Nedostupné pro přepravní služby':'Dostupné od '+c.min+' '+daysWord(c.min))+'</span></div>'+
+      '<div class="pad"><h3>'+c.name+'</h3>'+
+        '<div class="chips">'+c.gear+' · '+c.fuel+' · '+c.seats+' · min. '+c.min+' '+daysWord(c.min)+' · '+c.range+segTxt+'</div>'+
+        priceLine+
+        '<div class="kmnote">'+kmnote+'</div>'+
+        '<div class="row"><a class="btn pick" href="#poptavka" data-slug="'+c.slug+'">Vybrat vůz →</a>'+
+        '<a class="dlink" href="'+dUrl+'">Detail vozu</a></div></div>';
+    g.appendChild(el);
+  });
+  g.querySelectorAll('.pick').forEach(function(a){
+    a.addEventListener('click',function(){
+      S.car=a.dataset.slug;sel.value=S.car;
+      var car=CARS.find(function(c){return c.slug===S.car});
+      updateSummary(car);
+      var cEl=document.getElementById('prCap');if(cEl)refreshLight(car);
+    });
+  });
+}
+function refreshLight(car){ /* aktualizace result baru bez překreslení karet */
+  if(!car)return;
+  /* v8.1: nedostupný vůz (min. doba / bez přepravní sazby) → plný refresh s hláškou */
+  if(curDays()<car.min||(S.purpose==='transport'&&transRate(car)==null)){refresh();return}
+  var r=calc(car),p=priceStr(r.per,r.perLabel);
+  document.getElementById('prCap').textContent=shortName(car)+' · '+r.durText;
+  document.getElementById('prMain').textContent=p.main;
+  document.getElementById('prAlt').textContent=p.alt;
+  document.getElementById('prTot').textContent=totalLine(r,false)+(r.extra?' · vč. km navíc':'');
+  document.getElementById('cfgCta').textContent='Do poptávky →';
+  document.getElementById('cfgCta').href='#poptavka';
+}
+
+/* ================= FORM ================= */
+function setTyp(t){
+  segPress(document.getElementById('tOsoba'),t==='osoba');
+  segPress(document.getElementById('tFirma'),t==='firma');
+  document.getElementById('formCard').classList.toggle('firma',t==='firma');
+}
+/* v8: skrytá pole formuláře — segment hint z URL (?kuryr=1 / ?ridic=1) + helper */
+var segHint='';
+try{var _sq=new URLSearchParams(location.search);if(_sq.get('ridic')==='1')segHint='ridic';else if(_sq.get('kuryr')==='1')segHint='kuryr';}catch(e){}
+function setHidden(id,val){var el=document.getElementById(id);if(el)el.value=String(val);}
+function updateSummary(car){
+  var extraKm=Math.max(0,S.km-1500);
+  var tr=S.purpose==='transport';
+  document.getElementById('sumUcel').textContent=tr
+    ?(segHint==='ridic'?'Přepravní služby — Bolt/Uber':(segHint==='kuryr'?'Přepravní služby — kurýři':'Přepravní služby (týdenní platby)'))
+    :'Osobní použití';
+  document.getElementById('sumCar').textContent=car?car.name:'— vyberte výše';
+  document.getElementById('sumDoba').textContent=tr?S.weeks+' '+weeksWord(S.weeks):(S.mode==='long'?S.months+' '+monthsWord(S.months):S.days+' '+daysWord(S.days));
+  document.getElementById('sumKm').textContent=tr
+    ?'6 500 km/měs v ceně'
+    :fmt(S.km)+' km/měs'+((S.mode==='long'&&extraKm)?(S.kmMode==='pre'?' · km předem':' · doplatek po vrácení'):'');
+  /* v8: propsání konfigurace do skrytých polí — stejná data jako vizuální souhrn,
+     ať segment/vůz/kalkulace reálně odejdou s formulářem (HubSpot/admin) */
+  setHidden('hSegment',tr?(segHint||'prepravni'):'osobni');
+  setHidden('hVuz',car?car.slug:'');
+  setHidden('hRezim',tr?'prepravni':(S.mode==='long'?'dlouhodobe':'kratkodobe'));
+  setHidden('hDoba',tr?S.weeks+' '+weeksWord(S.weeks):(S.mode==='long'?S.months+' '+monthsWord(S.months):S.days+' '+daysWord(S.days)));
+  setHidden('hNajezd',tr?'6500':S.km);
+  setHidden('hKmRezim',tr?'':(S.kmMode==='pre'?'predem':'doplatek'));
+  setHidden('hDph',S.vat?'s':'bez');
+  var sp=document.getElementById('sumPrice'),spa=document.getElementById('sumPriceAlt'),st=document.getElementById('sumTotal');
+  if(car&&curDays()>=car.min&&!(tr&&transRate(car)==null)){
+    var r=calc(car),p=priceStr(r.per,r.perLabel);
+    sp.textContent=p.main; spa.textContent=p.alt+(r.perLabel!=='Kč/den'?' · '+dayEqStr(r.per,r.perLabel==='Kč/týden'?7:DAYS_MONTH):'')+(tr?' · orientačně, v ceně 6 500 km/měs':' · orientačně, vč. km');
+    var t=priceStr(r.total,'Kč');
+    st.textContent=t.main+' ('+t.alt+')';
+    setHidden('hCena',S.vat?withVat(r.total):Math.round(r.total));
+  }else{sp.textContent='—';spa.textContent='';st.textContent='—';setHidden('hCena','')}
+}
+
+/* ================= STICKY CTA LIŠTA ================= */
+var bar=document.getElementById('ctaBar');
+var heroGone=false,formVis=false,cfgVis=false;
+new IntersectionObserver(function(e){heroGone=!e[0].isIntersecting;applyBar()},{threshold:0}).observe(document.getElementById('heroCta'));
+new IntersectionObserver(function(e){formVis=e[0].isIntersecting;applyBar()},{threshold:.05}).observe(document.getElementById('poptavka'));
+new IntersectionObserver(function(e){cfgVis=e[0].isIntersecting;applyBar()},{threshold:.1}).observe(document.getElementById('konfigurator'));
+function applyBar(){bar.classList.toggle('show',heroGone&&!formVis&&!cfgVis)}
+
+/* ================= URL parametry (v5, beze změny) =================
+   ?vuz= · ?kuryr=1 / ?ridic=1 · ?firma=1 · &mesice= &dny= &tydny= &km=
+   &rezim=osobni|prepravni &kmrezim=pre|post */
+(function(){
+  try{
+    var q=new URLSearchParams(location.search);
+    var v=q.get('vuz');
+    if(v&&CARS.some(function(c){return c.slug===v})){S.car=v;sel.value=v;}
+    if(q.get('ridic')==='1'||q.get('kuryr')==='1'||q.get('rezim')==='prepravni'){S.purpose='transport';}
+    if(q.get('rezim')==='osobni'){S.purpose='personal';}
+    if(q.get('firma')==='1'){setTyp('firma');}
+    var m=parseInt(q.get('mesice'),10);
+    if(m>=1&&m<=12){S.mode='long';S.months=m;document.getElementById('rMonths').value=m;}
+    var dn=parseInt(q.get('dny'),10);
+    if(dn>=1&&dn<=30){S.mode='short';S.days=dn;document.getElementById('rDays').value=dn;}
+    var w=parseInt(q.get('tydny'),10);
+    if(w>=1&&w<=26){S.weeks=w;document.getElementById('rWeeks').value=w;}
+    var km=parseInt(q.get('km'),10);
+    if(km>=500&&km<=5000){S.km=km;document.getElementById('rKm').value=km;}
+    var kr=q.get('kmrezim');
+    if(kr==='pre'||kr==='post'){S.kmMode=kr;var ri=document.querySelector('input[name=kmMode][value='+kr+']');if(ri)ri.checked=true;}
+    ['rMonths','rDays','rKm','rWeeks'].forEach(function(id){sliderFill(document.getElementById(id))});
+  }catch(e){}
+})();
+
+setMode(S.mode);
+setPurpose(S.purpose);
+
+/* ================= v7: SCROLL-REVEAL (jemné micro-animace) =================
+   Pravidla: (1) bez JS je vše viditelné — .rv přidává až tento blok a CSS
+   skrývá jen pod html.js-anim; (2) prefers-reduced-motion → blok se vůbec
+   nespustí; (3) dynamicky renderované karty (#carGrid) se NEanimují —
+   renderCars() je přepisuje; (4) pojistka: po 2 s se vše zviditelní. */
+(function(){
+  if(!('IntersectionObserver' in window))return;
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  document.documentElement.classList.add('js-anim');
+  var sel7='.sec-sub,section h2,section .kicker,.steps .step,.tiles > *,.faq details,.cfg-card,.form-card,.hero-img,.servis-note,.trust-in > *';
+  var els=Array.prototype.slice.call(pvScreen.querySelectorAll(sel7));
+  els.forEach(function(el){
+    el.classList.add('rv');
+    var p=el.parentElement,i=p?Array.prototype.indexOf.call(p.children,el):0;
+    el.style.transitionDelay=Math.min(i*70,280)+'ms';
+  });
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}
+    });
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(el){io.observe(el)});
+  setTimeout(function(){els.forEach(function(el){el.classList.add('in')})},2000);
+})();
+
+/* ================= PŘEPÍNAČ DESKTOP / MOBIL 390 ================= */
+var zmOn=false,zmLayer=null,zmPanel=null;
+function setPv(mob){
+  document.documentElement.classList.toggle('force-mobile',mob);
+  document.getElementById('pvDesk').classList.toggle('on',!mob);
+  document.getElementById('pvMob').classList.toggle('on',mob);
+  if(zmOn)setTimeout(placeBadges,350);
+}
+document.getElementById('pvDesk').onclick=function(){setPv(false)};
+document.getElementById('pvMob').onclick=function(){setPv(true)};
+
+/* ================= REŽIM „ZMĚNY" ================= */
+function zmItems(){return Array.prototype.slice.call(document.querySelectorAll('[data-zmena]'))}
+function ensureZmLayer(){
+  if(!zmLayer){
+    zmLayer=document.createElement('div');
+    zmLayer.style.cssText='position:absolute;top:0;left:0;width:100%;height:0;z-index:84;pointer-events:none';
+    pvScreen.appendChild(zmLayer);
+  }
+}
+function placeBadges(){
+  if(!zmLayer)return;
+  zmLayer.innerHTML='';
+  var lr=zmLayer.getBoundingClientRect();
+  zmItems().forEach(function(el){
+    var r=el.getBoundingClientRect();
+    if(!r.width&&!r.height)return;
+    var b=document.createElement('span');b.className='zm-badge';
+    b.textContent=el.getAttribute('data-zmena');
+    b.style.left=Math.max(4,r.left-lr.left)+'px';
+    b.style.top=Math.max(4,r.top-lr.top-9)+'px';
+    zmLayer.appendChild(b);
+  });
+}
+function buildZmPanel(){
+  zmPanel=document.createElement('div');zmPanel.className='zm-panel';
+  var h=document.createElement('h3');h.textContent='🔍 Změny proti produkci ('+zmItems().length+')';
+  zmPanel.appendChild(h);
+  zmItems().forEach(function(el,i){
+    var b=document.createElement('button');b.type='button';b.className='it cmt-ui';
+    b.textContent=(i+1)+'. '+el.getAttribute('data-zmena');
+    b.onclick=function(){
+      el.scrollIntoView({behavior:'smooth',block:'center'});
+      el.classList.add('zm-flash');
+      setTimeout(function(){el.classList.remove('zm-flash')},1600);
+      setTimeout(placeBadges,700);
+    };
+    zmPanel.appendChild(b);
+  });
+  document.body.appendChild(zmPanel);
+}
+document.getElementById('zmToggle').onclick=function(){
+  zmOn=!zmOn;
+  this.classList.toggle('on',zmOn);
+  document.documentElement.classList.toggle('show-zmeny',zmOn);
+  if(!zmPanel)buildZmPanel();
+  zmPanel.classList.toggle('open',zmOn);
+  ensureZmLayer();
+  if(zmOn)placeBadges();else zmLayer.innerHTML='';
+};
+window.addEventListener('resize',function(){if(zmOn)placeBadges()});
+document.addEventListener('click',function(){if(zmOn)setTimeout(placeBadges,400)});
+
+/* ================= KOMENTOVACÍ VRSTVA (localStorage, file:// OK) =================
+   v8: nový klíč — komentáře z v7 se nemíchají. */
+(function(){
+  var KEY='popojedu-v121-homepage-v8-comments';
+  function load(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return[]}}
+  function save(c){localStorage.setItem(KEY,JSON.stringify(c))}
+  function nearestHeading(el){
+    var sec=el.closest('section,header,footer,.cfg-card,.form-card,.card');
+    if(sec){var h=sec.querySelector('h1,h2,h3');if(h)return h.textContent.trim().slice(0,70)}
+    return document.title;
+  }
+  var layer=document.createElement('div');layer.style.cssText='position:absolute;top:0;left:0;width:100%;height:0;z-index:80;pointer-events:none';pvScreen.appendChild(layer);
+  function layerPoint(e){var r=layer.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
+  function layerWidth(){var r=layer.getBoundingClientRect();return r.width||document.documentElement.clientWidth}
+  function renderPins(){
+    layer.innerHTML='';
+    load().forEach(function(c,i){
+      var p=document.createElement('div');p.className='cmt-pin cmt-ui';p.textContent=i+1;
+      p.style.left=c.x+'px';p.style.top=c.y+'px';p.title=c.text;
+      p.onclick=function(ev){ev.stopPropagation();openPop(c.x,c.y,i)};
+      layer.appendChild(p);
+    });
+  }
+  var pop=null;
+  function closePop(){if(pop){pop.remove();pop=null}}
+  function openPop(x,y,idx,heading){
+    closePop();
+    var cs=load(),c=idx!=null?cs[idx]:null;
+    pop=document.createElement('div');pop.className='cmt-pop cmt-ui';
+    pop.style.left=Math.min(x,Math.max(10,layerWidth()-320))+'px';
+    pop.style.top=(y+14)+'px';
+    pop.innerHTML='<div class="ctx">📍 '+((c?c.heading:heading)||'')+'</div>'+
+      '<textarea class="cmt-ui" placeholder="Napište komentář…">'+(c?c.text.replace(/</g,'&lt;'):'')+'</textarea>'+
+      '<div class="r"><button class="sv cmt-ui">Uložit</button><button class="dl cmt-ui">'+(c?'Smazat':'Zrušit')+'</button></div>';
+    layer.appendChild(pop);
+    var ta=pop.querySelector('textarea');ta.focus();
+    pop.querySelector('.sv').onclick=function(){
+      var t=ta.value.trim();var cs2=load();
+      if(idx!=null){if(t)cs2[idx].text=t;else cs2.splice(idx,1)}
+      else if(t)cs2.push({x:x,y:y,text:t,heading:heading});
+      save(cs2);closePop();renderPins();
+    };
+    pop.querySelector('.dl').onclick=function(){
+      if(idx!=null){var cs2=load();cs2.splice(idx,1);save(cs2)}
+      closePop();renderPins();
+    };
+  }
+  var tg=document.getElementById('cmtToggle');
+  tg.onclick=function(){document.body.classList.toggle('commenting');tg.classList.toggle('act');closePop()};
+  document.addEventListener('click',function(e){
+    if(!document.body.classList.contains('commenting'))return;
+    if(e.target.closest('.cmt-fab,.cmt-pop,.cmt-pin,.pv-bar,.zm-panel'))return;
+    e.preventDefault();e.stopPropagation();
+    var pt=layerPoint(e);
+    openPop(pt.x,pt.y,null,nearestHeading(e.target));
+  },true);
+  document.getElementById('cmtExport').onclick=function(){
+    var cs=load();
+    if(!cs.length){alert('Žádné komentáře.');return}
+    var md='# Komentáře — v1-2.1 HOMEPAGE v8 FINÁL ('+new Date().toLocaleString('cs-CZ')+')\n\n';
+    cs.forEach(function(c,i){md+=(i+1)+'. ['+c.heading+'] '+c.text+'\n'});
+    function fallback(){prompt('Zkopírujte ručně (Cmd+C):',md)}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(md).then(function(){alert('Zkopírováno — vložte Claudovi do chatu.')},fallback)}else fallback();
+  };
+  renderPins();
+})();
+</script>
+</body>
+</html>
