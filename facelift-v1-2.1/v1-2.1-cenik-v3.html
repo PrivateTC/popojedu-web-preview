@@ -80,6 +80,15 @@ section{padding:48px 0}
 .hd-nav a:hover{background:var(--bg)}
 .hd-nav a.act{color:var(--green-dark);font-weight:600}
 .hd-nav a.cta{background:var(--green);color:var(--navy);font-weight:700;margin-left:8px}
+/* v3.4: dropdown „Pro koho ▾" — segmentové landingy v hlavním menu (pokyn RF, shodné s homepage v8.4) */
+.hd-nav .dd{position:relative}
+.hd-nav .dd>button{font-family:var(--font);font-size:14px;font-weight:500;background:none;border:none;padding:8px 12px;border-radius:8px;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.hd-nav .dd>button:hover{background:var(--bg)}
+.hd-nav .dd .car{font-size:9px;color:var(--soft);transform:translateY(1px)}
+.hd-nav .dd-menu{position:absolute;top:100%;left:0;padding-top:8px;display:none;z-index:80}
+.hd-nav .dd:hover .dd-menu,.hd-nav .dd:focus-within .dd-menu,.hd-nav .dd.open .dd-menu{display:block}
+.hd-nav .dd-menu-in{min-width:186px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 2px rgba(0,32,64,.06),0 12px 30px rgba(0,32,64,.16);padding:6px}
+.hd-nav .dd-menu-in a{display:block;white-space:nowrap}
 .menu-btn{border:1px solid var(--line);background:#fff;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--navy);padding:9px 14px;cursor:pointer;min-height:44px}
 .m-nav{display:none;background:#fff;border-bottom:1px solid var(--line);padding:6px 18px 14px}
 .m-nav.open{display:block}
@@ -326,10 +335,19 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
 <header class="hd" data-zmena="v3: styl v8 + jednotná navigace (Naše vozy · Ceník · Pro firmy · Kontakt + CTA) — bez telefonu">
   <div class="wrap hd-in">
     <a class="logo" href="v1-2.1-homepage-v8.html"><span class="logo-p">p</span><b>popojedu</b></a>
-    <nav class="hd-nav">
+    <nav class="hd-nav" data-zmena="ÚPRAVA v3.4: jednotné menu se segmentovými landingy (RF) — Naše vozy · Ceník · Pro koho ▾ (Pro firmy / Pro kurýry / Pro Bolt a Uber) · Kontakt + CTA">
       <a href="v1-2.1-homepage-v8.html#vozy">Naše vozy</a>
       <a class="act" href="v1-2.1-cenik-v3.html">Ceník</a>
-      <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+      <div class="dd" id="ddSeg">
+        <button type="button" aria-haspopup="true" aria-expanded="false">Pro koho <span class="car">▾</span></button>
+        <div class="dd-menu">
+          <div class="dd-menu-in">
+            <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+            <a href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
+            <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
+          </div>
+        </div>
+      </div>
       <a href="https://www.popojedu.cz/kontakt">Kontakt</a>
       <a class="cta" href="v1-2.1-homepage-v8.html#spocitat">Spočítat cenu</a>
     </nav>
@@ -339,6 +357,8 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <a href="v1-2.1-homepage-v8.html#vozy">Naše vozy</a>
     <a href="v1-2.1-cenik-v3.html">Ceník</a>
     <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+    <a href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
+    <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
     <a href="https://www.popojedu.cz/kontakt">Kontakt</a>
   </nav>
 </header>
@@ -499,6 +519,8 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <span class="tag">INTERNÍ — JEN V PŘEDLOZE · CENÍK v3 (styl v8 + rozdělení)</span>
     <h2>Doporučení: co v3 mění proti v2 a pokyny pro Martina</h2>
     <ul>
+      <li><b>v3.5 — JEDNOTNÉ CTA (pokyn RF 9. 8. 2026, shodné s homepage v8.5: „drž to jednotně, 1 CTA vidět"):</b> <b>1 CTA v hlavičce</b> („Spočítat cenu", zelené) + <b>max 1 primární velké CTA</b> na stránce. Ceník ověřen a vyhovuje: hlavička stránky (phead) je čistá typografie bez tlačítek (ceník je tabulka, hero se dvěma tlačítky tu nemá co dělat), jediné velké CTA je blok „Spočítat cenu vašeho pronájmu →" (#mainCta) před patičkou, sticky lišta (mobil) jedno CTA. Druhá akce smí být jen decentní textový odkaz — nikdy dvě konkurenční velká tlačítka. Pravidlo převzít 1:1 na Pro firmy a landingy.</li>
+      <li><b>v3.4 — MENU SE SEGMENTOVÝMI LANDINGY (pokyn RF 9. 8. 2026, shodné s homepage v8.4):</b> hlavní navigace obsahuje proklik na landing pro kurýry i pro Bolt/Uber — na desktopu jako rozbalovací položka <b>„Pro koho ▾"</b> (Pro firmy · Pro kurýry · Pro Bolt a Uber), v mobilním hamburgeru všech 6 položek plochou řadou. Dropdown se otevírá hoverem/fokusem i klikem, zavírá Escape a klikem mimo; trigger má <code>aria-haspopup</code>/<code>aria-expanded</code>. Odkazy vedou na finální verze landingů (kuryri-v3, bolt-uber-v3). Stejné menu je na homepage v8 a detailu vozu v5 — na dalších stránkách převzít 1:1.</li>
       <li><b>v3.3 — DENNÍ EKVIVALENT = VÝPOČET ZE ZOBRAZENÉ CENY (upřesnění RF 9. 8. 2026, nahrazuje bod 2 z v3.2 níže):</b> „≈ X Kč/den" se počítá <b>ze zobrazené ceny za období v aktivním DPH režimu</b>: týdenní cena <b>÷ 7</b>, měsíční cena <b>÷ 30,4</b> (= 365/12, průměrný počet dnů v měsíci; konstanta <code>DAYS_MONTH</code>), zaokrouhleno na celé Kč. Reálná <code>day</code> sazba z DB se pro ekvivalent už NEPOUŽÍVÁ. Platí v tabulce i mobilních kartách, v obou režimech (běžný: týden + měsíc · přepravní: týdenní sazby kurýři/Bolt), a přepočítává se při přepnutí DPH (renderAll). Kontrolní příklady: Citigo měsíc s DPH 9 002 ÷ 30,4 ≈ <b>296 Kč/den</b> · Fabia týden s DPH 3 684 ÷ 7 ≈ <b>526 Kč/den</b>. <b>MARTIN:</b> na webu počítat stejně — dělit zobrazenou cenu za období, ne číst day sazbu. Stejná změna je na homepage v8 (v8.3).</li>
       <li><b>v3.2 — TŘI CENOVÉ POKYNY RF (9. 8. 2026), stejné jako na homepage v8:</b> (1) <b>Přepravní služby mají v ceně 6 500 km/měsíc</b> (kurýři i Bolt/Uber) — nahrazuje „volné km dle poptávky" ve sloupci Volné km, hintu režimu, kroku 3 i poznámce pod tabulkou. <b>MARTIN:</b> limit 6 500 km/měs uložit do DB/adminu jako konfigurovatelnou hodnotu per segment; v předloze je konstanta. (2) <b>Denní ekvivalent:</b> u každé týdenní a měsíční ceny (tabulka i mobilní karty, oba režimy) je drobně „≈ X Kč/den" — <s>reálná day sazba z DB</s> ⚠️ ZPŮSOB VÝPOČTU NAHRAZEN ve v3.3 výše (zobrazená cena ÷ 7 / ÷ 30,4); umístění ekvivalentů platí dál. (3) <b>Měsíční „od" = month × 0,85</b> (sazba při 12 měsících, −15 % — nejnižší dosažitelná měsíční cena), zobrazená pod základní měsíční sazbou vždy s dovětkem „při 12 měsících", ať nelže (helper <code>monthFromLine()</code>). Netýká se přepravních týdenních sazeb.</li>
       <li><b>v3.1 KLÍČOVÉ — PŘEPRAVNÍ CENÍK MÁ VLASTNÍ SAZBY (potvrzení RF: „přepravní služby mají jiné ceny za týden i jiný volný počet km").</b> <b>Běžný pronájem</b> (výchozí) = den + týden + měsíc, 1 500 km/měs v ceně, slevy 3/6/12. <b>Přepravní služby</b> = REÁLNÉ segmentové týdenní sazby <code>weekKuryr</code> (kurýři Wolt/Foodora) a <code>weekBolt</code> (Bolt/Uber) z produkce — NE běžná týdenní cena; zobrazují se <b>jen vozy s přepravní sazbou</b> (6 ze 14: Citigo a Octavia III CNG pro kurýry; Octavia III CNG/TDi, Octavia IV combi Ambition, Superb III liftback+combi pro Bolt/Uber), u každého štítek segmentu. <b>Volné km = 6 500 km/měs v ceně</b> (rozhodnutí RF 9. 8. 2026 — dřívější „dle poptávky" už neplatí, viz bullet v3.2 výše). Sekce „Sleva za délku" se v přepravním režimu skrývá. Režim jde předvolit v URL: <code>?rezim=prepravni</code>.</li>
@@ -766,6 +788,16 @@ document.getElementById('menuBtn').onclick=function(){
   var n=document.getElementById('mNav');n.classList.toggle('open');
   this.setAttribute('aria-expanded',n.classList.contains('open'));
 };
+/* v3.4: dropdown „Pro koho" — klik/tap přepíná, Escape a klik mimo zavírá (hover řeší CSS) */
+(function(){
+  var dd=document.getElementById('ddSeg');if(!dd)return;
+  var b=dd.querySelector('button');
+  function close(){dd.classList.remove('open');b.setAttribute('aria-expanded','false');}
+  b.addEventListener('click',function(e){e.stopPropagation();
+    var o=dd.classList.toggle('open');b.setAttribute('aria-expanded',o?'true':'false');});
+  document.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+})();
 
 /* ================= STICKY CTA LIŠTA (mobil) ================= */
 var bar=document.getElementById('ctaBar');
