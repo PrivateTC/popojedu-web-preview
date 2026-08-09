@@ -104,6 +104,15 @@ section{padding:48px 0}
 .hd-nav a{font-size:14px;font-weight:500;text-decoration:none;padding:8px 12px;border-radius:8px;color:var(--ink)}
 .hd-nav a:hover{background:var(--bg)}
 .hd-nav a.cta{background:var(--green);color:var(--navy);font-weight:700;margin-left:8px}
+/* v5.2: dropdown „Pro koho ▾" — segmentové landingy v hlavním menu (pokyn RF, shodné s homepage v8.4) */
+.hd-nav .dd{position:relative}
+.hd-nav .dd>button{font-family:var(--font);font-size:14px;font-weight:500;background:none;border:none;padding:8px 12px;border-radius:8px;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.hd-nav .dd>button:hover{background:var(--bg)}
+.hd-nav .dd .car{font-size:9px;color:var(--soft);transform:translateY(1px)}
+.hd-nav .dd-menu{position:absolute;top:100%;left:0;padding-top:8px;display:none;z-index:80}
+.hd-nav .dd:hover .dd-menu,.hd-nav .dd:focus-within .dd-menu,.hd-nav .dd.open .dd-menu{display:block}
+.hd-nav .dd-menu-in{min-width:186px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 2px rgba(0,32,64,.06),0 12px 30px rgba(0,32,64,.16);padding:6px}
+.hd-nav .dd-menu-in a{display:block;white-space:nowrap}
 .menu-btn{border:1px solid var(--line);background:#fff;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--navy);padding:9px 14px;cursor:pointer;min-height:44px}
 .m-nav{display:none;background:#fff;border-bottom:1px solid var(--line);padding:6px 18px 14px}
 .m-nav.open{display:block}
@@ -342,10 +351,19 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
 <header class="hd" data-zmena="ZMĚNA: hlavička úplně bez telefonu (RF) — číslo jen v patičce · v5: styl a odkazy dle homepage v8">
   <div class="wrap hd-in">
     <a class="logo" href="v1-2.1-homepage-v8.html"><span class="logo-p">p</span><b>popojedu</b></a>
-    <nav class="hd-nav" data-zmena="ÚPRAVA v5: jednotné menu — Naše vozy · Ceník · Pro firmy · Kontakt (odkazy na finální verze: homepage v8, ceník v3)">
+    <nav class="hd-nav" data-zmena="ÚPRAVA v5.2: jednotné menu se segmentovými landingy (RF) — Naše vozy · Ceník · Pro koho ▾ (Pro firmy / Pro kurýry / Pro Bolt a Uber) · Kontakt + CTA (odkazy na finální verze)">
       <a href="v1-2.1-homepage-v8.html#vozy">Naše vozy</a>
       <a href="v1-2.1-cenik-v3.html">Ceník</a>
-      <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+      <div class="dd" id="ddSeg">
+        <button type="button" aria-haspopup="true" aria-expanded="false">Pro koho <span class="car">▾</span></button>
+        <div class="dd-menu">
+          <div class="dd-menu-in">
+            <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+            <a href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
+            <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
+          </div>
+        </div>
+      </div>
       <a href="https://www.popojedu.cz/kontakt">Kontakt</a>
       <a class="cta" href="v1-2.1-homepage-v8.html#spocitat">Spočítat cenu</a>
     </nav>
@@ -355,6 +373,8 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <a href="v1-2.1-homepage-v8.html#vozy">Naše vozy</a>
     <a href="v1-2.1-cenik-v3.html">Ceník</a>
     <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+    <a href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
+    <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
     <a href="https://www.popojedu.cz/kontakt">Kontakt</a>
   </nav>
 </header>
@@ -567,6 +587,8 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <span class="tag">INTERNÍ — JEN V PŘEDLOZE · v5 (styl v8 FINÁL)</span>
     <h2>Doporučení: co je v5 jinak než v4 a co zůstalo</h2>
     <ul>
+      <li><b>v5.3 — JEDNOTNÉ CTA (pokyn RF 9. 8. 2026, shodné s homepage v8.5: „drž to jednotně, 1 CTA vidět"):</b> <b>1 CTA v hlavičce</b> („Spočítat cenu", zelené, vede na homepage konfigurátor) + <b>max 1 primární velké CTA</b> na stránce — zde „Vybrat vůz → poptávka" (#pcCta, zelené, přenáší konfiguraci do <code>homepage-v8…#poptavka</code>). Stránka ověřena a vyhovuje: žádné druhé velké tlačítko vedle primárního neexistuje, sticky lišta (mobil) má jediné CTA „Vybrat vůz →" + cenu. Druhá akce smí být jen decentní textový odkaz — nikdy dvě konkurenční velká tlačítka. Pravidlo převzít 1:1 na Pro firmy a landingy.</li>
+      <li><b>v5.2 — MENU SE SEGMENTOVÝMI LANDINGY (pokyn RF 9. 8. 2026, shodné s homepage v8.4):</b> hlavní navigace obsahuje proklik na landing pro kurýry i pro Bolt/Uber — na desktopu jako rozbalovací položka <b>„Pro koho ▾"</b> (Pro firmy · Pro kurýry · Pro Bolt a Uber), v mobilním hamburgeru všech 6 položek plochou řadou. Dropdown se otevírá hoverem/fokusem i klikem, zavírá Escape a klikem mimo; trigger má <code>aria-haspopup</code>/<code>aria-expanded</code>. Odkazy vedou na finální verze landingů (kuryri-v3, bolt-uber-v3). Stejné menu je na homepage v8 a ceníku v3 — na dalších stránkách převzít 1:1.</li>
       <li><b>v5.1 — DENNÍ EKVIVALENT (RF 9. 8., upřesněný výpočet):</b> u ceny za měsíc/týden ukazuje cenový panel i sticky lišta drobně „≈ X Kč/den" — hlavní zobrazená cena za období (po slevě) děleno <b>30,4 (měsíc; = 365/12, průměrný počet dnů)</b> / <b>7 (týden)</b>, ve zvoleném DPH režimu, zaokrouhleno na celé koruny (výchozí stav 6 měs / 1 500 km: 14 832 Kč/měs s DPH ≈ <b>488 Kč/den</b>; bez DPH 12 258 ≈ 403 Kč/den). U týdenní sazby vychází přesně denní sazba z ceníku (week = day×7 v celé flotile). U krátkodobého režimu (cena už je za den) se řádek skrývá. Sazby dál výhradně z lookup tabulky (= <code>_cenik-data-produkce.json</code>/DB) — denní ekvivalent NENÍ denní sazba z ceníku, je to jen zobrazovací přepočet ze zobrazené ceny. <b>MARTIN:</b> na produkci renderovat i tento řádek serverově (stejně jako hlavní cenu) a dělit 30,4, ne 30.</li>
       <li><b>v5 — PŘEVLEČENÍ DO FINÁLNÍHO STYLU v8 (kanonická homepage).</b> Převzaty CSS proměnné v8 (ink #22384e, muted #5b6b80, line #E8EDF3, neutrál #F6F8FA/#EEF1F5, luxury easing, --shadow-tactile), typografická škála (h2 22/27), vzduch sekcí 48/84 px. <b>Žádný teplý písek</b> — střídání sekcí bílá / chladně-neutrální #F6F8FA, stíny chladné rgba(0,32,64,…).</li>
       <li><b>v5 — JEMNÉ PŘEPÍNAČE dle v8 (rozhodnutí RF: „přepínátka mi přijdou humpolácké").</b> Osobní/Přepravní, Krátkodobě/Dlouhodobě i s DPH/bez DPH přepracovány z navy pilulek na iOS-like segmented: světlá lišta #EEF1F5 s 1px linkou, aktivní = bílá dlaždice s jemným stínem + 1px okrajem a navy textem, písmo 12,5–13 px, přechod 0,2 s (vypnutý při reduced-motion), tap ≥40 px. Všechny seg buttony mají <code>aria-pressed</code> a JS je přepíná helperem <code>segPress()</code> (a11y oprava z oponentury v8 — místo role=tab bez tabpanelu).</li>
@@ -646,6 +668,16 @@ document.getElementById('menuBtn').onclick=function(){
   var n=document.getElementById('mNav');n.classList.toggle('open');
   this.setAttribute('aria-expanded',n.classList.contains('open'));
 };
+/* v5.2: dropdown „Pro koho" — klik/tap přepíná, Escape a klik mimo zavírá (hover řeší CSS) */
+(function(){
+  var dd=document.getElementById('ddSeg');if(!dd)return;
+  var b=dd.querySelector('button');
+  function close(){dd.classList.remove('open');b.setAttribute('aria-expanded','false');}
+  b.addEventListener('click',function(e){e.stopPropagation();
+    var o=dd.classList.toggle('open');b.setAttribute('aria-expanded',o?'true':'false');});
+  document.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+})();
 
 /* ================= GALERIE ================= */
 document.getElementById('thumbs').addEventListener('click',function(e){
