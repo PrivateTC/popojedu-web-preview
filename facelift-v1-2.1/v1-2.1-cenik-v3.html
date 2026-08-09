@@ -490,7 +490,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
       <a href="https://www.popojedu.cz/dlouhodoby-pronajem-auta-praha">Dlouhodobý pronájem</a>
       <a href="https://www.popojedu.cz/pujcovna-aut-praha-9-cakovice">Půjčovna aut Praha 9 — Čakovice</a>
       <a href="https://www.popojedu.cz/vyzvednuti-vozu">Vyzvednutí vozu</a>
-      <a href="https://www.popojedu.cz/predani-vozu">Předání vozu</a>
+      <a href="https://www.popojedu.cz/predani-vozu">Vrácení vozu</a>
     </div>
     <div class="ft">
       <h4>Pro koho</h4>
@@ -519,6 +519,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <span class="tag">INTERNÍ — JEN V PŘEDLOZE · CENÍK v3 (styl v8 + rozdělení)</span>
     <h2>Doporučení: co v3 mění proti v2 a pokyny pro Martina</h2>
     <ul>
+      <li><b>OPRAVA Z OPONENTURY (9. 8. 2026):</b> položka patičky „Předání vozu" přejmenována na <b>„Vrácení vozu"</b> (URL <code>/predani-vozu</code> beze změny) — vedle „Vyzvednutí vozu" bylo „Předání" matoucí; sjednoceno s produkcí na všech 5 stránkách předlohy.</li>
       <li><b>v3.5 — JEDNOTNÉ CTA (pokyn RF 9. 8. 2026, shodné s homepage v8.5: „drž to jednotně, 1 CTA vidět"):</b> <b>1 CTA v hlavičce</b> („Spočítat cenu", zelené) + <b>max 1 primární velké CTA</b> na stránce. Ceník ověřen a vyhovuje: hlavička stránky (phead) je čistá typografie bez tlačítek (ceník je tabulka, hero se dvěma tlačítky tu nemá co dělat), jediné velké CTA je blok „Spočítat cenu vašeho pronájmu →" (#mainCta) před patičkou, sticky lišta (mobil) jedno CTA. Druhá akce smí být jen decentní textový odkaz — nikdy dvě konkurenční velká tlačítka. Pravidlo převzít 1:1 na Pro firmy a landingy.</li>
       <li><b>v3.4 — MENU SE SEGMENTOVÝMI LANDINGY (pokyn RF 9. 8. 2026, shodné s homepage v8.4):</b> hlavní navigace obsahuje proklik na landing pro kurýry i pro Bolt/Uber — na desktopu jako rozbalovací položka <b>„Pro koho ▾"</b> (Pro firmy · Pro kurýry · Pro Bolt a Uber), v mobilním hamburgeru všech 6 položek plochou řadou. Dropdown se otevírá hoverem/fokusem i klikem, zavírá Escape a klikem mimo; trigger má <code>aria-haspopup</code>/<code>aria-expanded</code>. Odkazy vedou na finální verze landingů (kuryri-v3, bolt-uber-v3). Stejné menu je na homepage v8 a detailu vozu v5 — na dalších stránkách převzít 1:1.</li>
       <li><b>v3.3 — DENNÍ EKVIVALENT = VÝPOČET ZE ZOBRAZENÉ CENY (upřesnění RF 9. 8. 2026, nahrazuje bod 2 z v3.2 níže):</b> „≈ X Kč/den" se počítá <b>ze zobrazené ceny za období v aktivním DPH režimu</b>: týdenní cena <b>÷ 7</b>, měsíční cena <b>÷ 30,4</b> (= 365/12, průměrný počet dnů v měsíci; konstanta <code>DAYS_MONTH</code>), zaokrouhleno na celé Kč. Reálná <code>day</code> sazba z DB se pro ekvivalent už NEPOUŽÍVÁ. Platí v tabulce i mobilních kartách, v obou režimech (běžný: týden + měsíc · přepravní: týdenní sazby kurýři/Bolt), a přepočítává se při přepnutí DPH (renderAll). Kontrolní příklady: Citigo měsíc s DPH 9 002 ÷ 30,4 ≈ <b>296 Kč/den</b> · Fabia týden s DPH 3 684 ÷ 7 ≈ <b>526 Kč/den</b>. <b>MARTIN:</b> na webu počítat stejně — dělit zobrazenou cenu za období, ne číst day sazbu. Stejná změna je na homepage v8 (v8.3).</li>
