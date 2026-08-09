@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>PŘEDLOHA v1-2.1 — Landing PRO KURÝRY v3 (styl v8 + jednotná poptávka) | Popojedu.cz facelift</title>
+<title>PŘEDLOHA v1-2.1 — Landing PRO KURÝRY v3.3 (tenká vstupní stránka → konfigurátor) | Popojedu.cz facelift</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -19,12 +19,13 @@
    – tactile karty (jemný neumorphism, chladné stíny rgba(0,32,64,…))
    – kontrast sekundárních textů --muted (≥4,9:1), žádné emoji v obsahu
    – světlý trust pás (místo navy bloku), telefon jen v patičce
-   STRUKTURÁLNÍ ZMĚNA (pokyn RF): vlastní sekce zrychlené poptávky
-   ODSTRANĚNA — poptávka funguje STEJNĚ jako u běžných zákazníků:
-   jeden hlavní formulář na homepage. Landing na něj jen vede:
-   – poptávková CTA → v1-2.1-homepage-v8.html?kuryr=1#poptavka
-   – „Spočítat cenu"  → v1-2.1-homepage-v8.html?kuryr=1#spocitat
-   – karty vozů       → ?kuryr=1&vuz={slug}#spocitat
+   v3.3 TENKÝ LANDING (rozhodnutí RF): landing NEMÁ vlastní ceny ani
+   karty vozů — je to marketingová vstupní stránka, která vede na JEDEN
+   společný konfigurátor na homepage s předzaškrtnutým segmentem:
+   – jediné CTA „Spočítat cenu →" → v1-2.1-homepage-v8.html?kuryr=1#spocitat
+   – flow: spočítat → vybrat vůz → poptávka (poptávka až v konfigurátoru,
+     landing na ni přímo neodkazuje)
+   – 6 500 km/měs zůstává jen jako INFO (co je v ceně), ne cenový údaj
    Cross-odkazy: homepage-v8 · detail-vozu-v5 · landing-bolt-uber-v3.
    Brand: zelená #00C853 · navy #002040 · bílá + neutrální šedá #F6F8FA
    ============================================================ */
@@ -75,6 +76,18 @@ section{padding:48px 0}
 .hd-nav a{font-size:14px;font-weight:500;text-decoration:none;padding:8px 12px;border-radius:8px;color:var(--ink)}
 .hd-nav a:hover{background:var(--bg)}
 .hd-nav a.cta{background:var(--green);color:var(--navy);font-weight:700;margin-left:8px}
+.hd-nav a.act{color:var(--green-dark);font-weight:600}
+/* ---------- dropdown „Pro koho" (jednotné menu napříč předlohou, pokyn RF) ---------- */
+.hd-drop{position:relative}
+.drop-btn{font-family:inherit;font-size:14px;font-weight:500;color:var(--ink);background:none;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.drop-btn:hover{background:var(--bg)}
+.drop-btn.act{color:var(--green-dark);font-weight:600}
+.drop-btn .car{font-size:9px;transition:transform .2s}
+.hd-drop:hover .drop-btn .car,.hd-drop:focus-within .drop-btn .car,.hd-drop.open .drop-btn .car{transform:rotate(180deg)}
+.hd-drop-menu{position:absolute;top:100%;left:0;min-width:186px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 28px rgba(0,32,64,.14);padding:6px;display:none}
+.hd-drop:hover .hd-drop-menu,.hd-drop:focus-within .hd-drop-menu,.hd-drop.open .hd-drop-menu{display:block}
+.hd-nav .hd-drop-menu a{display:block;white-space:nowrap}
+.m-nav a.act{color:var(--green-dark);font-weight:600}
 .menu-btn{border:1px solid var(--line);background:#fff;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--navy);padding:9px 14px;cursor:pointer;min-height:44px}
 .m-nav{display:none;background:#fff;border-bottom:1px solid var(--line);padding:6px 18px 14px}
 .m-nav.open{display:block}
@@ -99,6 +112,9 @@ section{padding:48px 0}
 .btn:hover{filter:brightness(1.05)}
 .btn.block{display:flex;width:100%}
 .btn.ghost{background:#fff;border:1px solid var(--navy);color:var(--navy);font-weight:600}
+/* v3.2 (RF: 1 CTA vidět) — druhá akce jako decentní textový odkaz pod tlačítkem */
+.cta-sub{display:inline-flex;align-items:center;justify-content:center;gap:5px;font-size:13.5px;font-weight:600;color:var(--muted);text-decoration:underline;text-underline-offset:3px;min-height:44px}
+.cta-sub:hover{color:var(--navy)}
 .hero .cta-row{display:flex;flex-direction:column;gap:10px}
 .hero .under{font-size:12.5px;color:var(--muted);margin-top:12px}
 .hero .under b{color:var(--navy)}
@@ -109,7 +125,8 @@ section{padding:48px 0}
   .hero-grid{grid-template-columns:1.05fr .95fr;align-items:center;gap:56px}
   .hero h1{font-size:44px;letter-spacing:-.03em}
   .hero .lead{font-size:16px}
-  .hero .cta-row{flex-direction:row}
+  .hero .cta-row{align-items:flex-start}
+  .hero .cta-sub{justify-content:flex-start}
   .hero .btn{width:auto}
 }
 
@@ -298,14 +315,20 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
 </div>
 
 <!-- ============ HEADER — jednotná navigace, bez telefonu ============ -->
-<header class="hd" data-zmena="v3: styl v8 (lehčí navigace) — Naše vozy · Ceník · Pro firmy · Kontakt + CTA, cross-link Pro Bolt a Uber, bez telefonu">
+<header class="hd" data-zmena="v3.1: jednotné menu s dropdownem „Pro koho ▾" (Pro firmy / Pro kurýry / Pro Bolt a Uber) — pokyn RF, stejné na všech stránkách; bez telefonu">
   <div class="wrap hd-in">
     <a class="logo" href="v1-2.1-homepage-v8.html"><span class="logo-p">p</span><b>popojedu</b></a>
     <nav class="hd-nav">
       <a href="v1-2.1-homepage-v8.html#vozy">Naše vozy</a>
       <a href="v1-2.1-cenik-v3.html">Ceník</a>
-      <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
-      <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
+      <div class="hd-drop" id="hdDrop">
+        <button class="drop-btn act" id="dropBtn" aria-expanded="false" aria-haspopup="true">Pro koho <span class="car">▾</span></button>
+        <div class="hd-drop-menu">
+          <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+          <a class="act" href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
+          <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
+        </div>
+      </div>
       <a href="https://www.popojedu.cz/kontakt">Kontakt</a>
       <a class="cta" href="v1-2.1-homepage-v8.html?kuryr=1#spocitat">Spočítat cenu</a>
     </nav>
@@ -315,6 +338,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <a href="v1-2.1-homepage-v8.html#vozy">Naše vozy</a>
     <a href="v1-2.1-cenik-v3.html">Ceník</a>
     <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+    <a class="act" href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
     <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
     <a href="https://www.popojedu.cz/kontakt">Kontakt</a>
   </nav>
@@ -330,11 +354,10 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
       <h1>Pronájem auta <em>pro kurýry</em> — Foodora, Wolt a další</h1>
       <p class="lead">Rozvážíte jídlo nebo balíky? Půjčíme vám úsporný vůz s nízkými náklady na kilometr. O servis, pneumatiky i pojištění se staráme my — vy se soustředíte na rozvoz a výdělek.</p>
       <div class="stars"><span class="st">★★★★★</span> <b>4,9</b> · Google recenze · od roku 2017</div>
-      <div class="cta-row" data-zmena="v3 STRUKTURA: obě CTA vedou na homepage-v8 s ?kuryr=1 — jeden společný formulář poptávky pro všechny (pokyn RF), žádný druhý formulář na landingu">
+      <div class="cta-row" data-zmena="v3.3 TENKÝ LANDING (rozhodnutí RF): jediné CTA „Spočítat cenu →" — poptávka je až PO konfigurátoru (spočítat → vybrat vůz → poptávka), přímý odkaz na poptávku odstraněn">
         <a class="btn" id="heroCta" href="v1-2.1-homepage-v8.html?kuryr=1#spocitat">Spočítat cenu →</a>
-        <a class="btn ghost" href="v1-2.1-homepage-v8.html?kuryr=1#poptavka">Nezávazná poptávka</a>
       </div>
-      <p class="under" data-zmena="POKYN RF 9. 8.: v ceně 6 500 km/měsíc (místo „dle poptávky") + denní ekvivalent týdenní sazby">Od <b>2 402 Kč/týden s DPH</b> (≈ 343 Kč/den · 1 985 Kč bez DPH) — zvýhodněná kurýrní sazba · v ceně <b>6 500 km/měsíc</b> · nezávazně, bez zadávání kontaktů</p>
+      <p class="under" data-zmena="v3.3 TENKÝ LANDING (rozhodnutí RF): žádné ceny na landingu — cenu spočítá konfigurátor; 6 500 km/měs zůstává jako INFO, co je v ceně">Zvýhodněná kurýrní sazba, platí se po týdnech · v ceně nájezd <b>6 500 km/měsíc</b> · cenu spočítá <b>konfigurátor</b> — hned, nezávazně a bez zadávání kontaktů</p>
     </div>
     <div class="hero-img">
       <img src="https://www.popojedu.cz/storage/vozy/skoda-citigo-g-tec-active.webp" alt="Škoda Citigo G-tec (CNG) — úsporný vůz pro kurýry" fetchpriority="high">
@@ -368,37 +391,17 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
   </div>
 </section>
 
-<!-- ============ VOZY PRO KURÝRY — týdenní sazby, karty celé klikatelné ============ -->
-<section class="sand" id="vozy">
+<!-- ============ JAK TO FUNGUJE — 3 kroky, ceny jen v konfigurátoru ============ -->
+<section class="sand" id="jak-to-funguje">
   <div class="wrap">
-    <span class="kicker">Vyberte si vůz</span>
-    <h2>Nejčastější volba kurýrů</h2>
-    <p class="sec-sub" data-zmena="POKYN RF 9. 8.: v ceně 6 500 km/měsíc (místo „dle poptávky")">Přepravní služby u nás platí po týdnech — ceny níže jsou <b>zvýhodněné kurýrní týdenní sazby</b> (jiné než běžný pronájem). Pro kurýry nabízíme tyto dva vozy — oba na CNG s nejnižšími náklady na palivo. V ceně je nájezd <b>6 500 km/měsíc</b>. Přesnou cenu spočítá konfigurátor.</p>
-    <div class="grid" data-zmena="jen 2 vozy dostupné pro kurýry (courier:true) za kurýrní sazbu weekKuryr — Citigo 2 402 · Octavia III CNG 3 317 Kč/týden s DPH + denní ekvivalent ≈ week/7 (pokyn RF 9. 8.)">
-      <article class="card">
-        <a class="cover" href="v1-2.1-detail-vozu-v5.html" aria-label="Škoda Citigo G-tec Active (CNG) — detail vozu"></a>
-        <div class="imgw"><img loading="lazy" src="https://www.popojedu.cz/storage/vozy/skoda-citigo-g-tec-active.webp" alt="Škoda Citigo G-tec Active (CNG)"><span class="cat">Město · CNG</span></div>
-        <div class="pad"><h3>Škoda Citigo G-tec Active (CNG)</h3>
-          <div class="chips">Manuál · CNG · 4 místa · jen ČR · min. 7 dní</div>
-          <div class="inc">✓ Nejnižší náklady na km — ideál na rozvoz jídla</div>
-          <div class="price-line"><b>od 2 402 Kč/týden</b><span class="vat">s DPH</span><span class="alt">≈ 343 Kč/den · 1 985 Kč/týden bez DPH</span></div>
-          <div class="kmnote">kurýrní týdenní sazba · v ceně 6 500 km/měsíc · km navíc předem o 30 % levněji</div>
-          <div class="row"><a class="btn" href="v1-2.1-homepage-v8.html?kuryr=1&vuz=skoda-citigo-g-tec-active#spocitat">Spočítat cenu →</a><a class="dlink" href="v1-2.1-detail-vozu-v5.html">Detail vozu</a></div>
-        </div>
-      </article>
-      <article class="card">
-        <a class="cover" href="v1-2.1-detail-vozu-v5.html" aria-label="Škoda Octavia III G-tec liftback (CNG) — detail vozu"></a>
-        <div class="imgw"><img loading="lazy" src="https://www.popojedu.cz/storage/vozy/skoda-octavia-iii-cng-liftback.webp" alt="Škoda Octavia III G-tec liftback (CNG)"><span class="cat">Střední · CNG</span></div>
-        <div class="pad"><h3>Škoda Octavia III G-tec liftback (CNG)</h3>
-          <div class="chips">Manuál · CNG · 5 míst · jen ČR · min. 5 dní</div>
-          <div class="inc">✓ Velký kufr na balíky, pořád levný provoz na CNG</div>
-          <div class="price-line"><b>od 3 317 Kč/týden</b><span class="vat">s DPH</span><span class="alt">≈ 474 Kč/den · 2 741 Kč/týden bez DPH</span></div>
-          <div class="kmnote">kurýrní týdenní sazba · v ceně 6 500 km/měsíc · km navíc předem o 30 % levněji</div>
-          <div class="row"><a class="btn" href="v1-2.1-homepage-v8.html?kuryr=1&vuz=skoda-octavia-iii-cng-liftback#spocitat">Spočítat cenu →</a><a class="dlink" href="v1-2.1-detail-vozu-v5.html">Detail vozu</a></div>
-        </div>
-      </article>
+    <span class="kicker">Jak to funguje</span>
+    <h2>Cena i výběr vozu na jednom místě — v konfigurátoru</h2>
+    <p class="sec-sub">Veškeré ceny a nabídku kurýrních vozů (oba na CNG) drží konfigurátor na hlavní stránce — jedna kalkulace pro celý web. Z této stránky se v něm kurýrní režim s týdenní kalkulací předvolí automaticky.</p>
+    <div class="tiles" data-zmena="v3.3 TENKÝ LANDING (rozhodnutí RF): karty vozů s cenami ODSTRANĚNY — místo nich 3 kroky (spočítat → vybrat vůz → poptávka); jedna pravda o cenách = konfigurátor">
+      <div class="tile hl"><span class="big">1. Spočítáte cenu</span><span class="cap">v konfigurátoru</span><span class="sub">hned a nezávazně, bez zadávání kontaktů</span></div>
+      <div class="tile"><span class="big">2. Vyberete vůz</span><span class="cap">úsporné vozy na CNG</span><span class="sub">nabídku pro kurýry ukáže konfigurátor</span></div>
+      <div class="tile"><span class="big">3. Pošlete poptávku</span><span class="cap">jeden formulář pro všechny</span><span class="sub">ozveme se nejpozději následující pracovní den</span></div>
     </div>
-    <p style="font-size:12px;color:var(--muted);margin-top:12px">⚠️ Kurýrní týdenní sazby = pole <b>weekKuryr</b> z produkčního ceníku (bez DPH · s DPH ×1,21), ne běžná týdenní sazba. Zobrazují se JEN vozy dostupné pro kurýry. Martin dosadí z DB stejný zdroj. Konfigurátor vždy ukáže přesnou cenu pro vámi zadané parametry.</p>
   </div>
 </section>
 
@@ -443,7 +446,8 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <h2 style="margin-bottom:20px">Na co se kurýři nejčastěji ptají</h2>
 
     <details><summary>Co potřebuji, abych mohl s vozem jezdit pro Wolt nebo Foodoru?</summary><div class="a">Stačí živnostenské oprávnění a registrace u rozvozové platformy (Wolt, Foodora apod.). Na rozdíl od taxislužby (Bolt/Uber) není potřeba žádná registrace vozidla k taxislužbě ani přepis provozovatele. Pojištění vozu je u kurýrního pronájmu v ceně a nájem se platí týdně.</div></details>
-    <details data-zmena="v3 STRUKTURA: nová FAQ položka vysvětluje jednotnou poptávku (reakce na dotaz RF „nechápu jak funguje nezávazná poptávka u kurýra")"><summary>Jak pošlu nezávaznou poptávku?</summary><div class="a">Stejně jako každý jiný zákazník — jedním formulářem na hlavní stránce. Z této stránky se vám v něm rovnou předvyplní režim přepravních služeb s týdenní kalkulací, takže nemusíte nic vysvětlovat. Odesláním se k ničemu nezavazujete, ozveme se nejpozději následující pracovní den.</div></details>
+    <details data-zmena="v3.3 TENKÝ LANDING: nová FAQ místo ceníku — konkrétní ceny říká jen konfigurátor"><summary>Kolik stojí pronájem pro kurýry?</summary><div class="a">Konkrétní cenu spočítá konfigurátor na hlavní stránce — podle vozu a délky pronájmu, hned a bez zadávání kontaktů. Kurýři mají zvýhodněnou sazbu účtovanou po týdnech a v ceně nájezd 6 500 km měsíčně.</div></details>
+    <details data-zmena="v3.3: FAQ přeformulováno — poptávka se odesílá až z konfigurátoru (spočítat → vybrat vůz → poptávka)"><summary>Jak pošlu nezávaznou poptávku?</summary><div class="a">Přes konfigurátor na hlavní stránce: spočítáte si cenu, vyberete vůz a rovnou odešlete nezávaznou poptávku — jedním formulářem, stejným pro všechny zákazníky. Z této stránky se vám kurýrní režim s týdenní kalkulací předvyplní automaticky. Odesláním se k ničemu nezavazujete, ozveme se nejpozději následující pracovní den.</div></details>
     <details><summary>Jak je to s kaucí?</summary><div class="a">Vratná kauce je 10 000 až 50 000 Kč podle kategorie vozu — výši vždy říkáme dopředu a po vrácení vozu se vrací. Kauce je něco jiného než spoluúčast: spoluúčast (10 % ze škody, minimálně 10 000 Kč) se platí jen při škodě.</div></details>
     <details data-zmena="POKYN RF 9. 8.: v ceně 6 500 km/měsíc"><summary>Kolik kilometrů mám v ceně?</summary><div class="a">V ceně pronájmu je nájezd <b>6 500 km měsíčně</b>. Kdo jede víc, doplatí nadlimitní sazbu podle vozu — nebo si km koupí předem, o 30 % levněji. Doplatek se účtuje po skončení pronájmu podle reálného nájezdu.</div></details>
     <details><summary>Co když se vůz porouchá uprostřed rozvozu?</summary><div class="a">Asistenční služba 24/7 je v ceně — jde o asistenci z pojištění vozu, volat můžete kdykoli. Náhradní vůz zajistíme my, a to v provozní době Po–Pá 8:00–17:30 dle dostupnosti.</div></details>
@@ -453,13 +457,12 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
 </section>
 
 <!-- ============ ZÁVĚREČNÉ CTA — do jednotného funnelu na homepage ============ -->
-<section class="final sand" id="spocitat-cta" data-zmena="v3 STRUKTURA: vlastní sekce zrychlené poptávky ODSTRANĚNA (pokyn RF) — poptávka je jednotná, závěrečné CTA vede do konfigurátoru a na společný formulář (?kuryr=1)">
+<section class="final sand" id="spocitat-cta" data-zmena="v3.3 TENKÝ LANDING (rozhodnutí RF): jediná cesta = konfigurátor; přímý odkaz na poptávku odstraněn — poptávka se odesílá až po výběru vozu v konfigurátoru">
   <div class="wrap">
     <h2>Kolik zaplatíte za pronájem?</h2>
-    <p>Konfigurátor spočítá cenu hned — bez zadávání kontaktů. Kurýrní režim s týdenní kalkulací je předvolený.</p>
+    <p>Konfigurátor spočítá cenu hned — bez zadávání kontaktů. Kurýrní režim s týdenní kalkulací je předvolený; vůz vyberete a nezávaznou poptávku odešlete rovnou tam.</p>
     <a class="btn" href="v1-2.1-homepage-v8.html?kuryr=1#spocitat">Spočítat cenu vašeho pronájmu →</a>
-    <p class="note"><a href="v1-2.1-homepage-v8.html?kuryr=1#poptavka" style="font-weight:600">Nebo rovnou poslat nezávaznou poptávku →</a></p>
-    <p class="note" style="color:var(--muted)">Poptávka je pro všechny stejná — jeden formulář, segment kurýr se předvyplní automaticky.</p>
+    <p class="note" style="color:var(--muted)">Poptávka je pro všechny stejná — odesílá se z konfigurátoru po výběru vozu, segment kurýr se předvyplní automaticky.</p>
   </div>
 </section>
 
@@ -510,21 +513,25 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
 <!-- ============ DOPORUČENÍ (interní, nejde na web) ============ -->
 <section class="reco" id="doporuceni">
   <div class="wrap">
-    <span class="tag">INTERNÍ — JEN V PŘEDLOZE · LANDING KURÝŘI v3 (styl v8 + jednotná poptávka)</span>
-    <h2>Doporučení: co je v3 jinak než ve v2 a proč + pokyny pro Martina</h2>
+    <span class="tag">INTERNÍ — JEN V PŘEDLOZE · LANDING KURÝŘI v3.3 (TENKÁ VSTUPNÍ STRÁNKA)</span>
+    <h2>Doporučení: landing = marketing + 1 CTA do konfigurátoru, ceny jen v konfigurátoru</h2>
     <ul>
-      <li><b>v3 STRUKTURÁLNÍ ZMĚNA — vlastní zrychlená poptávka ODSTRANĚNA (pokyn RF: „nechápu jak funguje nezávazná poptávka u kurýra, proč není jako u běžných?").</b> v2 měla na landingu druhý, zkrácený formulář (jméno + telefon) — vznikly tak DVA různé formuláře a zmatek. Nově je poptávka <b>jednotná pro celý web</b>: jeden hlavní formulář na homepage. Všechna poptávková CTA vedou na <code>v1-2.1-homepage-v8.html?kuryr=1#poptavka</code> — parametr předvyplní režim přepravních služeb (týdenní kalkulace) i souhrn konfigurace. <b>MARTIN:</b> hidden pole <code>segment</code> z landingu už neexistuje; segment se do poptávky předává URL parametrem — <b>tento landing posílá <code>?kuryr=1</code> (kurýři), landing Bolt/Uber <code>?ridic=1</code> (řidiči)</b>. Oba parametry na homepage přepnou přepravní režim s týdenní kalkulací, ale rozlišují segment — poptávka z každého landingu musí dorazit do HubSpotu/adminu jako <b>rozlišený zdroj</b> (kuryr vs ridic).</li>
+      <li><b>v3.3 — TENKÝ LANDING (rozhodnutí RF 9. 8.):</b> landing NEMÁ vlastní ceny ani karty vozů. Je to marketingová vstupní stránka (proč u nás, pro koho, důvěra, FAQ), která vede na JEDEN společný konfigurátor na homepage s předzaškrtnutými přepravními službami (<code>?kuryr=1#spocitat</code>). Veškeré ceny a výběr vozu se dějí jen v konfigurátoru — <b>jedna pravda, jedna cesta</b>. Odstraněno: karty vozů s týdenními sazbami a denními ekvivalenty, „od X Kč/týden" v hero, poznámka o weekKuryr. Flow: <b>spočítat → vybrat vůz → poptávka</b> — proto na landingu není ani přímý odkaz na poptávku (<code>#poptavka</code>); poptávka se odesílá z konfigurátoru po výběru vozu.</li>
+      <li><b>Jedno CTA:</b> hero, závěrečná sekce i sticky lišta na mobilu nesou jediné zelené CTA „Spočítat cenu →" (<code>?kuryr=1#spocitat</code>). Žádné druhé velké tlačítko, žádný ghost, žádný vlastní odkaz na poptávku. Hlavička drží jednotné menu (Naše vozy · Ceník · Pro koho ▾ · Kontakt + CTA „Spočítat cenu").</li>
+      <li><b>MARTIN — landing generovat jako statickou marketingovou stránku</b>: žádná cenová data, žádný dotaz do ceníku, žádný formulář. Konfigurátor je JEDNA sdílená komponenta na homepage; landing na ni jen odkazuje s parametrem segmentu — tento landing <code>?kuryr=1</code>, landing Bolt/Uber <code>?ridic=1</code>. Parametr předzaškrtne přepravní služby + segment a poptávka musí do HubSpotu/adminu dorazit jako <b>rozlišený zdroj</b> (kuryr vs ridic).</li>
+      <li><b>6 500 km/měsíc zůstává jako INFO</b> (co je v ceně), ne jako cenový údaj u vozu — v hero, v dlaždici „Jak platíte" a ve FAQ. Konkrétní sazby (týdenní, nadlimitní i předplacené km) říká jen konfigurátor/ceník.</li>
+      <li><b>FAQ bez konkrétních cen:</b> nová položka „Kolik stojí pronájem pro kurýry?" odkazuje na konfigurátor; „Jak pošlu nezávaznou poptávku?" vysvětluje flow přes konfigurátor. Kauce (vratná 10–50 tis. dle kategorie) a spoluúčast (10 % ze škody, min. 10 000 Kč — výpočet, ne paušál, rozhodnutí RF [869edx8nh]) zůstávají — jsou to podmínky pronájmu, ne ceník vozů.</li>
+    </ul>
+    <h2 style="margin-top:18px">Historie v3 (zachováno, stále platí)</h2>
+    <ul>
+      <li><b>v3.1 — JEDNOTNÉ MENU S DROPDOWNEM „PRO KOHO ▾" (pokyn RF 9. 8.: „chybí menu tlačítko s proklikem na kurýr a Uber/Bolt, stejně i na dalších stránkách").</b> Hlavní navigace je nově na všech stránkách předlohy stejná: Naše vozy · Ceník · <b>Pro koho ▾</b> (Pro firmy / Pro kurýry / Pro Bolt a Uber) · Kontakt + CTA „Spočítat cenu". Segmentové stránky jsou sdružené do rozbalovací položky, aby řada zůstala kompaktní; na mobilu (hamburger) jsou všechny položky plocho pod sebou. Aktivní stránka je zvýrazněná zeleně a tučněji — tady „Pro kurýry" (v dropdownu i v mobilním menu; zvýrazněný je i spouštěč „Pro koho"). Dropdown se otevírá hoverem/fokusem i klikem (dotyk), zavírá klikem mimo. Cross-link na druhý landing v obsahu stránky zůstává. <b>MARTIN:</b> stejné menu nasadit na všech stránkách produkce, aktivní položku odvodit z URL.</li>
       <li><b>v3 — celý landing přestylován do finální v8:</b> neutrální podklad (bílá + #F6F8FA, žádný teplý písek), hero typografie jako hlavní prvek (30/44 px, váha 800, zelený „fixou" podtah na <code>&lt;em&gt;</code> — text H1 beze změny), scroll-reveal micro-animace (IntersectionObserver, luxury easing, bez JS vše viditelné, pojistka 2 s, reduced-motion vypíná), tactile karty a dlaždice (chladné stíny rgba(0,32,64,…)), světlý trust pás místo navy bloku, kontrast sekundárních textů <code>--muted</code> (≥4,9:1), žádné emoji v obsahu pro zákazníka (jen interní nástroje).</li>
       <li><b>H1 a URL beze změny.</b> Stránka je nejsilnější SEO aktivum (CTR 10–25 % na svých dotazech) — H1 „Pronájem auta pro kurýry — Foodora, Wolt a další" i slug zůstávají 1:1. Zvýraznění <code>&lt;em&gt;</code> je čistě vizuální, text se nemění.</li>
-      <li><b>Karty vozů celé klikatelné</b> (stretched <code>&lt;a class="cover"&gt;</code>) + viditelný odkaz „Detail vozu" → předloha <code>v1-2.1-detail-vozu-v5.html</code>. „Spočítat cenu" na kartě předvolí i konkrétní vůz: <code>?kuryr=1&amp;vuz={slug}#spocitat</code>. Na produkci povedou detaily na /vozy/{slug}.</li>
-      <li><b>Nová FAQ položka „Jak pošlu nezávaznou poptávku?"</b> — vysvětluje jednotný formulář přímo zákazníkovi (a odpovídá na původní dotaz RF).</li>
-      <li><b>Spoluúčast je výpočet, ne paušál (rozhodnutí RF, [869edx8nh]):</b> všude „10 % ze škody, min. 10 000 Kč". Kauce (vratná 10–50 tis. dle kategorie) je jiný pojem, nemíchat. Asistence poctivě: „24/7 v ceně — z pojištění vozu. Náhradní vůz v provozní době Po–Pá 8:00–17:30." Telefon jen v patičce.</li>
+      <li><b>Asistence poctivě:</b> „24/7 v ceně — z pojištění vozu. Náhradní vůz v provozní době Po–Pá 8:00–17:30." Telefon jen v patičce.</li>
       <li><b>MARTIN — předplacená km sleva: default 30 %, nastavitelná v adminu</b> uživatelem s právy, ne hardcode. Texty „o 30 % levněji" zůstávají (rozhodnutí RF); při změně v adminu přegenerovat i texty.</li>
       <li><b>Sticky CTA lišta (mobil): jen „Spočítat cenu"</b> — bez telefonu, dle v8.</li>
-      <li><b>Cross-odkazy míří na finální verze:</b> homepage <code>v1-2.1-homepage-v8.html</code>, detail vozu <code>v1-2.1-detail-vozu-v5.html</code>, druhý landing <code>v1-2.1-landing-bolt-uber-v3.html</code>.</li>
-      <li><b>OPRAVA dle reálných produkčních dat (<code>_cenik-data-produkce.json</code>, 9. 8. 2026): kurýrní ceny = pole <code>weekKuryr</code> z DB, NE běžná <code>week</code>.</b> Kurýři mají vlastní (nižší) týdenní sazbu a dostupné jsou pro ně jen vozy s <code>courier:true</code> — tedy <b>Citigo (1 985 bez DPH / 2 402 s DPH)</b> a <b>Octavia III CNG (2 741 bez DPH / 3 317 s DPH)</b>. S DPH = <code>Math.round(weekKuryr×1,21)</code>. <b>Fabia z landingu ODSTRANĚNA</b> — pro kurýry dostupná není (<code>weekKuryr: null</code>); dřívější verze ji ukazovala za běžnou sazbu, což byl dvojnásobný rozpor s konfigurátorem. <b>MARTIN:</b> na produkci landing generovat z DB — filtr <code>courier = true</code>, cena <code>weekKuryr</code>, stejný zdroj jako konfigurátor v kurýrním režimu; žádný samostatný přepočet na landingu.</li>
-      <li><b>POKYN RF 9. 8. — přepravní km v ceně = 6 500 km/měsíc</b> (kurýři i Bolt/Uber, zdroj <code>_cenik-data-produkce.json</code> → <code>_segmenty.prepravni_km_v_cene</code>). Nahrazuje dřívější „volný km limit dle poptávky" — v hero, na kartách, v dlaždici „Jak platíte" i ve FAQ. Běžný pronájem má dál 1 500 km/měs — nemíchat. Sazby nadlimitních/předplacených km obou kurýrních vozů: nadlimitní 2 Kč/km, předplacené 1,40 Kč/km (= sleva 30 %, sedí s textem).</li>
-      <li><b>POKYN RF 9. 8. — denní ekvivalent u týdenních sazeb:</b> u obou karet i v hero se vedle týdenní ceny ukazuje „≈ X Kč/den" = <b>zobrazená cena za období ÷ počet dní</b> — zde týdenní sazba s DPH ÷ 7, zaokrouhleno na celé Kč (2 402→343 · 3 317→474). Upřesnění RF: počítá se vždy ze zobrazené ceny v aktivním DPH režimu (landing ukazuje s DPH), <b>NIKDY z denní (day) sazby ceníku</b>. Zákazník vidí denní náklad, i když se kurýrní režim účtuje týdně. <b>MARTIN:</b> počítat na produkci z téhož zdroje (weekKuryr×1,21÷7), ne hardcode a ne day sazba.</li>
+      <li><b>Cross-odkazy míří na finální verze:</b> homepage <code>v1-2.1-homepage-v8.html</code>, ceník <code>v1-2.1-cenik-v3.html</code>, druhý landing <code>v1-2.1-landing-bolt-uber-v3.html</code>. Detail vozu (<code>v1-2.1-detail-vozu-v5.html</code>) už landing přímo neodkazuje — k vozům se zákazník dostane přes konfigurátor.</li>
+      <li><b>POKYN RF 9. 8. — přepravní km v ceně = 6 500 km/měsíc</b> (kurýři i Bolt/Uber, zdroj <code>_cenik-data-produkce.json</code> → <code>_segmenty.prepravni_km_v_cene</code>) — na landingu jen jako INFO. Běžný pronájem má dál 1 500 km/měs — nemíchat.</li>
     </ul>
   </div>
 </section>
@@ -561,6 +568,20 @@ document.getElementById('menuBtn').onclick=function(){
   var n=document.getElementById('mNav');n.classList.toggle('open');
   this.setAttribute('aria-expanded',n.classList.contains('open'));
 };
+
+/* dropdown „Pro koho" — klik pro dotyk, hover/focus pro desktop */
+(function(){
+  var d=document.getElementById('hdDrop'),b=document.getElementById('dropBtn');
+  if(!d||!b)return;
+  b.addEventListener('click',function(e){
+    e.stopPropagation();
+    var o=d.classList.toggle('open');
+    b.setAttribute('aria-expanded',o?'true':'false');
+  });
+  document.addEventListener('click',function(){
+    d.classList.remove('open');b.setAttribute('aria-expanded','false');
+  });
+})();
 
 /* ================= STICKY CTA LIŠTA ================= */
 var bar=document.getElementById('ctaBar');
