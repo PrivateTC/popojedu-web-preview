@@ -504,6 +504,8 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
       <div class="inc-item"><span class="tick">✓</span><div><b>Sezónní pneumatiky</b><p>Letní i zimní obutí včetně přezutí.</p></div></div>
       <div class="inc-item"><span class="tick">✓</span><div><b>Asistenční služba 24/7</b><p>V ceně — z pojištění vozu. Pomoc na silnici kdykoli.</p></div></div>
       <div class="inc-item"><span class="tick">✓</span><div><b>Náhradní vůz při poruše</b><p>Zajistíme v provozní době Po–Pá 8:00–17:30, dle dostupnosti.</p></div></div>
+      <div class="inc-item" data-zmena="DOPLNĚNO v5.4: produkční benefit, který vypadl z předlohy"><span class="tick">✓</span><div><b>Druhý řidič zdarma</b><p>Vůz může řídit i další osoba — bez příplatku, jen ji uvedeme ve smlouvě.</p></div></div>
+      <div class="inc-item" data-zmena="DOPLNĚNO v5.4: produkční benefit, který vypadl z předlohy"><span class="tick">✓</span><div><b>Dětská sedačka na vyžádání</b><p>Řekněte si při rezervaci — připravíme ji k vozu.</p></div></div>
     </div>
   </div>
 </section>
@@ -517,7 +519,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
       <div class="kau">
         <h3>💶 Vratná kauce</h3>
         <span class="amt">10 000 – 50 000 Kč</span>
-        <p>Podle kategorie vozu — výši vám řekneme <b>vždy dopředu</b>. Složíte ji před pronájmem a po vrácení vozu ji <b>dostanete zpět</b>.</p>
+        <p>Podle kategorie vozu — výši vám řekneme <b>vždy dopředu</b>. Složíte ji před pronájmem a vrátíme ji <b>do 3 pracovních dnů</b> po vrácení vozu a vyúčtování. Při poškození, které nelze vyčíslit na místě, se vyúčtování zdrží — dáme vědět.</p>
       </div>
       <div class="kau k2" data-zmena="Spoluúčast jako výpočet 10 % ze škody, min. 10 000 Kč — ne paušál (rozhodnutí RF)">
         <h3>🛡️ Spoluúčast při škodě</h3>
@@ -558,13 +560,13 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
       <a href="https://www.popojedu.cz/dlouhodoby-pronajem-auta-praha">Dlouhodobý pronájem</a>
       <a href="https://www.popojedu.cz/pujcovna-aut-praha-9-cakovice">Půjčovna aut Praha 9 — Čakovice</a>
       <a href="https://www.popojedu.cz/vyzvednuti-vozu">Vyzvednutí vozu</a>
-      <a href="https://www.popojedu.cz/predani-vozu">Předání vozu</a>
+      <a href="https://www.popojedu.cz/predani-vozu">Vrácení vozu</a>
     </div>
     <div class="ft">
       <h4>Pro koho</h4>
       <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
-      <a href="https://www.popojedu.cz/pronajem-vozu-pro-bolt-a-uber-v-praze">Pro Bolt a Uber</a>
-      <a href="https://www.popojedu.cz/pronajem-vozu-pro-kuryry-wolt-foodora-a-dalsi-v-praze">Pro kurýry</a>
+      <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
+      <a href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
       <a href="https://www.popojedu.cz/jak-to-probiha">Jak to funguje</a>
       <a href="https://www.popojedu.cz/blog">Blog</a>
       <a href="https://www.popojedu.cz/caste-dotazy">FAQ</a>
@@ -587,6 +589,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <span class="tag">INTERNÍ — JEN V PŘEDLOZE · v5 (styl v8 FINÁL)</span>
     <h2>Doporučení: co je v5 jinak než v4 a co zůstalo</h2>
     <ul>
+      <li><b>v5.4 — NÁLEZY OPONENTURY (9. 8. 2026, srovnání s produkcí):</b> (1) karta kauce doplněna o <b>lhůtu vrácení do 3 pracovních dnů</b> po vrácení vozu a vyúčtování + větu o zdržení při škodě, kterou nelze vyčíslit na místě (ujištění z produkce, z předlohy vypadlo); (2) do sekce „Co máte v ceně" doplněny produkční benefity <b>„Druhý řidič zdarma"</b> a <b>„Dětská sedačka na vyžádání"</b>; (3) patička: položka „Předání vozu" přejmenována na <b>„Vrácení vozu"</b> (URL <code>/predani-vozu</code> beze změny — vedle „Vyzvednutí vozu" bylo „Předání" matoucí; stejně na všech 5 stránkách předlohy); (4) patičkové odkazy „Pro Bolt a Uber" / „Pro kurýry" sjednoceny s hlavičkou — vedou na <b>landing-bolt-uber-v3 / landing-kuryri-v3</b>, ne na produkci.</li>
       <li><b>v5.3 — JEDNOTNÉ CTA (pokyn RF 9. 8. 2026, shodné s homepage v8.5: „drž to jednotně, 1 CTA vidět"):</b> <b>1 CTA v hlavičce</b> („Spočítat cenu", zelené, vede na homepage konfigurátor) + <b>max 1 primární velké CTA</b> na stránce — zde „Vybrat vůz → poptávka" (#pcCta, zelené, přenáší konfiguraci do <code>homepage-v8…#poptavka</code>). Stránka ověřena a vyhovuje: žádné druhé velké tlačítko vedle primárního neexistuje, sticky lišta (mobil) má jediné CTA „Vybrat vůz →" + cenu. Druhá akce smí být jen decentní textový odkaz — nikdy dvě konkurenční velká tlačítka. Pravidlo převzít 1:1 na Pro firmy a landingy.</li>
       <li><b>v5.2 — MENU SE SEGMENTOVÝMI LANDINGY (pokyn RF 9. 8. 2026, shodné s homepage v8.4):</b> hlavní navigace obsahuje proklik na landing pro kurýry i pro Bolt/Uber — na desktopu jako rozbalovací položka <b>„Pro koho ▾"</b> (Pro firmy · Pro kurýry · Pro Bolt a Uber), v mobilním hamburgeru všech 6 položek plochou řadou. Dropdown se otevírá hoverem/fokusem i klikem, zavírá Escape a klikem mimo; trigger má <code>aria-haspopup</code>/<code>aria-expanded</code>. Odkazy vedou na finální verze landingů (kuryri-v3, bolt-uber-v3). Stejné menu je na homepage v8 a ceníku v3 — na dalších stránkách převzít 1:1.</li>
       <li><b>v5.1 — DENNÍ EKVIVALENT (RF 9. 8., upřesněný výpočet):</b> u ceny za měsíc/týden ukazuje cenový panel i sticky lišta drobně „≈ X Kč/den" — hlavní zobrazená cena za období (po slevě) děleno <b>30,4 (měsíc; = 365/12, průměrný počet dnů)</b> / <b>7 (týden)</b>, ve zvoleném DPH režimu, zaokrouhleno na celé koruny (výchozí stav 6 měs / 1 500 km: 14 832 Kč/měs s DPH ≈ <b>488 Kč/den</b>; bez DPH 12 258 ≈ 403 Kč/den). U týdenní sazby vychází přesně denní sazba z ceníku (week = day×7 v celé flotile). U krátkodobého režimu (cena už je za den) se řádek skrývá. Sazby dál výhradně z lookup tabulky (= <code>_cenik-data-produkce.json</code>/DB) — denní ekvivalent NENÍ denní sazba z ceníku, je to jen zobrazovací přepočet ze zobrazené ceny. <b>MARTIN:</b> na produkci renderovat i tento řádek serverově (stejně jako hlavní cenu) a dělit 30,4, ne 30.</li>
