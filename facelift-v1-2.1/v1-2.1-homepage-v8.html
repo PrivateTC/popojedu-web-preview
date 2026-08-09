@@ -10,6 +10,10 @@
 <style>
 /* ============================================================
    POPOJEDU FACELIFT v1-2.1 — HOMEPAGE v8 „FINÁL — KANONICKÁ" (předloha; základ v7 TRENDY 2026)
+   v8.6 (RF 9. 8. večer, „u firem ceny bez DPH"): URL parametr ?firma=1
+   nově předvolí i konfigurátor na režim BEZ DPH (setVat(false)) —
+   firemní vstup ze stránky Pro firmy (v3.5, marketing bez cen) tak
+   vidí ceny rovnou bez DPH. Viz blok „URL parametry" v JS.
    FINÁLNÍ KANONICKÁ PŘEDLOHA. v8 = v7 + dvě úpravy dle RF (8. 8. 2026):
    A) BEZ TEPLÉHO PÍSKU — podklad zpět čistě bílý, střídání sekcí velmi
       světlou chladně-neutrální šedou #F6F8FA (jako v6). Proměnné
@@ -111,6 +115,15 @@ section{padding:48px 0}
 .hd-nav a{font-size:14px;font-weight:500;text-decoration:none;padding:8px 12px;border-radius:8px;color:var(--ink)}
 .hd-nav a:hover{background:var(--bg)}
 .hd-nav a.cta{background:var(--green);color:var(--navy);font-weight:700;margin-left:8px}
+/* v8.4: dropdown „Pro koho ▾" — segmentové landingy v hlavním menu (pokyn RF) */
+.hd-nav .dd{position:relative}
+.hd-nav .dd>button{font-family:var(--font);font-size:14px;font-weight:500;background:none;border:none;padding:8px 12px;border-radius:8px;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.hd-nav .dd>button:hover{background:var(--bg)}
+.hd-nav .dd .car{font-size:9px;color:var(--soft);transform:translateY(1px)}
+.hd-nav .dd-menu{position:absolute;top:100%;left:0;padding-top:8px;display:none;z-index:80}
+.hd-nav .dd:hover .dd-menu,.hd-nav .dd:focus-within .dd-menu,.hd-nav .dd.open .dd-menu{display:block}
+.hd-nav .dd-menu-in{min-width:186px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 2px rgba(0,32,64,.06),0 12px 30px rgba(0,32,64,.16);padding:6px}
+.hd-nav .dd-menu-in a{display:block;white-space:nowrap}
 .menu-btn{border:1px solid var(--line);background:#fff;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--navy);padding:9px 14px;cursor:pointer;min-height:44px}
 .m-nav{display:none;background:#fff;border-bottom:1px solid var(--line);padding:6px 18px 14px}
 .m-nav.open{display:block}
@@ -446,10 +459,19 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
 <header class="hd" data-zmena="ZMĚNA v3: hlavička úplně bez telefonu (RF) — číslo jen v patičce">
   <div class="wrap hd-in">
     <a class="logo" href="#top"><span class="logo-p">p</span><b>popojedu</b></a>
-    <nav class="hd-nav" data-zmena="ÚPRAVA v5: jednotné menu — Naše vozy · Ceník · Pro firmy · Kontakt">
+    <nav class="hd-nav" data-zmena="ÚPRAVA v8.4: jednotné menu se segmentovými landingy (RF) — Naše vozy · Ceník · Pro koho ▾ (Pro firmy / Pro kurýry / Pro Bolt a Uber) · Kontakt + CTA">
       <a href="#vozy">Naše vozy</a>
       <a href="v1-2.1-cenik-v3.html">Ceník</a>
-      <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+      <div class="dd" id="ddSeg">
+        <button type="button" aria-haspopup="true" aria-expanded="false">Pro koho <span class="car">▾</span></button>
+        <div class="dd-menu">
+          <div class="dd-menu-in">
+            <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+            <a href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
+            <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
+          </div>
+        </div>
+      </div>
       <a href="https://www.popojedu.cz/kontakt">Kontakt</a>
       <a class="cta" href="#spocitat">Spočítat cenu</a>
     </nav>
@@ -459,6 +481,8 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <a href="#vozy">Naše vozy</a>
     <a href="v1-2.1-cenik-v3.html">Ceník</a>
     <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+    <a href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
+    <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
     <a href="https://www.popojedu.cz/kontakt">Kontakt</a>
   </nav>
 </header>
@@ -805,6 +829,9 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <span class="tag">INTERNÍ — JEN V PŘEDLOZE · v8 FINÁL — KANONICKÁ</span>
     <h2>Doporučení: co v8 (finální kanonická) obsahuje a jak to přenést na zbylých 5 stránek</h2>
     <ul>
+      <li><b>v8.6 — ?firma=1 PŘEDVOLÍ CENY BEZ DPH (rozhodnutí RF 9. 8. večer: „u firem ceny bez DPH").</b> URL handler při <code>?firma=1</code> nově kromě <code>setTyp('firma')</code> (formulář na typ Firma s IČO) volá i <code>setVat(false)</code> — konfigurátor se otevře s přepínačem DPH na „bez DPH" a všechny ceny (karty vozů, sticky box, souhrn, skryté pole <code>dph</code>) se rovnou počítají bez DPH. Firemní vstup na web = stránka Pro firmy (od v3.5 čistě marketingová, bez cen) s jediným CTA „Spočítat cenu →" na <code>?firma=1#spocitat</code> — firma tak vidí ceny bez DPH od prvního pohledu, zákazník si režim může kdykoli ručně přepnout. <code>?kuryr=1</code>/<code>?ridic=1</code> dál předvolí přepravní režim (beze změny). <b>MARTIN:</b> na produkci firemní parametr v URL konfigurátoru = přednastavit režim bez DPH + typ Firma; výchozí stav bez parametru zůstává „s DPH" (B2C).</li>
+      <li><b>v8.5 — JEDNOTNÉ CTA (pokyn RF 9. 8. 2026: „na stránce jsou 3 konkurenční CTA — drž to jednotně, 1 CTA vidět"):</b> závazné pravidlo pro všechny stránky předlohy: <b>1 CTA v hlavičce</b> („Spočítat cenu", zelené) + <b>max 1 primární velké CTA v hero</b>; jakákoli druhá akce smí být jen decentní textový odkaz (menší, bez rámečku, jen text se šipkou) — nikdy dvě konkurenční velká tlačítka vedle sebe. Homepage ověřena a vyhovuje: hero má jediné velké CTA „Spočítat cenu pronájmu →" (#heroCta), header jedno CTA, sticky lišta jedno CTA (a zobrazuje se až po odscrollování hero CTA — nikdy nejsou vidět obě naráz). Tlačítka uvnitř funkčních bloků (sticky cena konfigurátoru „Vybrat vůz ↓", karty vozů, submit formuláře) jsou kontextové kroky flow, ne konkurenční CTA — každý viewport ale drží jedno primární. Třída <code>.btn.ghost</code> v CSS zůstává definovaná, v markupu se záměrně NEPOUŽÍVÁ — sekundární akce řešit textovým odkazem, ne ghost tlačítkem. Stejné pravidlo potvrzeno na detailu vozu v5 (v5.3) a ceníku v3 (v3.5) — <b>na Pro firmy a obou landinzích dodržet 1:1</b> (pokud tam hero má dvě velká tlačítka, druhé předělat na text link pod primárním).</li>
+      <li><b>v8.4 — MENU SE SEGMENTOVÝMI LANDINGY (pokyn RF 9. 8. 2026: „chybí menu tlačítko s proklikem na kurýr a Uber/Bolt, stejně i na dalších stránkách"):</b> hlavní navigace nově obsahuje proklik na landing pro kurýry i pro Bolt/Uber. Na desktopu jsou tři segmentové stránky sdružené do rozbalovací položky <b>„Pro koho ▾"</b> (Pro firmy · Pro kurýry · Pro Bolt a Uber) — plochá řada 6 položek + CTA by lištu přeplnila; dropdown ji drží čistou i na menších desktopech. V mobilním hamburgeru je všech 6 položek plochou řadou pod sebou. Dropdown se otevírá hoverem/fokusem (CSS) i klikem/tapem (JS), zavírá Escape a klikem mimo; trigger je <code>&lt;button&gt;</code> s <code>aria-haspopup</code>/<code>aria-expanded</code>. Stejné menu je na ceníku v3 (v3.4) a detailu vozu v5 (v5.2) — <b>na dalších stránkách (Pro firmy, landingy) převzít 1:1</b>. Pravidlo homepage trvá beze změny: kurýři/Bolt v hero ani v těle stránky nekřičí — segmentový vstup je jen menu + patička + neutrální přepínač účelu v konfigurátoru.</li>
       <li><b>v8.3 — DENNÍ EKVIVALENT = VÝPOČET ZE ZOBRAZENÉ CENY (upřesnění RF 9. 8. 2026, nahrazuje bod 2 z v8.2 níže):</b> „≈ X Kč/den" se u týdenní ceny počítá jako <b>zobrazená cena ÷ 7</b>, u měsíční ceny <b>zobrazená cena ÷ 30,4</b> (= 365/12, průměrný počet dnů v měsíci; konstanta <code>DAYS_MONTH</code>). Vždy ze <b>zobrazené částky</b> v aktivním DPH režimu — tedy po slevě za délku a vč. km navíc — zaokrouhleno na celé Kč (helper <code>dayEqStr(per,perDays)</code>). Reálná <code>day</code> sazba z DB se pro ekvivalent už NEPOUŽÍVÁ (ta je cena krátkodobého pronájmu, ne přepočet). Kontrolní příklady: Citigo měsíc s DPH při výchozích 6 měsících 8 102 ÷ 30,4 ≈ <b>267 Kč/den</b> · Fabia týden s DPH 3 684 ÷ 7 ≈ <b>526 Kč/den</b>. Ekvivalent se přepočítá při každé změně délky, vozu, km i DPH přepínače (renderuje se v refresh/updateSummary). Je na kartách vozů a v souhrnu poptávky; do sticky boxu se dál nedává (pravidlo v6) a v hero se nedává záměrně — hero už reálnou denní cenu „od 425 Kč/den" obsahuje. <b>MARTIN:</b> na webu počítat stejně — dělit zobrazenou cenu za období, ne číst day sazbu. Stejná změna promítnuta do ceníku v3 (v3.3).</li>
       <li><b>v8.2 — TŘI CENOVÉ POKYNY RF (9. 8. 2026), promítnuty sem i do ceníku v3:</b> (1) <b>Přepravní služby mají v ceně 6 500 km/měsíc</b> (kurýři i Bolt/Uber) — nahrazuje dřívější „volné km dle poptávky" všude: hint konfigurátoru, karty vozů, FAQ, souhrn poptávky i skryté pole <code>najezd_km</code> (posílá „6500"). Km slider zůstává v přepravním režimu skrytý — limit je pevný, není co konfigurovat. <b>MARTIN:</b> limit 6 500 km/měs uložit do DB/adminu jako konfigurovatelnou hodnotu per segment, do té doby je v předloze konstanta. (2) <b>Denní ekvivalent:</b> u každé ceny za týden/měsíc se drobně ukazuje „≈ X Kč/den" — <s>reálná day sazba z DB</s> ⚠️ ZPŮSOB VÝPOČTU NAHRAZEN ve v8.3 výše (výpočet ze zobrazené ceny ÷ 7 / ÷ 30,4). Umístění platí dál: karty vozů + souhrn poptávky; do sticky boxu se záměrně nedává (pravidlo v6: žádná třetí cena v boxu). (3) <b>Měsíční „od" cena běžného pronájmu = month × 0,85</b> (sazba při 12 měsících, −15 % — nejnižší dosažitelná) a vždy s dovětkem „při 12 měsících", ať nelže; v hero: Citigo 7 440 × 0,85 = 6 324 Kč/měs bez DPH → „od 7 652 Kč/měs s DPH (při 12 měsících)". Netýká se přepravních týdenních sazeb ani cen za konkrétní zvolenou délku v konfigurátoru.</li>
       <li><b>v8 — SKRYTÁ POLE POPTÁVKY (pro Martina):</b> Formulář nese skrytá pole <code>segment/vuz/rezim/doba/najezd_km/km_rezim/cena_celkem/dph</code> — napojit na HubSpot/admin jako vlastnosti poptávky, ať se segment a konfigurace neztratí. Plní je <code>updateSummary()</code> při každém překreslení souhrnu (tedy při každé změně konfigurátoru i výběru vozu); <code>segment</code> = osobni/kuryr/ridic (kurýr vs. řidič dle URL <code>?kuryr=1</code>/<code>?ridic=1</code>), <code>cena_celkem</code> = orientační celková cena v aktivním DPH režimu (pole <code>dph</code> = s/bez).</li>
@@ -921,6 +948,16 @@ document.getElementById('menuBtn').onclick=function(){
   var n=document.getElementById('mNav');n.classList.toggle('open');
   this.setAttribute('aria-expanded',n.classList.contains('open'));
 };
+/* v8.4: dropdown „Pro koho" — klik/tap přepíná, Escape a klik mimo zavírá (hover řeší CSS) */
+(function(){
+  var dd=document.getElementById('ddSeg');if(!dd)return;
+  var b=dd.querySelector('button');
+  function close(){dd.classList.remove('open');b.setAttribute('aria-expanded','false');}
+  b.addEventListener('click',function(e){e.stopPropagation();
+    var o=dd.classList.toggle('open');b.setAttribute('aria-expanded',o?'true':'false');});
+  document.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+})();
 
 /* ================= KONFIGURÁTOR ================= */
 /* a11y (oponentura v8): jednotné přepnutí segmentového tlačítka —
@@ -1255,9 +1292,12 @@ new IntersectionObserver(function(e){formVis=e[0].isIntersecting;applyBar()},{th
 new IntersectionObserver(function(e){cfgVis=e[0].isIntersecting;applyBar()},{threshold:.1}).observe(document.getElementById('konfigurator'));
 function applyBar(){bar.classList.toggle('show',heroGone&&!formVis&&!cfgVis)}
 
-/* ================= URL parametry (v5, beze změny) =================
+/* ================= URL parametry (v5; v8.6: firma → bez DPH) =================
    ?vuz= · ?kuryr=1 / ?ridic=1 · ?firma=1 · &mesice= &dny= &tydny= &km=
-   &rezim=osobni|prepravni &kmrezim=pre|post */
+   &rezim=osobni|prepravni &kmrezim=pre|post
+   v8.6 (RF 9. 8.: „u firem ceny bez DPH"): ?firma=1 kromě přepnutí
+   formuláře na typ Firma předvolí i konfigurátor na režim BEZ DPH
+   (setVat(false) — přepne S.vat i oba segmentové přepínače DPH). */
 (function(){
   try{
     var q=new URLSearchParams(location.search);
@@ -1265,7 +1305,7 @@ function applyBar(){bar.classList.toggle('show',heroGone&&!formVis&&!cfgVis)}
     if(v&&CARS.some(function(c){return c.slug===v})){S.car=v;sel.value=v;}
     if(q.get('ridic')==='1'||q.get('kuryr')==='1'||q.get('rezim')==='prepravni'){S.purpose='transport';}
     if(q.get('rezim')==='osobni'){S.purpose='personal';}
-    if(q.get('firma')==='1'){setTyp('firma');}
+    if(q.get('firma')==='1'){setTyp('firma');setVat(false);} /* v8.6: firemní vstup = ceny bez DPH */
     var m=parseInt(q.get('mesice'),10);
     if(m>=1&&m<=12){S.mode='long';S.months=m;document.getElementById('rMonths').value=m;}
     var dn=parseInt(q.get('dny'),10);
