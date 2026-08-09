@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>PŘEDLOHA v1-2.1 — Pro firmy v3 (styl v8, bez duplicitního ceníku) | Popojedu.cz facelift</title>
+<title>PŘEDLOHA v1-2.1 — Pro firmy v3 (styl v8, marketing bez cen) | Popojedu.cz facelift</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -13,26 +13,29 @@
    v3 = obsah pro-firmy v2 přenesený do kanonického stylu homepage v8:
    – neutrální podklad (bílá + #F6F8FA), tactile stíny, scroll-reveal,
      hero typografie (zelený podtah), dlaždice bez emoji, kontrast --muted
-   – STRUKTURÁLNÍ ZMĚNA (pokyn RF: „pro firmy je tam ceník duplicitně"):
-     celá ceníková tabulka/karty ODSTRANĚNA. Místo ní výrazný odkaz-blok
-     „Kompletní ceník →" vedoucí na v1-2.1-cenik-v3.html?dph=bez (ceník si
-     předvolí ceny bez DPH pro firmy) + 4 B2B klíčové body. Na stránce
-     zůstává jediná cena — „od" cena dlouhodobého pronájmu — žádná
-     plná tabulka.
-   – v3.2 (RF 9. 8.): měsíční „od" cena = sazba při 12měsíčním pronájmu
-     = month × 0,85 (−15 %, nejnižší dosažitelná): Citigo 7 440 × 0,85
-     = „od 6 324 Kč/měs bez DPH (při 12 měsících)" — dovětek povinný,
-     ať číslo nelže; u „od" ceny navíc denní ekvivalent „≈ 208 Kč/den"
-     (zobrazená cena 6 324 / 30,4 = 365/12, zaokrouhleno na celé Kč,
-     v témže DPH režimu jako zobrazená cena — tj. bez DPH).
-     Zdroj sazeb: _cenik-data-produkce.json.
+   – v3.5 (rozhodnutí RF 9. 8. večer): PRO-FIRMY = ČISTĚ MARKETINGOVÁ
+     STRÁNKA BEZ CEN. Odstraněna celá sekce „Ceny pro firmy" — „od" cena
+     6 324 Kč/měs, denní ekvivalent i odkaz-blok „Kompletní ceník →".
+     Na stránce není žádná konkrétní cena pronájmu (procenta slev a
+     kauce/spoluúčast jako smluvní fakta zůstávají). Jediné CTA na celé
+     stránce = „Spočítat cenu →" na homepage-v8?firma=1#spocitat —
+     konfigurátor se předvolí na typ Firma A na ceny BEZ DPH (RF:
+     „u firem ceny bez DPH"; handler v homepage v8 volá setVat(false)).
+     Poptávka přijde až po konfigurátoru — textové odkazy na #poptavka
+     odstraněny z hero i závěrečného CTA. Nahrazuje v3.2 (od-cena) i
+     odkaz-blok z původního v3.
+   – v3.2 (PŘEKONÁNO v3.5 — ceny ze stránky pryč): měsíční „od" cena
+     = month × 0,85, dovětek „při 12 měsících", denní ekvivalent /30,4.
+     Výpočet dál platí pro homepage/ceník, tady už žádná cena není.
    – v3.1 (RF připomínky 9. 8.): (1) dlaždice „Co dostanete" přepsány
      věcně (konkrétní B2B hodnota, žádné fráze typu „provoz se nezastaví");
      (2) flow „od konce" opraven — firma jde STEJNÝM flow jako běžný
      zákazník (konfigurátor + poptávka na homepage), víc vozů = uvést
-     počet v poptávce (hero, dlaždice flotily, krok 1 i závěrečné CTA);
-     hlavní CTA = „Nezávazná poptávka" (?firma=1#poptavka), sekundární
-     „Spočítat cenu" (?firma=1#spocitat) — dva jasné kroky, žádný hybrid
+     počet v poptávce (hero, dlaždice flotily, krok 1 i závěrečné CTA)
+   – v3.4 (RF 9. 8.: „3 CTA, drž to jednotně, 1 CTA vidět"): jedno primární
+     zelené CTA = „Spočítat cenu →" (?firma=1#spocitat, shodné s hlavičkou);
+     poptávka degradována na textový odkaz — v3.5 ho odstraňuje úplně,
+     zůstává jediné CTA do konfigurátoru
    Závazná rozhodnutí RF (beze změny z v2):
    – ceny, které tu zůstávají, výchozí BEZ DPH (B2B odpočet)
    – 13 vozů ve vlastní flotile (žádné „desítky")
@@ -91,6 +94,17 @@ section{padding:48px 0}
 .hd-nav a:hover{background:var(--bg)}
 .hd-nav a.act{color:var(--green-dark);font-weight:600}
 .hd-nav a.cta{background:var(--green);color:var(--navy);font-weight:700;margin-left:8px}
+/* ---------- dropdown „Pro koho" (jednotné menu napříč předlohou, pokyn RF) ---------- */
+.hd-drop{position:relative}
+.drop-btn{font-family:inherit;font-size:14px;font-weight:500;color:var(--ink);background:none;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.drop-btn:hover{background:var(--bg)}
+.drop-btn.act{color:var(--green-dark);font-weight:600}
+.drop-btn .car{font-size:9px;transition:transform .2s}
+.hd-drop:hover .drop-btn .car,.hd-drop:focus-within .drop-btn .car,.hd-drop.open .drop-btn .car{transform:rotate(180deg)}
+.hd-drop-menu{position:absolute;top:100%;left:0;min-width:186px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 28px rgba(0,32,64,.14);padding:6px;display:none}
+.hd-drop:hover .hd-drop-menu,.hd-drop:focus-within .hd-drop-menu,.hd-drop.open .hd-drop-menu{display:block}
+.hd-nav .hd-drop-menu a{display:block;white-space:nowrap}
+.m-nav a.act{color:var(--green-dark);font-weight:600}
 .menu-btn{border:1px solid var(--line);background:#fff;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--navy);padding:9px 14px;cursor:pointer;min-height:44px}
 .m-nav{display:none;background:#fff;border-bottom:1px solid var(--line);padding:6px 18px 14px}
 .m-nav.open{display:block}
@@ -117,13 +131,17 @@ section{padding:48px 0}
   .hero-grid{grid-template-columns:1.05fr .95fr;align-items:center;gap:56px}
   .hero h1{font-size:44px;letter-spacing:-.03em}
   .hero .lead{font-size:16px}
-  .hero .cta-row{flex-direction:row}
+  .hero .cta-row{align-items:flex-start}
+  .hero .cta-sub{justify-content:flex-start}
   .hero .btn{width:auto}
 }
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:12px 24px;background:var(--green);color:var(--navy);font-weight:700;font-size:15px;border:none;border-radius:var(--radius);cursor:pointer;text-decoration:none;transition:filter .3s var(--ease),transform .3s var(--ease);text-align:center}
 .btn:hover{filter:brightness(1.05)}
 .btn.block{display:flex;width:100%}
 .btn.ghost{background:#fff;border:1px solid var(--navy);color:var(--navy);font-weight:600}
+/* v3.4 (RF: 1 CTA vidět) — druhá akce jako decentní textový odkaz pod tlačítkem */
+.cta-sub{display:inline-flex;align-items:center;justify-content:center;gap:5px;font-size:13.5px;font-weight:600;color:var(--muted);text-decoration:underline;text-underline-offset:3px;min-height:44px}
+.cta-sub:hover{color:var(--navy)}
 @media(hover:hover) and (prefers-reduced-motion:no-preference){
   .btn:hover{transform:translateY(-1px)}
 }
@@ -147,15 +165,7 @@ section{padding:48px 0}
 .dtile p{font-size:13.5px;color:var(--muted)}
 .dtile b{color:var(--navy)}
 
-/* ---------- odkaz-blok Kompletní ceník (náhrada tabulky) ---------- */
-.cenik-link{background:#fff;border:1px solid var(--sand-line);border-radius:var(--radius-lg);box-shadow:var(--shadow-tactile);padding:26px 22px;max-width:680px;margin:22px auto 0;text-align:center}
-.cenik-link .b2b-badge{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--green-dark);background:var(--green-tint);border-radius:999px;padding:5px 13px;margin-bottom:12px}
-.cenik-link h3{font-size:19px;font-weight:700;letter-spacing:-.01em;margin-bottom:8px}
-.cenik-link p{font-size:13.5px;color:var(--muted);max-width:52ch;margin:0 auto 16px}
-.cenik-link p b{color:var(--navy)}
-.cenik-link .from{font-size:14px;color:var(--muted);margin-top:12px}
-.cenik-link .from b{color:var(--navy);font-size:16px}
-@media(min-width:900px){.cenik-link{padding:34px 30px}.cenik-link h3{font-size:22px}}
+/* v3.5: blok .cenik-link (odkaz na ceník) odstraněn — stránka je marketing-only bez cen */
 
 /* ---------- jak to probíhá (B2B) — v8 tactile ---------- */
 .steps{display:grid;gap:16px;margin-top:22px}
@@ -172,7 +182,7 @@ section{padding:48px 0}
 .cta-sec h2{margin-bottom:6px}
 .cta-sec p{font-size:13.5px;color:var(--muted);margin-bottom:16px}
 .cta-sec .row{display:flex;flex-direction:column;gap:10px;align-items:center}
-@media(min-width:640px){.cta-sec .row{flex-direction:row;justify-content:center}}
+/* v3.4: řádek zůstává sloupcem i na desktopu — textový odkaz patří POD tlačítko, ne vedle něj */
 
 /* ---------- footer ---------- */
 footer{background:var(--navy);color:#b9c4d6;padding:44px 0 34px;font-size:13px}
@@ -277,13 +287,20 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
 </div>
 
 <!-- ============ HEADER — jednotná navigace, bez telefonu ============ -->
-<header class="hd" data-zmena="v3: styl v8 + jednotná navigace (Naše vozy · Ceník · Pro firmy · Kontakt + CTA) — bez telefonu">
+<header class="hd" data-zmena="v3.3: jednotné menu s dropdownem „Pro koho ▾" (Pro firmy / Pro kurýry / Pro Bolt a Uber) — pokyn RF, stejné na všech stránkách; bez telefonu">
   <div class="wrap hd-in">
     <a class="logo" href="v1-2.1-homepage-v8.html"><span class="logo-p">p</span><b>popojedu</b></a>
     <nav class="hd-nav">
       <a href="v1-2.1-homepage-v8.html#vozy">Naše vozy</a>
       <a href="v1-2.1-cenik-v3.html">Ceník</a>
-      <a class="act" href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+      <div class="hd-drop" id="hdDrop">
+        <button class="drop-btn act" id="dropBtn" aria-expanded="false" aria-haspopup="true">Pro koho <span class="car">▾</span></button>
+        <div class="hd-drop-menu">
+          <a class="act" href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+          <a href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
+          <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
+        </div>
+      </div>
       <a href="https://www.popojedu.cz/kontakt">Kontakt</a>
       <a class="cta" href="v1-2.1-homepage-v8.html?firma=1#spocitat">Spočítat cenu</a>
     </nav>
@@ -292,7 +309,9 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
   <nav class="m-nav" id="mNav">
     <a href="v1-2.1-homepage-v8.html#vozy">Naše vozy</a>
     <a href="v1-2.1-cenik-v3.html">Ceník</a>
-    <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+    <a class="act" href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+    <a href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
+    <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
     <a href="https://www.popojedu.cz/kontakt">Kontakt</a>
   </nav>
 </header>
@@ -307,9 +326,8 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
       <h1 data-zmena="v3: hero typografie v8 — velký nadpis, zvýrazněné sousloví zeleným podtahem">Auta pro vaši firmu — <em>bez starostí navíc</em></h1>
       <p class="lead">Potřebujete rozšířit vozový park, pokrýt sezónní špičku nebo dát vůz novému zaměstnanci? Postaráme se o servis, pojištění i náhradní vůz — vy jen jezdíte a dostáváte jednu fakturu. Funguje to stejně jako pro běžné zákazníky: spočítáte cenu, pošlete poptávku. <b style="color:var(--navy)">Víc vozů? Stačí uvést počet v poptávce.</b></p>
       <div class="stars" data-zmena="Trust v hero: hvězdy + Google recenze (z v2, zachováno)"><span class="st">★★★★★</span> <b>4,9</b> · Google recenze · od roku 2017</div>
-      <div class="cta-row" data-zmena="v3.1 (RF: flow nejde řešit od konce — firma = stejný flow jako běžní): dvě jasné akce místo hybridu — hlavní Nezávazná poptávka (formulář) + Spočítat cenu (konfigurátor), obě s ?firma=1 (předvolí typ Firma s IČO)">
-        <a class="btn" href="v1-2.1-homepage-v8.html?firma=1#poptavka">Nezávazná poptávka →</a>
-        <a class="btn ghost" href="v1-2.1-homepage-v8.html?firma=1#spocitat">Spočítat cenu</a>
+      <div class="cta-row" data-zmena="v3.5 (RF: marketing-only, 1 CTA): jediné CTA na stránce = Spočítat cenu → konfigurátor s ?firma=1 (předvolí typ Firma s IČO A ceny bez DPH); poptávka přijde až po konfigurátoru, proto tu odkaz na ni není">
+        <a class="btn" href="v1-2.1-homepage-v8.html?firma=1#spocitat">Spočítat cenu →</a>
       </div>
     </div>
     <div class="hero-img">
@@ -345,30 +363,6 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
   </div>
 </section>
 
-<!-- ============ CENY PRO FIRMY — odkaz na ceník místo duplicitní tabulky ============ -->
-<section id="cenik" class="sand">
-  <div class="wrap">
-    <span class="kicker">Ceny pro firmy</span>
-    <h2>Co vaše firma zaplatí</h2>
-    <p class="sec-sub">Firmy počítají bez DPH — všechny ceny níže i v ceníku si tak rovnou zobrazíte. Jeden ceník pro celý web, žádné dvojí údržby čísel.</p>
-
-    <div class="tiles t2" data-zmena="v3 KLÍČOVÉ (pokyn RF: „pro firmy je tam ceník duplicitně"): plná cenová tabulka ODSTRANĚNA — místo ní 4 B2B klíčové body + odkaz-blok na kompletní ceník">
-      <div class="dtile" data-zmena="v3.2 (RF 9. 8.): „od” cena = měsíční sazba při 12 měsících (month × 0,85) + denní ekvivalent = zobrazená cena / 30,4 ≈ 208 Kč/den bez DPH"><h3>Dlouhodobý pronájem se slevou až −15 %</h3><p>Od <b>6 324 Kč/měs bez DPH</b> při 12 měsících (7 652 Kč s DPH) · ≈ 208 Kč/den bez DPH. Pakety 3/6/12 měsíců −5/−10/−15 % z měsíční sazby.</p></div>
-      <div class="dtile"><h3>Fakturace na IČO</h3><p>Jedna faktura měsíčně, ceny bez DPH pro odpočet. Záloha 20 % převodem nebo QR kódem.</p></div>
-      <div class="dtile"><h3>Celá flotila 13 vozů k dispozici</h3><p>Od Škody Citigo po Superb L&amp;K, Starii pro posádky a Mercedes S pro reprezentaci.</p></div>
-      <div class="dtile"><h3>Jeden kontakt na všechno</h3><p>Servis, pojištění, pneumatiky i náhradní vůz řeší jedna dílna v Praze 9 — Čakovicích.</p></div>
-    </div>
-
-    <div class="cenik-link" data-zmena="v3 NOVÉ: výrazný odkaz-blok „Kompletní ceník" → cenik-v3?dph=bez (ceník se otevře s cenami bez DPH pro firmy)">
-      <span class="b2b-badge">B2B · ceny bez DPH</span>
-      <h3>Kompletní ceník všech 13 vozů</h3>
-      <p>Denní, měsíční i týdenní sazby a nadlimitní kilometry pro každý vůz na jednom místě. Odkaz otevře ceník rovnou <b>s cenami bez DPH</b>.</p>
-      <a class="btn block" href="v1-2.1-cenik-v3.html?dph=bez">Kompletní ceník →</a>
-      <p class="from" data-zmena="v3.2 (RF 9. 8.): „od” cena při 12 měsících + denní ekvivalent (zobrazená cena / 30,4)">Dlouhodobý pronájem od <b>6 324 Kč/měs bez DPH</b> (při 12 měsících) · <span style="white-space:nowrap">≈ 208 Kč/den bez DPH</span></p>
-    </div>
-  </div>
-</section>
-
 <!-- ============ JAK TO PROBÍHÁ (B2B) ============ -->
 <section>
   <div class="wrap">
@@ -386,12 +380,11 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
 <!-- ============ CTA ============ -->
 <section class="cta-sec">
   <div class="wrap">
-    <span class="kicker">Poptávka</span>
+    <span class="kicker">Spočítejte si cenu</span>
     <h2>Kolik zaplatí vaše firma?</h2>
-    <p data-zmena="v3.1: dva jasné kroky (spočítat = konfigurátor, poptávka = formulář) + víc vozů se uvádí v poptávce">Cenu si orientačně spočítáte v konfigurátoru — bez zadávání kontaktů. Poptávka vás k ničemu nezavazuje; <b style="color:var(--navy)">u více vozů stačí uvést počet</b> a naceníme celou flotilu.</p>
-    <div class="row">
-      <a class="btn" id="mainCta" href="v1-2.1-homepage-v8.html?firma=1#poptavka">Nezávazná poptávka →</a>
-      <a class="btn ghost" href="v1-2.1-homepage-v8.html?firma=1#spocitat">Spočítat cenu</a>
+    <p data-zmena="v3.5: flow firma = konfigurátor (rovnou bez DPH) → poptávka až po něm; víc vozů se uvádí v poptávce">Cenu si spočítáte v konfigurátoru — <b style="color:var(--navy)">rovnou bez DPH</b> a bez zadávání kontaktů. Nezávaznou poptávku pošlete až z konfigurátoru; <b style="color:var(--navy)">u více vozů stačí uvést počet</b> a naceníme celou flotilu.</p>
+    <div class="row" data-zmena="v3.5 (RF: marketing-only, 1 CTA): i v závěru jediné CTA do konfigurátoru — textový odkaz na poptávku odstraněn">
+      <a class="btn" id="mainCta" href="v1-2.1-homepage-v8.html?firma=1#spocitat">Spočítat cenu →</a>
     </div>
   </div>
 </section>
@@ -443,16 +436,19 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
 <!-- ============ DOPORUČENÍ (interní, nejde na web) ============ -->
 <section class="reco" id="doporuceni">
   <div class="wrap">
-    <span class="tag">INTERNÍ — JEN V PŘEDLOZE · PRO FIRMY v3 (styl v8, bez duplicitního ceníku)</span>
+    <span class="tag">INTERNÍ — JEN V PŘEDLOZE · PRO FIRMY v3 (styl v8, marketing bez cen)</span>
     <h2>Doporučení: co v3 mění proti v2 a pokyny pro Martina</h2>
     <ul>
-      <li><b>v3.2 — „OD" CENA + DENNÍ EKVIVALENT (RF 9. 8.).</b> Měsíční „od" cena se nově uvádí ze sazby při <b>12měsíčním pronájmu = month × 0,85</b> (−15 %, nejnižší dosažitelná → proto „od"): Citigo 7 440 × 0,85 = <b>6 324 Kč/měs bez DPH</b> (7 652 Kč s DPH = ×1,21). <b>Dovětek „při 12 měsících" je povinný</b>, ať číslo nelže — kratší pakety mají menší slevu. U „od" ceny je drobně i <b>denní ekvivalent ≈ 208 Kč/den bez DPH</b> — RF (upřesnění): počítá se <b>ze zobrazené ceny za období</b> (po slevě, v témže DPH režimu) děleno <b>30,4 u měsíce (= 365/12, průměrný počet dnů)</b> resp. 7 u týdne, zaokrouhleno na celé Kč — tady 6 324 / 30,4 ≈ 208 (s DPH by to bylo 7 652 / 30,4 ≈ 252). NENÍ to denní sazba z ceníku/JSON. Zdroj sazeb výhradně <code>_cenik-data-produkce.json</code> (= produkce/DB). <b>MARTIN:</b> na produkci počítat od-cenu jako month × (1 − nejvyšší paketová sleva) z DB a dovětek „při 12 měsících" u ní držet vždy; denní ekvivalent = zobrazená od-cena / 30,4 (ne / 30) — stejný výpočet jako na detailu vozu.</li>
+      <li><b>v3.5 — MARKETING-ONLY, BEZ CEN (rozhodnutí RF 9. 8. večer: „pro-firmy nemá mít vlastní ceny; u firem ceny bez DPH").</b> Pro-firmy je čistě marketingová stránka: hero + benefity (jedna faktura za flotilu, fakturace na IČO, servis v ceně, pojištění, náhradní vůz Po–Pá, 13 vozů, flexibilní délka — jako hodnota, BEZ cen) + důvěra (recenze) + „víc vozů → uveďte v poptávce". <b>Odstraněno:</b> celá sekce „Ceny pro firmy" — „od 6 324 Kč/měs", denní ekvivalent ≈ 208 Kč/den i odkaz-blok „Kompletní ceník →" (?dph=bez). Na stránce nezůstala žádná konkrétní cena pronájmu; procenta slev (−5/−10/−15 %) a smluvní fakta kauce/spoluúčast zůstávají — sleva není cena a kauce ≠ cena pronájmu. <b>Jediné CTA na stránce</b> (hero, závěr i sticky lišta): zelené <b>„Spočítat cenu →"</b> na <code>v1-2.1-homepage-v8.html?firma=1#spocitat</code>. Parametr <code>?firma=1</code> v homepage v8 nově kromě přepnutí formuláře na typ Firma <b>předvolí i konfigurátor na ceny BEZ DPH</b> (<code>setVat(false)</code>) — firma z „Spočítat cenu" vidí ceny rovnou bez DPH. Textové odkazy „nebo pošlete nezávaznou poptávku" odstraněny — poptávka je krok až po konfigurátoru, ne konkurenční akce. <b>MARTIN:</b> firemní vstup na produkci = odkaz na konfigurátor s parametrem firma; konfigurátor při něm přednastaví režim bez DPH a formulář na typ Firma. Stránka /pro-firmy žádné ceny nenese — ceny žijí jen v konfigurátoru a ceníku. <i>(Nahrazuje bullety v3.2 a „v3 KLÍČOVÉ" níže v části o od-ceně a odkaz-bloku; jednotné menu v3.3 a princip 1 CTA v3.4 platí dál.)</i></li>
+      <li><b>v3.4 — JEDNO PRIMÁRNÍ CTA (pokyn RF 9. 8.: „3 CTA, drž to jednotně, 1 CTA vidět").</b> RF viděl na stránce tři konkurenční CTA naráz (hlavička „Spočítat cenu" + v hero zelená „Nezávazná poptávka" + bílá ghost „Spočítat cenu"). Nově platí jednotný princip napříč celou předlohou: <b>hlavička 1 CTA</b> („Spočítat cenu", beze změny) · <b>hero 1 velké zelené CTA „Spočítat cenu →"</b> (<code>?firma=1#spocitat</code> — shodná akce jako v hlavičce, firma jde stejným flow jako běžní zákazníci) · druhá akce „nebo pošlete nezávaznou poptávku →" (<code>?firma=1#poptavka</code>) je jen <b>decentní textový odkaz pod tlačítkem</b> (třída <code>.cta-sub</code> — podtržený text se šipkou, bez rámečku), ne druhé velké tlačítko. Stejně závěrečné CTA (tlačítko + textový odkaz pod ním, řádek zůstává sloupcem i na desktopu) a <b>sticky lišta na mobilu: jen „Spočítat cenu"</b> — sjednoceno s oběma landingy (kurýři, Bolt/Uber), kde platí týž vzor. Tím se ruší hierarchie z v3.1 (poptávka jako hlavní CTA); dva kroky zůstávají, jen poptávka už nesoupeří o pozornost. <b>MARTIN:</b> na produkci držet vzor „1 zelené tlačítko + textový odkaz" na všech segmentových stránkách.</li>
+      <li><b>v3.3 — JEDNOTNÉ MENU S DROPDOWNEM „PRO KOHO ▾" (pokyn RF 9. 8.: „chybí menu tlačítko s proklikem na kurýr a Uber/Bolt, stejně i na dalších stránkách").</b> Hlavní navigace je nově na všech stránkách předlohy stejná: Naše vozy · Ceník · <b>Pro koho ▾</b> (Pro firmy / Pro kurýry / Pro Bolt a Uber) · Kontakt + CTA „Spočítat cenu". Segmentové stránky jsou sdružené do rozbalovací položky, aby řada zůstala kompaktní; na mobilu (hamburger) jsou všechny položky plocho pod sebou. Aktivní stránka je zvýrazněná zeleně a tučněji — tady „Pro firmy" (v dropdownu i v mobilním menu; zvýrazněný je i spouštěč „Pro koho"). Dropdown se otevírá hoverem/fokusem i klikem (dotyk), zavírá klikem mimo. <b>MARTIN:</b> stejné menu nasadit na všech stránkách produkce (odkazy na /pronajem-vozu-pro-kuryry-… a /pronajem-vozu-pro-bolt-a-uber-…), aktivní položku odvodit z URL.</li>
+      <li><b>v3.2 — „OD" CENA + DENNÍ EKVIVALENT (RF 9. 8.). ⚠️ PŘEKONÁNO v3.5 — na této stránce už žádná cena není; výpočet dál platí pro homepage a ceník.</b> Měsíční „od" cena se nově uvádí ze sazby při <b>12měsíčním pronájmu = month × 0,85</b> (−15 %, nejnižší dosažitelná → proto „od"): Citigo 7 440 × 0,85 = <b>6 324 Kč/měs bez DPH</b> (7 652 Kč s DPH = ×1,21). <b>Dovětek „při 12 měsících" je povinný</b>, ať číslo nelže — kratší pakety mají menší slevu. U „od" ceny je drobně i <b>denní ekvivalent ≈ 208 Kč/den bez DPH</b> — RF (upřesnění): počítá se <b>ze zobrazené ceny za období</b> (po slevě, v témže DPH režimu) děleno <b>30,4 u měsíce (= 365/12, průměrný počet dnů)</b> resp. 7 u týdne, zaokrouhleno na celé Kč — tady 6 324 / 30,4 ≈ 208 (s DPH by to bylo 7 652 / 30,4 ≈ 252). NENÍ to denní sazba z ceníku/JSON. Zdroj sazeb výhradně <code>_cenik-data-produkce.json</code> (= produkce/DB). <b>MARTIN:</b> na produkci počítat od-cenu jako month × (1 − nejvyšší paketová sleva) z DB a dovětek „při 12 měsících" u ní držet vždy; denní ekvivalent = zobrazená od-cena / 30,4 (ne / 30) — stejný výpočet jako na detailu vozu.</li>
       <li><b>v3.1 — DLAŽDICE PŘEPSÁNY VĚCNĚ (RF: „text mi přijde takový plytký a divný").</b> Každá dlaždice teď říká konkrétní B2B hodnotu: jedna faktura = jeden doklad za celou flotilu + odpočet DPH; sleva = přesně −5/−10/−15 % za 3/6/12 měs; servis = prohlídky, přezutí, dálniční známka, vlastní dílna Čakovice (žádné faktury navíc); náhradní vůz bez fráze „provoz se nezastaví" a s poctivým Po–Pá 8:00–17:30; asistence 24/7 bez duplicitní věty o náhradním vozu; flotila vyjmenovaná (Citigo → Superb, Staria 7–9 míst).</li>
-      <li><b>v3.1 — FLOW OPRAVEN (RF: „nejde od konce řešit — stejně jako běžní zákazníci, jen když budou chtít více vozů, ať to uvedou").</b> Firma jde stejnou cestou jako běžný zákazník: konfigurátor a poptávka na homepage v8 s <code>?firma=1</code>. Dva jasné kroky místo hybridu „spočítat poptávku": hlavní zelené CTA = <b>„Nezávazná poptávka"</b> (<code>?firma=1#poptavka</code>), sekundární ghost = <b>„Spočítat cenu"</b> (<code>?firma=1#spocitat</code>) — v hero, závěrečném CTA i sticky liště. <b>Víc vozů = uvést počet v poptávce</b> — řečeno na 4 místech (hero lead, dlaždice flotily, krok 1, závěrečné CTA). <b>MARTIN:</b> do firemního režimu poptávkového formuláře (typ „Firma") přidat nepovinné pole „Počet vozů" (default 1) — do té doby stačí text v poznámce poptávky.</li>
-      <li><b>v3 KLÍČOVÉ — DUPLICITNÍ CENÍK ODSTRANĚN (pokyn RF: „pro firmy je tam ceník duplicitně").</b> Celá cenová tabulka + mobilní karty (13 vozů × den/týden/měsíc/km) z v2 jsou pryč — byla to bez-DPH kopie ceníku a dvě místa s čísly znamenají dvojí údržbu a dřív nebo později rozjeté hodnoty. Náhrada: (a) 4 B2B klíčové body (sleva až −15 %, fakturace na IČO, 13 vozů, jeden kontakt), (b) výrazný odkaz-blok <b>„Kompletní ceník →"</b> na <code>v1-2.1-cenik-v3.html?dph=bez</code> — ceník parametr přečte a otevře se rovnou s cenami bez DPH (B2B výjimka „výchozí bez DPH" tak zůstává zachovaná, jen ji nese parametr místo druhé tabulky). Jediná cena na stránce je „od 6 324 Kč/měs bez DPH (při 12 měsících)" (Citigo, month 7 440 × 0,85; 7 652 Kč s DPH = ×1,21) + denní ekvivalent ≈ 208 Kč/den bez DPH (zobrazená cena / 30,4) — viz bullet v3.2. <b>MARTIN:</b> na produkci bude odkaz mířit na /cenik s obdobným parametrem — ceník musí umět předvolbu bez DPH z URL.</li>
+      <li><b>v3.1 — FLOW OPRAVEN (RF: „nejde od konce řešit — stejně jako běžní zákazníci, jen když budou chtít více vozů, ať to uvedou").</b> Firma jde stejnou cestou jako běžný zákazník: konfigurátor a poptávka na homepage v8 s <code>?firma=1</code>. Dva jasné kroky místo hybridu „spočítat poptávku": hlavní zelené CTA = <b>„Nezávazná poptávka"</b> (<code>?firma=1#poptavka</code>), sekundární ghost = <b>„Spočítat cenu"</b> (<code>?firma=1#spocitat</code>) — v hero, závěrečném CTA i sticky liště. <i>(Hierarchie CTA překonána bullet-em v3.4 výše: primární je „Spočítat cenu", poptávka je textový odkaz — samotný princip jednotného flow s <code>?firma=1</code> platí dál.)</i> <b>Víc vozů = uvést počet v poptávce</b> — řečeno na 4 místech (hero lead, dlaždice flotily, krok 1, závěrečné CTA). <b>MARTIN:</b> do firemního režimu poptávkového formuláře (typ „Firma") přidat nepovinné pole „Počet vozů" (default 1) — do té doby stačí text v poznámce poptávky.</li>
+      <li><b>v3 KLÍČOVÉ — DUPLICITNÍ CENÍK ODSTRANĚN (pokyn RF: „pro firmy je tam ceník duplicitně"). ⚠️ ČÁSTEČNĚ PŘEKONÁNO v3.5 — odkaz-blok „Kompletní ceník →" i „od" cena byly následně odstraněny také; stránka je bez cen úplně.</b> Celá cenová tabulka + mobilní karty (13 vozů × den/týden/měsíc/km) z v2 jsou pryč — byla to bez-DPH kopie ceníku a dvě místa s čísly znamenají dvojí údržbu a dřív nebo později rozjeté hodnoty. Náhrada: (a) 4 B2B klíčové body (sleva až −15 %, fakturace na IČO, 13 vozů, jeden kontakt), (b) výrazný odkaz-blok <b>„Kompletní ceník →"</b> na <code>v1-2.1-cenik-v3.html?dph=bez</code> — ceník parametr přečte a otevře se rovnou s cenami bez DPH (B2B výjimka „výchozí bez DPH" tak zůstává zachovaná, jen ji nese parametr místo druhé tabulky). Jediná cena na stránce je „od 6 324 Kč/měs bez DPH (při 12 měsících)" (Citigo, month 7 440 × 0,85; 7 652 Kč s DPH = ×1,21) + denní ekvivalent ≈ 208 Kč/den bez DPH (zobrazená cena / 30,4) — viz bullet v3.2. <b>MARTIN:</b> na produkci bude odkaz mířit na /cenik s obdobným parametrem — ceník musí umět předvolbu bez DPH z URL.</li>
       <li><b>v3 — STYL v8 PŘENESEN:</b> neutrální podklad (bílá + #F6F8FA), tactile stíny (--shadow-tactile na odkaz-bloku ceníku, lehčí inset na dlaždicích a krocích), scroll-reveal (bez JS vše viditelné, pojistka 2 s, reduced-motion vypíná), hero typografie (H1 30/44 px, váha 800, zelený podtah), dlaždice a patička <b>bez emoji</b>, trust strip světlý (2 tvrzení + recenze), box „v ceně" světlý se zeleným proužkem, sekundární texty --muted.</li>
       <li><b>CTA nesou <code>?firma=1</code> (zachováno z v2):</b> poptávka i konfigurátor na homepage v8 předvolí typ Firma s IČO — homepage v8 parametr už umí číst.</li>
-      <li><b>Ceny, které na stránce zůstávají, jsou BEZ DPH (rozhodnutí RF, B2B)</b> — s DPH v závorce menším písmem. Přepínač DPH tu už není potřeba (není tu tabulka), nese ho ceník.</li>
+      <li><b>Režim BEZ DPH (rozhodnutí RF, B2B):</b> na stránce žádné ceny nejsou (v3.5) — princip „firma počítá bez DPH" nese parametr <code>?firma=1</code>, který v konfigurátoru homepage předvolí přepínač DPH na „bez DPH".</li>
       <li><b>Fakta držená proti nepravdám:</b> „13 vozů ve vlastní flotile" (nikdy „desítky vozů"); žádný věrnostní program; žádná sleva za Google recenzi; z webu jde POPTÁVKA, ne okamžitá rezervace; spoluúčast „10 % ze škody, min. 10 000 Kč" (výpočet, ne paušál — [869edx8nh]); kauce vratná 10–50 tis. dle kategorie je jiný pojem; záloha jen převod/QR (Etapa 2); asistence 24/7 z pojištění vozu, náhradní vůz jen Po–Pá 8:00–17:30.</li>
       <li><b>Telefon jen v patičce · formulářové prvky font 16px</b> (iOS zoom).</li>
       <li><b>Cross-odkazy míří na finální verze:</b> homepage <code>v1-2.1-homepage-v8.html</code>, ceník <code>v1-2.1-cenik-v3.html</code>, detail <code>v1-2.1-detail-vozu-v5.html</code> (přes ceník). Komentovací vrstva má nový klíč (v3) — komentáře z v2 se nemíchají.</li>
@@ -461,8 +457,8 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
 </section>
 
 <!-- ============ STICKY CTA LIŠTA (mobil) ============ -->
-<div class="cta-bar" id="ctaBar">
-  <a class="btn cmt-ui" href="v1-2.1-homepage-v8.html?firma=1#poptavka">Nezávazná poptávka →</a>
+<div class="cta-bar" id="ctaBar" data-zmena="v3.4 (RF: 1 CTA vidět): sticky lišta sjednocena s landingy — jen „Spočítat cenu", bez telefonu">
+  <a class="btn cmt-ui" href="v1-2.1-homepage-v8.html?firma=1#spocitat">Spočítat cenu →</a>
 </div>
 
 <!-- ============ KOMENTOVACÍ VRSTVA ============ -->
@@ -493,6 +489,20 @@ document.getElementById('menuBtn').onclick=function(){
   this.setAttribute('aria-expanded',n.classList.contains('open'));
 };
 
+/* dropdown „Pro koho" — klik pro dotyk, hover/focus pro desktop */
+(function(){
+  var d=document.getElementById('hdDrop'),b=document.getElementById('dropBtn');
+  if(!d||!b)return;
+  b.addEventListener('click',function(e){
+    e.stopPropagation();
+    var o=d.classList.toggle('open');
+    b.setAttribute('aria-expanded',o?'true':'false');
+  });
+  document.addEventListener('click',function(){
+    d.classList.remove('open');b.setAttribute('aria-expanded','false');
+  });
+})();
+
 /* ================= STICKY CTA LIŠTA (mobil) ================= */
 var bar=document.getElementById('ctaBar');
 var heroGone=false,ctaVis=false;
@@ -507,7 +517,7 @@ function applyBar(){bar.classList.toggle('show',heroGone&&!ctaVis)}
   if(!('IntersectionObserver' in window))return;
   if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   document.documentElement.classList.add('js-anim');
-  var sel7='.hero h1,.hero .lead,section h2,section .kicker,.sec-sub,.tiles > *,.steps .step,.cenik-link,.servis-note,.hero-img,.trust-in > *,.cta-sec .btn';
+  var sel7='.hero h1,.hero .lead,section h2,section .kicker,.sec-sub,.tiles > *,.steps .step,.servis-note,.hero-img,.trust-in > *,.cta-sec .btn';
   var els=Array.prototype.slice.call(pvScreen.querySelectorAll(sel7));
   els.forEach(function(el){
     el.classList.add('rv');
@@ -594,7 +604,7 @@ document.addEventListener('click',function(){if(zmOn)setTimeout(placeBadges,400)
   function load(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return[]}}
   function save(c){localStorage.setItem(KEY,JSON.stringify(c))}
   function nearestHeading(el){
-    var sec=el.closest('section,header,footer,.dtile,.cenik-link,.step');
+    var sec=el.closest('section,header,footer,.dtile,.step');
     if(sec){var h=sec.querySelector('h1,h2,h3');if(h)return h.textContent.trim().slice(0,70)}
     return document.title;
   }
