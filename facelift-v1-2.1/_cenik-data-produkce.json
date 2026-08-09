@@ -1,0 +1,42 @@
+{
+  "_zdroj": "Vytaženo živě z konfigurátoru www.popojedu.cz 9. 8. 2026 (objekt vehicles). Toto je JEDINÝ zdroj pravdy pro ceny v předloze — NIKDY nedopočítávat, NIKDY nevymýšlet.",
+  "_dph": "Všechny ceny jsou BEZ DPH. vatRate=21. S DPH = round(cena × 1,21). Produkce s DPH může zaokrouhlovat o pár Kč jinak — finální zaokrouhlení dle DB (pozn. Martinovi).",
+  "_pole": {
+    "day": "denní sazba (krátkodobě, běžný pronájem) bez DPH",
+    "week": "běžná týdenní sazba bez DPH",
+    "weekKuryr": "KURÝŘÍ týdenní sazba (jiná, nižší) — jen vozy courier:true; null = nedostupné pro kurýry",
+    "weekBolt": "BOLT/TAXI týdenní sazba (jiná, nižší) — jen vozy taxi:true; null = nedostupné pro taxi",
+    "month": "měsíční sazba bez DPH (dlouhodobě), platí pro nájezd do 1 500 km/měs",
+    "nadlim": "nadlimitní km sazba Kč/km (běžná)",
+    "predpl": "předplacená km sazba Kč/km (koupě předem, levnější)",
+    "min": "minimální doba pronájmu ve dnech",
+    "courier": "dostupný pro kurýry (Wolt/Foodora)",
+    "taxi": "dostupný pro Bolt/Uber"
+  },
+  "_segmenty": {
+    "kuryri_dostupne": ["Citigo (weekKuryr 1985)", "Octavia III CNG (weekKuryr 2741)"],
+    "bolt_dostupne": ["Octavia III CNG (weekBolt 2314)", "Octavia III TDi (weekBolt 2314)", "Octavia IV combi Ambition (weekBolt 3616)", "Superb III liftback (weekBolt 4628)", "Superb III combi (weekBolt 4628)"],
+    "prepravni_km_v_cene": "6500 km/měsíc (kurýří i Bolt/Uber — potvrdil RF 9. 8. 2026). Platí pro přepravní režim; běžný pronájem = 1 500 km/měs.",
+    "poznamka": "Kurýří landing ukazuje jen courier:true vozy za weekKuryr. Bolt landing jen taxi:true vozy za weekBolt. Běžný pronájem = všechny vozy za day/week/month."
+  },
+  "_zobrazeni_cen": {
+    "denni_ekvivalent": "U pronájmu delšího než 1 den vždy uvést i přepočet na 1 den = VÝPOČET ze zobrazené ceny za období (RF upřesnil 9. 8.): týden → cena/7; měsíc → cena/30,4 (průměrný počet dnů v měsíci = 365/12). NE day sazba z JSON. Počítat ze zobrazené ceny (po slevě) v aktivním DPH režimu. Formát: hlavní cena za období + drobně '≈ X Kč/den'.",
+    "mesicni_od": "Běžný měsíční pronájem 'od X Kč/měs' = měsíční sazba při 12měsíčním pronájmu = month × 0,85 (sleva −15 %). To je nejnižší dosažitelná měsíční cena → 'od' (RF 9. 8.)."
+  },
+  "vozy": [
+    {"short":"Citigo","name":"Škoda Citigo G-tec Active (CNG), manuál","cat":"Město","seats":4,"transmission":"Manuál","min":7,"day":351,"week":2457,"weekKuryr":1985,"weekBolt":null,"month":7440,"nadlim":2,"predpl":1.4,"courier":true,"taxi":false},
+    {"short":"Octavia III CNG","name":"Škoda Octavia III G-tec liftback (CNG), manuál","cat":"Střední","seats":5,"transmission":"Manuál","min":5,"day":420,"week":2940,"weekKuryr":2741,"weekBolt":2314,"month":9580,"nadlim":2,"predpl":1.4,"courier":true,"taxi":true},
+    {"short":"Fabia III","name":"Škoda Fabia III Ambition TSi DSG, automat","cat":"Město","seats":5,"transmission":"Automat","min":5,"day":435,"week":3045,"weekKuryr":null,"weekBolt":null,"month":9900,"nadlim":2.5,"predpl":1.8,"courier":false,"taxi":false},
+    {"short":"Octavia III TDi","name":"Škoda Octavia III TDi liftback, manuál","cat":"Střední","seats":5,"transmission":"Manuál","min":5,"day":408,"week":2856,"weekKuryr":null,"weekBolt":2314,"month":9340,"nadlim":2,"predpl":1.4,"courier":false,"taxi":true},
+    {"short":"Scala Style","name":"Škoda Scala Style TSi DSG, automat","cat":"Střední","seats":5,"transmission":"Automat","min":5,"day":570,"week":3990,"weekKuryr":null,"weekBolt":null,"month":12530,"nadlim":2.5,"predpl":1.8,"courier":false,"taxi":false},
+    {"short":"Scala","name":"Škoda Scala Top Selection TSi DSG, automat","cat":"Střední","seats":5,"transmission":"Automat","min":3,"day":600,"week":4200,"weekKuryr":null,"weekBolt":null,"month":13620,"nadlim":2.5,"predpl":1.8,"courier":false,"taxi":false},
+    {"short":"Octavia IV combi","name":"Škoda Octavia IV combi Ambition TDi, manuál","cat":"Střední","seats":5,"transmission":"Manuál","min":3,"day":626,"week":4382,"weekKuryr":null,"weekBolt":3616,"month":14390,"nadlim":3,"predpl":2.1,"courier":false,"taxi":true},
+    {"short":"Octavia IV combi Style","name":"Škoda Octavia IV combi Style TDi DSG, automat","cat":"Střední","seats":5,"transmission":"Automat","min":3,"day":790,"week":4740,"weekKuryr":null,"weekBolt":null,"month":16500,"nadlim":3,"predpl":2.1,"courier":false,"taxi":false},
+    {"short":"Superb III","name":"Škoda Superb III L&K TDi, liftback, automat","cat":"Prémium","seats":5,"transmission":"Automat","min":1,"day":885,"week":6195,"weekKuryr":null,"weekBolt":4628,"month":21230,"nadlim":3,"predpl":2.1,"courier":false,"taxi":true},
+    {"short":"Superb III combi","name":"Škoda Superb III L&K TDi, combi, automat","cat":"Prémium","seats":5,"transmission":"Automat","min":1,"day":885,"week":6195,"weekKuryr":null,"weekBolt":4628,"month":21230,"nadlim":3,"predpl":2.1,"courier":false,"taxi":true},
+    {"short":"Superb IV","name":"Škoda Superb IV L&K TDi, liftback, automat","cat":"Prémium","seats":5,"transmission":"Automat","min":1,"day":970,"week":6790,"weekKuryr":null,"weekBolt":null,"month":24200,"nadlim":3.3,"predpl":2.3,"courier":false,"taxi":false},
+    {"short":"Staria 7 míst","name":"Hyundai Staria Luxury CDi, 6+1, automat","cat":"Skupina","seats":7,"transmission":"Automat","min":30,"day":3500,"week":24500,"weekKuryr":null,"weekBolt":null,"month":35575,"nadlim":4,"predpl":2.8,"courier":false,"taxi":false},
+    {"short":"Staria 9 míst","name":"Hyundai Staria Style Premium CDi, 8+1, automat","cat":"Skupina","seats":9,"transmission":"Automat","min":30,"day":3450,"week":24150,"weekKuryr":null,"weekBolt":null,"month":34000,"nadlim":4,"predpl":2.8,"courier":false,"taxi":false},
+    {"short":"Mercedes S","name":"Mercedes-Benz S350 d 4MATIC L, automat","cat":"Prémium","seats":5,"transmission":"Automat","min":30,"day":2300,"week":16100,"weekKuryr":null,"weekBolt":null,"month":57500,"nadlim":8,"predpl":5.6,"courier":false,"taxi":false}
+  ]
+}
