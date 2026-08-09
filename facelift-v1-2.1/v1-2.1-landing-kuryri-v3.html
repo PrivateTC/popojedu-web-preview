@@ -354,9 +354,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
       <h1>Pronájem auta <em>pro kurýry</em> — Foodora, Wolt a další</h1>
       <p class="lead">Rozvážíte jídlo nebo balíky? Půjčíme vám úsporný vůz s nízkými náklady na kilometr. O servis, pneumatiky i pojištění se staráme my — vy se soustředíte na rozvoz a výdělek.</p>
       <div class="stars"><span class="st">★★★★★</span> <b>4,9</b> · Google recenze · od roku 2017</div>
-      <div class="cta-row" data-zmena="v3.3 TENKÝ LANDING (rozhodnutí RF): jediné CTA „Spočítat cenu →" — poptávka je až PO konfigurátoru (spočítat → vybrat vůz → poptávka), přímý odkaz na poptávku odstraněn">
-        <a class="btn" id="heroCta" href="v1-2.1-homepage-v8.html?kuryr=1#spocitat">Spočítat cenu →</a>
-      </div>
+      <a class="btn block" id="heroCta" href="v1-2.1-homepage-v8.html?kuryr=1#spocitat" data-zmena="ÚPRAVA (RF: CTA proporčně jako na homepage): btn block přímo v hero bez cta-row obalu — stejný padding 12×24, font 15px, min-height 50px, na mobilu plná šířka, na desktopu width:auto, stejná pozice (hvězdy 22px nad, .under 12px pod). Jediné CTA zachováno (v3.3), odkaz ?kuryr=1#spocitat beze změny">Spočítat cenu →</a>
       <p class="under" data-zmena="v3.3 TENKÝ LANDING (rozhodnutí RF): žádné ceny na landingu — cenu spočítá konfigurátor; 6 500 km/měs zůstává jako INFO, co je v ceně">Zvýhodněná kurýrní sazba, platí se po týdnech · v ceně nájezd <b>6 500 km/měsíc</b> · cenu spočítá <b>konfigurátor</b> — hned, nezávazně a bez zadávání kontaktů</p>
     </div>
     <div class="hero-img">
@@ -487,7 +485,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
       <a href="https://www.popojedu.cz/dlouhodoby-pronajem-auta-praha">Dlouhodobý pronájem</a>
       <a href="https://www.popojedu.cz/pujcovna-aut-praha-9-cakovice">Půjčovna aut Praha 9 — Čakovice</a>
       <a href="https://www.popojedu.cz/vyzvednuti-vozu">Vyzvednutí vozu</a>
-      <a href="https://www.popojedu.cz/predani-vozu">Předání vozu</a>
+      <a href="https://www.popojedu.cz/predani-vozu">Vrácení vozu</a>
     </div>
     <div class="ft">
       <h4>Pro koho</h4>
@@ -516,7 +514,9 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <span class="tag">INTERNÍ — JEN V PŘEDLOZE · LANDING KURÝŘI v3.3 (TENKÁ VSTUPNÍ STRÁNKA)</span>
     <h2>Doporučení: landing = marketing + 1 CTA do konfigurátoru, ceny jen v konfigurátoru</h2>
     <ul>
+      <li><b>OPRAVA Z OPONENTURY (9. 8. 2026):</b> položka patičky „Předání vozu" přejmenována na <b>„Vrácení vozu"</b> (URL <code>/predani-vozu</code> beze změny) — vedle „Vyzvednutí vozu" bylo „Předání" matoucí; sjednoceno s produkcí na všech 5 stránkách předlohy.</li>
       <li><b>v3.3 — TENKÝ LANDING (rozhodnutí RF 9. 8.):</b> landing NEMÁ vlastní ceny ani karty vozů. Je to marketingová vstupní stránka (proč u nás, pro koho, důvěra, FAQ), která vede na JEDEN společný konfigurátor na homepage s předzaškrtnutými přepravními službami (<code>?kuryr=1#spocitat</code>). Veškeré ceny a výběr vozu se dějí jen v konfigurátoru — <b>jedna pravda, jedna cesta</b>. Odstraněno: karty vozů s týdenními sazbami a denními ekvivalenty, „od X Kč/týden" v hero, poznámka o weekKuryr. Flow: <b>spočítat → vybrat vůz → poptávka</b> — proto na landingu není ani přímý odkaz na poptávku (<code>#poptavka</code>); poptávka se odesílá z konfigurátoru po výběru vozu.</li>
+      <li><b>CTA proporčně sjednoceno s homepage (pokyn RF):</b> hero CTA je nyní <code>btn block</code> přímo v hero (bez <code>cta-row</code> obalu) — přesně jako <code>#heroCta</code> na homepage v8: padding 12×24 px, font 15 px/700, min-height 50 px, radius <code>var(--radius)</code>, na mobilu plná šířka, na desktopu shrink-to-fit; hvězdy 22 px nad tlačítkem, poznámka <code>.under</code> 12 px pod ním. Odkaz i princip 1 CTA beze změny.</li>
       <li><b>Jedno CTA:</b> hero, závěrečná sekce i sticky lišta na mobilu nesou jediné zelené CTA „Spočítat cenu →" (<code>?kuryr=1#spocitat</code>). Žádné druhé velké tlačítko, žádný ghost, žádný vlastní odkaz na poptávku. Hlavička drží jednotné menu (Naše vozy · Ceník · Pro koho ▾ · Kontakt + CTA „Spočítat cenu").</li>
       <li><b>MARTIN — landing generovat jako statickou marketingovou stránku</b>: žádná cenová data, žádný dotaz do ceníku, žádný formulář. Konfigurátor je JEDNA sdílená komponenta na homepage; landing na ni jen odkazuje s parametrem segmentu — tento landing <code>?kuryr=1</code>, landing Bolt/Uber <code>?ridic=1</code>. Parametr předzaškrtne přepravní služby + segment a poptávka musí do HubSpotu/adminu dorazit jako <b>rozlišený zdroj</b> (kuryr vs ridic).</li>
       <li><b>6 500 km/měsíc zůstává jako INFO</b> (co je v ceně), ne jako cenový údaj u vozu — v hero, v dlaždici „Jak platíte" a ve FAQ. Konkrétní sazby (týdenní, nadlimitní i předplacené km) říká jen konfigurátor/ceník.</li>
