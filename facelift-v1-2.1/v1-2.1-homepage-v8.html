@@ -10,6 +10,25 @@
 <style>
 /* ============================================================
    POPOJEDU FACELIFT v1-2.1 — HOMEPAGE v8 „FINÁL — KANONICKÁ" (předloha; základ v7 TRENDY 2026)
+   v8.8 (oponentura 9. 8. — návrat prvků, které vypadly z produkce):
+   (1) „Druhý řidič zdarma (+0 Kč)" a „Dětská sedačka na vyžádání"
+       viditelně — FAQ „Co je v ceně" + řádek Doplňky v souhrnu poptávky;
+   (2) souhrn konfigurátoru vyčísluje „Vaše sleva celkem −X Kč za {doba}
+       (−Y %)" (jen když sleva > 0) a upsell „Na 12 měsíců: X Kč/měs
+       (−15 %)" (klik nastaví 12 měsíců; jen když doba < 12 měs);
+   (3) krok 3 vrací „společné foto stavu vozu";
+   (4) patička: landingy → facelift soubory (v3), „Předání vozu"
+       přejmenováno na „Vrácení vozu" (URL /predani-vozu beze změny).
+   v8.7 (RF 9. 8., 2 pokyny k přepravnímu režimu):
+   (1) select vozu i grid karet ukazují v přepravním režimu JEN vozy
+       dostupné pro daný segment (kurýři = courier:true, Bolt/Uber =
+       taxi:true) — nedostupné se už nezamykají, ale úplně skrývají;
+       přepnutí režimu/segmentu překreslí select i grid.
+   (2) km slider se v přepravním režimu VRACÍ: základ (minimum)
+       6 500 km/měs v ceně, navýšení do 15 000 po 500 km; nad 6 500
+       stejná mechanika jako běžný režim (předem −30 %-ová logika /
+       doplatek dle sazeb predpl/nadlim per vůz), měsíční km navíc se
+       do týdenní ceny přepočítávají ×7/30,4.
    v8.6 (RF 9. 8. večer, „u firem ceny bez DPH"): URL parametr ?firma=1
    nově předvolí i konfigurátor na režim BEZ DPH (setVat(false)) —
    firemní vstup ze stránky Pro firmy (v3.5, marketing bez cen) tak
@@ -226,6 +245,10 @@ select{width:100%;padding:13px 12px;border:1px solid var(--line);border-radius:v
 .cfg-price .cap{display:block;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cfg-price b{display:block;font-size:21px;font-weight:700;color:var(--navy)}
 .cfg-price .sub{display:flex;flex-wrap:wrap;gap:2px 14px;font-size:12px;color:var(--muted);margin-top:3px}
+/* v8.8: vyčíslená úspora + upsell 12 měsíců — drobné, nekonkurují hlavní ceně */
+.cfg-price .save{color:var(--green-dark);font-weight:600}
+.cfg-price .upsell{background:none;border:none;padding:0;font-family:var(--font);font-size:12px;color:var(--muted);text-decoration:underline;cursor:pointer}
+.cfg-price .upsell:hover{color:var(--navy)}
 .cfg-result .btn{width:100%}
 @media(min-width:600px){
   .cfg-result{flex-direction:row;align-items:center;gap:16px}
@@ -536,7 +559,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
             <button type="button" id="purOsobni" class="on" aria-pressed="true" onclick="setPurpose('personal')">Osobní použití</button>
             <button type="button" id="purPrepravni" aria-pressed="false" onclick="setPurpose('transport')">Přepravní služby</button>
           </div>
-          <p class="purpose-hint" id="purposeHint">Pro kurýry (Wolt, Foodora) a řidiče Bolt/Uber — vlastní týdenní sazby, platí se po týdnech předem. V ceně je 6&nbsp;500 km/měsíc.</p>
+          <p class="purpose-hint" id="purposeHint">Pro kurýry (Wolt, Foodora) a řidiče Bolt/Uber — vlastní týdenní sazby, platí se po týdnech předem. V ceně je 6&nbsp;500 km/měsíc, vyšší nájezd nastavíte posuvníkem níže.</p>
         </div>
 
         <!-- dlouhodobě -->
@@ -564,8 +587,10 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
           <input type="range" id="rWeeks" min="1" max="26" step="1" value="4" aria-label="Délka spolupráce v týdnech">
         </div>
 
-        <!-- nájezd (v8.2: v přepravním režimu skryto — v ceně je pevných 6 500 km/měs, RF 9. 8.) -->
-        <div class="cfg-row" id="rowKm">
+        <!-- nájezd (v8.7: km slider i v PŘEPRAVNÍM režimu — základ 6 500 km/měs v ceně,
+             navýšení do 15 000 po 500; RF 9. 8. „u přepravních služeb jde také navýšit
+             počet km, základ je 6 500 km/měsíc". Nahrazuje v8.2 „v přepravním skryto".) -->
+        <div class="cfg-row" id="rowKm" data-zmena="ÚPRAVA v8.7: km slider i v přepravním režimu — základ 6 500 km/měs v ceně, jde navýšit (RF 9. 8.)">
           <label><span id="kmLbl">Kolik km plánujete najet za měsíc?</span> <output id="outKm">1 500 km</output></label>
           <input type="range" id="rKm" min="500" max="5000" step="250" value="1500" aria-label="Odhad nájezdu km za měsíc">
           <div class="cfg-note" id="kmIncNote">V ceně je 1 500 km/měs. Km navíc koupíte předem levněji než doplatkem.</div>
@@ -588,8 +613,8 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
           </div>
         </div>
 
-        <!-- vůz -->
-        <div class="cfg-row">
+        <!-- vůz (v8.7: v přepravním režimu nabízí select JEN dostupné vozy dle segmentu) -->
+        <div class="cfg-row" data-zmena="ÚPRAVA v8.7: select vozu v přepravním režimu nabízí jen vozy dostupné pro daný segment (kurýři/Bolt) — nedostupné se neukazují (RF 9. 8.)">
           <label for="carSel">Spočítat pro který vůz?</label>
           <select id="carSel"><option value="">— vyberte vůz (nebo listujte níže) —</option></select>
         </div>
@@ -605,11 +630,11 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
       </div>
 
       <!-- v6 🔴 sticky cena PŘEPRACOVÁNA: cena a CTA pod sebou (mobil), nikdy se nepřekrývají -->
-      <div class="cfg-result" data-zmena="PŘEPRACOVÁNO v6: sticky cena — JEDNA hlavní cena + CTA pod ní; „bez DPH“ a „celkem“ malé sekundární; krátký label vozu; žádné překrývání (v7 jen jemný blur podkladu, proporce beze změny)">
+      <div class="cfg-result" data-zmena="PŘEPRACOVÁNO v6: sticky cena — JEDNA hlavní cena + CTA pod ní; „bez DPH“ a „celkem“ malé sekundární; krátký label vozu; žádné překrývání (v7 jen jemný blur podkladu, proporce beze změny); v8.8: + drobné řádky „Vaše sleva celkem −X Kč“ a upsell „Na 12 měsíců“ (konverzní prvky z produkce)">
         <div class="cfg-price">
           <span class="cap" id="prCap">Orientačně od · Citigo G-tec Active</span>
           <b id="prMain">8 102 Kč/měs s DPH</b>
-          <span class="sub"><span class="alt" id="prAlt">6 696 Kč/měs bez DPH</span><span class="tot" id="prTot">Celkem za 6 měsíců od 48 613 Kč s DPH</span></span>
+          <span class="sub"><span class="alt" id="prAlt">6 696 Kč/měs bez DPH</span><span class="tot" id="prTot">Celkem za 6 měsíců od 48 613 Kč s DPH</span><span class="save" id="prSave"></span><button type="button" class="upsell" id="prUpsell" style="display:none" onclick="setMonths(12,false)"></button></span>
         </div>
         <a class="btn" id="cfgCta" href="#vozy">Vybrat vůz ↓</a>
       </div>
@@ -674,7 +699,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <div class="steps" style="margin-top:22px">
       <div class="step"><div class="num">1</div><h3>Spočítáte cenu</h3><p>Kalkulačka hned ukáže cenu podle vozu, doby a nájezdu. Při 6 měsících ušetříte 10 %, při 12 měsících 15 %.</p></div>
       <div class="step" data-zmena="ÚPRAVA v5: krok 2 neslibuje uzavření rezervace — jediné, co drží vůz, je záloha"><div class="num">2</div><h3>Potvrdíme dostupnost</h3><p>Pošlete nezávaznou poptávku a my e-mailem potvrdíme dostupnost. Termín je závazně rezervovaný úhradou zálohy 20 %.</p></div>
-      <div class="step"><div class="num">3</div><h3>Vyzvednete v Čakovicích</h3><p>Provozovna Cukrovarská 991. Předání trvá 20 minut — nebo vám vůz přivezeme, ceny níže.</p></div>
+      <div class="step" data-zmena="ÚPRAVA v8.8: krok 3 vrací „společné foto stavu vozu“ z produkce — signál transparentnosti a ochrany obou stran"><div class="num">3</div><h3>Vyzvednete v Čakovicích</h3><p>Provozovna Cukrovarská 991. Předání trvá 20 minut: instruktáž, společné foto stavu vozu, klíče. Nebo vám vůz přivezeme — ceny níže.</p></div>
     </div>
   </div>
 </section>
@@ -701,7 +726,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <details><summary>Na jak dlouho si můžu vůz půjčit?</summary><div class="a">Den, týden i celé měsíce. U dlouhodobých paketů (3, 6 a 12 měsíců) máte nejvýhodnější měsíční sazbu.</div></details>
     <details><summary>Jak je to s kaucí?</summary><div class="a">Vratná kauce je 10 000 až 50 000 Kč podle kategorie vozu — výši vždy říkáme dopředu. Po vrácení vozu se vrací. Kauce je něco jiného než spoluúčast: spoluúčast (10 % ze škody, min. 10 000 Kč) se platí jen při škodě.</div></details>
     <details><summary>Jak funguje rezervace a platba?</summary><div class="a">Rezervaci potvrdíte úhradou zálohy 20 % z ceny pronájmu (převodem nebo QR kódem) — tím vám vůz držíme na termín. Doplatek hradíte nejpozději při převzetí vozu. Pokud rezervaci zrušíte nebo se nedostavíte, záloha 20 % propadá jako storno poplatek.</div></details>
-    <details><summary>Co je v ceně pronájmu?</summary><div class="a">Plný servis, havarijní i povinné pojištění včetně čelního skla s územním rozsahem EU, dálniční známka, sezónní pneumatiky a asistenční služba 24/7 (z pojištění vozu). Náhradní vůz při poruše zajistíme v provozní době Po–Pá 8:00–17:30.</div></details>
+    <details data-zmena="ÚPRAVA v8.8: doplněn „Druhý řidič zdarma (+0 Kč)“ a „Dětská sedačka na vyžádání“ — benefity z produkčního konfigurátoru, které v předloze chyběly"><summary>Co je v ceně pronájmu?</summary><div class="a">Plný servis, havarijní i povinné pojištění včetně čelního skla s územním rozsahem EU, dálniční známka, sezónní pneumatiky a asistenční služba 24/7 (z pojištění vozu). <b style="color:var(--navy)">Druhý řidič je zdarma (+0 Kč)</b> — stačí ho uvést při předání. Dětskou sedačku připravíme na vyžádání. Náhradní vůz při poruše zajistíme v provozní době Po–Pá 8:00–17:30.</div></details>
     <details><summary>Co když najedu více kilometrů?</summary><div class="a">V ceně běžného pronájmu je 1 500 km/měs. Kdo jede víc, doplatí nadlimitní sazbu podle vozu (2–8 Kč/km bez DPH) — nebo si km koupí předem, levněji. Doplatek se účtuje až po skončení pronájmu podle reálného nájezdu. U kurýrů a řidičů Bolt/Uber (platba týdně) je v ceně 6&nbsp;500 km/měsíc.</div></details>
     <details><summary>Jak jsou vozy pojištěné?</summary><div class="a">Každý vůz má havarijní i povinné pojištění v ceně, včetně čelního skla, pro územní rozsah EU. Při škodě se hradí spoluúčast 10 % ze škody, min. 10 000 Kč.</div></details>
 
@@ -725,6 +750,8 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
         <div class="r"><span>Vůz</span><b id="sumCar">— vyberte výše</b></div>
         <div class="r"><span>Doba</span><b id="sumDoba">6 měsíců</b></div>
         <div class="r"><span>Nájezd</span><b id="sumKm">1 500 km/měs</b></div>
+        <div class="r" data-zmena="NOVÉ v8.8: řádek doplňků — druhý řidič zdarma + dětská sedačka (viditelný benefit z produkce, ne jen placeholder)"><span>Doplňky</span><b>Druhý řidič zdarma (+0 Kč) · dětská sedačka na vyžádání</b></div>
+        <div class="r" id="sumSaveRow" style="display:none" data-zmena="NOVÉ v8.8: vyčíslená úspora — „Vaše sleva celkem −X Kč za dobu (−Y %)“, jen když je sleva > 0"><span>Vaše sleva celkem</span><b id="sumSave" style="color:var(--green-dark)"></b></div>
         <div class="r tot"><span>Orientační cena</span><b id="sumPrice">—</b></div>
         <div class="r"><span></span><span id="sumPriceAlt" style="font-size:12px;color:var(--muted)"></span></div>
         <div class="r"><span>Celkem za dobu</span><b id="sumTotal">—</b></div>
@@ -800,13 +827,13 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
       <a href="https://www.popojedu.cz/dlouhodoby-pronajem-auta-praha">Dlouhodobý pronájem</a>
       <a href="https://www.popojedu.cz/pujcovna-aut-praha-9-cakovice">Půjčovna aut Praha 9 — Čakovice</a>
       <a href="https://www.popojedu.cz/vyzvednuti-vozu">Vyzvednutí vozu</a>
-      <a href="https://www.popojedu.cz/predani-vozu">Předání vozu</a>
+      <a href="https://www.popojedu.cz/predani-vozu" data-zmena="ÚPRAVA v8.8: „Předání vozu“ přejmenováno na „Vrácení vozu“ (produkce; vedle „Vyzvednutí“ bylo „Předání“ matoucí) — URL beze změny">Vrácení vozu</a>
     </div>
     <div class="ft">
       <h4>Pro koho</h4>
       <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
-      <a href="https://www.popojedu.cz/pronajem-vozu-pro-bolt-a-uber-v-praze">Pro Bolt a Uber</a>
-      <a href="https://www.popojedu.cz/pronajem-vozu-pro-kuryry-wolt-foodora-a-dalsi-v-praze">Pro kurýry</a>
+      <a href="v1-2.1-landing-bolt-uber-v3.html" data-zmena="ÚPRAVA v8.8: patička sjednocena s hlavičkou — landingy míří na facelift soubory (v3), ne na produkci">Pro Bolt a Uber</a>
+      <a href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
       <a href="https://www.popojedu.cz/jak-to-probiha">Jak to funguje</a>
       <a href="https://www.popojedu.cz/blog">Blog</a>
       <a href="https://www.popojedu.cz/caste-dotazy">FAQ</a>
@@ -829,6 +856,8 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <span class="tag">INTERNÍ — JEN V PŘEDLOZE · v8 FINÁL — KANONICKÁ</span>
     <h2>Doporučení: co v8 (finální kanonická) obsahuje a jak to přenést na zbylých 5 stránek</h2>
     <ul>
+      <li><b>v8.8 — NÁVRAT PRVKŮ, KTERÉ VYPADLY Z PRODUKCE (oponentura 9. 8. 2026):</b> (1) <b>Druhý řidič zdarma (+0 Kč) a Dětská sedačka na vyžádání</b> jsou nově VIDITELNÉ — ve FAQ „Co je v ceně pronájmu?" a jako stálý řádek „Doplňky" v souhrnu poptávky (dřív jen placeholder v poznámce formuláře — zákazník prodejní výhodu neviděl). <b>MARTIN:</b> na produkci jsou to volby konfigurátoru; v předloze jsou informační — až se budou dělat jako volby, přidat i skryté pole poptávky. (2) <b>Vyčíslená úspora + upsell 12 měsíců</b> ve sticky souhrnu konfigurátoru: drobný zelený řádek „Vaše sleva celkem −X Kč za {doba} (−Y %)" (jen když sleva &gt; 0, tj. od 3 měsíců; úspora = <code>month × sleva × měsíce</code> v aktivním DPH režimu — km navíc slevě nepodléhají) a textový odkaz „Na 12 měsíců: X Kč/měs (−15 %)" (= <code>month × 0,85</code>; jen když zvolená doba &lt; 12 měsíců; klik nastaví 12 měsíců přes <code>setMonths(12)</code>). Obojí renderuje <code>updateSaveUpsell()</code> volaný z refresh/refreshLight; řádek úspory je i v souhrnu poptávky (<code>#sumSaveRow</code>). V přepravním režimu se neukazuje nic. Záměrně drobné (12 px, sekundární) — pravidlo v6 „jedna hlavní cena v boxu" se neporušuje, hlavní cena zůstává jediná velká. (3) <b>Krok 3</b> vrací produkční „Předání trvá 20 minut: instruktáž, společné foto stavu vozu, klíče" — transparentnost/ochrana obou stran. (4) <b>Patička sjednocena s hlavičkou:</b> „Pro Bolt a Uber" a „Pro kurýry" míří na facelift soubory <code>v1-2.1-landing-bolt-uber-v3.html</code> / <code>v1-2.1-landing-kuryri-v3.html</code> (dřív na produkci) a „Předání vozu" je přejmenováno na <b>„Vrácení vozu"</b> (vedle „Vyzvednutí vozu" bylo „Předání" matoucí; URL <code>/predani-vozu</code> beze změny — přejmenování slugu je na Martinovi/SEO, tady jen popisek).</li>
+      <li><b>v8.7 — PŘEPRAVNÍ REŽIM: JEN DOSTUPNÉ VOZY + NAVÝŠITELNÉ KM (2 pokyny RF 9. 8. 2026):</b> (1) Select „vyberte vůz" i grid karet ukazují v přepravním režimu <b>jen vozy dostupné pro daný segment</b> — kurýři (<code>?kuryr=1</code>) jen <code>courier:true</code> (Citigo, Octavia III CNG), Bolt/Uber (<code>?ridic=1</code>) jen <code>taxi:true</code> (Octavia III CNG, Octavia III TDi, Octavia IV combi Ambition, Superb III liftback + combi); bez URL hintu vozy s jakoukoli přepravní sazbou. Nedostupné vozy se už NEzamykají, ale úplně skryjí — select se přestavuje v <code>updateSelOptions()</code>, grid filtruje <code>renderCars()</code>; přepnutí režimu/segmentu obojí překreslí a nedostupný vybraný vůz se odvybere. Běžný (osobní) režim beze změny — všechny vozy. (2) <b>Km slider je v přepravním režimu ZPĚT</b> (dřívější v8.2 „skryto" nahrazeno): základ (minimum) <b>6 500 km/měs v ceně</b>, navýšení do 15 000 po 500 km; nad 6 500 stejná mechanika jako běžný režim — předplacené km levněji (<code>predpl</code>) / doplatek po vrácení (<code>nadlim</code>) per vůz, měsíční km navíc se do týdenní ceny přepočítávají ×7/30,4 (<code>DAYS_MONTH</code>). URL <code>&amp;km=</code> v přepravním režimu přijímá 6 500–15 000. <b>MARTIN:</b> strop slideru (v předloze odhad 15 000, konstanta <code>KM_MAX_T</code>) i základ 6 500 ověřit/nastavit z DB jako konfigurovatelné hodnoty per segment.</li>
       <li><b>v8.6 — ?firma=1 PŘEDVOLÍ CENY BEZ DPH (rozhodnutí RF 9. 8. večer: „u firem ceny bez DPH").</b> URL handler při <code>?firma=1</code> nově kromě <code>setTyp('firma')</code> (formulář na typ Firma s IČO) volá i <code>setVat(false)</code> — konfigurátor se otevře s přepínačem DPH na „bez DPH" a všechny ceny (karty vozů, sticky box, souhrn, skryté pole <code>dph</code>) se rovnou počítají bez DPH. Firemní vstup na web = stránka Pro firmy (od v3.5 čistě marketingová, bez cen) s jediným CTA „Spočítat cenu →" na <code>?firma=1#spocitat</code> — firma tak vidí ceny bez DPH od prvního pohledu, zákazník si režim může kdykoli ručně přepnout. <code>?kuryr=1</code>/<code>?ridic=1</code> dál předvolí přepravní režim (beze změny). <b>MARTIN:</b> na produkci firemní parametr v URL konfigurátoru = přednastavit režim bez DPH + typ Firma; výchozí stav bez parametru zůstává „s DPH" (B2C).</li>
       <li><b>v8.5 — JEDNOTNÉ CTA (pokyn RF 9. 8. 2026: „na stránce jsou 3 konkurenční CTA — drž to jednotně, 1 CTA vidět"):</b> závazné pravidlo pro všechny stránky předlohy: <b>1 CTA v hlavičce</b> („Spočítat cenu", zelené) + <b>max 1 primární velké CTA v hero</b>; jakákoli druhá akce smí být jen decentní textový odkaz (menší, bez rámečku, jen text se šipkou) — nikdy dvě konkurenční velká tlačítka vedle sebe. Homepage ověřena a vyhovuje: hero má jediné velké CTA „Spočítat cenu pronájmu →" (#heroCta), header jedno CTA, sticky lišta jedno CTA (a zobrazuje se až po odscrollování hero CTA — nikdy nejsou vidět obě naráz). Tlačítka uvnitř funkčních bloků (sticky cena konfigurátoru „Vybrat vůz ↓", karty vozů, submit formuláře) jsou kontextové kroky flow, ne konkurenční CTA — každý viewport ale drží jedno primární. Třída <code>.btn.ghost</code> v CSS zůstává definovaná, v markupu se záměrně NEPOUŽÍVÁ — sekundární akce řešit textovým odkazem, ne ghost tlačítkem. Stejné pravidlo potvrzeno na detailu vozu v5 (v5.3) a ceníku v3 (v3.5) — <b>na Pro firmy a obou landinzích dodržet 1:1</b> (pokud tam hero má dvě velká tlačítka, druhé předělat na text link pod primárním).</li>
       <li><b>v8.4 — MENU SE SEGMENTOVÝMI LANDINGY (pokyn RF 9. 8. 2026: „chybí menu tlačítko s proklikem na kurýr a Uber/Bolt, stejně i na dalších stránkách"):</b> hlavní navigace nově obsahuje proklik na landing pro kurýry i pro Bolt/Uber. Na desktopu jsou tři segmentové stránky sdružené do rozbalovací položky <b>„Pro koho ▾"</b> (Pro firmy · Pro kurýry · Pro Bolt a Uber) — plochá řada 6 položek + CTA by lištu přeplnila; dropdown ji drží čistou i na menších desktopech. V mobilním hamburgeru je všech 6 položek plochou řadou pod sebou. Dropdown se otevírá hoverem/fokusem (CSS) i klikem/tapem (JS), zavírá Escape a klikem mimo; trigger je <code>&lt;button&gt;</code> s <code>aria-haspopup</code>/<code>aria-expanded</code>. Stejné menu je na ceníku v3 (v3.4) a detailu vozu v5 (v5.2) — <b>na dalších stránkách (Pro firmy, landingy) převzít 1:1</b>. Pravidlo homepage trvá beze změny: kurýři/Bolt v hero ani v těle stránky nekřičí — segmentový vstup je jen menu + patička + neutrální přepínač účelu v konfigurátoru.</li>
@@ -905,7 +934,11 @@ var CARS=[
  {slug:'mercedes-s-350-d-4matic-l-air',name:'Mercedes-Benz S350 d 4MATIC L',cat:'Prémium',gear:'Automat',fuel:'diesel',seats:'5 míst',min:30,range:'EU',day:2300,week:16100,weekKuryr:null,weekBolt:null,month:57500,kmOver:8.0,predpl:5.6,courier:false,taxi:false,img:'mercedes-s-350-d-4matic-l-air.webp'}
 ];
 var CAT_ORDER={'Město':0,'Střední':1,'Prémium':2,'Skupina':3};
-var S={mode:'long',purpose:'personal',months:6,days:3,weeks:4,km:1500,kmMode:'pre',vat:true,car:null,sort:'asc',gear:'all'};
+/* v8.7: kmT = měsíční nájezd v PŘEPRAVNÍM režimu (základ 6 500 v ceně, RF 9. 8.);
+   km zůstává nájezd běžného režimu (základ 1 500) — dva oddělené stavy,
+   přepnutí režimu hodnoty neztrácí */
+var S={mode:'long',purpose:'personal',months:6,days:3,weeks:4,km:1500,kmT:6500,kmMode:'pre',vat:true,car:null,sort:'asc',gear:'all'};
+var KM_BASE_T=6500,KM_MAX_T=15000,KM_STEP_T=500; /* v8.7: přepravní km — základ/strop/krok (strop = odhad předlohy, Martin z DB) */
 var VAT=1.21;
 /* PŘEPRAVNÍ sazba vozu dle segmentu: ?kuryr=1 → weekKuryr · ?ridic=1 → weekBolt ·
    bez URL hintu → nejnižší dostupná přepravní sazba. null = vůz pro přepravu nedostupný. */
@@ -977,13 +1010,24 @@ function syncRows(){
   document.getElementById('rowWeeks').style.display=tr?'':'none';
   document.getElementById('rowLong').style.display=(!tr&&S.mode==='long')?'':'none';
   document.getElementById('rowShort').style.display=(!tr&&S.mode==='short')?'':'none';
-  /* v8.2: v přepravním režimu se km NEKONFIGURUJÍ — v ceně je pevný limit
-     6 500 km/měs (rozhodnutí RF 9. 8. 2026), slider by tu neměl co měnit */
-  document.getElementById('rowKm').style.display=tr?'none':'';
+  /* v8.7: km slider VIDITELNÝ i v přepravním režimu (RF 9. 8.: „u přepravních
+     služeb jde také navýšit počet km, základ je 6 500 km/měsíc") — jen se
+     přemapuje rozsah: základ 6 500 v ceně, navýšení do 15 000 po 500.
+     Nahrazuje v8.2 pravidlo „v přepravním režimu skryto". */
+  document.getElementById('rowKm').style.display='';
+  var rk=document.getElementById('rKm');
+  if(tr){
+    rk.min=KM_BASE_T;rk.max=KM_MAX_T;rk.step=KM_STEP_T;rk.value=S.kmT;
+    document.getElementById('kmIncNote').textContent='V ceně je 6 500 km/měs. Km navíc koupíte předem levněji než doplatkem.';
+    document.getElementById('kmModeLbl').textContent='Kilometry nad 6 500 km/měs';
+  }else{
+    rk.min=500;rk.max=5000;rk.step=250;rk.value=S.km;
+    document.getElementById('kmIncNote').textContent='V ceně je 1 500 km/měs. Km navíc koupíte předem levněji než doplatkem.';
+    document.getElementById('kmModeLbl').textContent='Kilometry nad 1 500 km/měs';
+  }
+  sliderFill(rk);
   document.getElementById('purposeHint').style.display=tr?'block':'none';
   document.getElementById('kmLbl').textContent='Kolik km plánujete najet za měsíc?';
-  document.getElementById('kmIncNote').textContent='V ceně je 1 500 km/měs. Km navíc koupíte předem levněji než doplatkem.';
-  document.getElementById('kmModeLbl').textContent='Kilometry nad 1 500 km/měs';
 }
 function setPurpose(p){S.purpose=p;
   segPress(document.getElementById('purOsobni'),p==='personal');
@@ -1010,7 +1054,8 @@ function tameSlider(el){
   el.addEventListener('input',function(){sliderFill(el);
     if(id==='rMonths')S.months=+el.value;
     if(id==='rDays')S.days=+el.value;
-    if(id==='rKm')S.km=+el.value;
+    /* v8.7: km slider je sdílený — v přepravním režimu píše do S.kmT (základ 6 500) */
+    if(id==='rKm'){if(S.purpose==='transport')S.kmT=+el.value;else S.km=+el.value;}
     if(id==='rWeeks')S.weeks=+el.value;
     refresh();});
   sliderFill(el);tameSlider(el);
@@ -1045,9 +1090,11 @@ function daysWord(n){return n===1?'den':(n<5?'dny':'dní')}
 function monthsWord(n){return n===1?'měsíc':(n<5?'měsíce':'měsíců')}
 function weeksWord(n){return n===1?'týden':(n<5?'týdny':'týdnů')}
 
-/* CENOVÝ MODEL (v8.2): sazby z LOOKUP TABULKY per vůz; přepravní režim
-   počítá z weekKuryr/weekBolt (transRate), km navíc se v něm nedopočítávají
-   — v ceně je pevných 6 500 km/měs (rozhodnutí RF 9. 8. 2026) */
+/* CENOVÝ MODEL (v8.7): sazby z LOOKUP TABULKY per vůz; přepravní režim
+   počítá z weekKuryr/weekBolt (transRate) + v ceně je 6 500 km/měs a nad
+   to km navíc stejnou mechanikou jako běžný režim (předem predpl / doplatek
+   nadlim per vůz; RF 9. 8.: „jde také navýšit počet km, základ 6 500").
+   Měsíční km navíc se do týdenní ceny přepočítávají ×7/30,4 (DAYS_MONTH). */
 function calc(car){
   var d=disc(S.mode==='long'?S.months:0);
   var extraKm=Math.max(0,S.km-1500);
@@ -1055,9 +1102,10 @@ function calc(car){
   var r={};
   if(S.purpose==='transport'){
     var wk=transRate(car);
+    var extraKmT=Math.max(0,S.kmT-KM_BASE_T);
     r.perLabel='Kč/týden';
-    r.extra=0;
-    r.per=wk||0;
+    r.extra=extraKmT*kmRate*7/DAYS_MONTH; /* v8.7: měsíční km navíc → týdenní cena */
+    r.per=(wk||0)+r.extra;
     r.total=r.per*S.weeks;
     r.durText=S.weeks+' '+weeksWord(S.weeks);
   }else if(S.mode==='long'){
@@ -1087,11 +1135,34 @@ function totalLine(r,from){
   return 'Celkem za '+r.durText+(from?' od ':': ')+fmt(main)+' Kč '+(S.vat?'s DPH':'bez DPH');
 }
 
+/* v8.8: vyčíslená úspora + upsell 12 měsíců ve sticky souhrnu (konverzní
+   prvky z produkce): „Vaše sleva celkem −X Kč za {doba} (−Y %)" jen když
+   je sleva > 0 (od 3 měsíců; úspora = month × sleva × počet měsíců, km
+   navíc slevě nepodléhají) a „Na 12 měsíců: X Kč/měs (−15 %)" (month ×
+   0,85 v aktivním DPH režimu) jen když je zvolená doba < 12 měsíců;
+   klik na upsell nastaví 12 měsíců. V přepravním režimu se neukazuje nic. */
+function updateSaveUpsell(car){
+  var sv=document.getElementById('prSave'),up=document.getElementById('prUpsell');
+  if(!sv||!up)return;
+  sv.textContent='';up.style.display='none';up.textContent='';
+  if(!car||S.purpose==='transport')return;
+  var d=S.mode==='long'?disc(S.months):0;
+  if(d>0){
+    var saveTot=car.month*d*S.months;
+    sv.textContent='Vaše sleva celkem −'+fmt(withVatMaybe(saveTot))+' Kč za '+S.months+' '+monthsWord(S.months)+' (−'+(d*100)+' %)';
+  }
+  if(!(S.mode==='long'&&S.months>=12)){
+    up.textContent='Na 12 měsíců: '+fmt(withVatMaybe(car.month*0.85))+' Kč/měs (−15 %)';
+    up.style.display='';
+  }
+}
 function updateKmChoice(car){
   var row=document.getElementById('rowKmMode');
-  var extraKm=Math.max(0,S.km-1500);
-  /* v8.1: jen dlouhodobý běžný pronájem — přepravní režim km nekonfiguruje */
-  var show=S.purpose!=='transport'&&S.mode==='long'&&extraKm>0;
+  var tr=S.purpose==='transport';
+  var extraKm=tr?Math.max(0,S.kmT-KM_BASE_T):Math.max(0,S.km-1500);
+  /* v8.7: volba předem/doplatek platí v dlouhodobém běžném pronájmu
+     I v přepravním režimu nad 6 500 km/měs (stejná mechanika, RF 9. 8.) */
+  var show=(tr||S.mode==='long')&&extraKm>0;
   row.style.display=show?'':'none';
   if(!show)return;
   var rt=kmRates(car);
@@ -1104,29 +1175,37 @@ function updateKmChoice(car){
   document.getElementById('kmoPost').classList.toggle('on',S.kmMode==='post');
 }
 
+/* v8.7: select se PŘESTAVUJE dle režimu (RF 9. 8.: „v přepravním režimu ukazuj
+   jen dostupné vozy") — v přepravním nabízí JEN vozy s přepravní sazbou pro
+   daný segment (transRate ≠ null: kurýři courier:true, Bolt/Uber taxi:true);
+   nedostupné vozy v selectu vůbec nejsou (dřív se jen „zamykaly" textem).
+   Vybraný vůz, který v novém režimu není dostupný, se odvybere. */
 function updateSelOptions(){
   var d=disc(S.mode==='long'?S.months:0);
-  CARS.forEach(function(c,i){
-    var o=sel.options[i+1];if(!o)return;
-    var tr=S.purpose==='transport';
+  var tr=S.purpose==='transport';
+  var list=tr?CARS.filter(function(c){return transRate(c)!=null}):CARS;
+  if(S.car&&!list.some(function(c){return c.slug===S.car}))S.car=null;
+  while(sel.options.length>1)sel.remove(1);
+  list.forEach(function(c){
+    var o=document.createElement('option');o.value=c.slug;
     if(tr){
-      var wk=transRate(c);
-      o.textContent=wk==null
-        ?c.name+' — pro přepravní služby nedostupné'
-        :c.name+' — od '+fmt(withVatMaybe(wk))+' Kč/týden '+(S.vat?'s DPH':'bez DPH');
-      return;
+      o.textContent=c.name+' — od '+fmt(withVatMaybe(transRate(c)))+' Kč/týden '+(S.vat?'s DPH':'bez DPH');
+    }else{
+      var n=S.mode==='long'?c.month*(1-d):c.day;
+      var u=S.mode==='long'?' Kč/měs ':' Kč/den ';
+      o.textContent=c.name+' — od '+fmt(withVatMaybe(n))+u+(S.vat?'s DPH':'bez DPH');
     }
-    var n=S.mode==='long'?c.month*(1-d):c.day;
-    var u=S.mode==='long'?' Kč/měs ':' Kč/den ';
-    o.textContent=c.name+' — od '+fmt(withVatMaybe(n))+u+(S.vat?'s DPH':'bez DPH');
+    sel.appendChild(o);
   });
+  sel.value=S.car||'';
 }
 
 function refresh(){
   document.getElementById('outMonths').textContent=S.months+' '+monthsWord(S.months)+(disc(S.months)?' · −'+(disc(S.months)*100)+' %':'');
   document.getElementById('outDays').textContent=S.days+' '+daysWord(S.days);
   document.getElementById('outWeeks').textContent=S.weeks+' '+weeksWord(S.weeks);
-  document.getElementById('outKm').textContent=fmt(S.km)+' km/'+(S.purpose==='transport'?'týd':'měs');
+  /* v8.7: outKm čte km dle režimu (přepravní = S.kmT, základ 6 500) — vždy za měsíc */
+  document.getElementById('outKm').textContent=fmt(S.purpose==='transport'?S.kmT:S.km)+' km/měs';
   document.querySelectorAll('#chipsMonths button').forEach(function(b){b.classList.toggle('on',+b.dataset.m===S.months)});
   updateSelOptions();
 
@@ -1151,6 +1230,7 @@ function refresh(){
       }
       cta.textContent=noTrans?'Vybrat vůz ↓':'Upravit dobu ↑';cta.href=noTrans?'#vozy':'#spocitat';
       tot.textContent='';
+      updateSaveUpsell(null); /* v8.8 */
       if(S.mode==='short'&&!trM&&curDays()<car.min){mn.style.display='block';mn.textContent='⚠️ '+car.name+' půjčujeme od '+car.min+' '+daysWord(car.min)+'.';}
     }else{
       var r=calc(car),p=priceStr(r.per,r.perLabel);
@@ -1158,6 +1238,7 @@ function refresh(){
       main.textContent=p.main; alt.textContent=p.alt;
       tot.textContent=totalLine(r,false)+(r.extra?' · vč. km navíc':'');
       cta.textContent='Do poptávky →';cta.href='#poptavka';
+      updateSaveUpsell(car); /* v8.8: sleva + upsell z aktuální konfigurace */
     }
   }else{
     var avail=CARS.filter(function(c){return curDays()>=c.min&&(!trM||transRate(c)!=null)});
@@ -1167,7 +1248,8 @@ function refresh(){
       cap.textContent='Orientačně od · '+shortName(cheapest);
       main.textContent=p2.main; alt.textContent=p2.alt;
       tot.textContent=totalLine(r2,true);
-    }else{cap.textContent='Orientační cena';main.textContent='—';alt.textContent='';tot.textContent=''}
+      updateSaveUpsell(cheapest); /* v8.8: úspora/upsell i pro „orientačně od" (nejlevnější vůz) */
+    }else{cap.textContent='Orientační cena';main.textContent='—';alt.textContent='';tot.textContent='';updateSaveUpsell(null)}
     cta.textContent='Vybrat vůz ↓';cta.href='#vozy';
   }
   renderCars();
@@ -1182,17 +1264,24 @@ document.querySelectorAll('.filters [data-g]').forEach(function(b){
     renderCars();};
 });
 function cardPer(c){
-  if(S.purpose==='transport')return transRate(c); /* null = nedostupné; km navíc se u přepravy nedopočítávají */
   var rate=S.kmMode==='pre'?c.predpl:c.kmOver;
+  if(S.purpose==='transport'){ /* v8.7: km navíc nad 6 500 se přepočítávají i do týdenní ceny karty */
+    var wk=transRate(c);
+    return wk==null?null:wk+Math.max(0,S.kmT-KM_BASE_T)*rate*7/DAYS_MONTH;
+  }
   if(S.mode==='long')return c.month*(1-disc(S.months))+Math.max(0,S.km-1500)*rate;
   return c.day;
 }
 function renderCars(){
+  var trM=S.purpose==='transport';
   var list=CARS.slice().filter(function(c){return S.gear==='all'||c.gear===S.gear});
+  /* v8.7: v přepravním režimu grid ukazuje JEN dostupné vozy dle segmentu
+     (kurýři courier:true, Bolt/Uber taxi:true) — nedostupné se skrývají,
+     už se nezamykají (RF 9. 8.) */
+  if(trM)list=list.filter(function(c){return transRate(c)!=null});
   if(S.sort==='asc')list.sort(function(a,b){return a.day-b.day});
   if(S.sort==='desc')list.sort(function(a,b){return b.day-a.day});
   if(S.sort==='cat')list.sort(function(a,b){return CAT_ORDER[a.cat]-CAT_ORDER[b.cat]||a.day-b.day});
-  var trM=S.purpose==='transport';
   var unit=trM?'Kč/týden':(S.mode==='long'?'Kč/měs':'Kč/den');
   var g=document.getElementById('carGrid');g.innerHTML='';
   list.forEach(function(c){
@@ -1205,7 +1294,7 @@ function renderCars(){
       :'<div class="price-line"><b>od '+fmt(withVatMaybe(perVal))+' '+unit+'</b><span class="vat">'+(S.vat?'s DPH':'bez DPH')+'</span><span class="alt">'+fmt(S.vat?Math.round(perVal):withVat(perVal))+' '+unit+' '+(S.vat?'bez DPH':'s DPH')+'</span>'+(unit!=='Kč/den'?'<span class="alt">'+dayEqStr(perVal,unit==='Kč/týden'?7:DAYS_MONTH)+'</span>':'')+'</div>';
     var segTxt=trM&&!noTrans?((c.courier&&c.taxi)?' · kurýři i Bolt/Uber':(c.courier?' · kurýři':' · Bolt/Uber')):'';
     var kmnote=trM
-      ?'v ceně 6 500 km/měs · nadlimitní km: '+rateStr(c.kmOver)+' Kč/km'
+      ?'v ceně 6 500 km/měs · nadlimitní km: '+rateStr(c.kmOver)+' Kč/km · předem '+rateStr(c.predpl)+' Kč/km'
       :'nadlimitní km: '+rateStr(c.kmOver)+' Kč/km · předem '+rateStr(c.predpl)+' Kč/km';
     var el=document.createElement('article');
     el.className='card'+(locked?' locked':'');
@@ -1242,6 +1331,7 @@ function refreshLight(car){ /* aktualizace result baru bez překreslení karet *
   document.getElementById('prTot').textContent=totalLine(r,false)+(r.extra?' · vč. km navíc':'');
   document.getElementById('cfgCta').textContent='Do poptávky →';
   document.getElementById('cfgCta').href='#poptavka';
+  updateSaveUpsell(car); /* v8.8 */
 }
 
 /* ================= FORM ================= */
@@ -1255,15 +1345,16 @@ var segHint='';
 try{var _sq=new URLSearchParams(location.search);if(_sq.get('ridic')==='1')segHint='ridic';else if(_sq.get('kuryr')==='1')segHint='kuryr';}catch(e){}
 function setHidden(id,val){var el=document.getElementById(id);if(el)el.value=String(val);}
 function updateSummary(car){
-  var extraKm=Math.max(0,S.km-1500);
   var tr=S.purpose==='transport';
+  /* v8.7: km navíc dle režimu — přepravní základ 6 500 (S.kmT), běžný 1 500 (S.km) */
+  var extraKm=tr?Math.max(0,S.kmT-KM_BASE_T):Math.max(0,S.km-1500);
   document.getElementById('sumUcel').textContent=tr
     ?(segHint==='ridic'?'Přepravní služby — Bolt/Uber':(segHint==='kuryr'?'Přepravní služby — kurýři':'Přepravní služby (týdenní platby)'))
     :'Osobní použití';
   document.getElementById('sumCar').textContent=car?car.name:'— vyberte výše';
   document.getElementById('sumDoba').textContent=tr?S.weeks+' '+weeksWord(S.weeks):(S.mode==='long'?S.months+' '+monthsWord(S.months):S.days+' '+daysWord(S.days));
   document.getElementById('sumKm').textContent=tr
-    ?'6 500 km/měs v ceně'
+    ?(extraKm?fmt(S.kmT)+' km/měs'+(S.kmMode==='pre'?' · km předem':' · doplatek po vrácení'):'6 500 km/měs v ceně')
     :fmt(S.km)+' km/měs'+((S.mode==='long'&&extraKm)?(S.kmMode==='pre'?' · km předem':' · doplatek po vrácení'):'');
   /* v8: propsání konfigurace do skrytých polí — stejná data jako vizuální souhrn,
      ať segment/vůz/kalkulace reálně odejdou s formulářem (HubSpot/admin) */
@@ -1271,13 +1362,23 @@ function updateSummary(car){
   setHidden('hVuz',car?car.slug:'');
   setHidden('hRezim',tr?'prepravni':(S.mode==='long'?'dlouhodobe':'kratkodobe'));
   setHidden('hDoba',tr?S.weeks+' '+weeksWord(S.weeks):(S.mode==='long'?S.months+' '+monthsWord(S.months):S.days+' '+daysWord(S.days)));
-  setHidden('hNajezd',tr?'6500':S.km);
-  setHidden('hKmRezim',tr?'':(S.kmMode==='pre'?'predem':'doplatek'));
+  setHidden('hNajezd',tr?S.kmT:S.km); /* v8.7: přepravní nájezd už je konfigurovatelný (základ 6 500) */
+  setHidden('hKmRezim',S.kmMode==='pre'?'predem':'doplatek');
   setHidden('hDph',S.vat?'s':'bez');
+  /* v8.8: řádek „Vaše sleva celkem" v souhrnu poptávky — jen běžný dlouhodobý
+     pronájem se slevou > 0 a dostupným vozem (stejný výpočet jako sticky box) */
+  var svRow=document.getElementById('sumSaveRow'),svEl=document.getElementById('sumSave');
+  if(svRow){
+    var dSum=(!tr&&S.mode==='long')?disc(S.months):0;
+    if(car&&dSum>0&&curDays()>=car.min){
+      svRow.style.display='';
+      svEl.textContent='−'+fmt(withVatMaybe(car.month*dSum*S.months))+' Kč za '+S.months+' '+monthsWord(S.months)+' (−'+(dSum*100)+' %)';
+    }else{svRow.style.display='none';svEl.textContent='';}
+  }
   var sp=document.getElementById('sumPrice'),spa=document.getElementById('sumPriceAlt'),st=document.getElementById('sumTotal');
   if(car&&curDays()>=car.min&&!(tr&&transRate(car)==null)){
     var r=calc(car),p=priceStr(r.per,r.perLabel);
-    sp.textContent=p.main; spa.textContent=p.alt+(r.perLabel!=='Kč/den'?' · '+dayEqStr(r.per,r.perLabel==='Kč/týden'?7:DAYS_MONTH):'')+(tr?' · orientačně, v ceně 6 500 km/měs':' · orientačně, vč. km');
+    sp.textContent=p.main; spa.textContent=p.alt+(r.perLabel!=='Kč/den'?' · '+dayEqStr(r.per,r.perLabel==='Kč/týden'?7:DAYS_MONTH):'')+(tr?(r.extra?' · orientačně, vč. km navíc nad 6 500':' · orientačně, v ceně 6 500 km/měs'):' · orientačně, vč. km');
     var t=priceStr(r.total,'Kč');
     st.textContent=t.main+' ('+t.alt+')';
     setHidden('hCena',S.vat?withVat(r.total):Math.round(r.total));
@@ -1312,8 +1413,11 @@ function applyBar(){bar.classList.toggle('show',heroGone&&!formVis&&!cfgVis)}
     if(dn>=1&&dn<=30){S.mode='short';S.days=dn;document.getElementById('rDays').value=dn;}
     var w=parseInt(q.get('tydny'),10);
     if(w>=1&&w<=26){S.weeks=w;document.getElementById('rWeeks').value=w;}
+    /* v8.7: &km= dle režimu — přepravní přijímá 6 500–15 000 (S.kmT), běžný 500–5 000 (S.km);
+       hodnotu i rozsah slideru pak nastaví syncRows() */
     var km=parseInt(q.get('km'),10);
-    if(km>=500&&km<=5000){S.km=km;document.getElementById('rKm').value=km;}
+    if(S.purpose==='transport'){if(km>=KM_BASE_T&&km<=KM_MAX_T){S.kmT=Math.round(km/KM_STEP_T)*KM_STEP_T;}}
+    else if(km>=500&&km<=5000){S.km=km;document.getElementById('rKm').value=km;}
     var kr=q.get('kmrezim');
     if(kr==='pre'||kr==='post'){S.kmMode=kr;var ri=document.querySelector('input[name=kmMode][value='+kr+']');if(ri)ri.checked=true;}
     ['rMonths','rDays','rKm','rWeeks'].forEach(function(id){sliderFill(document.getElementById(id))});
