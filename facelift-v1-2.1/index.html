@@ -1,90 +1,69 @@
-<!DOCTYPE html>
-<html lang="cs">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Popojedu — facelift v1-2.1</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!doctype html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Popojedu — facelift v1-2.1 (kompletní web)</title>
 <style>
-:root{
-  --green:#00C853; --green-dark:#00A946; --green-tint:#eafaf1;
-  --navy:#002040; --ink:#22384e; --muted:#5b6b80;
-  --line:#e8edf3; --bg:#f6f8fa;
-  --radius:12px; --radius-lg:18px;
-  --shadow:0 1px 2px rgba(0,32,64,.04),0 6px 18px rgba(0,32,64,.06);
-  --font:'Inter',-apple-system,'Segoe UI',sans-serif;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font);color:var(--ink);background:#fff;line-height:1.6}
-.wrap{max-width:880px;margin:0 auto;padding:0 20px}
-header{background:linear-gradient(180deg,var(--bg) 0%,#fff 100%);padding:56px 0 40px;border-bottom:1px solid var(--line)}
-.logo{display:flex;align-items:center;gap:9px;margin-bottom:28px}
-.logo-p{width:34px;height:34px;border-radius:50%;background:var(--green);color:#fff;font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center}
-.logo b{font-size:18px;color:var(--navy);font-weight:800}
-h1{font-size:28px;font-weight:800;color:var(--navy);letter-spacing:-.02em;margin-bottom:14px}
-p.lead{font-size:15.5px;color:var(--muted);max-width:60ch}
-.tip{margin-top:22px;background:var(--bg);border:1px solid var(--line);border-left:3px solid var(--green);border-radius:10px;padding:14px 16px;font-size:13.5px;color:var(--muted)}
-.tip b{color:var(--navy)}
-main{padding:40px 0 64px}
-h2.sec{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:16px}
-.grid{display:grid;gap:14px}
+:root{--green:#00C853;--navy:#002040;--ink:#22384e;--muted:#5b6b80;--line:#e8edf3;--bg:#f6f8fa}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.5}
+.wrap{max-width:960px;margin:0 auto;padding:40px 20px 64px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;color:var(--navy)}
+.logo .p{width:34px;height:34px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-size:20px}
+h1{font-size:30px;font-weight:800;letter-spacing:-.02em;margin:24px 0 6px;color:var(--navy)}
+.lead{color:var(--muted);font-size:16px;max-width:640px;margin:0 0 8px}
+.note{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:13.5px;color:var(--muted);margin:18px 0 28px}
+.note b{color:var(--ink)}
+h2{font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:var(--green);margin:28px 0 12px}
+.grid{display:grid;grid-template-columns:1fr;gap:10px}
 @media(min-width:640px){.grid{grid-template-columns:1fr 1fr}}
-a.card{display:block;background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .2s ease,transform .2s ease,box-shadow .2s ease}
-a.card:hover{border-color:var(--green);transform:translateY(-2px);box-shadow:0 4px 8px rgba(0,32,64,.05),0 14px 28px rgba(0,32,64,.09)}
-a.card h3{font-size:16.5px;font-weight:700;color:var(--navy);margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;gap:8px}
-a.card h3 .arr{color:var(--green-dark);font-weight:800}
-a.card p{font-size:13.5px;color:var(--muted)}
-footer{border-top:1px solid var(--line);padding:24px 0 40px;font-size:12.5px;color:var(--muted)}
-</style>
-</head>
-<body>
+@media(min-width:900px){.grid{grid-template-columns:1fr 1fr 1fr}}
+a.card{display:block;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:inset 0 1px 0 rgba(255,255,255,.85),0 1px 2px rgba(0,32,64,.04),0 8px 20px rgba(0,32,64,.05);transition:transform .15s,box-shadow .15s}
+a.card:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(0,32,64,.06),0 14px 30px rgba(0,32,64,.10)}
+a.card b{display:block;color:var(--navy);font-size:15px;font-weight:700}
+a.card span{display:block;color:var(--muted);font-size:12.5px;margin-top:3px}
+.foot{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+</style></head>
+<body><div class="wrap">
+<div class="logo"><span class="p">p</span> popojedu</div>
+<h1>Facelift v1-2.1 — kompletní web</h1>
+<p class="lead">Návrh nového vzhledu celého webu na základě chování zákazníků, cílený na jednodušší cestu k poptávce a víc konverzí.</p>
+<div class="note"><b>Tip:</b> v každé stránce je vpravo nahoře přepínač <b>📱 Mobil 390</b> (mobilní náhled), <b>🔍 Změny</b> (co je jinak proti webu) a <b>💬 Komentáře</b> (klikni na místo, napiš poznámku, pak „Zkopírovat komentáře"). Cesta k poptávce je jednotná: <b>Spočítat cenu → Vybrat vůz → Odeslat poptávku</b> (+ Kontakt pro obecný dotaz).</div>
 
-<header>
-  <div class="wrap">
-    <div class="logo"><span class="logo-p">p</span><b>popojedu</b></div>
-    <h1>Popojedu — facelift v1-2.1</h1>
-    <p class="lead">Návrh nového vzhledu webu na základě chování zákazníků, cílený na jednodušší cestu k poptávce.</p>
-    <div class="tip"><b>Tip:</b> v každé stránce je vpravo nahoře přepínač 📱 Mobil 390 (mobilní náhled), 🔍 Změny (co je jinak proti webu) a 💬 Komentáře (klikni na místo, napiš poznámku, pak Zkopírovat komentáře).</div>
-  </div>
-</header>
+<h2>Hlavní</h2>
+<div class="grid">
+<a class="card" href="v1-2.1-homepage-v8.html"><b>Homepage</b><span>Konfigurátor, vozy, jak to probíhá, poptávka</span></a>
+<a class="card" href="v1-2.1-nase-vozy-v1.html"><b>Naše vozy</b><span>Přehled celé flotily 14 vozů</span></a>
+<a class="card" href="v1-2.1-detail-vozu-v5.html"><b>Detail vozu</b><span>Šablona (vzor: Škoda Scala)</span></a>
+<a class="card" href="v1-2.1-cenik-v3.html"><b>Ceník</b><span>Běžný / přepravní, den/týden/měsíc, DPH</span></a>
+</div>
 
-<main>
-  <div class="wrap">
-    <h2 class="sec">Stránky předlohy</h2>
-    <div class="grid">
-      <a class="card" href="v1-2.1-homepage-v8.html">
-        <h3>Homepage <span class="arr">→</span></h3>
-        <p>Hlavní stránka — hero, konfigurátor ceny, přehled vozů, jak to funguje, FAQ.</p>
-      </a>
-      <a class="card" href="v1-2.1-detail-vozu-v5.html">
-        <h3>Detail vozu <span class="arr">→</span></h3>
-        <p>Stránka jednoho konkrétního vozu s cenovou kalkulací a poptávkovým formulářem.</p>
-      </a>
-      <a class="card" href="v1-2.1-cenik-v3.html">
-        <h3>Ceník <span class="arr">→</span></h3>
-        <p>Přehled všech vozů a sazeb — denní, týdenní, měsíční, s DPH i bez DPH.</p>
-      </a>
-      <a class="card" href="v1-2.1-pro-firmy-v3.html">
-        <h3>Pro firmy <span class="arr">→</span></h3>
-        <p>Nabídka pro firemní zákazníky a dlouhodobý pronájem.</p>
-      </a>
-      <a class="card" href="v1-2.1-landing-kuryri-v3.html">
-        <h3>Landing — kurýři <span class="arr">→</span></h3>
-        <p>Cílená stránka pro kurýry (Wolt, Foodora) s vlastními sazbami a podmínkami.</p>
-      </a>
-      <a class="card" href="v1-2.1-landing-bolt-uber-v3.html">
-        <h3>Landing — Bolt/Uber <span class="arr">→</span></h3>
-        <p>Cílená stránka pro řidiče Bolt a Uber s vlastními sazbami a podmínkami.</p>
-      </a>
-    </div>
-  </div>
-</main>
+<h2>Pro koho</h2>
+<div class="grid">
+<a class="card" href="v1-2.1-pro-firmy-v3.html"><b>Pro firmy</b><span>B2B, ceny bez DPH, flotila</span></a>
+<a class="card" href="v1-2.1-landing-kuryri-v3.html"><b>Pro kurýry</b><span>Wolt, Foodora — přepravní sazby</span></a>
+<a class="card" href="v1-2.1-landing-bolt-uber-v3.html"><b>Pro Bolt a Uber</b><span>Taxi — přepravní sazby, pojištění</span></a>
+</div>
 
-<footer>
-  <div class="wrap">Popojedu s.r.o. — interní předloha, nejde na ostrý web.</div>
-</footer>
+<h2>Informace</h2>
+<div class="grid">
+<a class="card" href="v1-2.1-jak-to-probiha-v1.html"><b>Jak to probíhá</b><span>Kroky pronájmu</span></a>
+<a class="card" href="v1-2.1-vyzvednuti-vozu-v1.html"><b>Vyzvednutí vozu</b><span>Co s sebou, doklady, kauce</span></a>
+<a class="card" href="v1-2.1-vraceni-vozu-v1.html"><b>Vrácení vozu</b><span>Foto stavu, vrácení kauce</span></a>
+<a class="card" href="v1-2.1-dlouhodoby-pronajem-v1.html"><b>Dlouhodobý pronájem</b><span>Měsíční sazby, slevy</span></a>
+<a class="card" href="v1-2.1-pujcovna-cakovice-v1.html"><b>Půjčovna Praha 9 Čakovice</b><span>Lokální stránka, mapa</span></a>
+<a class="card" href="v1-2.1-caste-dotazy-v1.html"><b>Časté dotazy</b><span>FAQ</span></a>
+<a class="card" href="v1-2.1-kontakt-v1.html"><b>Kontakt</b><span>Adresa, telefon, formulář</span></a>
+</div>
 
-</body>
-</html>
+<h2>Blog</h2>
+<div class="grid">
+<a class="card" href="v1-2.1-blog-v1.html"><b>Blog — výpis</b><span>Seznam 16 článků</span></a>
+<a class="card" href="v1-2.1-blog-clanek-v1.html"><b>Blog — článek</b><span>Šablona detailu (1 = všech 16)</span></a>
+</div>
+
+<h2>Právní (jen nový rám)</h2>
+<div class="grid">
+<a class="card" href="v1-2.1-obchodni-podminky-v1.html"><b>Obchodní podmínky</b><span>Text 1:1 z produkce</span></a>
+<a class="card" href="v1-2.1-ochrana-udaju-v1.html"><b>Ochrana osobních údajů</b><span>Text 1:1 z produkce</span></a>
+<a class="card" href="v1-2.1-zasady-cookies-v1.html"><b>Zásady cookies</b><span>Text 1:1 z produkce</span></a>
+<a class="card" href="v1-2.1-nastaveni-cookies-v1.html"><b>Nastavení cookies</b><span>noindex</span></a>
+</div>
+
+<div class="foot">Popojedu · facelift v1-2.1 · 20 stránek · veškeré ceny čtou reálná produkční data (<code>_cenik-data-produkce.json</code>). Připomínky přes 💬 v každé stránce.</div>
+</div></body></html>
