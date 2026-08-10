@@ -291,6 +291,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
           <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
         </div>
       </div>
+      <a href="v1-2.1-caste-dotazy-v1.html">Časté dotazy</a>
       <a href="v1-2.1-kontakt-v1.html">Kontakt</a>
       <a class="cta" href="v1-2.1-homepage-v8.html#spocitat">Spočítat cenu</a>
     </nav>
@@ -302,6 +303,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
     <a href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
     <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
+    <a href="v1-2.1-caste-dotazy-v1.html">Časté dotazy</a>
     <a href="v1-2.1-kontakt-v1.html">Kontakt</a>
   </nav>
 </header>
@@ -468,7 +470,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
       <a href="v1-2.1-nastaveni-cookies-v1.html">Nastavení cookies</a>
     </div>
   </div>
-  <div class="wrap legal">© 2026 Popojedu.cz · Autopůjčovna od roku 2017 · spravuje MODRÝ ANDĚL s.r.o. IČO: 27218422 · DIČ: CZ27218422 · spisová značka C 105306/MSPH, Městský soud v Praze</div>
+  <div class="wrap legal">© 2026 Popojedu.cz · Autopůjčovna od roku 2017 · spravuje Popojedu s.r.o. IČO: 27218422 · DIČ: CZ27218422 · spisová značka C 105306/MSPH, Městský soud v Praze</div>
 </footer>
 
 <!-- ============ DOPORUČENÍ (interní, nejde na web) ============ -->
@@ -597,7 +599,7 @@ function placeBadges(){
 }
 function buildZmPanel(){
   zmPanel=document.createElement('div');zmPanel.className='zm-panel';
-  var h=document.createElement('h3');h.textContent='🔍 Změny proti produkci ('+zmItems().length+')';
+  var h=document.createElement('h3');h.textContent='Změny proti produkci ('+zmItems().length+')';
   zmPanel.appendChild(h);
   zmItems().forEach(function(el,i){
     var b=document.createElement('button');b.type='button';b.className='it cmt-ui';
