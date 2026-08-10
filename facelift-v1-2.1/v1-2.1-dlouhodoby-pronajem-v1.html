@@ -599,7 +599,7 @@ function placeBadges(){
 }
 function buildZmPanel(){
   zmPanel=document.createElement('div');zmPanel.className='zm-panel';
-  var h=document.createElement('h3');h.textContent='Změny proti produkci ('+zmItems().length+')';
+  var h=document.createElement('h3');h.textContent='🔍 Změny proti produkci ('+zmItems().length+')';
   zmPanel.appendChild(h);
   zmItems().forEach(function(el,i){
     var b=document.createElement('button');b.type='button';b.className='it cmt-ui';
