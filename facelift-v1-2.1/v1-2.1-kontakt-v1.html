@@ -144,11 +144,6 @@ textarea.f-in{min-height:110px;resize:vertical}
 .servis-note{background:var(--sand);border:1px solid var(--sand-line);border-left:3px solid var(--green);border-radius:12px;color:var(--muted);font-size:13.5px;padding:18px 20px;margin-top:28px}
 .servis-note b{color:var(--navy)}
 
-/* ---------- CTA pás ---------- */
-.cta-band{text-align:center}
-.cta-band h2{margin-bottom:8px}
-.cta-band p{font-size:14px;color:var(--muted);margin-bottom:22px}
-
 /* ---------- footer (1:1 z homepage v8) ---------- */
 footer{background:var(--navy);color:#b9c4d6;padding:44px 0 34px;font-size:13px}
 .ft-grid{display:grid;gap:28px}
@@ -386,14 +381,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
   </div>
 </section>
 
-<!-- ============ CTA PÁS ============ -->
-<section class="sand cta-band" id="cta">
-  <div class="wrap">
-    <h2>Kolik zaplatíte za pronájem?</h2>
-    <p>Konfigurátor spočítá cenu hned — bez zadávání kontaktů.</p>
-    <a class="btn" href="v1-2.1-homepage-v8.html#spocitat">Spočítat cenu vašeho pronájmu →</a>
-  </div>
-</section>
+<!-- CTA pás „Spočítat cenu" VYPUŠTĚN (oprava po oponentuře) — na kontaktní stránce je primární akce odeslat dotaz; header CTA + textový odkaz pod formulářem stačí -->
 
 </main>
 
@@ -449,7 +437,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
       <li><b>Telefon v těle stránky je zde záměrně</b> — pravidlo „telefon jen v patičce“ má na kontaktní stránce výjimku (je to její účel). Na všech ostatních stránkách předlohy platí dál.</li>
       <li><b>Formulář = obecný dotaz (RF flow):</b> kontakt není druhá cesta k poptávce vozu — pod formulářem je textový odkaz do konfigurátoru. <b>MARTIN:</b> submit napojit na odeslání zprávy (e-mail info@ / HubSpot), v předloze je jen ukázka s potvrzením.</li>
       <li><b>⚠️ Název firmy:</b> produkce už uvádí „Popojedu s.r.o.“, ale rejstřík (ARES) nový název zatím neukazuje — předloha proto drží „MODRÝ ANDĚL s.r.o.“ (guardrail; řeší úkoly 869ec0r5d a 869eew6rr). Před nasazením sjednotit dle skutečného stavu rejstříku, rozhodne RF.</li>
-      <li><b>1 CTA:</b> header CTA + jeden zelený pás „Spočítat cenu vašeho pronájmu →“ dole; submit formuláře je kontextový krok, ne konkurenční CTA.</li>
+      <li><b>1 CTA (oprava po oponentuře):</b> spodní zelený pás „Spočítat cenu vašeho pronájmu →" VYPUŠTĚN — byl blízko zeleného submitu formuláře (dvě zelená tlačítka v těle) a patička je hned pod ním. Primární akce kontaktní stránky = odeslat dotaz; do konfigurátoru vede header CTA + textový odkaz pod formulářem.</li>
       <li><b>Odkazy dle _odkazy-mapa.md</b> — míří na facelift soubory (i na ty právě vznikající: nase-vozy, FAQ, právní stránky). Dokud soubor neexistuje, odkaz lokálně nefunguje — po dokončení sady se spojí sám; Martin při nasazení převede na route().</li>
     </ul>
   </div>
@@ -523,7 +511,7 @@ document.getElementById('ctForm').addEventListener('submit',function(e){
   if(!('IntersectionObserver' in window))return;
   if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   document.documentElement.classList.add('js-anim');
-  var sel7='.sec-sub,section h2,section .kicker,.tiles > *,.form-card,.map-card,.servis-note,.cta-band .btn';
+  var sel7='.sec-sub,section h2,section .kicker,.tiles > *,.form-card,.map-card,.servis-note';
   var els=Array.prototype.slice.call(pvScreen.querySelectorAll(sel7));
   els.forEach(function(el){
     el.classList.add('rv');
