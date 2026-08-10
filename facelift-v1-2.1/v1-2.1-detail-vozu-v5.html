@@ -279,7 +279,9 @@ body.commenting .cmt-fab button{pointer-events:auto}
 body.commenting .cmt-hint{display:block}
 
 /* ---------- interní Doporučení ---------- */
-.reco{background:#fff8f0;border-top:3px dashed #f0b26b;padding:30px 0 40px}
+.reco{background:#fff8f0;border-top:3px dashed #f0b26b;padding:30px 0 40px;max-width:100%;overflow-wrap:anywhere;word-break:break-word}
+/* oprava 10. 8. 2026 (Martin): nezalomitelné <code> výčty roztahovaly stránku na mobilu (~461 px) — dlouhé parametry se nyní zalamují */
+.reco code,.reco li,.reco ul{max-width:100%;overflow-wrap:anywhere;word-break:break-word}
 .reco h2{font-size:18px;color:#b45309}
 .reco .tag{display:inline-block;background:#b45309;color:#fff;font-size:11px;font-weight:700;border-radius:5px;padding:2px 8px;margin-bottom:8px;letter-spacing:.05em}
 .reco ul{padding-left:20px;font-size:13.5px;color:#5a4632;display:flex;flex-direction:column;gap:8px;margin-top:12px}
@@ -419,7 +421,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
         <div class="pc-head">
           <div class="pc-price">
             <span class="cap" id="pcCap">Cena pronájmu · 6 měsíců</span>
-            <b id="pcMain">14 832 Kč/měs</b><span class="vatl" id="pcVatl">s DPH</span>
+            <b id="pcMain">14 840 Kč/měs</b><span class="vatl" id="pcVatl">s DPH</span>
             <span class="alt" id="pcAlt">12 258 Kč/měs bez DPH</span>
             <span class="alt" id="pcDaily" data-zmena="NOVÉ v5.1 (RF 9. 8.): denní ekvivalent u ceny za týden/měsíc — „≈ X Kč/den” (zobrazená cena za období / 7 resp. / 30,4, dle zvoleného DPH); u krátkodobě se skrývá">≈ 488 Kč/den s DPH</span>
           </div>
@@ -483,7 +485,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
           </div>
           <p class="cfg-note" style="margin:0 0 6px">Hrajte si s dobou a nájezdem — cena se hned přepočítá. Orientační výpočet.</p>
         </div>
-        <div class="pc-total" id="pcTotal">Celkem za 6 měsíců: 88 993 Kč s DPH (73 548 Kč bez DPH) · orientačně</div>
+        <div class="pc-total" id="pcTotal">Celkem za 6 měsíců: 89 000 Kč s DPH (73 548 Kč bez DPH) · orientačně</div>
         <div class="pc-cta" data-zmena="CTA přenáší celou konfiguraci do poptávky (vuz + délka + km + režim + km-režim) — v5 cíl = homepage v8">
           <a class="btn" id="pcCta" href="v1-2.1-homepage-v8.html?vuz=skoda-scala-10-benzin&rezim=osobni&mesice=6&km=1500&kmrezim=pre#poptavka">Vybrat vůz → poptávka</a>
           <p class="pc-note">Objednávky vyřizujeme přes formulář — ať máme vše v pořádku. Ozveme se nejpozději následující pracovní den; dotazy rádi zodpovíme na <a href="mailto:info@popojedu.cz">info@popojedu.cz</a>.</p>
@@ -591,10 +593,11 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <span class="tag">INTERNÍ — JEN V PŘEDLOZE · v5 (styl v8 FINÁL)</span>
     <h2>Doporučení: co je v5 jinak než v4 a co zůstalo</h2>
     <ul>
+      <li><b>DPH vzorec sjednocen s produkcí (oprava po připomínce Martina):</b> cena s DPH = <code>Math.ceil(bezDph × 1,21 / 10) × 10</code> — zaokrouhlení NAHORU na desetikoruny (4 900 bez DPH → 5 930 s DPH, ne 5 929). Stejně v konfigurátoru, katalogu, detailu i landinzích; statické ceny v textech přepočítány stejným vzorcem.</li>
       <li><b>v5.4 — NÁLEZY OPONENTURY (9. 8. 2026, srovnání s produkcí):</b> (1) karta kauce doplněna o <b>lhůtu vrácení do 3 pracovních dnů</b> po vrácení vozu a vyúčtování + větu o zdržení při škodě, kterou nelze vyčíslit na místě (ujištění z produkce, z předlohy vypadlo); (2) do sekce „Co máte v ceně" doplněny produkční benefity <b>„Druhý řidič zdarma"</b> a <b>„Dětská sedačka na vyžádání"</b>; (3) patička: položka „Předání vozu" přejmenována na <b>„Vrácení vozu"</b> (URL <code>/predani-vozu</code> beze změny — vedle „Vyzvednutí vozu" bylo „Předání" matoucí; stejně na všech 5 stránkách předlohy); (4) patičkové odkazy „Pro Bolt a Uber" / „Pro kurýry" sjednoceny s hlavičkou — vedou na <b>landing-bolt-uber-v3 / landing-kuryri-v3</b>, ne na produkci.</li>
       <li><b>v5.3 — JEDNOTNÉ CTA (pokyn RF 9. 8. 2026, shodné s homepage v8.5: „drž to jednotně, 1 CTA vidět"):</b> <b>1 CTA v hlavičce</b> („Spočítat cenu", zelené, vede na homepage konfigurátor) + <b>max 1 primární velké CTA</b> na stránce — zde „Vybrat vůz → poptávka" (#pcCta, zelené, přenáší konfiguraci do <code>homepage-v8…#poptavka</code>). Stránka ověřena a vyhovuje: žádné druhé velké tlačítko vedle primárního neexistuje, sticky lišta (mobil) má jediné CTA „Vybrat vůz →" + cenu. Druhá akce smí být jen decentní textový odkaz — nikdy dvě konkurenční velká tlačítka. Pravidlo převzít 1:1 na Pro firmy a landingy.</li>
       <li><b>v5.2 — MENU SE SEGMENTOVÝMI LANDINGY (pokyn RF 9. 8. 2026, shodné s homepage v8.4):</b> hlavní navigace obsahuje proklik na landing pro kurýry i pro Bolt/Uber — na desktopu jako rozbalovací položka <b>„Pro koho ▾"</b> (Pro firmy · Pro kurýry · Pro Bolt a Uber), v mobilním hamburgeru všech 6 položek plochou řadou. Dropdown se otevírá hoverem/fokusem i klikem, zavírá Escape a klikem mimo; trigger má <code>aria-haspopup</code>/<code>aria-expanded</code>. Odkazy vedou na finální verze landingů (kuryri-v3, bolt-uber-v3). Stejné menu je na homepage v8 a ceníku v3 — na dalších stránkách převzít 1:1.</li>
-      <li><b>v5.1 — DENNÍ EKVIVALENT (RF 9. 8., upřesněný výpočet):</b> u ceny za měsíc/týden ukazuje cenový panel i sticky lišta drobně „≈ X Kč/den" — hlavní zobrazená cena za období (po slevě) děleno <b>30,4 (měsíc; = 365/12, průměrný počet dnů)</b> / <b>7 (týden)</b>, ve zvoleném DPH režimu, zaokrouhleno na celé koruny (výchozí stav 6 měs / 1 500 km: 14 832 Kč/měs s DPH ≈ <b>488 Kč/den</b>; bez DPH 12 258 ≈ 403 Kč/den). U týdenní sazby vychází přesně denní sazba z ceníku (week = day×7 v celé flotile). U krátkodobého režimu (cena už je za den) se řádek skrývá. Sazby dál výhradně z lookup tabulky (= <code>_cenik-data-produkce.json</code>/DB) — denní ekvivalent NENÍ denní sazba z ceníku, je to jen zobrazovací přepočet ze zobrazené ceny. <b>MARTIN:</b> na produkci renderovat i tento řádek serverově (stejně jako hlavní cenu) a dělit 30,4, ne 30.</li>
+      <li><b>v5.1 — DENNÍ EKVIVALENT (RF 9. 8., upřesněný výpočet):</b> u ceny za měsíc/týden ukazuje cenový panel i sticky lišta drobně „≈ X Kč/den" — hlavní zobrazená cena za období (po slevě) děleno <b>30,4 (měsíc; = 365/12, průměrný počet dnů)</b> / <b>7 (týden)</b>, ve zvoleném DPH režimu, zaokrouhleno na celé koruny (výchozí stav 6 měs / 1 500 km: 14 840 Kč/měs s DPH ≈ <b>488 Kč/den</b>; bez DPH 12 258 ≈ 403 Kč/den). U týdenní sazby vychází přesně denní sazba z ceníku (week = day×7 v celé flotile). U krátkodobého režimu (cena už je za den) se řádek skrývá. Sazby dál výhradně z lookup tabulky (= <code>_cenik-data-produkce.json</code>/DB) — denní ekvivalent NENÍ denní sazba z ceníku, je to jen zobrazovací přepočet ze zobrazené ceny. <b>MARTIN:</b> na produkci renderovat i tento řádek serverově (stejně jako hlavní cenu) a dělit 30,4, ne 30.</li>
       <li><b>v5 — PŘEVLEČENÍ DO FINÁLNÍHO STYLU v8 (kanonická homepage).</b> Převzaty CSS proměnné v8 (ink #22384e, muted #5b6b80, line #E8EDF3, neutrál #F6F8FA/#EEF1F5, luxury easing, --shadow-tactile), typografická škála (h2 22/27), vzduch sekcí 48/84 px. <b>Žádný teplý písek</b> — střídání sekcí bílá / chladně-neutrální #F6F8FA, stíny chladné rgba(0,32,64,…).</li>
       <li><b>v5 — JEMNÉ PŘEPÍNAČE dle v8 (rozhodnutí RF: „přepínátka mi přijdou humpolácké").</b> Osobní/Přepravní, Krátkodobě/Dlouhodobě i s DPH/bez DPH přepracovány z navy pilulek na iOS-like segmented: světlá lišta #EEF1F5 s 1px linkou, aktivní = bílá dlaždice s jemným stínem + 1px okrajem a navy textem, písmo 12,5–13 px, přechod 0,2 s (vypnutý při reduced-motion), tap ≥40 px. Všechny seg buttony mají <code>aria-pressed</code> a JS je přepíná helperem <code>segPress()</code> (a11y oprava z oponentury v8 — místo role=tab bez tabpanelu).</li>
       <li><b>v5 — VÝRAZNÁ TYPOGRAFIE NADPISU VOZU dle hero v8:</b> h1 30 px mobil / 44 px desktop, váha 800, prostrkání −.025/−.03em, „Škoda Scala" zvýrazněna zeleným „fixou" podtahem (gradient na <code>&lt;em&gt;</code>, barva textu zůstává navy — kontrast beze změny). Jediný velký nadpis na stránce.</li>
@@ -604,10 +607,10 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
       <li><b>v5 — ODKAZY NA FINÁLNÍ VERZE:</b> logo, menu, breadcrumb, CTA, sticky lišta i patička vedou na <b>v1-2.1-homepage-v8.html</b>; ceník na <b>v1-2.1-cenik-v3.html</b>. Žádný odkaz na homepage v3/v4/v5 ani ceník v1/v2.</li>
       <li><b>ZACHOVÁNO z v4 — 🔴 CENOVÝ MODEL Z LOOKUP TABULKY:</b> detail čte týdenní (4 200 Kč) a měsíční (13 620 Kč bez DPH) sazbu z CAR.week/CAR.month, hodnoty 1:1 z ceníku. <b>Pro Martina: konfigurátor i detail čtou sazby ze stejného zdroje jako ceník (DB), nikdy nedopočítávají den×23/den×5,3.</b> Slevy −5/−10/−15 % na měsíční sazbu z tabulky; km předem ×(1−<code>KM_PRE_SLEVA</code>), default 30 %, na produkci konfigurovatelné v adminu (rozhodnutí RF).</li>
       <li><b>ZACHOVÁNO z v4 — Přenos konfigurace do poptávky:</b> CTA i sticky lišta předávají <code>?vuz=…&amp;rezim=…&amp;mesice/tydny/dny=…&amp;km=…&amp;kmrezim=…#poptavka</code>; homepage v8 parametry přečte a předvyplní konfigurátor i souhrn.</li>
-      <li><b>ZACHOVÁNO z v4 — cena STATICKY v HTML</b> (14 832 Kč/měs s DPH · 12 258 Kč/měs bez DPH pro výchozí stav 6 měsíců / 1 500 km) — v cenovém bloku, v řádku „Celkem" i ve sticky liště; JS ji jen aktualizuje. Pro produkci: cena se renderuje na serveru do markupu.</li>
+      <li><b>ZACHOVÁNO z v4 — cena STATICKY v HTML</b> (14 840 Kč/měs s DPH · 12 258 Kč/měs bez DPH pro výchozí stav 6 měsíců / 1 500 km) — v cenovém bloku, v řádku „Celkem" i ve sticky liště; JS ji jen aktualizuje. Pro produkci: cena se renderuje na serveru do markupu.</li>
       <li><b>ZACHOVÁNO z v4 — texty:</b> asistence „24/7 v ceně — z pojištění vozu; náhradní vůz v provozní době Po–Pá 8:00–17:30"; kauce (vratná 10 000–50 000 Kč dle kategorie) vs spoluúčast (10 % ze škody, min. 10 000 Kč) oddělené do dvou karet. Telefon POUZE v patičce.</li>
       <li><b>ZACHOVÁNO z v4 — technika:</b> slidery bez scroll-trapu (touch-action:manipulation + tameSlider), galerie s tap plochami ≥44 px, slider dní od minima vozu (Scala od 3 dní), přepínač 💻/📱 390 + režim 🔍 Změny, komentovací vrstva (nový klíč v5 — komentáře z v4 se nemíchají; overlay má pointer-events:none, piny a bublina auto).</li>
-      <li><b>⚠️ s DPH je v předloze ×1,21 z produkční ceny bez DPH — Martin dosadí přesné částky z DB.</b> Na produkci doplnit kotvu <code>#poptavka</code> do cílové URL poptávky.</li>
+      <li><b>⚠️ s DPH je v předloze ceil(×1,21 / 10) × 10 (nahoru na desetikoruny, dle produkce) z produkční ceny bez DPH — Martin dosadí přesné částky z DB.</b> Na produkci doplnit kotvu <code>#poptavka</code> do cílové URL poptávky.</li>
     </ul>
   </div>
 </section>
@@ -615,7 +618,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
 <!-- ============ STICKY CTA LIŠTA (mobil) — cena staticky předvyplněná ============ -->
 <div class="cta-bar" id="ctaBar" data-zmena="Sticky lišta (mobil) — cena + Vybrat vůz · cena staticky v HTML, v5 cíl = homepage v8">
   <div class="cta-price cmt-ui">
-    <b id="barPrice">14 832 Kč/měs s DPH</b>
+    <b id="barPrice">14 840 Kč/měs s DPH</b>
     <span id="barAlt">≈ 488 Kč/den s DPH · 6 měsíců</span>
   </div>
   <a class="btn cmt-ui" id="barCta" href="v1-2.1-homepage-v8.html?vuz=skoda-scala-10-benzin&rezim=osobni&mesice=6&km=1500&kmrezim=pre#poptavka">Vybrat vůz →</a>
@@ -662,7 +665,7 @@ var S={mode:'long',purpose:'personal',months:6,days:3,weeks:4,km:1500,kmMode:'pr
 var VAT=1.21;
 var KM_PRE_SLEVA=0.30; /* sleva za km předem — na produkci konfigurovatelná v adminu (rozhodnutí RF), tady jen default */
 function fmt(n){return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ')}
-function withVat(n){return Math.round(n*VAT)}
+function withVat(n){return Math.ceil(n*VAT/10)*10}
 function disc(m){return m>=12?0.15:(m>=6?0.10:(m>=3?0.05:0))}
 function daysWord(n){return n===1?'den':(n<5?'dny':'dní')}
 function monthsWord(n){return n===1?'měsíc':(n<5?'měsíce':'měsíců')}
