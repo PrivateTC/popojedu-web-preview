@@ -182,7 +182,9 @@ body.commenting .cmt-fab button{pointer-events:auto}
 body.commenting .cmt-hint{display:block}
 
 /* ---------- interní sekce Doporučení ---------- */
-.reco{background:#fff8f0;border-top:3px dashed #f0b26b;padding:30px 0 40px}
+.reco{background:#fff8f0;border-top:3px dashed #f0b26b;padding:30px 0 40px;max-width:100%;overflow-wrap:anywhere;word-break:break-word}
+/* oprava 10. 8. 2026 (Martin): nezalomitelné <code> výčty roztahovaly stránku na mobilu (~461 px) — dlouhé parametry se nyní zalamují */
+.reco code,.reco li,.reco ul{max-width:100%;overflow-wrap:anywhere;word-break:break-word}
 .reco h2{font-size:18px;color:#b45309}
 .reco .tag{display:inline-block;background:#b45309;color:#fff;font-size:11px;font-weight:700;border-radius:5px;padding:2px 8px;margin-bottom:8px;letter-spacing:.05em}
 .reco ul{padding-left:20px;font-size:13.5px;color:#5a4632;display:flex;flex-direction:column;gap:8px;margin-top:12px}
@@ -383,7 +385,8 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <span class="tag">INTERNÍ — JEN V PŘEDLOZE · NAŠE VOZY v1</span>
     <h2>Doporučení: rozhodnutí této stránky</h2>
     <ul>
-      <li><b>Ceny výhradně z <code>_cenik-data-produkce.json</code></b> (lookup CARS 1:1 s homepage v8). „Od X Kč/měs" = <code>month × 0,85</code> (sazba při 12 měsících, −15 %, nejnižší dosažitelná — pravidlo RF 9. 8.) s dovětkem „při 12 měsících"; výchozí s DPH (round ×1,21), drobně bez DPH; „≈ X Kč/den" = zobrazená měsíční cena ÷ 30,4. <b>MARTIN:</b> na produkci číst tytéž hodnoty z DB, nedopočítávat.</li>
+      <li><b>DPH vzorec sjednocen s produkcí (oprava po připomínce Martina):</b> cena s DPH = <code>Math.ceil(bezDph × 1,21 / 10) × 10</code> — zaokrouhlení NAHORU na desetikoruny (4 900 bez DPH → 5 930 s DPH, ne 5 929). Stejně v konfigurátoru, katalogu, detailu i landinzích; statické ceny v textech přepočítány stejným vzorcem.</li>
+      <li><b>Ceny výhradně z <code>_cenik-data-produkce.json</code></b> (lookup CARS 1:1 s homepage v8). „Od X Kč/měs" = <code>month × 0,85</code> (sazba při 12 měsících, −15 %, nejnižší dosažitelná — pravidlo RF 9. 8.) s dovětkem „při 12 měsících"; výchozí s DPH (ceil ×1,21 nahoru na desetikoruny), drobně bez DPH; „≈ X Kč/den" = zobrazená měsíční cena ÷ 30,4. <b>MARTIN:</b> na produkci číst tytéž hodnoty z DB, nedopočítávat.</li>
       <li><b>Karty celé klikatelné → facelift detail vozu</b> <code>v1-2.1-detail-vozu-v5.html?vuz={slug}</code> (zadání RF; na produkci pak route detailu z DB). Na kartě žádné zelené tlačítko — jen textový odkaz „Detail vozu →", aby stránka držela 1 CTA princip v8.5 (jediné velké CTA dole vede do konfigurátoru).</li>
       <li><b>Filtry kategorie + převodovka + DPH</b> v jemných přepínačích v8; „Zobrazeno X vozů" jako na produkci. Řazení pevně od nejlevnějšího (dle měsíční sazby) — samostatný sort ovladač vypuštěn, ať lišta nefiltruje pozornost.</li>
       <li><b>Denní/týdenní sazby z DB tu záměrně nejsou</b> — stránka je přehled flotily, ne ceník; kompletní sazby má <code>v1-2.1-cenik-v3.html</code> a přesný výpočet konfigurátor. Vůz „Škoda Scala Style" má placeholder slug i fotku (sdílí se Scala Top Selection) — Martin dosadí z DB, stejně jako na homepage v8.</li>
@@ -443,7 +446,7 @@ var S={vat:true,cat:'all',gear:'all'};
 var VAT=1.21,DAYS_MONTH=30.4,DISC12=0.85; /* měsíční „od“ = sazba při 12 měsících (−15 %), RF 9. 8. */
 var DETAIL='v1-2.1-detail-vozu-v5.html';
 function fmt(n){return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ')}
-function withVat(n){return Math.round(n*VAT)}
+function withVat(n){return Math.ceil(n*VAT/10)*10}
 function withVatMaybe(n){return S.vat?withVat(n):Math.round(n)}
 function daysWord(n){return n===1?'den':(n<5?'dny':'dní')}
 function segPress(btn,on){btn.classList.toggle('on',on);btn.setAttribute('aria-pressed',on?'true':'false')}
