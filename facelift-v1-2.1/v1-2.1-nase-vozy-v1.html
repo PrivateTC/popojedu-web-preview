@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PŘEDLOHA v1-2.1 — Naše vozy v1 | Popojedu.cz facelift</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   POPOJEDU FACELIFT v1-2.1 — NAŠE VOZY v1 (styl v8 FINÁL)
+   Přehled celé flotily (14 vozů) v novém vzhledu. Obsah převzat
+   z produkce /nase-vozy, ceny VÝHRADNĚ z _cenik-data-produkce.json
+   (lookup CARS 1:1 s homepage v8 — NIKDY nedopočítávat jiné sazby).
+   Cenové pravidlo (RF 9. 8.): „od X Kč/měs" = month × 0,85 (sazba
+   při 12 měsících, −15 %) s dovětkem „při 12 měsících"; s DPH
+   výchozí (= round(bez × 1,21)) + drobně bez DPH; „≈ X Kč/den"
+   = zobrazená měsíční cena ÷ 30,4 (DAYS_MONTH), ne day sazba.
+   Header + patička + styl v8 1:1 (jemné přepínače, tactile karty,
+   scroll-reveal, 1 CTA princip, telefon jen v patičce).
+   Odkazy dle _odkazy-mapa.md: detail vozu → v1-2.1-detail-vozu-v5.html,
+   ceník → v1-2.1-cenik-v3.html, konfigurátor → homepage v8 #spocitat.
+   Brand: zelená #00C853 · navy #002040 · bílá + neutrál #F6F8FA
+   ============================================================ */
+:root{
+  --green:#00C853; --green-dark:#00A946; --green-tint:#eafaf1;
+  --navy:#002040; --ink:#22384e; --muted:#5b6b80; --soft:#8a99ad;
+  --line:#e8edf3; --bg:#f7f9fb; --amber:#b45309; --amber-bg:#fef3e2;
+  --sand:#f6f8fa; --sand-deep:#eef1f5; --sand-line:#e8edf3;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --radius:10px; --radius-lg:16px;
+  --shadow:0 1px 2px rgba(0,32,64,.04),0 6px 18px rgba(0,32,64,.06);
+  --shadow-tactile:inset 0 1px 0 rgba(255,255,255,.85),0 1px 2px rgba(0,32,64,.04),0 10px 26px rgba(0,32,64,.07);
+  --font:'Inter',-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font);color:var(--ink);background:#fff;line-height:1.6;position:relative}
+img{display:block;max-width:100%}
+a{color:var(--navy)}
+button{font-family:var(--font)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 18px}
+h1,h2,h3,h4{color:var(--navy);line-height:1.25}
+h2{font-size:22px;font-weight:700;letter-spacing:-.01em}
+h3{font-weight:600}
+.kicker{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--green-dark);margin-bottom:10px}
+.sec-sub{font-size:14px;color:var(--muted);margin-top:8px;max-width:62ch}
+section{padding:48px 0}
+.sand{background:var(--sand)}
+@media(min-width:821px){
+  section{padding:84px 0}
+  h2{font-size:27px}
+}
+@media(prefers-reduced-motion:no-preference){
+  html.js-anim .rv{opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  html.js-anim .rv.in{opacity:1;transform:none}
+}
+
+/* ---------- header — bez telefonu (1:1 z homepage v8) ---------- */
+.hd{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.hd-in{display:flex;align-items:center;gap:8px;min-height:60px}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;margin-right:auto}
+.logo-p{width:32px;height:32px;border-radius:50%;background:var(--green);color:#fff;font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center;flex:0 0 32px}
+.logo b{font-size:17.5px;color:var(--navy);font-weight:800;letter-spacing:-.01em}
+.hd-nav{display:none;gap:2px;align-items:center}
+.hd-nav a{font-size:14px;font-weight:500;text-decoration:none;padding:8px 12px;border-radius:8px;color:var(--ink)}
+.hd-nav a:hover{background:var(--bg)}
+.hd-nav a[aria-current=page]{font-weight:700}
+.hd-nav a.cta{background:var(--green);color:var(--navy);font-weight:700;margin-left:8px}
+.hd-nav .dd{position:relative}
+.hd-nav .dd>button{font-family:var(--font);font-size:14px;font-weight:500;background:none;border:none;padding:8px 12px;border-radius:8px;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.hd-nav .dd>button:hover{background:var(--bg)}
+.hd-nav .dd .car{font-size:9px;color:var(--soft);transform:translateY(1px)}
+.hd-nav .dd-menu{position:absolute;top:100%;left:0;padding-top:8px;display:none;z-index:80}
+.hd-nav .dd:hover .dd-menu,.hd-nav .dd:focus-within .dd-menu,.hd-nav .dd.open .dd-menu{display:block}
+.hd-nav .dd-menu-in{min-width:186px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 2px rgba(0,32,64,.06),0 12px 30px rgba(0,32,64,.16);padding:6px}
+.hd-nav .dd-menu-in a{display:block;white-space:nowrap}
+.menu-btn{border:1px solid var(--line);background:#fff;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--navy);padding:9px 14px;cursor:pointer;min-height:44px}
+.m-nav{display:none;background:#fff;border-bottom:1px solid var(--line);padding:6px 18px 14px}
+.m-nav.open{display:block}
+.m-nav a{display:block;padding:13px 4px;font-size:15px;font-weight:500;text-decoration:none;border-bottom:1px solid var(--bg)}
+@media(min-width:821px){
+  .hd-nav{display:flex}
+  .menu-btn{display:none}
+}
+
+/* ---------- page hero — v8 hero typografie, jen menší (podstránka) ---------- */
+.phero{background:linear-gradient(180deg,var(--sand) 0%,#fff 88%);padding:36px 0 30px}
+.phero h1{font-size:30px;font-weight:800;letter-spacing:-.025em;line-height:1.14;margin-bottom:12px}
+.phero h1 em{font-style:normal;background:linear-gradient(180deg,transparent 64%,rgba(0,200,83,.30) 64%)}
+.phero .lead{font-size:15px;font-weight:400;color:var(--muted);max-width:64ch}
+@media(min-width:900px){
+  .phero{padding:56px 0 44px}
+  .phero h1{font-size:44px;letter-spacing:-.03em}
+  .phero .lead{font-size:16px}
+}
+
+/* ---------- tlačítka ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:12px 24px;background:var(--green);color:var(--navy);font-weight:700;font-size:15px;border:none;border-radius:var(--radius);cursor:pointer;text-decoration:none;transition:filter .3s var(--ease),transform .3s var(--ease);text-align:center}
+.btn:hover{filter:brightness(1.05)}
+.btn.block{display:flex;width:100%}
+
+/* ---------- filtry + jemné přepínače (v8) ---------- */
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0 10px}
+.filters .f{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:500;color:var(--muted)}
+.filters select{width:auto;min-height:42px;padding:8px 10px;font-size:16px;border:1px solid var(--line);border-radius:var(--radius);font-family:var(--font);background:#fff;color:var(--navy)}
+.seg{display:flex;background:var(--sand-deep);border:1px solid var(--line);border-radius:9px;padding:3px;gap:2px}
+.seg button{flex:1;border:none;background:transparent;border-radius:6px;font-size:13px;font-weight:500;letter-spacing:.01em;color:var(--muted);padding:8px 10px;cursor:pointer;min-height:40px;transition:background .2s var(--ease),color .2s var(--ease),box-shadow .2s var(--ease)}
+.seg button:hover{color:var(--navy)}
+.seg button.on{background:#fff;color:var(--navy);font-weight:600;box-shadow:0 0 0 1px rgba(0,32,64,.06),0 1px 2px rgba(0,32,64,.12),0 2px 6px rgba(0,32,64,.14)}
+.seg.small button{min-height:40px;padding:6px 12px;font-size:12.5px;flex:0 0 auto}
+@media(prefers-reduced-motion:reduce){.seg button{transition:none}}
+.count-note{font-size:12.5px;color:var(--muted);margin:0 0 22px}
+
+/* ---------- karty vozů — v8 tactile + hover lift ---------- */
+.grid{display:grid;gap:20px}
+@media(min-width:640px){.grid{grid-template-columns:1fr 1fr}}
+@media(min-width:980px){.grid{grid-template-columns:1fr 1fr 1fr;gap:24px}}
+.card{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.85),0 1px 2px rgba(0,32,64,.03);transition:box-shadow .45s var(--ease);display:flex;flex-direction:column}
+.card:hover{box-shadow:var(--shadow)}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+  .card{transition:box-shadow .45s var(--ease),transform .45s var(--ease)}
+  .card:hover{transform:translateY(-4px);box-shadow:0 2px 4px rgba(0,32,64,.05),0 16px 34px rgba(0,32,64,.10)}
+  .btn:hover{transform:translateY(-1px)}
+}
+.card .cover{position:absolute;inset:0;z-index:1;border-radius:var(--radius-lg)}
+.card .imgw{position:relative}
+.card img{width:100%;aspect-ratio:3/2;object-fit:cover;background:var(--bg)}
+.card .cat{position:absolute;top:10px;left:10px;background:rgba(255,255,255,.92);color:var(--navy);font-size:11.5px;font-weight:600;border-radius:999px;padding:4px 11px}
+.card .pad{padding:16px 16px 18px;display:flex;flex-direction:column;flex:1}
+.card h3{font-size:15.5px;margin-bottom:6px}
+.card .chips{font-size:12px;color:var(--muted);margin-bottom:12px}
+.price-line{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;margin-bottom:4px;margin-top:auto}
+.price-line b{font-size:18px;font-weight:700;color:var(--navy)}
+.price-line .vat{font-size:11.5px;font-weight:600;color:var(--green-dark)}
+.price-line .alt{font-size:12px;color:var(--muted)}
+.card .kmnote{font-size:11.5px;color:var(--muted);margin-bottom:12px}
+.card .row{display:flex;gap:10px;align-items:center;position:relative;z-index:2;justify-content:flex-end}
+.card .row .dlink{font-size:13.5px;font-weight:600;text-decoration:underline;padding:12px 4px;white-space:nowrap}
+.grid-note{font-size:12.5px;color:var(--muted);margin-top:22px;max-width:72ch}
+
+/* ---------- závěrečné CTA — jediné primární (1 CTA princip v8.5) ---------- */
+.cta-sec{background:var(--sand)}
+.cta-tile{background:#fff;border:1px solid var(--sand-line);border-radius:var(--radius-lg);box-shadow:var(--shadow-tactile);max-width:680px;margin:0 auto;padding:30px 22px;text-align:center}
+.cta-tile p{font-size:13.5px;color:var(--muted);margin:8px 0 18px}
+
+/* ---------- footer (1:1 z homepage v8) ---------- */
+footer{background:var(--navy);color:#b9c4d6;padding:44px 0 34px;font-size:13px}
+.ft-grid{display:grid;gap:28px}
+@media(min-width:768px){.ft-grid{grid-template-columns:1.3fr 1fr 1fr 1fr}}
+.ft h4{color:#fff;font-size:13.5px;margin-bottom:12px}
+.ft a{display:block;color:#b9c4d6;text-decoration:none;padding:4px 0}
+.ft a:hover{color:#fff}
+.ft .c{padding:3px 0}
+.ft .c a{display:inline;color:#fff;font-weight:600}
+.legal{border-top:1px solid rgba(255,255,255,.14);margin-top:28px;padding-top:16px;font-size:11.5px;color:#8494ab;line-height:1.7}
+
+/* ---------- sticky CTA lišta (mobil) ---------- */
+.cta-bar{position:fixed;left:0;right:0;bottom:0;z-index:70;background:#fff;border-top:1px solid var(--line);box-shadow:0 -4px 14px rgba(0,32,64,.08);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:flex;gap:10px;align-items:center;transform:translateY(110%);transition:transform .25s ease}
+.cta-bar.show{transform:translateY(0)}
+.cta-bar .btn{flex:1;min-height:50px}
+@media(min-width:821px){.cta-bar{display:none}}
+
+/* ---------- komentovací vrstva ---------- */
+.cmt-fab{position:fixed;right:14px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:90;display:flex;flex-direction:column;gap:8px}
+@media(min-width:821px){.cmt-fab{bottom:22px}}
+.cmt-fab button{width:48px;height:48px;border-radius:50%;border:none;font-size:19px;cursor:pointer;background:var(--navy);color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.cmt-fab button.act{background:#ff7a00}
+body.commenting{cursor:crosshair}
+body.commenting a,body.commenting button:not(.cmt-ui):not(.cmt-pin){pointer-events:none}
+body.commenting .cmt-fab button{pointer-events:auto}
+.cmt-pin{pointer-events:auto;position:absolute;z-index:85;width:26px;height:26px;border-radius:50%;background:#ff7a00;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.35);border:2px solid #fff;transform:translate(-50%,-50%)}
+.cmt-pop{pointer-events:auto;position:absolute;z-index:95;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.25);padding:12px;width:min(300px,86vw)}
+.cmt-pop .ctx{font-size:11px;color:var(--muted);margin-bottom:6px}
+.cmt-pop textarea{width:100%;min-height:70px;border:1.5px solid var(--line);border-radius:8px;font-family:var(--font);font-size:13.5px;padding:8px}
+.cmt-pop .r{display:flex;gap:8px;margin-top:8px}
+.cmt-pop button{flex:1;border:none;border-radius:8px;padding:9px;font-weight:700;font-size:13px;cursor:pointer}
+.cmt-pop .sv{background:var(--green);color:var(--navy)}
+.cmt-pop .dl{background:var(--bg);color:#c0392b}
+.cmt-hint{position:fixed;top:66px;left:50%;transform:translateX(-50%);z-index:90;background:#ff7a00;color:#fff;font-size:12.5px;font-weight:700;border-radius:999px;padding:7px 16px;box-shadow:0 4px 14px rgba(0,0,0,.25);display:none}
+body.commenting .cmt-hint{display:block}
+
+/* ---------- interní sekce Doporučení ---------- */
+.reco{background:#fff8f0;border-top:3px dashed #f0b26b;padding:30px 0 40px}
+.reco h2{font-size:18px;color:#b45309}
+.reco .tag{display:inline-block;background:#b45309;color:#fff;font-size:11px;font-weight:700;border-radius:5px;padding:2px 8px;margin-bottom:8px;letter-spacing:.05em}
+.reco ul{padding-left:20px;font-size:13.5px;color:#5a4632;display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.reco b{color:#7c3e06}
+
+/* ---------- náhledový toolbar (interní) ---------- */
+.pv-bar{position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:200;display:flex;gap:4px;align-items:center;background:rgba(10,20,34,.88);backdrop-filter:blur(6px);border-radius:999px;padding:4px;box-shadow:0 4px 14px rgba(0,0,0,.28)}
+.pv-bar button{border:none;background:transparent;color:#c8d2df;font-family:var(--font);font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.pv-bar button.on{background:var(--green);color:var(--navy)}
+.pv-bar button#zmToggle.on{background:#ffd54f;color:#4a3a10}
+.pv-bar .pv-sep{width:1px;height:16px;background:rgba(255,255,255,.25)}
+@media(max-width:480px){.pv-bar{transform:translateX(-50%) scale(.92);transform-origin:top center}}
+
+/* ---------- mobilní náhled 390×844 ---------- */
+#pvFrame,#pvScreen{display:contents}
+html.force-mobile{background:#49535f}
+html.force-mobile body{background:#49535f;min-height:100vh}
+html.force-mobile #pvFrame{display:block;box-sizing:content-box;width:390px;height:844px;margin:56px auto 40px;border:12px solid #10151c;border-radius:46px;position:relative;overflow:hidden;background:#fff;box-shadow:0 24px 70px rgba(0,0,0,.45)}
+html.force-mobile #pvFrame::before{content:'';position:absolute;top:9px;left:50%;transform:translateX(-50%);width:96px;height:18px;background:#10151c;border-radius:10px;z-index:120;pointer-events:none}
+html.force-mobile #pvScreen{display:block;height:100%;overflow-y:auto;overflow-x:hidden;position:relative;scroll-behavior:smooth}
+@media(max-width:430px){
+  html.force-mobile #pvFrame{box-sizing:border-box;width:calc(100vw - 16px);height:calc(100vh - 76px);margin:52px auto 12px;border-width:7px;border-radius:30px}
+  html.force-mobile #pvFrame::before{display:none}
+}
+html.force-mobile section{padding:48px 0}
+html.force-mobile h2{font-size:22px}
+html.force-mobile .hd-nav{display:none}
+html.force-mobile .menu-btn{display:inline-block}
+html.force-mobile .phero{padding:36px 0 30px}
+html.force-mobile .phero h1{font-size:30px;letter-spacing:-.025em}
+html.force-mobile .phero .lead{font-size:15px}
+html.force-mobile .grid{grid-template-columns:none;gap:20px}
+html.force-mobile .ft-grid{grid-template-columns:none}
+html.force-mobile .cta-bar{display:flex;position:absolute}
+html.force-mobile .cmt-fab{position:absolute;bottom:calc(84px + env(safe-area-inset-bottom))}
+html.force-mobile .cmt-hint{position:absolute}
+
+/* ---------- režim „Změny" ---------- */
+html.show-zmeny [data-zmena]{outline:2px dashed var(--green-dark);outline-offset:3px;border-radius:4px}
+html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid var(--green);outline-offset:3px}
+.zm-badge{position:absolute;background:var(--green-dark);color:#fff;font-family:var(--font);font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:5px;z-index:88;pointer-events:none;max-width:270px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.zm-panel{position:fixed;top:52px;right:0;bottom:0;width:310px;max-width:85vw;background:#fff;border-left:1px solid var(--line);box-shadow:-8px 0 24px rgba(0,32,64,.15);z-index:190;transform:translateX(105%);transition:transform .25s ease;overflow-y:auto;padding:14px}
+.zm-panel.open{transform:none}
+.zm-panel h3{font-size:13px;color:var(--navy);margin-bottom:10px}
+.zm-panel .it{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 10px;font-family:var(--font);font-size:12.5px;font-weight:600;color:var(--ink);margin-bottom:6px;cursor:pointer;line-height:1.4}
+.zm-panel .it:hover{border-color:var(--green-dark);background:var(--green-tint)}
+</style>
+</head>
+<body>
+
+<!-- ============ NÁHLEDOVÝ TOOLBAR (interní, jen předloha) ============ -->
+<div class="pv-bar" id="pvBar">
+  <button class="cmt-ui on" id="pvDesk">💻 Desktop</button>
+  <button class="cmt-ui" id="pvMob">📱 Mobil 390</button>
+  <span class="pv-sep"></span>
+  <button class="cmt-ui" id="zmToggle">🔍 Změny</button>
+</div>
+
+<!-- ============ HEADER — 1:1 z homepage v8 (bez telefonu) ============ -->
+<header class="hd">
+  <div class="wrap hd-in">
+    <a class="logo" href="v1-2.1-homepage-v8.html"><span class="logo-p">p</span><b>popojedu</b></a>
+    <nav class="hd-nav">
+      <a href="v1-2.1-nase-vozy-v1.html" aria-current="page">Naše vozy</a>
+      <a href="v1-2.1-cenik-v3.html">Ceník</a>
+      <div class="dd" id="ddSeg">
+        <button type="button" aria-haspopup="true" aria-expanded="false">Pro koho <span class="car">▾</span></button>
+        <div class="dd-menu">
+          <div class="dd-menu-in">
+            <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+            <a href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
+            <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
+          </div>
+        </div>
+      </div>
+      <a href="v1-2.1-kontakt-v1.html">Kontakt</a>
+      <a class="cta" href="v1-2.1-homepage-v8.html#spocitat">Spočítat cenu</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mNav">☰&nbsp;Menu</button>
+  </div>
+  <nav class="m-nav" id="mNav">
+    <a href="v1-2.1-nase-vozy-v1.html">Naše vozy</a>
+    <a href="v1-2.1-cenik-v3.html">Ceník</a>
+    <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+    <a href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
+    <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
+    <a href="v1-2.1-kontakt-v1.html">Kontakt</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- ============ PAGE HERO ============ -->
+<section class="phero" data-zmena="NOVÁ STRÁNKA ve stylu v8 — obsah z produkce /nase-vozy, hero typografie v8 (jeden velký nadpis se zeleným podtahem)">
+  <div class="wrap">
+    <span class="kicker">Naše vozy</span>
+    <h1>Vyberte si <em>vůz</em> k&nbsp;pronájmu</h1>
+    <p class="lead">Provozujeme širokou flotilu — od úsporné Fabie po 7 a 9místnou Hyundai Staria a Mercedes S350. Většinu flotily tvoří Škody, které servisujeme ve vlastní dílně v Praze 9 — Čakovicích. Pronájem na den, týden i na celé měsíce.</p>
+  </div>
+</section>
+
+<!-- ============ FLOTILA ============ -->
+<section id="vozy" style="padding-top:34px">
+  <div class="wrap">
+    <div class="filters" data-zmena="ÚPRAVA proti produkci: filtry kategorie + převodovka + DPH v jemných přepínačích v8 (produkce má řazení/převodovku/DPH v jiném stylu)">
+      <span class="f">Kategorie
+        <select id="catSel" aria-label="Filtr kategorie">
+          <option value="all">Všechny</option>
+          <option value="Město">Město</option>
+          <option value="Střední">Střední</option>
+          <option value="Prémium">Prémium</option>
+          <option value="Skupina">Skupina</option>
+        </select>
+      </span>
+      <span class="f">Převodovka
+        <span class="seg small" role="group" aria-label="Filtr převodovky">
+          <button type="button" class="on" aria-pressed="true" data-g="all">Všechny</button>
+          <button type="button" aria-pressed="false" data-g="Automat">Automat</button>
+          <button type="button" aria-pressed="false" data-g="Manuál">Manuál</button>
+        </span>
+      </span>
+      <span class="f">Ceny
+        <span class="seg small" role="group" aria-label="Ceny s DPH nebo bez DPH">
+          <button type="button" id="vatOn" class="on" aria-pressed="true" onclick="setVat(true)">s DPH</button>
+          <button type="button" id="vatOff" aria-pressed="false" onclick="setVat(false)">bez DPH</button>
+        </span>
+      </span>
+    </div>
+    <p class="count-note" id="countNote">Zobrazeno 14 vozů</p>
+
+    <div class="grid" id="carGrid" data-zmena="ÚPRAVA: karty vozů ve stylu v8 (tactile, celé klikatelné na facelift detail) — ceny „od X Kč/měs“ = month × 0,85 při 12 měsících + „≈ X Kč/den“ ze zobrazené ceny ÷ 30,4 (pravidla RF 9. 8.), sazby 1:1 z _cenik-data-produkce.json"></div>
+
+    <p class="grid-note" data-zmena="PŘEVZATO z produkce: vysvětlivka orientačních cen — doplněno „při 12 měsících“, ať cena „od“ nelže">Ceny jsou orientační „od" při 12měsíčním pronájmu (sleva −15 %) a zahrnují 1&nbsp;500 km/měs — přesnou cenu podle délky pronájmu a nájezdu spočítá konfigurátor. Fotky jsou reálné vozy z naší flotily; konkrétní kus přidělíme podle dostupnosti. U všech vozů je v ceně servis, pojištění i dálniční známka.</p>
+  </div>
+</section>
+
+<!-- ============ CTA — jediné primární (1 CTA princip) ============ -->
+<section class="cta-sec" id="cta">
+  <div class="wrap">
+    <div class="cta-tile" data-zmena="1 CTA princip v8.5: jediné velké CTA stránky vede do konfigurátoru na homepage — karty mají jen textové odkazy na detail">
+      <span class="kicker">Kolik zaplatíte?</span>
+      <h2>Spočítejte si cenu pronájmu</h2>
+      <p>Konfigurátor spočítá cenu hned — podle vozu, délky a nájezdu, bez zadávání kontaktů.</p>
+      <a class="btn" href="v1-2.1-homepage-v8.html#spocitat">Spočítat cenu →</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER — jediné místo s telefonem (1:1 z homepage v8) ============ -->
+<footer>
+  <div class="wrap ft-grid">
+    <div class="ft">
+      <a class="logo" href="v1-2.1-homepage-v8.html" style="margin-bottom:12px"><span class="logo-p">p</span><b style="color:#fff">popojedu</b></a>
+      <div class="c"><a href="tel:+420731683203">+420 731 683 203</a> · Po–Pá 8:00–17:30</div>
+      <div class="c"><a href="mailto:info@popojedu.cz">info@popojedu.cz</a></div>
+      <div class="c">Provozovna: Cukrovarská 991, Praha 9 — Čakovice</div>
+      <div class="c">Sídlo: Českomoravská 1181/21, Praha 9</div>
+      <div class="c" style="margin-top:8px"><a href="https://www.facebook.com/popojedu">Facebook</a> · <a href="https://www.instagram.com/popojedu.cz/">Instagram</a></div>
+    </div>
+    <div class="ft">
+      <h4>Pronájem</h4>
+      <a href="v1-2.1-homepage-v8.html#spocitat">Konfigurátor</a>
+      <a href="v1-2.1-nase-vozy-v1.html" data-zmena="Patička: „Naše vozy“ nově míří na tento facelift soubor (dřív produkce)">Naše vozy</a>
+      <a href="v1-2.1-cenik-v3.html">Ceník</a>
+      <a href="v1-2.1-dlouhodoby-pronajem-v1.html">Dlouhodobý pronájem</a>
+      <a href="v1-2.1-pujcovna-cakovice-v1.html">Půjčovna aut Praha 9 — Čakovice</a>
+      <a href="v1-2.1-vyzvednuti-vozu-v1.html">Vyzvednutí vozu</a>
+      <a href="v1-2.1-vraceni-vozu-v1.html">Vrácení vozu</a>
+    </div>
+    <div class="ft">
+      <h4>Pro koho</h4>
+      <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+      <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
+      <a href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
+      <a href="v1-2.1-jak-to-probiha-v1.html">Jak to funguje</a>
+      <a href="v1-2.1-blog-v1.html">Blog</a>
+      <a href="v1-2.1-caste-dotazy-v1.html" data-zmena="Patička: FAQ nově míří na facelift soubor v1-2.1-caste-dotazy-v1.html (dřív produkce)">FAQ</a>
+    </div>
+    <div class="ft">
+      <h4>Účet a právní</h4>
+      <a href="v1-2.1-kontakt-v1.html">Kontakt</a>
+      <a href="v1-2.1-obchodni-podminky-v1.html">Obchodní podmínky</a>
+      <a href="v1-2.1-ochrana-udaju-v1.html">Ochrana osobních údajů</a>
+      <a href="v1-2.1-zasady-cookies-v1.html">Zásady cookies</a>
+      <a href="v1-2.1-nastaveni-cookies-v1.html">Nastavení cookies</a>
+    </div>
+  </div>
+  <div class="wrap legal">© 2026 Popojedu.cz · Autopůjčovna od roku 2017 · spravuje MODRÝ ANDĚL s.r.o. IČO: 27218422 · DIČ: CZ27218422 · spisová značka C 105306/MSPH, Městský soud v Praze</div>
+</footer>
+
+<!-- ============ DOPORUČENÍ (interní, nejde na web) ============ -->
+<section class="reco" id="doporuceni">
+  <div class="wrap">
+    <span class="tag">INTERNÍ — JEN V PŘEDLOZE · NAŠE VOZY v1</span>
+    <h2>Doporučení: rozhodnutí této stránky</h2>
+    <ul>
+      <li><b>Ceny výhradně z <code>_cenik-data-produkce.json</code></b> (lookup CARS 1:1 s homepage v8). „Od X Kč/měs" = <code>month × 0,85</code> (sazba při 12 měsících, −15 %, nejnižší dosažitelná — pravidlo RF 9. 8.) s dovětkem „při 12 měsících"; výchozí s DPH (round ×1,21), drobně bez DPH; „≈ X Kč/den" = zobrazená měsíční cena ÷ 30,4. <b>MARTIN:</b> na produkci číst tytéž hodnoty z DB, nedopočítávat.</li>
+      <li><b>Karty celé klikatelné → facelift detail vozu</b> <code>v1-2.1-detail-vozu-v5.html?vuz={slug}</code> (zadání RF; na produkci pak route detailu z DB). Na kartě žádné zelené tlačítko — jen textový odkaz „Detail vozu →", aby stránka držela 1 CTA princip v8.5 (jediné velké CTA dole vede do konfigurátoru).</li>
+      <li><b>Filtry kategorie + převodovka + DPH</b> v jemných přepínačích v8; „Zobrazeno X vozů" jako na produkci. Řazení pevně od nejlevnějšího (dle měsíční sazby) — samostatný sort ovladač vypuštěn, ať lišta nefiltruje pozornost.</li>
+      <li><b>Denní/týdenní sazby z DB tu záměrně nejsou</b> — stránka je přehled flotily, ne ceník; kompletní sazby má <code>v1-2.1-cenik-v3.html</code> a přesný výpočet konfigurátor. Vůz „Škoda Scala Style" má placeholder slug i fotku (sdílí se Scala Top Selection) — Martin dosadí z DB, stejně jako na homepage v8.</li>
+      <li><b>Telefon jen v patičce</b>, header/patička/toolbar/komentovací vrstva 1:1 z v8 (nový localStorage klíč této stránky).</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ STICKY CTA LIŠTA (mobil) ============ -->
+<div class="cta-bar" id="ctaBar">
+  <a class="btn cmt-ui" href="v1-2.1-homepage-v8.html#spocitat">Spočítat cenu →</a>
+</div>
+
+<!-- ============ KOMENTOVACÍ VRSTVA ============ -->
+<div class="cmt-hint">Režim komentářů — klepněte na místo, které chcete okomentovat</div>
+<div class="cmt-fab">
+  <button class="cmt-ui" id="cmtToggle" title="Režim komentářů">💬</button>
+  <button class="cmt-ui" id="cmtExport" title="Zkopírovat komentáře">📋</button>
+</div>
+
+<script>
+/* ================= NÁHLED DESKTOP/MOBIL — restrukturalizace DOM ================= */
+var pvFrame=document.createElement('div');pvFrame.id='pvFrame';
+var pvScreen=document.createElement('div');pvScreen.id='pvScreen';
+pvFrame.appendChild(pvScreen);
+(function(){
+  var kids=Array.prototype.slice.call(document.body.children);
+  document.body.appendChild(pvFrame);
+  kids.forEach(function(k){
+    if(k===pvFrame||k.id==='pvBar'||k.tagName==='SCRIPT')return;
+    if(k.id==='ctaBar'||k.classList.contains('cmt-fab')||k.classList.contains('cmt-hint')){pvFrame.appendChild(k)}
+    else pvScreen.appendChild(k);
+  });
+})();
+
+/* ================= DATA — LOOKUP TABULKA (1:1 z _cenik-data-produkce.json / homepage v8) =================
+   Sazby BEZ DPH. month = měsíční sazba (do 1 500 km/měs) · min = minimální doba (dny).
+   NIKDY nedopočítávat — zdroj pravdy je produkce/DB. */
+var IMG='https://www.popojedu.cz/storage/vozy/';
+var CARS=[
+ {slug:'skoda-citigo-g-tec-active',name:'Škoda Citigo G-tec Active (CNG), manuál',cat:'Město',gear:'Manuál',fuel:'CNG',seats:'4 místa',min:7,range:'jen ČR',month:7440,img:'skoda-citigo-g-tec-active.webp'},
+ {slug:'skoda-octavia-iii-cng-liftback',name:'Škoda Octavia III G-tec liftback (CNG), manuál',cat:'Střední',gear:'Manuál',fuel:'CNG',seats:'5 míst',min:5,range:'jen ČR',month:9580,img:'skoda-octavia-iii-cng-liftback.webp'},
+ {slug:'skoda-fabia-iii-ambition-automat',name:'Škoda Fabia III Ambition TSi DSG, automat',cat:'Město',gear:'Automat',fuel:'benzín',seats:'5 míst',min:5,range:'EU',month:9900,img:'skoda-fabia-iii-ambition-automat.webp'},
+ {slug:'skoda-octavia-iii-liftback',name:'Škoda Octavia III TDi liftback, manuál',cat:'Střední',gear:'Manuál',fuel:'diesel',seats:'5 míst',min:5,range:'jen ČR',month:9340,img:'skoda-octavia-iii-liftback.webp'},
+ {slug:'skoda-scala-style',name:'Škoda Scala Style TSi DSG, automat',cat:'Střední',gear:'Automat',fuel:'benzín',seats:'5 míst',min:5,range:'jen ČR',month:12530,img:'skoda-scala-10-benzin-g1.webp'},
+ {slug:'skoda-scala-10-benzin',name:'Škoda Scala Top Selection TSi DSG, automat',cat:'Střední',gear:'Automat',fuel:'benzín',seats:'5 míst',min:3,range:'EU',month:13620,img:'skoda-scala-10-benzin-g1.webp'},
+ {slug:'skoda-octavia-iv-combi-ambition',name:'Škoda Octavia IV combi Ambition TDi, manuál',cat:'Střední',gear:'Manuál',fuel:'diesel',seats:'5 míst',min:3,range:'EU',month:14390,img:'skoda-octavia-iv-combi-ambition-g1.webp'},
+ {slug:'skoda-octavia-iv-combi-style',name:'Škoda Octavia IV combi Style TDi DSG, automat',cat:'Střední',gear:'Automat',fuel:'diesel',seats:'5 míst',min:3,range:'EU',month:16500,img:'skoda-octavia-iv-combi-style.webp'},
+ {slug:'skoda-superb-iii-laurin-klement-2019-facelift',name:'Škoda Superb III L&K TDi, liftback, automat',cat:'Prémium',gear:'Automat',fuel:'diesel',seats:'5 míst',min:1,range:'EU',month:21230,img:'skoda-superb-iii-laurin-klement-2019-facelift.webp'},
+ {slug:'skoda-superb-kombi-iii-facelift-20-tdi-dsg-lk-2019',name:'Škoda Superb III L&K TDi, combi, automat',cat:'Prémium',gear:'Automat',fuel:'diesel',seats:'5 míst',min:1,range:'EU',month:21230,img:'skoda-superb-kombi-iii-facelift-20-tdi-dsg-lk-2019.webp'},
+ {slug:'skoda-superb-iv-laurin-klement',name:'Škoda Superb IV L&K TDi, liftback, automat',cat:'Prémium',gear:'Automat',fuel:'diesel',seats:'5 míst',min:1,range:'EU',month:24200,img:'skoda-superb-iv-laurin-klement-g1.webp'},
+ {slug:'hyundai-staria-luxury',name:'Hyundai Staria Luxury CDi, 6+1, automat',cat:'Skupina',gear:'Automat',fuel:'diesel',seats:'7 míst',min:30,range:'EU',month:35575,img:'hyundai-staria-luxury.webp'},
+ {slug:'hyundai-staria-style-premium',name:'Hyundai Staria Style Premium CDi, 8+1, automat',cat:'Skupina',gear:'Automat',fuel:'diesel',seats:'9 míst',min:30,range:'EU',month:34000,img:'hyundai-staria-style-premium.webp'},
+ {slug:'mercedes-s-350-d-4matic-l-air',name:'Mercedes-Benz S350 d 4MATIC L, automat',cat:'Prémium',gear:'Automat',fuel:'diesel',seats:'5 míst',min:30,range:'EU',month:57500,img:'mercedes-s-350-d-4matic-l-air.webp'}
+];
+var S={vat:true,cat:'all',gear:'all'};
+var VAT=1.21,DAYS_MONTH=30.4,DISC12=0.85; /* měsíční „od“ = sazba při 12 měsících (−15 %), RF 9. 8. */
+var DETAIL='v1-2.1-detail-vozu-v5.html';
+function fmt(n){return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ')}
+function withVat(n){return Math.round(n*VAT)}
+function withVatMaybe(n){return S.vat?withVat(n):Math.round(n)}
+function daysWord(n){return n===1?'den':(n<5?'dny':'dní')}
+function segPress(btn,on){btn.classList.toggle('on',on);btn.setAttribute('aria-pressed',on?'true':'false')}
+
+/* ================= HLAVIČKA / MENU (1:1 z v8) ================= */
+document.getElementById('menuBtn').onclick=function(){
+  var n=document.getElementById('mNav');n.classList.toggle('open');
+  this.setAttribute('aria-expanded',n.classList.contains('open'));
+};
+(function(){
+  var dd=document.getElementById('ddSeg');if(!dd)return;
+  var b=dd.querySelector('button');
+  function close(){dd.classList.remove('open');b.setAttribute('aria-expanded','false');}
+  b.addEventListener('click',function(e){e.stopPropagation();
+    var o=dd.classList.toggle('open');b.setAttribute('aria-expanded',o?'true':'false');});
+  document.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+})();
+
+/* ================= FILTRY + RENDER KARET ================= */
+document.getElementById('catSel').onchange=function(){S.cat=this.value;render()};
+document.querySelectorAll('.filters [data-g]').forEach(function(b){
+  b.onclick=function(){S.gear=b.dataset.g;
+    document.querySelectorAll('.filters [data-g]').forEach(function(x){segPress(x,x===b)});
+    render();};
+});
+function setVat(v){S.vat=v;
+  segPress(document.getElementById('vatOn'),v);
+  segPress(document.getElementById('vatOff'),!v);
+  render();
+}
+function vozWord(n){return n===1?'vůz':(n<5?'vozy':'vozů')}
+function render(){
+  var list=CARS.filter(function(c){return (S.cat==='all'||c.cat===S.cat)&&(S.gear==='all'||c.gear===S.gear)});
+  list.sort(function(a,b){return a.month-b.month});
+  var g=document.getElementById('carGrid');g.innerHTML='';
+  list.forEach(function(c){
+    var od=c.month*DISC12;                 /* bez DPH, sazba při 12 měsících */
+    var shown=withVatMaybe(od);            /* zobrazená hlavní cena v aktivním DPH režimu */
+    var alt=S.vat?Math.round(od):withVat(od);
+    var dUrl=DETAIL+'?vuz='+c.slug;
+    var el=document.createElement('article');
+    el.className='card';
+    el.innerHTML=
+      '<a class="cover" href="'+dUrl+'" aria-label="'+c.name+' — detail vozu"></a>'+
+      '<div class="imgw"><img loading="lazy" src="'+IMG+c.img+'" alt="'+c.name+'">'+
+        '<span class="cat">'+c.cat+'</span></div>'+
+      '<div class="pad"><h3>'+c.name+'</h3>'+
+        '<div class="chips">'+c.gear+' · '+c.fuel+' · '+c.seats+' · min. '+c.min+' '+daysWord(c.min)+' · '+c.range+'</div>'+
+        '<div class="price-line"><b>od '+fmt(shown)+' Kč/měs</b>'+
+          '<span class="vat">'+(S.vat?'s DPH':'bez DPH')+'</span>'+
+          '<span class="alt">'+fmt(alt)+' Kč/měs '+(S.vat?'bez DPH':'s DPH')+'</span>'+
+          '<span class="alt">≈ '+fmt(shown/DAYS_MONTH)+' Kč/den</span></div>'+
+        '<div class="kmnote">cena při 12 měsících (−15 %) · v ceně 1 500 km/měs</div>'+
+        '<div class="row"><a class="dlink" href="'+dUrl+'">Detail vozu →</a></div></div>';
+    g.appendChild(el);
+  });
+  document.getElementById('countNote').textContent='Zobrazeno '+list.length+' '+vozWord(list.length)+(list.length<CARS.length?' ze '+CARS.length:'');
+}
+render();
+
+/* ================= STICKY CTA LIŠTA (mobil) ================= */
+var bar=document.getElementById('ctaBar');
+var heroGone=false,ctaVis=false;
+new IntersectionObserver(function(e){heroGone=!e[0].isIntersecting;applyBar()},{threshold:0}).observe(document.querySelector('.phero h1'));
+new IntersectionObserver(function(e){ctaVis=e[0].isIntersecting;applyBar()},{threshold:.1}).observe(document.getElementById('cta'));
+function applyBar(){bar.classList.toggle('show',heroGone&&!ctaVis)}
+
+/* ================= v7/v8: SCROLL-REVEAL (bez #carGrid — dynamické karty) ================= */
+(function(){
+  if(!('IntersectionObserver' in window))return;
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  document.documentElement.classList.add('js-anim');
+  var sel7='.phero .kicker,.phero h1,.phero .lead,section h2,section .kicker,.filters,.count-note,.grid-note,.cta-tile';
+  var els=Array.prototype.slice.call(pvScreen.querySelectorAll(sel7));
+  els.forEach(function(el){
+    el.classList.add('rv');
+    var p=el.parentElement,i=p?Array.prototype.indexOf.call(p.children,el):0;
+    el.style.transitionDelay=Math.min(i*70,280)+'ms';
+  });
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}
+    });
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(el){io.observe(el)});
+  setTimeout(function(){els.forEach(function(el){el.classList.add('in')})},2000);
+})();
+
+/* ================= PŘEPÍNAČ DESKTOP / MOBIL 390 ================= */
+var zmOn=false,zmLayer=null,zmPanel=null;
+function setPv(mob){
+  document.documentElement.classList.toggle('force-mobile',mob);
+  document.getElementById('pvDesk').classList.toggle('on',!mob);
+  document.getElementById('pvMob').classList.toggle('on',mob);
+  if(zmOn)setTimeout(placeBadges,350);
+}
+document.getElementById('pvDesk').onclick=function(){setPv(false)};
+document.getElementById('pvMob').onclick=function(){setPv(true)};
+
+/* ================= REŽIM „ZMĚNY" ================= */
+function zmItems(){return Array.prototype.slice.call(document.querySelectorAll('[data-zmena]'))}
+function ensureZmLayer(){
+  if(!zmLayer){
+    zmLayer=document.createElement('div');
+    zmLayer.style.cssText='position:absolute;top:0;left:0;width:100%;height:0;z-index:84;pointer-events:none';
+    pvScreen.appendChild(zmLayer);
+  }
+}
+function placeBadges(){
+  if(!zmLayer)return;
+  zmLayer.innerHTML='';
+  var lr=zmLayer.getBoundingClientRect();
+  zmItems().forEach(function(el){
+    var r=el.getBoundingClientRect();
+    if(!r.width&&!r.height)return;
+    var b=document.createElement('span');b.className='zm-badge';
+    b.textContent=el.getAttribute('data-zmena');
+    b.style.left=Math.max(4,r.left-lr.left)+'px';
+    b.style.top=Math.max(4,r.top-lr.top-9)+'px';
+    zmLayer.appendChild(b);
+  });
+}
+function buildZmPanel(){
+  zmPanel=document.createElement('div');zmPanel.className='zm-panel';
+  var h=document.createElement('h3');h.textContent='🔍 Změny proti produkci ('+zmItems().length+')';
+  zmPanel.appendChild(h);
+  zmItems().forEach(function(el,i){
+    var b=document.createElement('button');b.type='button';b.className='it cmt-ui';
+    b.textContent=(i+1)+'. '+el.getAttribute('data-zmena');
+    b.onclick=function(){
+      el.scrollIntoView({behavior:'smooth',block:'center'});
+      el.classList.add('zm-flash');
+      setTimeout(function(){el.classList.remove('zm-flash')},1600);
+      setTimeout(placeBadges,700);
+    };
+    zmPanel.appendChild(b);
+  });
+  document.body.appendChild(zmPanel);
+}
+document.getElementById('zmToggle').onclick=function(){
+  zmOn=!zmOn;
+  this.classList.toggle('on',zmOn);
+  document.documentElement.classList.toggle('show-zmeny',zmOn);
+  if(!zmPanel)buildZmPanel();
+  zmPanel.classList.toggle('open',zmOn);
+  ensureZmLayer();
+  if(zmOn)placeBadges();else zmLayer.innerHTML='';
+};
+window.addEventListener('resize',function(){if(zmOn)placeBadges()});
+document.addEventListener('click',function(){if(zmOn)setTimeout(placeBadges,400)});
+
+/* ================= KOMENTOVACÍ VRSTVA (localStorage, file:// OK) =================
+   Nový klíč této stránky — komentáře se nemíchají s jinými soubory. */
+(function(){
+  var KEY='popojedu-v121-nase-vozy-v1-comments';
+  function load(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return[]}}
+  function save(c){localStorage.setItem(KEY,JSON.stringify(c))}
+  function nearestHeading(el){
+    var sec=el.closest('section,header,footer,.card,.cta-tile');
+    if(sec){var h=sec.querySelector('h1,h2,h3');if(h)return h.textContent.trim().slice(0,70)}
+    return document.title;
+  }
+  var layer=document.createElement('div');layer.style.cssText='position:absolute;top:0;left:0;width:100%;height:0;z-index:80;pointer-events:none';pvScreen.appendChild(layer);
+  function layerPoint(e){var r=layer.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
+  function layerWidth(){var r=layer.getBoundingClientRect();return r.width||document.documentElement.clientWidth}
+  function renderPins(){
+    layer.innerHTML='';
+    load().forEach(function(c,i){
+      var p=document.createElement('div');p.className='cmt-pin cmt-ui';p.textContent=i+1;
+      p.style.left=c.x+'px';p.style.top=c.y+'px';p.title=c.text;
+      p.onclick=function(ev){ev.stopPropagation();openPop(c.x,c.y,i)};
+      layer.appendChild(p);
+    });
+  }
+  var pop=null;
+  function closePop(){if(pop){pop.remove();pop=null}}
+  function openPop(x,y,idx,heading){
+    closePop();
+    var cs=load(),c=idx!=null?cs[idx]:null;
+    pop=document.createElement('div');pop.className='cmt-pop cmt-ui';
+    pop.style.left=Math.min(x,Math.max(10,layerWidth()-320))+'px';
+    pop.style.top=(y+14)+'px';
+    pop.innerHTML='<div class="ctx">📍 '+((c?c.heading:heading)||'')+'</div>'+
+      '<textarea class="cmt-ui" placeholder="Napište komentář…">'+(c?c.text.replace(/</g,'&lt;'):'')+'</textarea>'+
+      '<div class="r"><button class="sv cmt-ui">Uložit</button><button class="dl cmt-ui">'+(c?'Smazat':'Zrušit')+'</button></div>';
+    layer.appendChild(pop);
+    var ta=pop.querySelector('textarea');ta.focus();
+    pop.querySelector('.sv').onclick=function(){
+      var t=ta.value.trim();var cs2=load();
+      if(idx!=null){if(t)cs2[idx].text=t;else cs2.splice(idx,1)}
+      else if(t)cs2.push({x:x,y:y,text:t,heading:heading});
+      save(cs2);closePop();renderPins();
+    };
+    pop.querySelector('.dl').onclick=function(){
+      if(idx!=null){var cs2=load();cs2.splice(idx,1);save(cs2)}
+      closePop();renderPins();
+    };
+  }
+  var tg=document.getElementById('cmtToggle');
+  tg.onclick=function(){document.body.classList.toggle('commenting');tg.classList.toggle('act');closePop()};
+  document.addEventListener('click',function(e){
+    if(!document.body.classList.contains('commenting'))return;
+    if(e.target.closest('.cmt-fab,.cmt-pop,.cmt-pin,.pv-bar,.zm-panel'))return;
+    e.preventDefault();e.stopPropagation();
+    var pt=layerPoint(e);
+    openPop(pt.x,pt.y,null,nearestHeading(e.target));
+  },true);
+  document.getElementById('cmtExport').onclick=function(){
+    var cs=load();
+    if(!cs.length){alert('Žádné komentáře.');return}
+    var md='# Komentáře — v1-2.1 NAŠE VOZY v1 ('+new Date().toLocaleString('cs-CZ')+')\n\n';
+    cs.forEach(function(c,i){md+=(i+1)+'. ['+c.heading+'] '+c.text+'\n'});
+    function fallback(){prompt('Zkopírujte ručně (Cmd+C):',md)}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(md).then(function(){alert('Zkopírováno — vložte Claudovi do chatu.')},fallback)}else fallback();
+  };
+  renderPins();
+})();
+</script>
+</body>
+</html>
