@@ -102,9 +102,9 @@ section{padding:48px 0}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
 .chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 15px;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer;min-height:40px;transition:background .2s var(--ease),color .2s var(--ease),border-color .2s var(--ease)}
 .chip:hover{background:var(--bg)}
-.chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.chip.on{background:var(--green-tint);color:var(--ink);border-color:var(--green)}
 .chip .n{font-weight:500;color:var(--soft);font-size:12px;margin-left:4px}
-.chip.on .n{color:#b9c4d6}
+.chip.on .n{color:var(--green-dark)}
 
 /* ---------- mřížka karet článků (tactile v8) ---------- */
 .bgrid{display:grid;gap:18px}
@@ -512,7 +512,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <h2>Doporučení: rozhodnutí této stránky</h2>
     <ul>
       <li><b>Obsah = produkce /blog, všech 16 článků</b> (názvy, perexy, datumy, fotky <code>/assets/images/blog/{slug}.jpg</code> — vzor platí pro všech 16, ověřeno). Kategorie karet vzaty z breadcrumbů detailů (Blog › Rádce/Tipy/Vozy/Pro řidiče/Pro kurýry/Novinka) — výpis produkce je nezobrazuje, facelift ano. <b>MARTIN:</b> karty generovat z DB; perexy vzít plné z DB (výpis produkce je ořezává uprostřed slova — tady jsou poslední useknutá slova dotažena do smyslu, jde o předlohu).</li>
-      <li><b>Filtr kategorií je NOVÝ prvek</b> — produkce filtr nemá. Čistý klientský filtr (skrývání karet), žádné URL parametry. Kategorie „Novinka" má 1 článek a chip záměrně nemá (článek se ukáže ve „Vše") — ať lišta nepřeteče; pokud RF chce, chip se přidá jedním řádkem.</li>
+      <li><b>Filtr kategorií je NOVÝ prvek</b> — produkce filtr nemá. Čistý klientský filtr (skrývání karet), žádné URL parametry. Kategorie „Novinka" má 1 článek a chip záměrně nemá (článek se ukáže ve „Vše") — ať lišta nepřeteče; pokud RF chce, chip se přidá jedním řádkem. Aktivní chip = zelený tint + zelený border (vzor .qchips.on z konfigurátoru) — původní plná navy pilulka byla proti duchu v8 („přepínátka humpolácké"), oprava po oponentuře.</li>
       <li><b>Celá karta je klikatelná</b> (celý <code>&lt;a class="bcard"&gt;</code>) → šablona detailu <code>v1-2.1-blog-clanek-v1.html</code>. Štítek „nové" nesou 2 články z r. 2026 — stejně jako na produkci.</li>
       <li><b>1 CTA princip v8.5:</b> jediné velké CTA dole → konfigurátor homepage + sticky mobilní lišta (skrývá se, když je CTA sekce ve viewportu). V hero CTA není.</li>
       <li><b>Header + patička + toolbar + komentovací vrstva 1:1 z v8</b>, Blog jen v patičce (ne v hlavním menu — rozhodnutí RF), telefon jen v patičce. Nový localStorage klíč komentářů této stránky.</li>
