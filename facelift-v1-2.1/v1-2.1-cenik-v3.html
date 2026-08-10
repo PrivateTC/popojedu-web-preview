@@ -267,7 +267,9 @@ body.commenting .cmt-fab button{pointer-events:auto}
 body.commenting .cmt-hint{display:block}
 
 /* ---------- interní sekce Doporučení ---------- */
-.reco{background:#fff8f0;border-top:3px dashed #f0b26b;padding:30px 0 40px}
+.reco{background:#fff8f0;border-top:3px dashed #f0b26b;padding:30px 0 40px;max-width:100%;overflow-wrap:anywhere;word-break:break-word}
+/* oprava 10. 8. 2026 (Martin): nezalomitelné <code> výčty roztahovaly stránku na mobilu (~461 px) — dlouhé parametry se nyní zalamují */
+.reco code,.reco li,.reco ul{max-width:100%;overflow-wrap:anywhere;word-break:break-word}
 .reco h2{font-size:18px;color:#b45309}
 .reco .tag{display:inline-block;background:#b45309;color:#fff;font-size:11px;font-weight:700;border-radius:5px;padding:2px 8px;margin-bottom:8px;letter-spacing:.05em}
 .reco ul{padding-left:20px;font-size:13.5px;color:#5a4632;display:flex;flex-direction:column;gap:8px;margin-top:12px}
@@ -521,10 +523,11 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <span class="tag">INTERNÍ — JEN V PŘEDLOZE · CENÍK v3 (styl v8 + rozdělení)</span>
     <h2>Doporučení: co v3 mění proti v2 a pokyny pro Martina</h2>
     <ul>
+      <li><b>DPH vzorec sjednocen s produkcí (oprava po připomínce Martina):</b> cena s DPH = <code>Math.ceil(bezDph × 1,21 / 10) × 10</code> — zaokrouhlení NAHORU na desetikoruny (4 900 bez DPH → 5 930 s DPH, ne 5 929). Stejně v konfigurátoru, katalogu, detailu i landinzích; statické ceny v textech přepočítány stejným vzorcem.</li>
       <li><b>OPRAVA Z OPONENTURY (9. 8. 2026):</b> položka patičky „Předání vozu" přejmenována na <b>„Vrácení vozu"</b> (URL <code>/predani-vozu</code> beze změny) — vedle „Vyzvednutí vozu" bylo „Předání" matoucí; sjednoceno s produkcí na všech 5 stránkách předlohy.</li>
       <li><b>v3.5 — JEDNOTNÉ CTA (pokyn RF 9. 8. 2026, shodné s homepage v8.5: „drž to jednotně, 1 CTA vidět"):</b> <b>1 CTA v hlavičce</b> („Spočítat cenu", zelené) + <b>max 1 primární velké CTA</b> na stránce. Ceník ověřen a vyhovuje: hlavička stránky (phead) je čistá typografie bez tlačítek (ceník je tabulka, hero se dvěma tlačítky tu nemá co dělat), jediné velké CTA je blok „Spočítat cenu vašeho pronájmu →" (#mainCta) před patičkou, sticky lišta (mobil) jedno CTA. Druhá akce smí být jen decentní textový odkaz — nikdy dvě konkurenční velká tlačítka. Pravidlo převzít 1:1 na Pro firmy a landingy.</li>
       <li><b>v3.4 — MENU SE SEGMENTOVÝMI LANDINGY (pokyn RF 9. 8. 2026, shodné s homepage v8.4):</b> hlavní navigace obsahuje proklik na landing pro kurýry i pro Bolt/Uber — na desktopu jako rozbalovací položka <b>„Pro koho ▾"</b> (Pro firmy · Pro kurýry · Pro Bolt a Uber), v mobilním hamburgeru všech 6 položek plochou řadou. Dropdown se otevírá hoverem/fokusem i klikem, zavírá Escape a klikem mimo; trigger má <code>aria-haspopup</code>/<code>aria-expanded</code>. Odkazy vedou na finální verze landingů (kuryri-v3, bolt-uber-v3). Stejné menu je na homepage v8 a detailu vozu v5 — na dalších stránkách převzít 1:1.</li>
-      <li><b>v3.3 — DENNÍ EKVIVALENT = VÝPOČET ZE ZOBRAZENÉ CENY (upřesnění RF 9. 8. 2026, nahrazuje bod 2 z v3.2 níže):</b> „≈ X Kč/den" se počítá <b>ze zobrazené ceny za období v aktivním DPH režimu</b>: týdenní cena <b>÷ 7</b>, měsíční cena <b>÷ 30,4</b> (= 365/12, průměrný počet dnů v měsíci; konstanta <code>DAYS_MONTH</code>), zaokrouhleno na celé Kč. Reálná <code>day</code> sazba z DB se pro ekvivalent už NEPOUŽÍVÁ. Platí v tabulce i mobilních kartách, v obou režimech (běžný: týden + měsíc · přepravní: týdenní sazby kurýři/Bolt), a přepočítává se při přepnutí DPH (renderAll). Kontrolní příklady: Citigo měsíc s DPH 9 002 ÷ 30,4 ≈ <b>296 Kč/den</b> · Fabia týden s DPH 3 684 ÷ 7 ≈ <b>526 Kč/den</b>. <b>MARTIN:</b> na webu počítat stejně — dělit zobrazenou cenu za období, ne číst day sazbu. Stejná změna je na homepage v8 (v8.3).</li>
+      <li><b>v3.3 — DENNÍ EKVIVALENT = VÝPOČET ZE ZOBRAZENÉ CENY (upřesnění RF 9. 8. 2026, nahrazuje bod 2 z v3.2 níže):</b> „≈ X Kč/den" se počítá <b>ze zobrazené ceny za období v aktivním DPH režimu</b>: týdenní cena <b>÷ 7</b>, měsíční cena <b>÷ 30,4</b> (= 365/12, průměrný počet dnů v měsíci; konstanta <code>DAYS_MONTH</code>), zaokrouhleno na celé Kč. Reálná <code>day</code> sazba z DB se pro ekvivalent už NEPOUŽÍVÁ. Platí v tabulce i mobilních kartách, v obou režimech (běžný: týden + měsíc · přepravní: týdenní sazby kurýři/Bolt), a přepočítává se při přepnutí DPH (renderAll). Kontrolní příklady: Citigo měsíc s DPH 9 010 ÷ 30,4 ≈ <b>296 Kč/den</b> · Fabia týden s DPH 3 690 ÷ 7 ≈ <b>527 Kč/den</b>. <b>MARTIN:</b> na webu počítat stejně — dělit zobrazenou cenu za období, ne číst day sazbu. Stejná změna je na homepage v8 (v8.3).</li>
       <li><b>v3.2 — TŘI CENOVÉ POKYNY RF (9. 8. 2026), stejné jako na homepage v8:</b> (1) <b>Přepravní služby mají v ceně 6 500 km/měsíc</b> (kurýři i Bolt/Uber) — nahrazuje „volné km dle poptávky" ve sloupci Volné km, hintu režimu, kroku 3 i poznámce pod tabulkou. <b>MARTIN:</b> limit 6 500 km/měs uložit do DB/adminu jako konfigurovatelnou hodnotu per segment; v předloze je konstanta. (2) <b>Denní ekvivalent:</b> u každé týdenní a měsíční ceny (tabulka i mobilní karty, oba režimy) je drobně „≈ X Kč/den" — <s>reálná day sazba z DB</s> ⚠️ ZPŮSOB VÝPOČTU NAHRAZEN ve v3.3 výše (zobrazená cena ÷ 7 / ÷ 30,4); umístění ekvivalentů platí dál. (3) <b>Měsíční „od" = month × 0,85</b> (sazba při 12 měsících, −15 % — nejnižší dosažitelná měsíční cena), zobrazená pod základní měsíční sazbou vždy s dovětkem „při 12 měsících", ať nelže (helper <code>monthFromLine()</code>). Netýká se přepravních týdenních sazeb.</li>
       <li><b>v3.1 KLÍČOVÉ — PŘEPRAVNÍ CENÍK MÁ VLASTNÍ SAZBY (potvrzení RF: „přepravní služby mají jiné ceny za týden i jiný volný počet km").</b> <b>Běžný pronájem</b> (výchozí) = den + týden + měsíc, 1 500 km/měs v ceně, slevy 3/6/12. <b>Přepravní služby</b> = REÁLNÉ segmentové týdenní sazby <code>weekKuryr</code> (kurýři Wolt/Foodora) a <code>weekBolt</code> (Bolt/Uber) z produkce — NE běžná týdenní cena; zobrazují se <b>jen vozy s přepravní sazbou</b> (6 ze 14: Citigo a Octavia III CNG pro kurýry; Octavia III CNG/TDi, Octavia IV combi Ambition, Superb III liftback+combi pro Bolt/Uber), u každého štítek segmentu. <b>Volné km = 6 500 km/měs v ceně</b> (rozhodnutí RF 9. 8. 2026 — dřívější „dle poptávky" už neplatí, viz bullet v3.2 výše). Sekce „Sleva za délku" se v přepravním režimu skrývá. Režim jde předvolit v URL: <code>?rezim=prepravni</code>.</li>
       <li><b>v3.1 — OPRAVA DUPLICITY CENÍKU (bug hlášený RF: „jeden ceník tenké řádky a pod ním druhý tlusté"):</b> breakpoint <code>@media(min-width:821px)</code> stál v CSS PŘED base pravidlem <code>.ccards{display:flex}</code> — při stejné specificitě vyhrává pozdější deklarace, takže na desktopu byla vidět tabulka i mobilní karty zároveň. Breakpoint přesunut ZA base pravidla obou bloků (pořadí: base → breakpoint → force-mobile). Ověřeno pro: úzké okno = jen karty, široké okno = jen tabulka, Mobil 390 na širokém okně = jen karty.</li>
@@ -537,7 +540,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
       <li><b>Spoluúčast je výpočet, ne paušál (rozhodnutí RF, [869edx8nh]):</b> všude „10 % ze škody, min. 10 000 Kč". Kauce (vratná 10 000–50 000 Kč dle kategorie) je jiný pojem, nemíchat.</li>
       <li><b>⚠️ MARTIN — ověřit v DB: Škoda Octavia IV combi Style</b> má týden 4 740 Kč = den×6 (790×6), zatímco ostatní vozy mají týden = den×7. Záměrná sleva, nebo chyba?</li>
       <li><b>⚠️ MARTIN — ověřit v DB: Hyundai Staria Style Premium 8+1</b> má měsíc 34 000 Kč bez DPH — levnější než menší Staria Luxury (35 575 Kč/měs). Předloha čísla přebírá 1:1 z produkce. Den/týden se u vozů s min. 30 dní v ceníku nezobrazují („—"), takže dřívější paradox „měsíc &lt; týden" zákazník neuvidí.</li>
-      <li><b>Sazby jsou 1:1 z produkčního konfigurátoru</b> (9. 8. 2026, snapshot <code>_cenik-data-produkce.json</code>: day/week/weekKuryr/weekBolt/month/nadlim/predpl per vůz; bez DPH, s DPH = ×1,21 zaokrouhleno — finální zaokrouhlení dle DB). Oproti dřívější předloze opraveny chybné přepisy: Staria Luxury měsíc 35 575 (bylo 40 250), den 3 500 / týden 24 500 (bylo 2 300 / 16 100); nadlimitní km dle DB (Mercedes 8, bylo 15,1 · Staria 4, bylo 8/10 · Superb III 3, bylo 3,5 · Superb IV 3,3, bylo 4 · Fabia 2,5, bylo 2). Tabulku i karty generuje JS z jednoho pole <code>CARS</code> — Martin při nasazení dosadí přesné částky z DB.</li>
+      <li><b>Sazby jsou 1:1 z produkčního konfigurátoru</b> (9. 8. 2026, snapshot <code>_cenik-data-produkce.json</code>: day/week/weekKuryr/weekBolt/month/nadlim/predpl per vůz; bez DPH, s DPH = ceil(×1,21 / 10) × 10 — zaokrouhlení nahoru na desetikoruny, závazný vzorec produkce). Oproti dřívější předloze opraveny chybné přepisy: Staria Luxury měsíc 35 575 (bylo 40 250), den 3 500 / týden 24 500 (bylo 2 300 / 16 100); nadlimitní km dle DB (Mercedes 8, bylo 15,1 · Staria 4, bylo 8/10 · Superb III 3, bylo 3,5 · Superb IV 3,3, bylo 4 · Fabia 2,5, bylo 2). Tabulku i karty generuje JS z jednoho pole <code>CARS</code> — Martin při nasazení dosadí přesné částky z DB.</li>
       <li><b>Řádky/karty klikatelné → detail vozu:</b> Scala vede do předlohy <code>v1-2.1-detail-vozu-v5.html</code> (finální), ostatní na produkční <code>/vozy/{slug}</code>. Po nasazení povedou všechny na nový detail.</li>
       <li><b>Formulářové prvky mají font 16px</b> (iOS jinak stránku při fokusu zazoomuje). Telefon jen v patičce.</li>
       <li><b>Cross-odkazy míří na finální verze:</b> homepage <code>v1-2.1-homepage-v8.html</code>, detail <code>v1-2.1-detail-vozu-v5.html</code>, pro firmy <code>v1-2.1-pro-firmy-v3.html</code>. Komentovací vrstva má nový klíč (v3) — komentáře z v2 se nemíchají.</li>
@@ -604,8 +607,8 @@ function fmtKm(n){return (Math.round(n*100)/100).toString().replace('.',',')}
 function daysWord(n){return n===1?'den':(n<5?'dny':'dní')}
 function priceCell(bez,unit,naTitle,perDays){
   if(bez==null)return '<span class="na" title="'+(naTitle||'Nedává smysl — minimální doba pronájmu je delší')+'">—</span>';
-  var main=S.vat?Math.round(bez*VAT):Math.round(bez);
-  var alt=S.vat?Math.round(bez):Math.round(bez*VAT);
+  var main=S.vat?Math.ceil(bez*VAT/10)*10:Math.round(bez);
+  var alt=S.vat?Math.round(bez):Math.ceil(bez*VAT/10)*10;
   var u=unit?' '+unit:' Kč';
   /* v3.3: denní ekvivalent = VÝPOČET ze ZOBRAZENÉ ceny za období (upřesnění RF 9. 8.):
      týden ÷ 7 · měsíc ÷ 30,4 (DAYS_MONTH = 365/12); počítá se z hlavní zobrazené částky
@@ -619,7 +622,7 @@ function priceCell(bez,unit,naTitle,perDays){
 function monthFrom(c){return c.month*0.85}
 function monthFromLine(c){
   var od=monthFrom(c);
-  return '<span class="alt">od '+fmt(S.vat?Math.round(od*VAT):Math.round(od))+' Kč/měs při 12 měsících</span>';
+  return '<span class="alt">od '+fmt(S.vat?Math.ceil(od*VAT/10)*10:Math.round(od))+' Kč/měs při 12 měsících</span>';
 }
 function kmCell(c){
   var over=S.vat?c.kmOver*VAT:c.kmOver;
@@ -627,7 +630,7 @@ function kmCell(c){
   return '<b>'+fmtKm(over)+' Kč/km</b><span class="alt">předem '+fmtKm(pre)+' Kč/km</span>';
 }
 function segLabel(c){return c.courier&&c.taxi?'kurýři · Bolt/Uber':(c.courier?'kurýři':'Bolt/Uber')}
-function detailUrl(c){return c.local?DETAIL_LOCAL:'v1-2.1-nase-vozy-v1.html'+c.slug}
+function detailUrl(c){return c.local?DETAIL_LOCAL:'v1-2.1-detail-vozu-v5.html?vuz='+c.slug}
 
 /* ================= STRUKTURÁLNÍ ZMĚNA: režim ceníku =================
    bezny    = den + týden + měsíc (1 500 km/měs v ceně, slevy 3/6/12 z měsíční sazby)
@@ -714,7 +717,7 @@ function renderTable(){
 function renderCards(){
   var w=document.getElementById('cenikCards');if(!w)return;w.innerHTML='';
   var tr=(S.rezim==='prepravni');
-  function dv(v){return v==null?'—':fmt(S.vat?Math.round(v*VAT):v)+' Kč'}
+  function dv(v){return v==null?'—':fmt(S.vat?Math.ceil(v*VAT/10)*10:v)+' Kč'}
   cenikList().forEach(function(c){
     var a=document.createElement('a');
     a.className='ccard';
@@ -724,14 +727,14 @@ function renderCards(){
     var base=tr?(c.weekKuryr!=null?c.weekKuryr:c.weekBolt):c.month;
     var segTxt=tr?(c.weekKuryr!=null?'kurýři':'Bolt/Uber'):null;
     var unit=tr?'Kč/týden':'Kč/měs';
-    var mMain=S.vat?Math.round(base*VAT):base;
-    var mAlt=S.vat?base:Math.round(base*VAT);
+    var mMain=S.vat?Math.ceil(base*VAT/10)*10:base;
+    var mAlt=S.vat?base:Math.ceil(base*VAT/10)*10;
     /* v3.3: denní ekvivalent = ZOBRAZENÁ cena za období ÷ 7 (týden, přepravní režim)
        resp. ÷ 30,4 (měsíc, běžný režim), v aktivním DPH režimu, celé Kč (upřesnění RF
        9. 8. — day sazba z DB se nepoužívá) + u běžného režimu měsíční „od" = month × 0,85
        při 12 měsících (RF 9. 8.) */
     var dayEq='<span class="alt">≈ '+fmt(mMain/(tr?7:DAYS_MONTH))+' Kč/den</span>';
-    var odLine=tr?'':(function(){var od=c.month*0.85;return '<span class="alt">od '+fmt(S.vat?Math.round(od*VAT):Math.round(od))+' Kč/měs při 12 měsících</span>'})();
+    var odLine=tr?'':(function(){var od=c.month*0.85;return '<span class="alt">od '+fmt(S.vat?Math.ceil(od*VAT/10)*10:Math.round(od))+' Kč/měs při 12 měsících</span>'})();
     var over=S.vat?c.kmOver*VAT:c.kmOver;
     var pre=S.vat?c.predpl*VAT:c.predpl;
     var kmSpan='<span><span class="lb">Km navíc</span><b>'+fmtKm(over)+' Kč/km</b><i>předem '+fmtKm(pre)+' Kč/km</i></span>';
