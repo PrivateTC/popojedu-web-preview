@@ -1,6 +1,6 @@
 {
   "_zdroj": "Vytaženo živě z konfigurátoru www.popojedu.cz 9. 8. 2026 (objekt vehicles). Toto je JEDINÝ zdroj pravdy pro ceny v předloze — NIKDY nedopočítávat, NIKDY nevymýšlet.",
-  "_dph": "Všechny ceny jsou BEZ DPH. vatRate=21. S DPH = round(cena × 1,21). Produkce s DPH může zaokrouhlovat o pár Kč jinak — finální zaokrouhlení dle DB (pozn. Martinovi).",
+  "_dph": "Všechny ceny jsou BEZ DPH. vatRate=21. S DPH = ceil(cena × 1,21 / 10) × 10 — zaokrouhlení NAHORU na desetikoruny, závazný vzorec produkce (4 900 → 5 930). Sjednoceno v předloze 10. 8. 2026 po připomínce Martina.",
   "_pole": {
     "day": "denní sazba (krátkodobě, běžný pronájem) bez DPH",
     "week": "běžná týdenní sazba bez DPH",
