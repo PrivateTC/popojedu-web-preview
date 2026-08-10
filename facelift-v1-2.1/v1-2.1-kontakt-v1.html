@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PŘEDLOHA v1-2.1 — Kontakt v1 | Popojedu.cz facelift</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   POPOJEDU FACELIFT v1-2.1 — KONTAKT v1 (styl v8 KANONICKÝ)
+   Styl, header i patička převzaty 1:1 z v1-2.1-homepage-v8.html
+   (jemné přepínače, neutrální podklad #F6F8FA, tactile karty,
+   scroll-reveal, toolbar 💻/📱/🔍 + komentovací vrstva 💬).
+   Obsah převzat 1:1 z produkce /kontakt (10. 8. 2026), drobně
+   sjednocena konzistence: bez emoji v obsahu (pravidlo v6),
+   telefon smí být v těle — je to kontaktní stránka.
+   Odkazy dle _odkazy-mapa.md (facelift soubory).
+   Brand: zelená #00C853 · navy #002040 · bílá + neutrál #F6F8FA
+   ============================================================ */
+:root{
+  --green:#00C853; --green-dark:#00A946; --green-tint:#eafaf1;
+  --navy:#002040; --ink:#22384e; --muted:#5b6b80; --soft:#8a99ad;
+  --line:#e8edf3; --bg:#f7f9fb; --amber:#b45309; --amber-bg:#fef3e2;
+  --sand:#f6f8fa; --sand-deep:#eef1f5; --sand-line:#e8edf3;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --radius:10px; --radius-lg:16px;
+  --shadow:0 1px 2px rgba(0,32,64,.04),0 6px 18px rgba(0,32,64,.06);
+  --shadow-tactile:inset 0 1px 0 rgba(255,255,255,.85),0 1px 2px rgba(0,32,64,.04),0 10px 26px rgba(0,32,64,.07);
+  --font:'Inter',-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font);color:var(--ink);background:#fff;line-height:1.6;position:relative}
+img{display:block;max-width:100%}
+a{color:var(--navy)}
+button{font-family:var(--font)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 18px}
+h1,h2,h3,h4{color:var(--navy);line-height:1.25}
+h2{font-size:22px;font-weight:700;letter-spacing:-.01em}
+h3{font-weight:600}
+.kicker{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--green-dark);margin-bottom:10px}
+.sec-sub{font-size:14px;color:var(--muted);margin-top:8px;max-width:62ch}
+section{padding:48px 0}
+.sand{background:var(--sand)}
+@media(min-width:821px){
+  section{padding:84px 0}
+  h2{font-size:27px}
+}
+
+/* ---------- v7: scroll-reveal ---------- */
+@media(prefers-reduced-motion:no-preference){
+  html.js-anim .rv{opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  html.js-anim .rv.in{opacity:1;transform:none}
+}
+
+/* ---------- header — bez telefonu (1:1 z homepage v8) ---------- */
+.hd{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.hd-in{display:flex;align-items:center;gap:8px;min-height:60px}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;margin-right:auto}
+.logo-p{width:32px;height:32px;border-radius:50%;background:var(--green);color:#fff;font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center;flex:0 0 32px}
+.logo b{font-size:17.5px;color:var(--navy);font-weight:800;letter-spacing:-.01em}
+.hd-nav{display:none;gap:2px;align-items:center}
+.hd-nav a{font-size:14px;font-weight:500;text-decoration:none;padding:8px 12px;border-radius:8px;color:var(--ink)}
+.hd-nav a:hover{background:var(--bg)}
+.hd-nav a.cta{background:var(--green);color:var(--navy);font-weight:700;margin-left:8px}
+.hd-nav .dd{position:relative}
+.hd-nav .dd>button{font-family:var(--font);font-size:14px;font-weight:500;background:none;border:none;padding:8px 12px;border-radius:8px;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.hd-nav .dd>button:hover{background:var(--bg)}
+.hd-nav .dd .car{font-size:9px;color:var(--soft);transform:translateY(1px)}
+.hd-nav .dd-menu{position:absolute;top:100%;left:0;padding-top:8px;display:none;z-index:80}
+.hd-nav .dd:hover .dd-menu,.hd-nav .dd:focus-within .dd-menu,.hd-nav .dd.open .dd-menu{display:block}
+.hd-nav .dd-menu-in{min-width:186px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 2px rgba(0,32,64,.06),0 12px 30px rgba(0,32,64,.16);padding:6px}
+.hd-nav .dd-menu-in a{display:block;white-space:nowrap}
+.menu-btn{border:1px solid var(--line);background:#fff;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--navy);padding:9px 14px;cursor:pointer;min-height:44px}
+.m-nav{display:none;background:#fff;border-bottom:1px solid var(--line);padding:6px 18px 14px}
+.m-nav.open{display:block}
+.m-nav a{display:block;padding:13px 4px;font-size:15px;font-weight:500;text-decoration:none;border-bottom:1px solid var(--bg)}
+@media(min-width:821px){
+  .hd-nav{display:flex}
+  .menu-btn{display:none}
+}
+
+/* ---------- hero — v8 typografie ---------- */
+.hero{background:linear-gradient(180deg,var(--sand) 0%,#fff 88%);padding:32px 0 40px}
+.hero h1{font-size:32px;font-weight:800;letter-spacing:-.025em;line-height:1.12;margin-bottom:14px}
+.hero h1 em{font-style:normal;background:linear-gradient(180deg,transparent 64%,rgba(0,200,83,.30) 64%)}
+.hero .lead{font-size:15px;font-weight:400;color:var(--muted);max-width:52ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:12px 24px;background:var(--green);color:var(--navy);font-weight:700;font-size:15px;border:none;border-radius:var(--radius);cursor:pointer;text-decoration:none;transition:filter .3s var(--ease),transform .3s var(--ease);text-align:center}
+.btn:hover{filter:brightness(1.05)}
+.btn.block{display:flex;width:100%}
+@media(min-width:900px){
+  .hero{padding:64px 0 72px}
+  .hero h1{font-size:52px;letter-spacing:-.03em}
+  .hero .lead{font-size:16px}
+}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+  .btn:hover{transform:translateY(-1px)}
+}
+
+/* ---------- kontaktní dlaždice + dokumenty ---------- */
+.tiles{display:grid;gap:14px}
+@media(min-width:640px){.tiles{grid-template-columns:repeat(4,1fr)}.tiles.t3{grid-template-columns:repeat(3,1fr)}.tiles.t2{grid-template-columns:repeat(2,1fr)}}
+.dtile{border:1px solid var(--sand-line);border-radius:14px;padding:22px 20px;background:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 1px 2px rgba(0,32,64,.03)}
+.dtile h3{font-size:15px;margin-bottom:5px}
+.dtile p{font-size:13.5px;color:var(--muted)}
+.dtile b{color:var(--navy)}
+.dtile a{font-weight:600;text-decoration:none;color:var(--navy)}
+.dtile a:hover{text-decoration:underline}
+.dtile .val{display:block;font-size:16px;font-weight:700;color:var(--navy);margin-bottom:3px}
+a.dtile{display:block;text-decoration:none;transition:border-color .3s var(--ease),transform .3s var(--ease),box-shadow .3s var(--ease)}
+a.dtile:hover{border-color:var(--green)}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+  a.dtile:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(0,32,64,.05),0 12px 26px rgba(0,32,64,.09)}
+}
+
+/* ---------- mapa ---------- */
+.map-card{border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--sand-line);background:#fff}
+.map-card iframe{display:block;width:100%;height:380px;border:0}
+.map-note{font-size:12.5px;color:var(--muted);margin-top:10px}
+.map-note a{color:var(--green-dark);font-weight:600}
+
+/* ---------- formulář — v8: neutrální podklad + tactile karta ---------- */
+.form-sec{background:var(--sand)}
+.form-card{background:#fff;border:1px solid var(--sand-line);border-radius:var(--radius-lg);box-shadow:var(--shadow-tactile);max-width:680px;margin:0 auto;padding:26px 22px 26px}
+.form-sub{font-size:13.5px;color:var(--muted);margin-top:6px}
+.f-label{display:block;font-size:13px;font-weight:600;color:var(--navy);margin:15px 0 6px}
+.f-in{width:100%;padding:13px 12px;border:1px solid var(--line);border-radius:var(--radius);font-family:var(--font);font-size:16px;background:#fafbfd;min-height:50px;transition:border-color .3s var(--ease),background .3s var(--ease)}
+.f-in:focus{outline:2px solid var(--green);border-color:var(--green);background:#fff}
+textarea.f-in{min-height:110px;resize:vertical}
+.f-2col{display:grid;gap:0 16px}
+@media(min-width:560px){.f-2col{grid-template-columns:1fr 1fr}}
+.chk{display:flex;gap:12px;align-items:flex-start;font-size:13px;color:var(--muted);line-height:1.5;cursor:pointer;padding:10px 2px;margin-top:10px;border-radius:8px}
+.chk:active{background:var(--bg)}
+.chk input{width:24px;height:24px;flex:0 0 24px;accent-color:var(--green);margin-top:0;cursor:pointer}
+.chk a{color:var(--green-dark)}
+.form-card .btn{margin-top:14px}
+.form-foot{font-size:12.5px;color:var(--muted);text-align:center;margin-top:14px}
+.form-foot b{color:var(--navy)}
+.form-foot a{color:var(--green-dark);font-weight:600}
+
+/* ---------- provozovatel / právní blok ---------- */
+.servis-note{background:var(--sand);border:1px solid var(--sand-line);border-left:3px solid var(--green);border-radius:12px;color:var(--muted);font-size:13.5px;padding:18px 20px;margin-top:28px}
+.servis-note b{color:var(--navy)}
+
+/* ---------- CTA pás ---------- */
+.cta-band{text-align:center}
+.cta-band h2{margin-bottom:8px}
+.cta-band p{font-size:14px;color:var(--muted);margin-bottom:22px}
+
+/* ---------- footer (1:1 z homepage v8) ---------- */
+footer{background:var(--navy);color:#b9c4d6;padding:44px 0 34px;font-size:13px}
+.ft-grid{display:grid;gap:28px}
+@media(min-width:768px){.ft-grid{grid-template-columns:1.3fr 1fr 1fr 1fr}}
+.ft h4{color:#fff;font-size:13.5px;margin-bottom:12px}
+.ft a{display:block;color:#b9c4d6;text-decoration:none;padding:4px 0}
+.ft a:hover{color:#fff}
+.ft .c{padding:3px 0}
+.ft .c a{display:inline;color:#fff;font-weight:600}
+.legal{border-top:1px solid rgba(255,255,255,.14);margin-top:28px;padding-top:16px;font-size:11.5px;color:#8494ab;line-height:1.7}
+
+/* ---------- sticky CTA lišta (mobil) ---------- */
+.cta-bar{position:fixed;left:0;right:0;bottom:0;z-index:70;background:#fff;border-top:1px solid var(--line);box-shadow:0 -4px 14px rgba(0,32,64,.08);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:flex;gap:10px;align-items:center;transform:translateY(110%);transition:transform .25s ease}
+.cta-bar.show{transform:translateY(0)}
+.cta-bar .btn{flex:1;min-height:50px}
+@media(min-width:821px){.cta-bar{display:none}}
+
+/* ---------- komentovací vrstva ---------- */
+.cmt-fab{position:fixed;right:14px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:90;display:flex;flex-direction:column;gap:8px}
+@media(min-width:821px){.cmt-fab{bottom:22px}}
+.cmt-fab button{width:48px;height:48px;border-radius:50%;border:none;font-size:19px;cursor:pointer;background:var(--navy);color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.cmt-fab button.act{background:#ff7a00}
+body.commenting{cursor:crosshair}
+body.commenting a,body.commenting button:not(.cmt-ui):not(.cmt-pin){pointer-events:none}
+body.commenting .cmt-fab button{pointer-events:auto}
+.cmt-pin{pointer-events:auto;position:absolute;z-index:85;width:26px;height:26px;border-radius:50%;background:#ff7a00;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.35);border:2px solid #fff;transform:translate(-50%,-50%)}
+.cmt-pop{pointer-events:auto;position:absolute;z-index:95;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.25);padding:12px;width:min(300px,86vw)}
+.cmt-pop .ctx{font-size:11px;color:var(--muted);margin-bottom:6px}
+.cmt-pop textarea{width:100%;min-height:70px;border:1.5px solid var(--line);border-radius:8px;font-family:var(--font);font-size:13.5px;padding:8px}
+.cmt-pop .r{display:flex;gap:8px;margin-top:8px}
+.cmt-pop button{flex:1;border:none;border-radius:8px;padding:9px;font-weight:700;font-size:13px;cursor:pointer}
+.cmt-pop .sv{background:var(--green);color:var(--navy)}
+.cmt-pop .dl{background:var(--bg);color:#c0392b}
+.cmt-hint{position:fixed;top:66px;left:50%;transform:translateX(-50%);z-index:90;background:#ff7a00;color:#fff;font-size:12.5px;font-weight:700;border-radius:999px;padding:7px 16px;box-shadow:0 4px 14px rgba(0,0,0,.25);display:none}
+body.commenting .cmt-hint{display:block}
+
+/* ---------- interní sekce Doporučení ---------- */
+.reco{background:#fff8f0;border-top:3px dashed #f0b26b;padding:30px 0 40px}
+.reco h2{font-size:18px;color:#b45309}
+.reco .tag{display:inline-block;background:#b45309;color:#fff;font-size:11px;font-weight:700;border-radius:5px;padding:2px 8px;margin-bottom:8px;letter-spacing:.05em}
+.reco ul{padding-left:20px;font-size:13.5px;color:#5a4632;display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.reco b{color:#7c3e06}
+
+/* ---------- náhledový toolbar (interní) ---------- */
+.pv-bar{position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:200;display:flex;gap:4px;align-items:center;background:rgba(10,20,34,.88);backdrop-filter:blur(6px);border-radius:999px;padding:4px;box-shadow:0 4px 14px rgba(0,0,0,.28)}
+.pv-bar button{border:none;background:transparent;color:#c8d2df;font-family:var(--font);font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.pv-bar button.on{background:var(--green);color:var(--navy)}
+.pv-bar button#zmToggle.on{background:#ffd54f;color:#4a3a10}
+.pv-bar .pv-sep{width:1px;height:16px;background:rgba(255,255,255,.25)}
+@media(max-width:480px){.pv-bar{transform:translateX(-50%) scale(.92);transform-origin:top center}}
+
+/* ---------- mobilní náhled 390×844 ---------- */
+#pvFrame,#pvScreen{display:contents}
+html.force-mobile{background:#49535f}
+html.force-mobile body{background:#49535f;min-height:100vh}
+html.force-mobile #pvFrame{display:block;box-sizing:content-box;width:390px;height:844px;margin:56px auto 40px;border:12px solid #10151c;border-radius:46px;position:relative;overflow:hidden;background:#fff;box-shadow:0 24px 70px rgba(0,0,0,.45)}
+html.force-mobile #pvFrame::before{content:'';position:absolute;top:9px;left:50%;transform:translateX(-50%);width:96px;height:18px;background:#10151c;border-radius:10px;z-index:120;pointer-events:none}
+html.force-mobile #pvScreen{display:block;height:100%;overflow-y:auto;overflow-x:hidden;position:relative;scroll-behavior:smooth}
+@media(max-width:430px){
+  html.force-mobile #pvFrame{box-sizing:border-box;width:calc(100vw - 16px);height:calc(100vh - 76px);margin:52px auto 12px;border-width:7px;border-radius:30px}
+  html.force-mobile #pvFrame::before{display:none}
+}
+html.force-mobile section{padding:48px 0}
+html.force-mobile h2{font-size:22px}
+html.force-mobile .hd-nav{display:none}
+html.force-mobile .menu-btn{display:inline-block}
+html.force-mobile .hero{padding:32px 0 40px}
+html.force-mobile .hero h1{font-size:32px;letter-spacing:-.025em}
+html.force-mobile .hero .lead{font-size:15px}
+html.force-mobile .tiles,html.force-mobile .tiles.t3,html.force-mobile .tiles.t2{grid-template-columns:none}
+html.force-mobile .f-2col{grid-template-columns:none}
+html.force-mobile .ft-grid{grid-template-columns:none}
+html.force-mobile .map-card iframe{height:300px}
+html.force-mobile .cta-bar{display:flex;position:absolute}
+html.force-mobile .cmt-fab{position:absolute;bottom:calc(84px + env(safe-area-inset-bottom))}
+html.force-mobile .cmt-hint{position:absolute}
+
+/* ---------- režim „Změny" ---------- */
+html.show-zmeny [data-zmena]{outline:2px dashed var(--green-dark);outline-offset:3px;border-radius:4px}
+html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid var(--green);outline-offset:3px}
+.zm-badge{position:absolute;background:var(--green-dark);color:#fff;font-family:var(--font);font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:5px;z-index:88;pointer-events:none;max-width:270px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.zm-panel{position:fixed;top:52px;right:0;bottom:0;width:310px;max-width:85vw;background:#fff;border-left:1px solid var(--line);box-shadow:-8px 0 24px rgba(0,32,64,.15);z-index:190;transform:translateX(105%);transition:transform .25s ease;overflow-y:auto;padding:14px}
+.zm-panel.open{transform:none}
+.zm-panel h3{font-size:13px;color:var(--navy);margin-bottom:10px}
+.zm-panel .it{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 10px;font-family:var(--font);font-size:12.5px;font-weight:600;color:var(--ink);margin-bottom:6px;cursor:pointer;line-height:1.4}
+.zm-panel .it:hover{border-color:var(--green-dark);background:var(--green-tint)}
+</style>
+</head>
+<body>
+
+<!-- ============ NÁHLEDOVÝ TOOLBAR (interní, jen předloha) ============ -->
+<div class="pv-bar" id="pvBar">
+  <button class="cmt-ui on" id="pvDesk">💻 Desktop</button>
+  <button class="cmt-ui" id="pvMob">📱 Mobil 390</button>
+  <span class="pv-sep"></span>
+  <button class="cmt-ui" id="zmToggle">🔍 Změny</button>
+</div>
+
+<!-- ============ HEADER — 1:1 z homepage v8 (bez telefonu) ============ -->
+<header class="hd">
+  <div class="wrap hd-in">
+    <a class="logo" href="v1-2.1-homepage-v8.html"><span class="logo-p">p</span><b>popojedu</b></a>
+    <nav class="hd-nav">
+      <a href="v1-2.1-nase-vozy-v1.html">Naše vozy</a>
+      <a href="v1-2.1-cenik-v3.html">Ceník</a>
+      <div class="dd" id="ddSeg">
+        <button type="button" aria-haspopup="true" aria-expanded="false">Pro koho <span class="car">▾</span></button>
+        <div class="dd-menu">
+          <div class="dd-menu-in">
+            <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+            <a href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
+            <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
+          </div>
+        </div>
+      </div>
+      <a href="v1-2.1-kontakt-v1.html">Kontakt</a>
+      <a class="cta" href="v1-2.1-homepage-v8.html#spocitat">Spočítat cenu</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mNav">☰&nbsp;Menu</button>
+  </div>
+  <nav class="m-nav" id="mNav">
+    <a href="v1-2.1-nase-vozy-v1.html">Naše vozy</a>
+    <a href="v1-2.1-cenik-v3.html">Ceník</a>
+    <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+    <a href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
+    <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
+    <a href="v1-2.1-kontakt-v1.html">Kontakt</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero" data-zmena="NOVÁ STRÁNKA ve stylu v8: obsah 1:1 z produkce /kontakt, hero typografie v8 (zelený podtah), bez emoji v obsahu (pravidlo v6)">
+  <div class="wrap">
+    <span class="kicker">Kontakt</span>
+    <h1>Ozvěte se <em>nám</em>.</h1>
+    <p class="lead">Najdete nás v areálu Cukrovar Čakovice v Praze 9. Zavolejte, napište, nebo se stavte — rádi poradíme s výběrem vozu.</p>
+  </div>
+</section>
+
+<!-- ============ KONTAKTNÍ ÚDAJE ============ -->
+<section id="udaje">
+  <div class="wrap">
+    <span class="kicker">Popojedu.cz</span>
+    <h2>Kde nás najdete a jak se dovoláte</h2>
+    <div class="tiles" style="margin-top:24px" data-zmena="ÚPRAVA proti produkci: kontaktní řádky s emoji (📞✉️📍🏢) převedeny na čisté dlaždice s textovými štítky — telefon v těle stránky je zde záměrně (kontaktní stránka; jinde jen v patičce)">
+      <div class="dtile">
+        <h3>Telefon</h3>
+        <a class="val" href="tel:+420731683203">+420 731 683 203</a>
+        <p>Po–Pá 8:00–17:30</p>
+      </div>
+      <div class="dtile">
+        <h3>E-mail</h3>
+        <a class="val" href="mailto:info@popojedu.cz">info@popojedu.cz</a>
+        <p>Odpovídáme nejpozději následující pracovní den</p>
+      </div>
+      <div class="dtile">
+        <h3>Provozovna</h3>
+        <span class="val">Cukrovarská 991, Praha 9</span>
+        <p>Areál Cukrovar Čakovice, budova č. 3, 196 00</p>
+      </div>
+      <div class="dtile">
+        <h3>Sídlo</h3>
+        <span class="val">Českomoravská 1181/21, Praha 9</span>
+        <p>Libeň, 190 00 — fakturace a právní záležitosti</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MAPA ============ -->
+<section class="sand" id="mapa">
+  <div class="wrap">
+    <span class="kicker">Mapa</span>
+    <h2>Areál Cukrovar Čakovice</h2>
+    <div class="map-card" style="margin-top:24px">
+      <iframe title="Mapa — Cukrovarská 991, Praha 9 — Čakovice" src="https://www.google.com/maps?q=Cukrovarsk%C3%A1%20991%2C%20Praha%209%20%E2%80%93%20%C4%8Cakovice&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <p class="map-note"><a href="https://www.google.com/maps?q=Cukrovarsk%C3%A1%20991%2C%20Praha%209" target="_blank" rel="noopener">Zobrazit větší mapu</a> · Cukrovarská 991, Praha 9 — Čakovice</p>
+  </div>
+</section>
+
+<!-- ============ FORMULÁŘ — obecný dotaz ============ -->
+<section class="form-sec" id="napiste">
+  <div class="wrap">
+    <div class="form-card" data-zmena="Kontaktní formulář = cesta pro OBECNÝ DOTAZ (RF flow) — kalkulace ceny a poptávka vozu patří do konfigurátoru na homepage; pod formulářem je na to decentní textový odkaz">
+      <h2>Napište nám</h2>
+      <p class="form-sub">Obecný dotaz, domluvení návštěvy, cokoli k pronájmu. Ozveme se nejpozději následující pracovní den.</p>
+      <form id="ctForm" action="#" novalidate>
+        <div class="f-2col">
+          <div>
+            <label class="f-label" for="fJmeno">Jméno</label>
+            <input class="f-in" id="fJmeno" name="jmeno" type="text" autocomplete="name" required>
+          </div>
+          <div>
+            <label class="f-label" for="fTel">Telefon</label>
+            <input class="f-in" id="fTel" name="telefon" type="tel" autocomplete="tel" required>
+          </div>
+        </div>
+        <label class="f-label" for="fMail">E-mail</label>
+        <input class="f-in" id="fMail" name="email" type="email" autocomplete="email" required>
+        <label class="f-label" for="fZprava">Zpráva</label>
+        <textarea class="f-in" id="fZprava" name="zprava" required></textarea>
+        <label class="chk"><input type="checkbox" id="fGdpr" required> <span>Souhlasím se zpracováním osobních údajů. <a href="v1-2.1-ochrana-udaju-v1.html">Zásady.</a></span></label>
+        <button class="btn block" type="submit">Odeslat zprávu</button>
+      </form>
+      <p class="form-foot">Chcete rovnou cenu pronájmu? <a href="v1-2.1-homepage-v8.html#spocitat">Spočítat cenu v konfigurátoru →</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOKUMENTY A PODMÍNKY ============ -->
+<section id="dokumenty">
+  <div class="wrap">
+    <span class="kicker">Dokumenty a podmínky</span>
+    <h2>Vše důležité na jednom místě</h2>
+    <div class="tiles t3" style="margin-top:24px" data-zmena="ÚPRAVA proti produkci: dokumentové karty bez emoji (📄🔒🍪), jinak texty 1:1; odkazy dle _odkazy-mapa.md na facelift soubory">
+      <a class="dtile" href="v1-2.1-obchodni-podminky-v1.html">
+        <h3>Obchodní podmínky</h3>
+        <p>Podmínky pronájmu, rezervace, platby a storno.</p>
+      </a>
+      <a class="dtile" href="v1-2.1-ochrana-udaju-v1.html">
+        <h3>Ochrana osobních údajů</h3>
+        <p>Jak nakládáme s vašimi údaji (GDPR) a jaká máte práva.</p>
+      </a>
+      <a class="dtile" href="v1-2.1-zasady-cookies-v1.html">
+        <h3>Zásady cookies</h3>
+        <p>Které cookies používáme a jak souhlas spravovat.</p>
+      </a>
+    </div>
+    <div class="servis-note" data-zmena="⚠️ NÁZEV FIRMY: produkce /kontakt dnes uvádí „Popojedu s.r.o.“, předloha drží „MODRÝ ANDĚL s.r.o.“ dle guardrailu (rejstřík nový název zatím neukazuje, řeší úkol 869ec0r5d + VOP 869eew6rr) — před nasazením sjednotí RF/Martin dle rejstříku">
+      <b>Údaje o provozovateli.</b> MODRÝ ANDĚL s.r.o. · Sídlo: Českomoravská 1181/21, Libeň, 190 00 Praha 9 · Provozovna: Cukrovarská 991, Praha 9 — Čakovice · IČO 27218422 · DIČ CZ27218422 · spisová značka C 105306/MSPH vedená u Městského soudu v Praze. Dozorový orgán: Česká obchodní inspekce (coi.cz) — zde lze řešit i spotřebitelské spory mimosoudně. Dozor nad ochranou osobních údajů: ÚOOÚ (uoou.cz).
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA PÁS ============ -->
+<section class="sand cta-band" id="cta">
+  <div class="wrap">
+    <h2>Kolik zaplatíte za pronájem?</h2>
+    <p>Konfigurátor spočítá cenu hned — bez zadávání kontaktů.</p>
+    <a class="btn" href="v1-2.1-homepage-v8.html#spocitat">Spočítat cenu vašeho pronájmu →</a>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER — 1:1 z homepage v8 (odkazy dle _odkazy-mapa.md) ============ -->
+<footer>
+  <div class="wrap ft-grid">
+    <div class="ft">
+      <a class="logo" href="v1-2.1-homepage-v8.html" style="margin-bottom:12px"><span class="logo-p">p</span><b style="color:#fff">popojedu</b></a>
+      <div class="c"><a href="tel:+420731683203">+420 731 683 203</a> · Po–Pá 8:00–17:30</div>
+      <div class="c"><a href="mailto:info@popojedu.cz">info@popojedu.cz</a></div>
+      <div class="c">Provozovna: Cukrovarská 991, Praha 9 — Čakovice</div>
+      <div class="c">Sídlo: Českomoravská 1181/21, Praha 9</div>
+      <div class="c" style="margin-top:8px"><a href="https://www.facebook.com/popojedu">Facebook</a> · <a href="https://www.instagram.com/popojedu.cz/">Instagram</a></div>
+    </div>
+    <div class="ft">
+      <h4>Pronájem</h4>
+      <a href="v1-2.1-homepage-v8.html#spocitat">Konfigurátor</a>
+      <a href="v1-2.1-nase-vozy-v1.html">Naše vozy</a>
+      <a href="v1-2.1-cenik-v3.html">Ceník</a>
+      <a href="v1-2.1-dlouhodoby-pronajem-v1.html">Dlouhodobý pronájem</a>
+      <a href="v1-2.1-pujcovna-cakovice-v1.html">Půjčovna aut Praha 9 — Čakovice</a>
+      <a href="v1-2.1-vyzvednuti-vozu-v1.html">Vyzvednutí vozu</a>
+      <a href="v1-2.1-vraceni-vozu-v1.html">Vrácení vozu</a>
+    </div>
+    <div class="ft">
+      <h4>Pro koho</h4>
+      <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+      <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
+      <a href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
+      <a href="v1-2.1-jak-to-probiha-v1.html">Jak to funguje</a>
+      <a href="v1-2.1-blog-v1.html">Blog</a>
+      <a href="v1-2.1-caste-dotazy-v1.html">FAQ</a>
+    </div>
+    <div class="ft">
+      <h4>Účet a právní</h4>
+      <a href="v1-2.1-kontakt-v1.html">Kontakt</a>
+      <a href="v1-2.1-obchodni-podminky-v1.html">Obchodní podmínky</a>
+      <a href="v1-2.1-ochrana-udaju-v1.html">Ochrana osobních údajů</a>
+      <a href="v1-2.1-zasady-cookies-v1.html">Zásady cookies</a>
+      <a href="v1-2.1-nastaveni-cookies-v1.html">Nastavení cookies</a>
+    </div>
+  </div>
+  <div class="wrap legal">© 2026 Popojedu.cz · Autopůjčovna od roku 2017 · spravuje MODRÝ ANDĚL s.r.o. IČO: 27218422 · DIČ: CZ27218422 · spisová značka C 105306/MSPH, Městský soud v Praze</div>
+</footer>
+
+<!-- ============ DOPORUČENÍ (interní, nejde na web) ============ -->
+<section class="reco" id="doporuceni">
+  <div class="wrap">
+    <span class="tag">INTERNÍ — JEN V PŘEDLOZE · KONTAKT v1</span>
+    <h2>Doporučení: rozhodnutí této stránky</h2>
+    <ul>
+      <li><b>Obsah 1:1 z produkce /kontakt (10. 8. 2026)</b> — texty, kontakty, dokumentové karty i blok „Údaje o provozovateli“ převzaty věrně; jediné vědomé úpravy: bez emoji v obsahu (pravidlo v6), formulář ve v8 stylu (.form-card + f-in), mapa jako embed s odkazem „Zobrazit větší mapu“.</li>
+      <li><b>Telefon v těle stránky je zde záměrně</b> — pravidlo „telefon jen v patičce“ má na kontaktní stránce výjimku (je to její účel). Na všech ostatních stránkách předlohy platí dál.</li>
+      <li><b>Formulář = obecný dotaz (RF flow):</b> kontakt není druhá cesta k poptávce vozu — pod formulářem je textový odkaz do konfigurátoru. <b>MARTIN:</b> submit napojit na odeslání zprávy (e-mail info@ / HubSpot), v předloze je jen ukázka s potvrzením.</li>
+      <li><b>⚠️ Název firmy:</b> produkce už uvádí „Popojedu s.r.o.“, ale rejstřík (ARES) nový název zatím neukazuje — předloha proto drží „MODRÝ ANDĚL s.r.o.“ (guardrail; řeší úkoly 869ec0r5d a 869eew6rr). Před nasazením sjednotit dle skutečného stavu rejstříku, rozhodne RF.</li>
+      <li><b>1 CTA:</b> header CTA + jeden zelený pás „Spočítat cenu vašeho pronájmu →“ dole; submit formuláře je kontextový krok, ne konkurenční CTA.</li>
+      <li><b>Odkazy dle _odkazy-mapa.md</b> — míří na facelift soubory (i na ty právě vznikající: nase-vozy, FAQ, právní stránky). Dokud soubor neexistuje, odkaz lokálně nefunguje — po dokončení sady se spojí sám; Martin při nasazení převede na route().</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ STICKY CTA LIŠTA (mobil) ============ -->
+<div class="cta-bar" id="ctaBar">
+  <a class="btn cmt-ui" href="v1-2.1-homepage-v8.html#spocitat">Spočítat cenu →</a>
+</div>
+
+<!-- ============ KOMENTOVACÍ VRSTVA ============ -->
+<div class="cmt-hint">Režim komentářů — klepněte na místo, které chcete okomentovat</div>
+<div class="cmt-fab">
+  <button class="cmt-ui" id="cmtToggle" title="Režim komentářů">💬</button>
+  <button class="cmt-ui" id="cmtExport" title="Zkopírovat komentáře">📋</button>
+</div>
+
+<script>
+/* ================= NÁHLED DESKTOP/MOBIL — restrukturalizace DOM (1:1 z v8) ================= */
+var pvFrame=document.createElement('div');pvFrame.id='pvFrame';
+var pvScreen=document.createElement('div');pvScreen.id='pvScreen';
+pvFrame.appendChild(pvScreen);
+(function(){
+  var kids=Array.prototype.slice.call(document.body.children);
+  document.body.appendChild(pvFrame);
+  kids.forEach(function(k){
+    if(k===pvFrame||k.id==='pvBar'||k.tagName==='SCRIPT')return;
+    if(k.id==='ctaBar'||k.classList.contains('cmt-fab')||k.classList.contains('cmt-hint')){pvFrame.appendChild(k)}
+    else pvScreen.appendChild(k);
+  });
+})();
+
+/* ================= HLAVIČKA / MENU (1:1 z v8) ================= */
+document.getElementById('menuBtn').onclick=function(){
+  var n=document.getElementById('mNav');n.classList.toggle('open');
+  this.setAttribute('aria-expanded',n.classList.contains('open'));
+};
+(function(){
+  var dd=document.getElementById('ddSeg');if(!dd)return;
+  var b=dd.querySelector('button');
+  function close(){dd.classList.remove('open');b.setAttribute('aria-expanded','false');}
+  b.addEventListener('click',function(e){e.stopPropagation();
+    var o=dd.classList.toggle('open');b.setAttribute('aria-expanded',o?'true':'false');});
+  document.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+})();
+
+/* ================= FORMULÁŘ — předloha (bez backendu) ================= */
+document.getElementById('ctForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  var f=this;
+  if(!f.checkValidity()){f.reportValidity();return}
+  alert('Předloha — na webu se zpráva odešle na info@popojedu.cz (napojí Martin). Formulář je jen ukázka vzhledu a chování.');
+});
+
+/* ================= STICKY CTA LIŠTA — ukázat po odscrollování hero ================= */
+(function(){
+  var bar=document.getElementById('ctaBar'),hero=document.getElementById('hero');
+  if(!bar||!hero)return;
+  function chk(){
+    var r=hero.getBoundingClientRect();
+    bar.classList.toggle('show',r.bottom<0);
+  }
+  window.addEventListener('scroll',chk,{passive:true});
+  pvScreen.addEventListener('scroll',chk,{passive:true});
+  chk();
+})();
+
+/* ================= v7: SCROLL-REVEAL (1:1 z v8, bez dynamických karet) ================= */
+(function(){
+  if(!('IntersectionObserver' in window))return;
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  document.documentElement.classList.add('js-anim');
+  var sel7='.sec-sub,section h2,section .kicker,.tiles > *,.form-card,.map-card,.servis-note,.cta-band .btn';
+  var els=Array.prototype.slice.call(pvScreen.querySelectorAll(sel7));
+  els.forEach(function(el){
+    el.classList.add('rv');
+    var p=el.parentElement,i=p?Array.prototype.indexOf.call(p.children,el):0;
+    el.style.transitionDelay=Math.min(i*70,280)+'ms';
+  });
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}
+    });
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(el){io.observe(el)});
+  setTimeout(function(){els.forEach(function(el){el.classList.add('in')})},2000);
+})();
+
+/* ================= PŘEPÍNAČ DESKTOP / MOBIL 390 (1:1 z v8) ================= */
+var zmOn=false,zmLayer=null,zmPanel=null;
+function setPv(mob){
+  document.documentElement.classList.toggle('force-mobile',mob);
+  document.getElementById('pvDesk').classList.toggle('on',!mob);
+  document.getElementById('pvMob').classList.toggle('on',mob);
+  if(zmOn)setTimeout(placeBadges,350);
+}
+document.getElementById('pvDesk').onclick=function(){setPv(false)};
+document.getElementById('pvMob').onclick=function(){setPv(true)};
+
+/* ================= REŽIM „ZMĚNY" (1:1 z v8) ================= */
+function zmItems(){return Array.prototype.slice.call(document.querySelectorAll('[data-zmena]'))}
+function ensureZmLayer(){
+  if(!zmLayer){
+    zmLayer=document.createElement('div');
+    zmLayer.style.cssText='position:absolute;top:0;left:0;width:100%;height:0;z-index:84;pointer-events:none';
+    pvScreen.appendChild(zmLayer);
+  }
+}
+function placeBadges(){
+  if(!zmLayer)return;
+  zmLayer.innerHTML='';
+  var lr=zmLayer.getBoundingClientRect();
+  zmItems().forEach(function(el){
+    var r=el.getBoundingClientRect();
+    if(!r.width&&!r.height)return;
+    var b=document.createElement('span');b.className='zm-badge';
+    b.textContent=el.getAttribute('data-zmena');
+    b.style.left=Math.max(4,r.left-lr.left)+'px';
+    b.style.top=Math.max(4,r.top-lr.top-9)+'px';
+    zmLayer.appendChild(b);
+  });
+}
+function buildZmPanel(){
+  zmPanel=document.createElement('div');zmPanel.className='zm-panel';
+  var h=document.createElement('h3');h.textContent='🔍 Změny proti produkci ('+zmItems().length+')';
+  zmPanel.appendChild(h);
+  zmItems().forEach(function(el,i){
+    var b=document.createElement('button');b.type='button';b.className='it cmt-ui';
+    b.textContent=(i+1)+'. '+el.getAttribute('data-zmena');
+    b.onclick=function(){
+      el.scrollIntoView({behavior:'smooth',block:'center'});
+      el.classList.add('zm-flash');
+      setTimeout(function(){el.classList.remove('zm-flash')},1600);
+      setTimeout(placeBadges,700);
+    };
+    zmPanel.appendChild(b);
+  });
+  document.body.appendChild(zmPanel);
+}
+document.getElementById('zmToggle').onclick=function(){
+  zmOn=!zmOn;
+  this.classList.toggle('on',zmOn);
+  document.documentElement.classList.toggle('show-zmeny',zmOn);
+  if(!zmPanel)buildZmPanel();
+  zmPanel.classList.toggle('open',zmOn);
+  ensureZmLayer();
+  if(zmOn)placeBadges();else zmLayer.innerHTML='';
+};
+window.addEventListener('resize',function(){if(zmOn)placeBadges()});
+document.addEventListener('click',function(){if(zmOn)setTimeout(placeBadges,400)});
+
+/* ================= KOMENTOVACÍ VRSTVA (localStorage, file:// OK) =================
+   Vlastní klíč této stránky — komentáře se nemíchají s homepage. */
+(function(){
+  var KEY='popojedu-v121-kontakt-v1-comments';
+  function load(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return[]}}
+  function save(c){localStorage.setItem(KEY,JSON.stringify(c))}
+  function nearestHeading(el){
+    var sec=el.closest('section,header,footer,.form-card,.dtile');
+    if(sec){var h=sec.querySelector('h1,h2,h3');if(h)return h.textContent.trim().slice(0,70)}
+    return document.title;
+  }
+  var layer=document.createElement('div');layer.style.cssText='position:absolute;top:0;left:0;width:100%;height:0;z-index:80;pointer-events:none';pvScreen.appendChild(layer);
+  function layerPoint(e){var r=layer.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
+  function layerWidth(){var r=layer.getBoundingClientRect();return r.width||document.documentElement.clientWidth}
+  function renderPins(){
+    layer.innerHTML='';
+    load().forEach(function(c,i){
+      var p=document.createElement('div');p.className='cmt-pin cmt-ui';p.textContent=i+1;
+      p.style.left=c.x+'px';p.style.top=c.y+'px';p.title=c.text;
+      p.onclick=function(ev){ev.stopPropagation();openPop(c.x,c.y,i)};
+      layer.appendChild(p);
+    });
+  }
+  var pop=null;
+  function closePop(){if(pop){pop.remove();pop=null}}
+  function openPop(x,y,idx,heading){
+    closePop();
+    var cs=load(),c=idx!=null?cs[idx]:null;
+    pop=document.createElement('div');pop.className='cmt-pop cmt-ui';
+    pop.style.left=Math.min(x,Math.max(10,layerWidth()-320))+'px';
+    pop.style.top=(y+14)+'px';
+    pop.innerHTML='<div class="ctx">📍 '+((c?c.heading:heading)||'')+'</div>'+
+      '<textarea class="cmt-ui" placeholder="Napište komentář…">'+(c?c.text.replace(/</g,'&lt;'):'')+'</textarea>'+
+      '<div class="r"><button class="sv cmt-ui">Uložit</button><button class="dl cmt-ui">'+(c?'Smazat':'Zrušit')+'</button></div>';
+    layer.appendChild(pop);
+    var ta=pop.querySelector('textarea');ta.focus();
+    pop.querySelector('.sv').onclick=function(){
+      var t=ta.value.trim();var cs2=load();
+      if(idx!=null){if(t)cs2[idx].text=t;else cs2.splice(idx,1)}
+      else if(t)cs2.push({x:x,y:y,text:t,heading:heading});
+      save(cs2);closePop();renderPins();
+    };
+    pop.querySelector('.dl').onclick=function(){
+      if(idx!=null){var cs2=load();cs2.splice(idx,1);save(cs2)}
+      closePop();renderPins();
+    };
+  }
+  var tg=document.getElementById('cmtToggle');
+  tg.onclick=function(){document.body.classList.toggle('commenting');tg.classList.toggle('act');closePop()};
+  document.addEventListener('click',function(e){
+    if(!document.body.classList.contains('commenting'))return;
+    if(e.target.closest('.cmt-fab,.cmt-pop,.cmt-pin,.pv-bar,.zm-panel'))return;
+    e.preventDefault();e.stopPropagation();
+    var pt=layerPoint(e);
+    openPop(pt.x,pt.y,null,nearestHeading(e.target));
+  },true);
+  document.getElementById('cmtExport').onclick=function(){
+    var cs=load();
+    if(!cs.length){alert('Žádné komentáře.');return}
+    var md='# Komentáře — v1-2.1 KONTAKT v1 ('+new Date().toLocaleString('cs-CZ')+')\n\n';
+    cs.forEach(function(c,i){md+=(i+1)+'. ['+c.heading+'] '+c.text+'\n'});
+    function fallback(){prompt('Zkopírujte ručně (Cmd+C):',md)}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(md).then(function(){alert('Zkopírováno — vložte Claudovi do chatu.')},fallback)}else fallback();
+  };
+  renderPins();
+})();
+</script>
+</body>
+</html>
