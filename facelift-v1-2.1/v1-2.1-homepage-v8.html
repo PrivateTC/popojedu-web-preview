@@ -482,7 +482,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
 <header class="hd" data-zmena="ZMĚNA v3: hlavička úplně bez telefonu (RF) — číslo jen v patičce">
   <div class="wrap hd-in">
     <a class="logo" href="#top"><span class="logo-p">p</span><b>popojedu</b></a>
-    <nav class="hd-nav" data-zmena="ÚPRAVA v8.4: jednotné menu se segmentovými landingy (RF) — Naše vozy · Ceník · Pro koho ▾ (Pro firmy / Pro kurýry / Pro Bolt a Uber) · Kontakt + CTA">
+    <nav class="hd-nav" data-zmena="ÚPRAVA v8.4: jednotné menu se segmentovými landingy (RF) — Naše vozy · Ceník · Pro koho ▾ (Pro firmy / Pro kurýry / Pro Bolt a Uber) · Časté dotazy · Kontakt + CTA">
       <a href="#vozy">Naše vozy</a>
       <a href="v1-2.1-cenik-v3.html">Ceník</a>
       <div class="dd" id="ddSeg">
@@ -495,6 +495,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
           </div>
         </div>
       </div>
+      <a href="v1-2.1-caste-dotazy-v1.html">Časté dotazy</a>
       <a href="v1-2.1-kontakt-v1.html">Kontakt</a>
       <a class="cta" href="#spocitat">Spočítat cenu</a>
     </nav>
@@ -506,6 +507,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
     <a href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
     <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
+    <a href="v1-2.1-caste-dotazy-v1.html">Časté dotazy</a>
     <a href="v1-2.1-kontakt-v1.html">Kontakt</a>
   </nav>
 </header>
@@ -847,7 +849,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
       <a href="v1-2.1-nastaveni-cookies-v1.html">Nastavení cookies</a>
     </div>
   </div>
-  <div class="wrap legal">© 2026 Popojedu.cz · Autopůjčovna od roku 2017 · spravuje MODRÝ ANDĚL s.r.o. IČO: 27218422 · DIČ: CZ27218422 · spisová značka C 105306/MSPH, Městský soud v Praze</div>
+  <div class="wrap legal">© 2026 Popojedu.cz · Autopůjčovna od roku 2017 · spravuje Popojedu s.r.o. IČO: 27218422 · DIČ: CZ27218422 · spisová značka C 105306/MSPH, Městský soud v Praze</div>
 </footer>
 
 <!-- ============ DOPORUČENÍ (interní, nejde na web) ============ -->
@@ -856,6 +858,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <span class="tag">INTERNÍ — JEN V PŘEDLOZE · v8 FINÁL — KANONICKÁ</span>
     <h2>Doporučení: co v8 (finální kanonická) obsahuje a jak to přenést na zbylých 5 stránek</h2>
     <ul>
+      <li><b>v8.9 — „ČASTÉ DOTAZY" V HLAVNÍM MENU (rozhodnutí RF 10. 8. 2026):</b> hlavní navigace na <b>všech 20 stránkách předlohy</b> nově zní: Naše vozy · Ceník · Pro koho ▾ · <b>Časté dotazy</b> (→ <code>v1-2.1-caste-dotazy-v1.html</code>) · Kontakt + CTA „Spočítat cenu". Položka je mezi „Pro koho ▾" a „Kontakt" — na desktopu i v mobilním hamburgeru (ten má nyní 7 položek pod sebou; údaj „6 položek" v bullet v8.4 níže je tím překonán). Řada se na desktop vejde beze změny stylů — dropdown „Pro koho ▾" drží lištu kompaktní i s FAQ navíc. Na stránce Časté dotazy je položka zvýrazněná (<code>aria-current="page"</code>, tučně). Blog zůstává jen v patičce (rozhodnutí RF trvá). <b>MARTIN:</b> stejné menu nasadit na všech stránkách produkce (odkaz na /caste-dotazy), aktivní položku odvodit z URL.</li>
       <li><b>v8.8 — NÁVRAT PRVKŮ, KTERÉ VYPADLY Z PRODUKCE (oponentura 9. 8. 2026):</b> (1) <b>Druhý řidič zdarma (+0 Kč) a Dětská sedačka na vyžádání</b> jsou nově VIDITELNÉ — ve FAQ „Co je v ceně pronájmu?" a jako stálý řádek „Doplňky" v souhrnu poptávky (dřív jen placeholder v poznámce formuláře — zákazník prodejní výhodu neviděl). <b>MARTIN:</b> na produkci jsou to volby konfigurátoru; v předloze jsou informační — až se budou dělat jako volby, přidat i skryté pole poptávky. (2) <b>Vyčíslená úspora + upsell 12 měsíců</b> ve sticky souhrnu konfigurátoru: drobný zelený řádek „Vaše sleva celkem −X Kč za {doba} (−Y %)" (jen když sleva &gt; 0, tj. od 3 měsíců; úspora = <code>month × sleva × měsíce</code> v aktivním DPH režimu — km navíc slevě nepodléhají) a textový odkaz „Na 12 měsíců: X Kč/měs (−15 %)" (= <code>month × 0,85</code>; jen když zvolená doba &lt; 12 měsíců; klik nastaví 12 měsíců přes <code>setMonths(12)</code>). Obojí renderuje <code>updateSaveUpsell()</code> volaný z refresh/refreshLight; řádek úspory je i v souhrnu poptávky (<code>#sumSaveRow</code>). V přepravním režimu se neukazuje nic. Záměrně drobné (12 px, sekundární) — pravidlo v6 „jedna hlavní cena v boxu" se neporušuje, hlavní cena zůstává jediná velká. (3) <b>Krok 3</b> vrací produkční „Předání trvá 20 minut: instruktáž, společné foto stavu vozu, klíče" — transparentnost/ochrana obou stran. (4) <b>Patička sjednocena s hlavičkou:</b> „Pro Bolt a Uber" a „Pro kurýry" míří na facelift soubory <code>v1-2.1-landing-bolt-uber-v3.html</code> / <code>v1-2.1-landing-kuryri-v3.html</code> (dřív na produkci) a „Předání vozu" je přejmenováno na <b>„Vrácení vozu"</b> (vedle „Vyzvednutí vozu" bylo „Předání" matoucí; URL <code>/predani-vozu</code> beze změny — přejmenování slugu je na Martinovi/SEO, tady jen popisek).</li>
       <li><b>v8.7 — PŘEPRAVNÍ REŽIM: JEN DOSTUPNÉ VOZY + NAVÝŠITELNÉ KM (2 pokyny RF 9. 8. 2026):</b> (1) Select „vyberte vůz" i grid karet ukazují v přepravním režimu <b>jen vozy dostupné pro daný segment</b> — kurýři (<code>?kuryr=1</code>) jen <code>courier:true</code> (Citigo, Octavia III CNG), Bolt/Uber (<code>?ridic=1</code>) jen <code>taxi:true</code> (Octavia III CNG, Octavia III TDi, Octavia IV combi Ambition, Superb III liftback + combi); bez URL hintu vozy s jakoukoli přepravní sazbou. Nedostupné vozy se už NEzamykají, ale úplně skryjí — select se přestavuje v <code>updateSelOptions()</code>, grid filtruje <code>renderCars()</code>; přepnutí režimu/segmentu obojí překreslí a nedostupný vybraný vůz se odvybere. Běžný (osobní) režim beze změny — všechny vozy. (2) <b>Km slider je v přepravním režimu ZPĚT</b> (dřívější v8.2 „skryto" nahrazeno): základ (minimum) <b>6 500 km/měs v ceně</b>, navýšení do 15 000 po 500 km; nad 6 500 stejná mechanika jako běžný režim — předplacené km levněji (<code>predpl</code>) / doplatek po vrácení (<code>nadlim</code>) per vůz, měsíční km navíc se do týdenní ceny přepočítávají ×7/30,4 (<code>DAYS_MONTH</code>). URL <code>&amp;km=</code> v přepravním režimu přijímá 6 500–15 000. <b>MARTIN:</b> strop slideru (v předloze odhad 15 000, konstanta <code>KM_MAX_T</code>) i základ 6 500 ověřit/nastavit z DB jako konfigurovatelné hodnoty per segment.</li>
       <li><b>v8.6 — ?firma=1 PŘEDVOLÍ CENY BEZ DPH (rozhodnutí RF 9. 8. večer: „u firem ceny bez DPH").</b> URL handler při <code>?firma=1</code> nově kromě <code>setTyp('firma')</code> (formulář na typ Firma s IČO) volá i <code>setVat(false)</code> — konfigurátor se otevře s přepínačem DPH na „bez DPH" a všechny ceny (karty vozů, sticky box, souhrn, skryté pole <code>dph</code>) se rovnou počítají bez DPH. Firemní vstup na web = stránka Pro firmy (od v3.5 čistě marketingová, bez cen) s jediným CTA „Spočítat cenu →" na <code>?firma=1#spocitat</code> — firma tak vidí ceny bez DPH od prvního pohledu, zákazník si režim může kdykoli ručně přepnout. <code>?kuryr=1</code>/<code>?ridic=1</code> dál předvolí přepravní režim (beze změny). <b>MARTIN:</b> na produkci firemní parametr v URL konfigurátoru = přednastavit režim bez DPH + typ Firma; výchozí stav bez parametru zůstává „s DPH" (B2C).</li>
