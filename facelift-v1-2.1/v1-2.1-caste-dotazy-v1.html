@@ -64,6 +64,7 @@ section{padding:48px 0}
 .hd-nav{display:none;gap:2px;align-items:center}
 .hd-nav a{font-size:14px;font-weight:500;text-decoration:none;padding:8px 12px;border-radius:8px;color:var(--ink)}
 .hd-nav a:hover{background:var(--bg)}
+.hd-nav a[aria-current=page],.m-nav a[aria-current=page]{font-weight:700;color:var(--navy)}
 .hd-nav a.cta{background:var(--green);color:var(--navy);font-weight:700;margin-left:8px}
 .hd-nav .dd{position:relative}
 .hd-nav .dd>button{font-family:var(--font);font-size:14px;font-weight:500;background:none;border:none;padding:8px 12px;border-radius:8px;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:5px}
@@ -228,6 +229,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
           </div>
         </div>
       </div>
+      <a href="v1-2.1-caste-dotazy-v1.html" aria-current="page">Časté dotazy</a>
       <a href="v1-2.1-kontakt-v1.html">Kontakt</a>
       <a class="cta" href="v1-2.1-homepage-v8.html#spocitat">Spočítat cenu</a>
     </nav>
@@ -239,6 +241,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
     <a href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
     <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
+    <a href="v1-2.1-caste-dotazy-v1.html" aria-current="page">Časté dotazy</a>
     <a href="v1-2.1-kontakt-v1.html">Kontakt</a>
   </nav>
 </header>
@@ -268,7 +271,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
 
     <details data-zmena="OPRAVA proti produkci: u kurýrů a Bolt/Uber je v ceně 6 500 km/MĚSÍC (RF 9. 8.; produkce chybně uvádí 1 500 km/týden); sazby 2–8 Kč/km bez DPH dle ceníku (produkce 1,4–15,1)"><summary>Co když najedu více kilometrů?</summary><div class="a">V ceně běžného pronájmu je <b>1 500 km/měs</b>. Kdo jede víc, doplatí nadlimitní sazbu podle vozu (2–8 Kč/km bez DPH) — nebo si km koupí předem, levněji. Doplatek se účtuje až po skončení pronájmu podle reálného nájezdu. U kurýrů a řidičů Bolt/Uber (platba týdně) je v ceně <b>6&nbsp;500 km/měsíc</b>.</div></details>
 
-    <details data-zmena="SJEDNOCENO: spoluúčast jednotně „10 % ze škody, min. 10 000 Kč“ (produkce: „min. 10.000 Kč / 10%“)"><summary>Jak jsou vozy pojištěné?</summary><div class="a">Každý vůz má havarijní i povinné pojištění v ceně, včetně čelního skla, pro územní rozsah EU. Při škodě se hradí spoluúčast <b>10 % ze škody, min. 10 000 Kč</b>.</div></details>
+    <details data-zmena="SJEDNOCENO: spoluúčast jednotně „10 % ze škody, min. 10 000 Kč" (produkce: „min. 10.000 Kč / 10%")"><summary>Jak jsou vozy pojištěné?</summary><div class="a">Každý vůz má havarijní i povinné pojištění v ceně, včetně čelního skla, pro územní rozsah EU. Při škodě se hradí spoluúčast <b>10 % ze škody, min. 10 000 Kč</b>.</div></details>
 
     <details><summary>Kde si vůz vyzvednu a vrátím?</summary><div class="a">V provozovně <b>Cukrovarská 991, Praha 9 — Čakovice</b> (areál Cukrovar Čakovice). U pronájmů od 30 dnů vůz zdarma přistavíme po Praze. Podrobnosti: <a href="v1-2.1-vyzvednuti-vozu-v1.html">vyzvednutí vozu</a> a <a href="v1-2.1-vraceni-vozu-v1.html">vrácení vozu</a>.</div></details>
 
@@ -316,7 +319,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <div class="ft">
       <h4>Pronájem</h4>
       <a href="v1-2.1-homepage-v8.html#spocitat">Konfigurátor</a>
-      <a href="v1-2.1-nase-vozy-v1.html" data-zmena="Patička: „Naše vozy“ nově míří na facelift soubor v1-2.1-nase-vozy-v1.html (dřív produkce)">Naše vozy</a>
+      <a href="v1-2.1-nase-vozy-v1.html" data-zmena="Patička: „Naše vozy" nově míří na facelift soubor v1-2.1-nase-vozy-v1.html (dřív produkce)">Naše vozy</a>
       <a href="v1-2.1-cenik-v3.html">Ceník</a>
       <a href="v1-2.1-dlouhodoby-pronajem-v1.html">Dlouhodobý pronájem</a>
       <a href="v1-2.1-pujcovna-cakovice-v1.html">Půjčovna aut Praha 9 — Čakovice</a>
@@ -341,7 +344,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
       <a href="v1-2.1-nastaveni-cookies-v1.html">Nastavení cookies</a>
     </div>
   </div>
-  <div class="wrap legal">© 2026 Popojedu.cz · Autopůjčovna od roku 2017 · spravuje MODRÝ ANDĚL s.r.o. IČO: 27218422 · DIČ: CZ27218422 · spisová značka C 105306/MSPH, Městský soud v Praze</div>
+  <div class="wrap legal">© 2026 Popojedu.cz · Autopůjčovna od roku 2017 · spravuje Popojedu s.r.o. IČO: 27218422 · DIČ: CZ27218422 · spisová značka C 105306/MSPH, Městský soud v Praze</div>
 </footer>
 
 <!-- ============ DOPORUČENÍ (interní, nejde na web) ============ -->
@@ -350,6 +353,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <span class="tag">INTERNÍ — JEN V PŘEDLOZE · ČASTÉ DOTAZY v1</span>
     <h2>Doporučení: rozhodnutí této stránky</h2>
     <ul>
+      <li><b>FAQ JE V HLAVNÍM MENU (rozhodnutí RF 10. 8. 2026):</b> položka „Časté dotazy" je nově v hlavní navigaci všech 20 stránek předlohy — mezi „Pro koho ▾" a „Kontakt", na desktopu i v mobilním hamburgeru. Na této stránce je zvýrazněná jako aktivní (<code>aria-current="page"</code>, tučně). <b>MARTIN:</b> na produkci odkaz na /caste-dotazy ve stejné pozici menu, aktivní stav odvodit z URL.</li>
       <li><b>Obsah = produkce /caste-dotazy sjednocená s fakty faceliftu.</b> Opravy proti produkci (vše označeno data-zmena, viz 🔍 Změny): (1) záloha jen <b>převodem/QR</b> — karta z výčtu odebrána (rozhodnutí RF, karta až Etapa 2); (2) přepravní služby mají v ceně <b>6 500 km/měsíc</b> — produkce chybně uvádí „1 500 km/týden"; (3) spoluúčast jednotně <b>„10 % ze škody, min. 10 000 Kč"</b>; (4) nadlimitní sazby 2–8 Kč/km bez DPH dle ceníku (produkce 1,4–15,1 — patrně vč. DPH a staré škály); (5) telefon z úvodu odebrán (jen v patičce); (6) doplněn druhý řidič zdarma + dětská sedačka (v8.8). <b>MARTIN:</b> body 1–4 jsou obsahové opravy i pro produkci — texty tam dnes odporují ceníku a rozhodnutím RF.</li>
       <li><b>„Co potřebuju k pronájmu" ponechává platební kartu</b> — jde o doklad při převzetí (kauce), ne o platbu zálohy; pokud RF potvrdí, že karta není potřeba vůbec, odebrat i tady.</li>
       <li><b>Accordion = details/summary ve stylu v8</b> (styl .faq 1:1 z homepage — +/× marker, zelený rámeček otevřené položky). Bez JS je vše přístupné. Na produkci doplnit FAQPage JSON-LD ze stejných dat (do předlohy se schema nedává).</li>
