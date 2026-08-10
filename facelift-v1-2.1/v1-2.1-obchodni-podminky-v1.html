@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PŘEDLOHA v1-2.1 — Obchodní podmínky v1 | Popojedu.cz facelift</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   POPOJEDU FACELIFT v1-2.1 — OBCHODNÍ PODMÍNKY v1 (styl v8 KANONICKÝ)
+   Styl, header i patička převzaty 1:1 z v1-2.1-homepage-v8.html
+   (přes v1-2.1-jak-to-probiha-v1.html — odkazy dle _odkazy-mapa.md).
+   PRÁVNÍ TEXT TĚLA PŘEVZAT 1:1 Z PRODUKCE /obchodni-podminky
+   (10. 8. 2026) — VOP verze 1.0, účinnost 22. 7. 2026. NEMĚNIT.
+   Nový je pouze rám (header + patička + typografický kontejner).
+   Bez scroll-reveal (dlouhý právní text se nemá odkrývat po kouskách),
+   bez CTA pásu a sticky lišty — jediné CTA je v hlavičce (pravidlo).
+   Brand: zelená #00C853 · navy #002040 · bílá + neutrál #F6F8FA
+   ============================================================ */
+:root{
+  --green:#00C853; --green-dark:#00A946; --green-tint:#eafaf1;
+  --navy:#002040; --ink:#22384e; --muted:#5b6b80; --soft:#8a99ad;
+  --line:#e8edf3; --bg:#f7f9fb; --amber:#b45309; --amber-bg:#fef3e2;
+  --sand:#f6f8fa; --sand-deep:#eef1f5; --sand-line:#e8edf3;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --radius:10px; --radius-lg:16px;
+  --shadow:0 1px 2px rgba(0,32,64,.04),0 6px 18px rgba(0,32,64,.06);
+  --shadow-tactile:inset 0 1px 0 rgba(255,255,255,.85),0 1px 2px rgba(0,32,64,.04),0 10px 26px rgba(0,32,64,.07);
+  --font:'Inter',-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font);color:var(--ink);background:#fff;line-height:1.6;position:relative}
+img{display:block;max-width:100%}
+a{color:var(--navy)}
+button{font-family:var(--font)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 18px}
+h1,h2,h3,h4{color:var(--navy);line-height:1.25}
+.kicker{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--green-dark);margin-bottom:10px}
+
+/* ---------- header — bez telefonu (1:1 z homepage v8) ---------- */
+.hd{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.hd-in{display:flex;align-items:center;gap:8px;min-height:60px}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;margin-right:auto}
+.logo-p{width:32px;height:32px;border-radius:50%;background:var(--green);color:#fff;font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center;flex:0 0 32px}
+.logo b{font-size:17.5px;color:var(--navy);font-weight:800;letter-spacing:-.01em}
+.hd-nav{display:none;gap:2px;align-items:center}
+.hd-nav a{font-size:14px;font-weight:500;text-decoration:none;padding:8px 12px;border-radius:8px;color:var(--ink)}
+.hd-nav a:hover{background:var(--bg)}
+.hd-nav a.cta{background:var(--green);color:var(--navy);font-weight:700;margin-left:8px}
+.hd-nav .dd{position:relative}
+.hd-nav .dd>button{font-family:var(--font);font-size:14px;font-weight:500;background:none;border:none;padding:8px 12px;border-radius:8px;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.hd-nav .dd>button:hover{background:var(--bg)}
+.hd-nav .dd .car{font-size:9px;color:var(--soft);transform:translateY(1px)}
+.hd-nav .dd-menu{position:absolute;top:100%;left:0;padding-top:8px;display:none;z-index:80}
+.hd-nav .dd:hover .dd-menu,.hd-nav .dd:focus-within .dd-menu,.hd-nav .dd.open .dd-menu{display:block}
+.hd-nav .dd-menu-in{min-width:186px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 2px rgba(0,32,64,.06),0 12px 30px rgba(0,32,64,.16);padding:6px}
+.hd-nav .dd-menu-in a{display:block;white-space:nowrap}
+.menu-btn{border:1px solid var(--line);background:#fff;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--navy);padding:9px 14px;cursor:pointer;min-height:44px}
+.m-nav{display:none;background:#fff;border-bottom:1px solid var(--line);padding:6px 18px 14px}
+.m-nav.open{display:block}
+.m-nav a{display:block;padding:13px 4px;font-size:15px;font-weight:500;text-decoration:none;border-bottom:1px solid var(--bg)}
+@media(min-width:821px){
+  .hd-nav{display:flex}
+  .menu-btn{display:none}
+}
+
+/* ---------- hero právní stránky (v8 typografie, decentní) ---------- */
+.legal-hero{background:linear-gradient(180deg,var(--sand) 0%,#fff 88%);padding:32px 0 26px}
+.legal-hero h1{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.15}
+.legal-hero .sub{font-size:15px;font-weight:600;color:var(--ink);margin-top:6px}
+.legal-hero .vmeta{display:inline-block;background:var(--green-tint);color:var(--green-dark);font-size:12.5px;font-weight:700;border-radius:8px;padding:5px 12px;margin-top:14px}
+@media(min-width:900px){
+  .legal-hero{padding:56px 0 38px}
+  .legal-hero h1{font-size:36px;letter-spacing:-.025em}
+}
+
+/* ---------- kontejner dlouhého právního textu ---------- */
+.legal-wrap{max-width:760px;margin:0 auto;padding:34px 18px 84px}
+.legal{font-size:14.5px;line-height:1.75;color:var(--ink)}
+.legal p{margin:0 0 14px}
+.legal h2{font-size:18px;font-weight:700;letter-spacing:-.01em;margin:38px 0 12px}
+.legal h3{font-size:15.5px;font-weight:600;margin:24px 0 10px}
+.legal ol{padding-left:22px;margin:0 0 18px}
+.legal ol>li{margin-bottom:10px;padding-left:4px}
+.legal ul{padding-left:22px;margin:0 0 18px}
+.legal ul>li{margin-bottom:8px;padding-left:2px}
+.legal a{color:var(--green-dark);font-weight:500}
+.legal strong{color:var(--navy)}
+.legal hr{border:none;border-top:1px solid var(--line);margin:32px 0}
+.legal .lead-block{background:var(--sand);border:1px solid var(--sand-line);border-radius:12px;padding:18px 20px;margin:4px 0 22px;font-size:13.5px}
+.legal .lead-block p{margin-bottom:8px}
+.legal .lead-block p:last-child{margin-bottom:0}
+.legal .fin{font-size:13px;color:var(--muted);margin-top:6px}
+
+/* ---------- footer (1:1 z homepage v8) ---------- */
+footer{background:var(--navy);color:#b9c4d6;padding:44px 0 34px;font-size:13px}
+.ft-grid{display:grid;gap:28px}
+@media(min-width:768px){.ft-grid{grid-template-columns:1.3fr 1fr 1fr 1fr}}
+.ft h4{color:#fff;font-size:13.5px;margin-bottom:12px}
+.ft a{display:block;color:#b9c4d6;text-decoration:none;padding:4px 0}
+.ft a:hover{color:#fff}
+.ft .c{padding:3px 0}
+.ft .c a{display:inline;color:#fff;font-weight:600}
+.legal-ft{border-top:1px solid rgba(255,255,255,.14);margin-top:28px;padding-top:16px;font-size:11.5px;color:#8494ab;line-height:1.7}
+
+/* ---------- komentovací vrstva ---------- */
+.cmt-fab{position:fixed;right:14px;bottom:calc(22px + env(safe-area-inset-bottom));z-index:90;display:flex;flex-direction:column;gap:8px}
+.cmt-fab button{width:48px;height:48px;border-radius:50%;border:none;font-size:19px;cursor:pointer;background:var(--navy);color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.cmt-fab button.act{background:#ff7a00}
+body.commenting{cursor:crosshair}
+body.commenting a,body.commenting button:not(.cmt-ui):not(.cmt-pin){pointer-events:none}
+body.commenting .cmt-fab button{pointer-events:auto}
+.cmt-pin{pointer-events:auto;position:absolute;z-index:85;width:26px;height:26px;border-radius:50%;background:#ff7a00;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.35);border:2px solid #fff;transform:translate(-50%,-50%)}
+.cmt-pop{pointer-events:auto;position:absolute;z-index:95;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.25);padding:12px;width:min(300px,86vw)}
+.cmt-pop .ctx{font-size:11px;color:var(--muted);margin-bottom:6px}
+.cmt-pop textarea{width:100%;min-height:70px;border:1.5px solid var(--line);border-radius:8px;font-family:var(--font);font-size:13.5px;padding:8px}
+.cmt-pop .r{display:flex;gap:8px;margin-top:8px}
+.cmt-pop button{flex:1;border:none;border-radius:8px;padding:9px;font-weight:700;font-size:13px;cursor:pointer}
+.cmt-pop .sv{background:var(--green);color:var(--navy)}
+.cmt-pop .dl{background:var(--bg);color:#c0392b}
+.cmt-hint{position:fixed;top:66px;left:50%;transform:translateX(-50%);z-index:90;background:#ff7a00;color:#fff;font-size:12.5px;font-weight:700;border-radius:999px;padding:7px 16px;box-shadow:0 4px 14px rgba(0,0,0,.25);display:none}
+body.commenting .cmt-hint{display:block}
+
+/* ---------- interní sekce Doporučení ---------- */
+.reco{background:#fff8f0;border-top:3px dashed #f0b26b;padding:30px 0 40px}
+.reco h2{font-size:18px;color:#b45309}
+.reco .tag{display:inline-block;background:#b45309;color:#fff;font-size:11px;font-weight:700;border-radius:5px;padding:2px 8px;margin-bottom:8px;letter-spacing:.05em}
+.reco ul{padding-left:20px;font-size:13.5px;color:#5a4632;display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.reco b{color:#7c3e06}
+
+/* ---------- náhledový toolbar (interní) ---------- */
+.pv-bar{position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:200;display:flex;gap:4px;align-items:center;background:rgba(10,20,34,.88);backdrop-filter:blur(6px);border-radius:999px;padding:4px;box-shadow:0 4px 14px rgba(0,0,0,.28)}
+.pv-bar button{border:none;background:transparent;color:#c8d2df;font-family:var(--font);font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.pv-bar button.on{background:var(--green);color:var(--navy)}
+.pv-bar button#zmToggle.on{background:#ffd54f;color:#4a3a10}
+.pv-bar .pv-sep{width:1px;height:16px;background:rgba(255,255,255,.25)}
+@media(max-width:480px){.pv-bar{transform:translateX(-50%) scale(.92);transform-origin:top center}}
+
+/* ---------- mobilní náhled 390×844 ---------- */
+#pvFrame,#pvScreen{display:contents}
+html.force-mobile{background:#49535f}
+html.force-mobile body{background:#49535f;min-height:100vh}
+html.force-mobile #pvFrame{display:block;box-sizing:content-box;width:390px;height:844px;margin:56px auto 40px;border:12px solid #10151c;border-radius:46px;position:relative;overflow:hidden;background:#fff;box-shadow:0 24px 70px rgba(0,0,0,.45)}
+html.force-mobile #pvFrame::before{content:'';position:absolute;top:9px;left:50%;transform:translateX(-50%);width:96px;height:18px;background:#10151c;border-radius:10px;z-index:120;pointer-events:none}
+html.force-mobile #pvScreen{display:block;height:100%;overflow-y:auto;overflow-x:hidden;position:relative;scroll-behavior:smooth}
+@media(max-width:430px){
+  html.force-mobile #pvFrame{box-sizing:border-box;width:calc(100vw - 16px);height:calc(100vh - 76px);margin:52px auto 12px;border-width:7px;border-radius:30px}
+  html.force-mobile #pvFrame::before{display:none}
+}
+html.force-mobile .hd-nav{display:none}
+html.force-mobile .menu-btn{display:inline-block}
+html.force-mobile .legal-hero{padding:32px 0 26px}
+html.force-mobile .legal-hero h1{font-size:26px;letter-spacing:-.02em}
+html.force-mobile .ft-grid{grid-template-columns:none}
+html.force-mobile .cmt-fab{position:absolute;bottom:calc(22px + env(safe-area-inset-bottom))}
+html.force-mobile .cmt-hint{position:absolute}
+
+/* ---------- režim „Změny" ---------- */
+html.show-zmeny [data-zmena]{outline:2px dashed var(--green-dark);outline-offset:3px;border-radius:4px}
+html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid var(--green);outline-offset:3px}
+.zm-badge{position:absolute;background:var(--green-dark);color:#fff;font-family:var(--font);font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:5px;z-index:88;pointer-events:none;max-width:270px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.zm-panel{position:fixed;top:52px;right:0;bottom:0;width:310px;max-width:85vw;background:#fff;border-left:1px solid var(--line);box-shadow:-8px 0 24px rgba(0,32,64,.15);z-index:190;transform:translateX(105%);transition:transform .25s ease;overflow-y:auto;padding:14px}
+.zm-panel.open{transform:none}
+.zm-panel h3{font-size:13px;color:var(--navy);margin-bottom:10px}
+.zm-panel .it{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 10px;font-family:var(--font);font-size:12.5px;font-weight:600;color:var(--ink);margin-bottom:6px;cursor:pointer;line-height:1.4}
+.zm-panel .it:hover{border-color:var(--green-dark);background:var(--green-tint)}
+</style>
+</head>
+<body>
+
+<!-- ============ NÁHLEDOVÝ TOOLBAR (interní, jen předloha) ============ -->
+<div class="pv-bar" id="pvBar">
+  <button class="cmt-ui on" id="pvDesk">💻 Desktop</button>
+  <button class="cmt-ui" id="pvMob">📱 Mobil 390</button>
+  <span class="pv-sep"></span>
+  <button class="cmt-ui" id="zmToggle">🔍 Změny</button>
+</div>
+
+<!-- ============ HEADER — 1:1 z homepage v8 (bez telefonu) ============ -->
+<header class="hd">
+  <div class="wrap hd-in">
+    <a class="logo" href="v1-2.1-homepage-v8.html"><span class="logo-p">p</span><b>popojedu</b></a>
+    <nav class="hd-nav">
+      <a href="v1-2.1-nase-vozy-v1.html">Naše vozy</a>
+      <a href="v1-2.1-cenik-v3.html">Ceník</a>
+      <div class="dd" id="ddSeg">
+        <button type="button" aria-haspopup="true" aria-expanded="false">Pro koho <span class="car">▾</span></button>
+        <div class="dd-menu">
+          <div class="dd-menu-in">
+            <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+            <a href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
+            <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
+          </div>
+        </div>
+      </div>
+      <a href="v1-2.1-kontakt-v1.html">Kontakt</a>
+      <a class="cta" href="v1-2.1-homepage-v8.html#spocitat">Spočítat cenu</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mNav">☰&nbsp;Menu</button>
+  </div>
+  <nav class="m-nav" id="mNav">
+    <a href="v1-2.1-nase-vozy-v1.html">Naše vozy</a>
+    <a href="v1-2.1-cenik-v3.html">Ceník</a>
+    <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+    <a href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
+    <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
+    <a href="v1-2.1-kontakt-v1.html">Kontakt</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO PRÁVNÍ STRÁNKY ============ -->
+<section class="legal-hero" id="hero" data-zmena="NOVÝ RÁM ve stylu v8 (header + patička + typografický kontejner ~760 px). Právní text těla převzat 1:1 z produkce /obchodni-podminky — beze změn.">
+  <div class="wrap">
+    <span class="kicker">Obchodní podmínky</span>
+    <h1>VŠEOBECNÉ OBCHODNÍ PODMÍNKY</h1>
+    <p class="sub">pro nájem motorových vozidel — služba POPOJEDU.CZ</p>
+    <span class="vmeta">Verze 1.0 · Účinnost od 22. 7. 2026</span>
+  </div>
+</section>
+
+<!-- ============ PRÁVNÍ TEXT — 1:1 Z PRODUKCE, NEMĚNIT ============ -->
+<div class="legal-wrap">
+<article class="legal">
+
+<div class="lead-block">
+<p><strong>Pronajímatel:</strong> MODRÝ ANDĚL s.r.o., se sídlem Českomoravská 1181/21, 190 00 Praha 9, IČO: 27218422, DIČ: CZ27218422, zapsaná v obchodním rejstříku vedeném Městským soudem v Praze pod sp. zn. C 105306 (dále jen „<strong>Pronajímatel</strong>“ nebo „<strong>Popojedu.cz</strong>“).</p>
+<p><strong>Provozovna (místo předání a vrácení vozidel):</strong> Cukrovarská 991, Praha 9 — Čakovice<br>
+<strong>Kontakt:</strong> <a href="mailto:info@popojedu.cz">info@popojedu.cz</a> · +420 731 683 203 · <a href="https://www.popojedu.cz">www.popojedu.cz</a><br>
+<strong>Provozní doba:</strong> pondělí–pátek 8:00–17:30 (mimo víkendy a státní svátky)</p>
+</div>
+
+<p>Tyto Všeobecné obchodní podmínky (dále jen „<strong>VOP</strong>“) upravují práva a povinnosti mezi Pronajímatelem a nájemcem (dále jen „<strong>Nájemce</strong>“) při nájmu motorového vozidla specifikovaného ve Smlouvě o nájmu dopravního prostředku (dále jen „<strong>Smlouva</strong>“). Právní vztah se řídí zejména § 2321 a násl. zákona č. 89/2012 Sb., občanský zákoník (dále jen „<strong>občanský zákoník</strong>“), a je-li Nájemce spotřebitelem, také ustanoveními občanského zákoníku a zákona č. 634/1992 Sb., o ochraně spotřebitele, na ochranu spotřebitele.</p>
+
+<hr>
+
+<h2>Článek 1 — Úvodní ustanovení</h2>
+<ol>
+<li>Tyto VOP jsou nedílnou součástí každé Smlouvy. Smlouva vždy odkazuje na konkrétní číslo verze VOP; pro daný nájem platí verze VOP účinná v okamžiku uzavření Smlouvy (pozdější změna VOP se na již uzavřenou Smlouvu nepoužije).</li>
+<li>V případě rozporu mezi Smlouvou a VOP má přednost ujednání ve Smlouvě.</li>
+<li>Spotřebitelem se rozumí každý člověk, který uzavírá Smlouvu s Pronajímatelem mimo rámec své podnikatelské činnosti nebo mimo rámec samostatného výkonu svého povolání (§ 419 občanského zákoníku).</li>
+</ol>
+
+<h2>Článek 2 — Uzavření smlouvy, elektronická forma</h2>
+<ol>
+<li>Nájemce vytvoří poptávku či rezervaci prostřednictvím webu <a href="https://www.popojedu.cz">www.popojedu.cz</a>, e-mailem nebo telefonicky. Smlouva je uzavřena podpisem oběma smluvními stranami; k podpisu dochází zpravidla <strong>elektronicky</strong> (prostým elektronickým podpisem, typicky prostřednictvím služby elektronického podepisování, např. Signi). Stejným způsobem se uzavírají i dodatky ke Smlouvě.</li>
+<li>Každá smluvní strana obdrží elektronický stejnopis Smlouvy (např. e-mailem ve formátu PDF). Listinné vyhotovení se pořizuje pouze na žádost některé ze stran.</li>
+<li>Před uzavřením Smlouvy Nájemce potvrzuje, že se seznámil s těmito VOP, s cenou nájmu včetně všech poplatků, s výší kauce, s kilometrovým limitem a se Zásadami zpracování osobních údajů. Tyto informace jsou Nájemci sděleny na webu <a href="https://www.popojedu.cz">www.popojedu.cz</a> a v návrhu Smlouvy před jejím podpisem; tím Pronajímatel plní povinnost sdělit spotřebiteli údaje před uzavřením smlouvy podle § 1811 a § 1820 občanského zákoníku.</li>
+<li><strong>Poučení o odstoupení u smluv uzavřených na dálku:</strong> Nájemce, který je spotřebitelem, bere na vědomí, že podle § 1837 písm. j) občanského zákoníku <strong>nemá právo odstoupit od smlouvy o nájmu dopravního prostředku ve 14denní lhůtě bez uvedení důvodu</strong>, protože Pronajímatel poskytuje plnění (vozidlo) v určeném termínu. Možnost zrušit rezervaci za podmínek čl. 9 těchto VOP tím není dotčena.</li>
+<li>Vozidlo se přiřazuje podle dostupnosti v rámci sjednané kategorie. Není-li konkrétní vozidlo dostupné (např. z důvodu poškození předchozím nájemcem), nabídne Pronajímatel vozidlo srovnatelné kategorie nebo vrácení všech uhrazených plateb v plné výši.</li>
+</ol>
+
+<h2>Článek 3 — Podmínky na straně řidiče</h2>
+<ol>
+<li>Vozidlo smí řídit osoba, která dosáhla věku <strong>18 let</strong> a je držitelem platného řidičského oprávnění příslušné skupiny platného na území ČR.</li>
+<li>Vozidlo smí řídit pouze Nájemce a další osoby uvedené ve Smlouvě jako schválení řidiči. Umožní-li Nájemce řízení vozidla jiné osobě, odpovídá za vzniklou škodu, jako by vozidlo řídil sám, a bere na vědomí, že na takovou událost se nemusí vztahovat pojistné krytí ani sjednané omezení spoluúčasti.</li>
+<li>Schválení další řidiči odpovídají společně a nerozdílně s Nájemcem za splnění povinností ze Smlouvy.</li>
+<li>Pro ověření totožnosti a oprávnění k řízení Pronajímatel zaznamenává datum narození a čísla dokladů (občanský průkaz / cestovní pas, řidičský průkaz). Rodná čísla se nezpracovávají.</li>
+</ol>
+
+<h2>Článek 4 — Užívání vozidla</h2>
+<ol>
+<li>Nájemce se zavazuje nepoužívat vozidlo ani neumožnit jeho použití:<br>
+a) k účasti na sportovních akcích, motoristických soutěžích či srovnávacích jízdách, ať oficiálních či neoficiálních;<br>
+b) osobou pod vlivem alkoholu, omamných nebo psychotropních látek;<br>
+c) k přepravě v rozporu s celními či jinými právními předpisy;<br>
+d) na nezpevněných komunikacích, v terénu, na plážích, lesních a polních cestách či jiných površích, které nejsou určeny pro provoz motorových vozidel, ledaže je konkrétní kategorie vozidla k takovému užití Pronajímatelem výslovně schválena;<br>
+e) k tlačení nebo vlečení jiných vozidel či předmětů, není-li vozidlo k tažení vybaveno a takové užití sjednáno.</li>
+<li>Ve vozidle je <strong>zakázáno kouřit</strong> (včetně elektronických cigaret) a přepravovat zvířata mimo uzavřený přepravní box, není-li ve Smlouvě sjednáno jinak.</li>
+<li>Cesty mimo území ČR jsou možné jen s předchozím souhlasem Pronajímatele; podmínky (země, případný příplatek) sdělí Pronajímatel před cestou.</li>
+<li>Užití vozidla v rozporu s tímto článkem je podstatným porušením Smlouvy; Nájemce odpovídá za veškerou takto vzniklou škodu a bere na vědomí, že pojišťovna může pro takový případ plnění odmítnout nebo krátit.</li>
+</ol>
+
+<h2>Článek 5 — Stav vozidla a pneumatiky</h2>
+<ol>
+<li>Stav vozidla při předání i vrácení se zaznamenává v předávacím protokolu (čl. 12 a 13), včetně fotodokumentace. Nájemce potvrzuje převzetí vozidla ve stavu uvedeném v protokolu a zavazuje se je vrátit ve stavu, v jakém je převzal, s přihlédnutím k obvyklému opotřebení.</li>
+<li>V případě poškození pneumatiky nebo disku je Nájemce povinen neprodleně zajistit na vlastní náklady jejich výměnu za kus odpovídajících parametrů a značky, nejde-li o škodu krytou sjednaným pojištěním.</li>
+<li>Zjistí-li Nájemce technickou závadu vozidla, je povinen vozidlo neprodleně odstavit z provozu a kontaktovat Pronajímatele na kontaktech uvedených ve Smlouvě.</li>
+<li>Náklady na odtah vzniklé v důsledku užívání vozidla v rozporu se Smlouvou nese Nájemce.</li>
+</ol>
+
+<h2>Článek 6 — Údržba a opravy</h2>
+<ol>
+<li>Běžnou údržbu vyplývající z obvyklého užívání vozidla (servisní intervaly, sezónní pneumatiky a jejich výměny) zajišťuje a hradí Pronajímatel.</li>
+<li>Pronajímatel neodpovídá za nepřímou újmu (např. časovou ztrátu nebo náklady na náhradní dopravu) vzniklou Nájemci v důsledku poruchy vozidla, kterou Pronajímatel nezavinil; tím nejsou dotčena zákonná práva Nájemce z vadného plnění, zejména právo na slevu z nájemného za dobu, po kterou nemohl vozidlo pro vadu řádně užívat.</li>
+</ol>
+
+<h2>Článek 7 — Pojištění, spoluúčast a služba „Popojedu Klid“</h2>
+<ol>
+<li>Nájemné zahrnuje pojištění odpovědnosti za újmu způsobenou provozem vozidla třetím osobám podle zákona č. 168/1999 Sb.</li>
+<li>Nájemné dále zahrnuje havarijní pojištění vozidla kryjící škody vzniklé havárií, nárazem či převrácením, odcizením vozidla nebo jeho části, požárem, výbuchem, vandalismem nebo přírodní událostí.</li>
+<li><strong>Spoluúčast Nájemce</strong> na škodě kryté havarijním pojištěním činí <strong>10 000 Kč</strong> za jednu škodní událost, nestanoví-li Smlouva u konkrétního vozidla jinak. Spoluúčast je zajištěna kaucí dle čl. 10.</li>
+<li><strong>Popojedu Klid:</strong> Na vyžádání lze sjednat doplňkovou službu „Popojedu Klid“, která snižuje spoluúčast Nájemce a rozšiřuje krytí (zejména úrazové pojištění osob ve vozidle, asistenční služby, pojištění skel a kol). Podmínky a cenu sdělí Pronajímatel na dotaz na <a href="mailto:info@popojedu.cz">info@popojedu.cz</a>; službu lze sjednat při rezervaci nebo nejpozději při předání vozidla.</li>
+<li>Pojistné krytí je účinné pouze při splnění následujících podmínek:<br>
+a) Nájemce oznámí Pronajímateli každou nehodu či škodní událost <strong>do 24 hodin</strong> od jejího vzniku a předloží úplný záznam o dopravní nehodě (společné prohlášení o nehodě), případně protokol Policie ČR, byla-li přivolána; při dopravní nehodě, odcizení nebo vandalismu Policii ČR vždy přivolá;<br>
+b) vozidlo bylo v době škodní události řízeno osobou způsobilou k řízení dle zákona č. 361/2000 Sb. a nikoli pod vlivem alkoholu či jiných návykových látek;<br>
+c) ke škodní události nedošlo při neoprávněném užití vozidla nebo v rozporu se Smlouvou;<br>
+d) Nájemce poskytl Pronajímateli a pojišťovně potřebnou součinnost a dokumentaci.</li>
+<li>Nejsou-li podmínky odst. 5 splněny a pojišťovna z tohoto důvodu plnění odmítne nebo krátí, odpovídá Nájemce za škodu v rozsahu, v jakém nebyla kryta pojistným plněním.</li>
+</ol>
+
+<h2>Článek 8 — Palivo a provozní kapaliny</h2>
+<ol>
+<li>Vozidlo se předává s úrovní paliva uvedenou v předávacím protokolu a Nájemce je povinen je vrátit se stejnou úrovní. V opačném případě uhradí cenu chybějícího paliva a manipulační poplatek za dotankování dle aktuálního ceníku Pronajímatele.</li>
+<li>Nájemné nezahrnuje pohonné hmoty, AdBlue a kapalinu do ostřikovačů; jejich doplňování během nájmu zajišťuje Nájemce na vlastní náklady, u AdBlue a ostřikovačů dle pokynů v uživatelské příručce vozidla.</li>
+<li>Natankuje-li Nájemce palivo neodpovídající druhu pohonu vozidla, odpovídá za náklady na vypuštění a výměnu paliva, vyčištění palivové soustavy a další vzniklou škodu. Pronajímatel je oprávněn účtovat paušální náhradu <strong>5 000 Kč</strong> za provedení tohoto servisního úkonu; jsou-li skutečné prokázané náklady vyšší, náleží Pronajímateli náhrada v prokázané výši a paušál se do ní započítává.</li>
+</ol>
+
+<h2>Článek 9 — Rezervace, záloha a storno podmínky</h2>
+<ol>
+<li>K potvrzení rezervace hradí Nájemce <strong>rezervační zálohu ve výši 20 % ceny nájmu</strong> (dále jen „<strong>záloha</strong>“). Úhradou zálohy Pronajímatel závazně blokuje vozidlo pro Nájemce na sjednaný termín a přestává je nabízet dalším zájemcům.</li>
+<li>Nájemce je oprávněn rezervaci kdykoli před sjednaným předáním vozidla zrušit (odstoupit od Smlouvy) oznámením na <a href="mailto:info@popojedu.cz">info@popojedu.cz</a> nebo telefonicky. Pro tento případ si strany sjednávají <strong>odstupné (storno poplatek) ve výši uhrazené zálohy</strong>, tj. 20 % ceny nájmu; uhrazená záloha se na odstupné v plné výši započítává. Odstupné odpovídá nákladům a ušlé příležitosti Pronajímatele spojeným s blokací vozidla, které nemohlo být po dobu rezervace nabízeno jiným zájemcům.</li>
+<li>Uhradil-li Nájemce před zrušením rezervace i další platby nad rámec zálohy (doplatek nájemného, kauci), vrátí mu je Pronajímatel v plné výši, a to do 14 dnů od zrušení, stejným způsobem, jakým byly uhrazeny.</li>
+<li>Nepřevezme-li Nájemce vozidlo ve sjednaném termínu ani po dodatečné výzvě Pronajímatele (no-show), hledí se na to jako na zrušení rezervace dle odst. 2 k okamžiku marného uplynutí sjednaného termínu předání; odstupné dle odst. 2 a vratka plateb nad zálohu dle odst. 3 se použijí obdobně.</li>
+<li>Změna termínu rezervace je možná po dohodě s Pronajímatelem podle dostupnosti vozidel; potvrzená změna termínu není zrušením rezervace.</li>
+<li>Vrátí-li Nájemce vozidlo dříve, než je sjednáno ve Smlouvě, nevzniká mu nárok na vrácení nájemného za nevyužitou dobu, ledaže vozidlo nemohl užívat pro vadu, za kterou odpovídá Pronajímatel.</li>
+<li>Zruší-li rezervaci Pronajímatel z důvodů na své straně a nenabídne-li Nájemci srovnatelné náhradní vozidlo, vrátí Nájemci veškeré uhrazené platby včetně zálohy v plné výši do 14 dnů.</li>
+</ol>
+
+<h2>Článek 10 — Kauce (jistota)</h2>
+<ol>
+<li>Nájemce hradí před předáním vozidla vratnou <strong>kauci ve výši 10 000 Kč</strong>, nestanoví-li Smlouva u konkrétního vozidla či segmentu jinak. Kauce slouží k zajištění pohledávek Pronajímatele ze Smlouvy, zejména spoluúčasti, škody nekryté pojištěním, nadlimitních kilometrů, chybějícího paliva, poplatku za čištění a přefakturovaných pokut dle čl. 18.</li>
+<li>Kauci lze uhradit převodem na účet, případně blokací na platební kartě, umožňuje-li to Pronajímatel.</li>
+<li>Kauce se vrací po vrácení vozidla, jeho kontrole a vyúčtování vzájemných nároků, <strong>zpravidla do 3 pracovních dnů</strong>, a to automaticky na bankovní účet, ze kterého byla uhrazena, nedohodnou-li se strany jinak. Byla-li kauce složena blokací na platební kartě, blokace se po vyúčtování uvolní.</li>
+<li>Je-li vozidlo poškozeno nebo vykazuje-li závadu vyžadující posouzení v servisu, vrací se kauce (její nesporná část) po dokončení technického posouzení; Pronajímatel postupuje bez zbytečného odkladu a o průběhu Nájemce informuje. Nespornou část kauce, které se vyúčtování zjevně netýká, vrátí Pronajímatel ve lhůtě dle odst. 3.</li>
+<li>Pronajímatel je oprávněn jednostranně započíst proti kauci své splatné pohledávky za Nájemcem vzniklé v souvislosti se Smlouvou (náhrada škody, smluvní pokuta, poplatek, přefakturovaná pokuta včetně administrativního poplatku dle čl. 18). Nájemci se vrací zbývající rozdíl spolu s vyúčtováním, ze kterého je patrné, jaké částky a z jakého důvodu byly započteny.</li>
+<li><strong>Segment kurýrní přepravy a přepravy osob (čl. 16):</strong> Vzhledem k tomu, že pokuty a poplatky z provozu v tomto segmentu jsou správními orgány doručovány s odstupem, je Pronajímatel oprávněn z kauce zadržet částku <strong>2 000 Kč po dobu 30 dnů</strong> od vrácení vozidla ke krytí dodatečně doručených pokut a poplatků; nevyčerpaná část zádržného se po uplynutí této doby automaticky vrací postupem dle odst. 3.</li>
+<li>Kauci nelze použít k úhradě nájemného ani k prodloužení nájmu.</li>
+</ol>
+
+<h2>Článek 11 — Kilometrový limit a nadlimitní kilometry</h2>
+<ol>
+<li>V ceně nájmu je zahrnut nájezd kilometrů v tomto rozsahu, nestanoví-li Smlouva jinak:<br>
+a) <strong>běžný pronájem:</strong> 1 500 km za kalendářní měsíc nájmu; u denního pronájmu 50 km za den nájmu;<br>
+b) <strong>přepravní segment</strong> (kurýrní přeprava, přeprava osob — čl. 16): 1 500 km za týden nájmu.</li>
+<li>U nájmu na část období se limit počítá <strong>poměrně podle počtu dnů nájmu</strong>; výsledek se zaokrouhluje <strong>nahoru, ve prospěch Nájemce</strong>.</li>
+<li>Kilometry ujeté nad sjednaný limit se účtují po vrácení vozidla sazbou za nadlimitní kilometr uvedenou ve Smlouvě (dle vozu).</li>
+<li><strong>Předplacené kilometry:</strong> Nájemce si může kilometry nad rámec limitu předplatit předem, se slevou <strong>30 %</strong> oproti sazbě za nadlimitní kilometr. Cena předplacených kilometrů je sjednána jako zvýhodněná paušální cena za předem rezervovanou kapacitu; <strong>nevyčerpané předplacené kilometry se při vyúčtování nevrací ani nepřevádějí do dalšího období</strong>. Na tuto skutečnost je Nájemce výslovně upozorněn před jejich objednáním.</li>
+<li>Stav počítadla kilometrů se zaznamenává v předávacím protokolu při předání i vrácení vozidla.</li>
+</ol>
+
+<h2>Článek 12 — Nájemné, platby a prodlení</h2>
+<ol>
+<li>Výši nájemného, kauce, kilometrového limitu, sazeb a poplatků stanoví Smlouva, případně aktuální ceník Pronajímatele, se kterým byl Nájemce seznámen před uzavřením Smlouvy. Ceny se uvádějí včetně DPH; pro podnikatele se uvádí i základ daně.</li>
+<li>Platby se hradí převodem na účet Pronajímatele (Komerční banka) dle platebního kalendáře ve Smlouvě, případně jiným způsobem, který Pronajímatel umožní. Splatností se rozumí den připsání částky na účet Pronajímatele.</li>
+<li>Není-li nájemné uhrazeno ke dni sjednaného předání vozidla, není Pronajímatel povinen vozidlo předat, dokud nebude uhrazeno.</li>
+<li>Při prodlení Nájemce s úhradou peněžitého dluhu je Pronajímatel oprávněn požadovat úrok z prodlení v zákonné výši a smluvní pokutu ve výši <strong>0,1 % z dlužné částky za každý započatý den prodlení</strong>. Nárok na náhradu škody tím není dotčen.</li>
+<li>Prodloužení nájmu je možné jen po předchozí dohodě s Pronajímatelem a po úhradě nájemného za prodlouženou dobu; dodatek se uzavírá elektronicky (čl. 2).</li>
+</ol>
+
+<h2>Článek 13 — Předání vozidla, předávací protokol</h2>
+<ol>
+<li>Vozidlo se předává v provozovně Pronajímatele (Cukrovarská 991, Praha 9 — Čakovice) v provozní době, nedohodnou-li se strany jinak.</li>
+<li>Při předání se sepisuje <strong>předávací protokol</strong> obsahující zejména: identifikaci vozidla, stav počítadla kilometrů, úroveň paliva, výbavu a příslušenství, známá poškození a fotodokumentaci stavu vozidla. Protokol podepisují obě strany (elektronicky nebo na místě).</li>
+<li>Veškeré vady a výhrady ke stavu vozidla je Nájemce povinen uplatnit při převzetí záznamem do předávacího protokolu; k pozdějším námitkám proti stavu zaznamenanému při předání se nepřihlíží, ledaže jde o vadu, kterou nebylo možno při převzetí při běžné prohlídce zjistit.</li>
+</ol>
+
+<h2>Článek 14 — Vrácení vozidla, protokol o vrácení a námitkové lhůty</h2>
+<ol>
+<li>Nájemce vrátí vozidlo včetně všech dokladů, klíčů, nářadí a příslušenství na místě a v čase sjednaném ve Smlouvě, ve stavu, v jakém je převzal, s přihlédnutím k obvyklému opotřebení.</li>
+<li>O vrácení se sepisuje <strong>protokol o vrácení</strong> (stav km, palivo, čistota, nová poškození, fotodokumentace), který podepisují obě strany.</li>
+<li><strong>Reklamace oboustranně podepsaného protokolu:</strong> Obsah protokolu o vrácení podepsaného oběma stranami může Nájemce reklamovat do <strong>5 dnů</strong> od jeho podpisu na <a href="mailto:info@popojedu.cz">info@popojedu.cz</a> (např. namítne-li nesprávnost zaznamenaných údajů). Pronajímatel reklamaci vyřídí postupem dle čl. 19.</li>
+<li><strong>Jednostranný protokol:</strong> Vrátí-li Nájemce vozidlo bez součinnosti (mimo provozní dobu, bez osobního předání, opuštěním vozidla), sepíše Pronajímatel protokol o vrácení jednostranně, doloží stav vozidla fotodokumentací a protokol bez zbytečného odkladu zašle Nájemci e-mailem. Nájemce může proti jednostrannému protokolu vznést námitky do <strong>24 hodin</strong> od jeho doručení; nevznese-li je, má se za to, že se stavem zaznamenaným v protokolu souhlasí. Právo Nájemce prokázat opak tím není dotčeno.</li>
+<li>Vozidlo musí být vráceno ve stavu vnitřní čistoty odpovídajícím stavu při předání; jinak se účtuje poplatek za čištění dle aktuálního ceníku. Totéž platí, vykazuje-li vozidlo stopy po kouření, nadměrném znečištění či zápachu.</li>
+<li>Nevrátí-li Nájemce vozidlo ve sjednaném termínu ani je po dohodě neprodlouží, jde o užívání vozidla bez právního důvodu. Nájemce je v takovém případě povinen uhradit za každý započatý den prodlení částku odpovídající dennímu nájemnému a dále <strong>smluvní pokutu ve výši jednonásobku denní sazby nájemného za každý započatý den prodlení</strong>; nárok Pronajímatele na náhradu škody přesahující smluvní pokutu tím není dotčen. Pronajímatel je oprávněn se v případě nevrácení vozidla obrátit na Policii ČR.</li>
+<li>Vrátí-li nebo ponechá-li Nájemce vozidlo na jiném místě, než je sjednáno, hradí Pronajímateli prokázané náklady na odtah, přepravu a případné uskladnění vozidla a nájemné za dobu nezbytnou k jeho navrácení na sjednané místo.</li>
+<li>Vozidlo se považuje za vrácené okamžikem jeho převzetí pověřeným pracovníkem Pronajímatele, resp. okamžikem sepsání jednostranného protokolu dle odst. 4.</li>
+</ol>
+
+<h2>Článek 15 — Odpovědnost Nájemce a smluvní pokuty</h2>
+<ol>
+<li>Nájemce odpovídá za škody na vozidle vzniklé v době od převzetí do vrácení vozidla v rozsahu, v jakém nejsou kryty pojistným plněním (včetně spoluúčasti), a dále za škody na interiéru a podvozku vozidla, na které se havarijní pojištění zpravidla nevztahuje.</li>
+<li>Ztráta či zničení dokladů nebo klíčů od vozidla: Nájemce uhradí paušální náhradu <strong>8 000 Kč</strong>; jsou-li prokázané náklady na náhradu vyšší (např. překódování zámků), náleží Pronajímateli náhrada v prokázané výši a paušál se do ní započítává.</li>
+<li>Porušení zákazu kouření ve vozidle nebo přepravy zvířete mimo přepravní box: smluvní pokuta <strong>2 000 Kč</strong> za každé jednotlivé porušení; vedle toho Nájemce uhradí náklady na čištění dle ceníku.</li>
+<li>Zásah do technických vlastností vozidla, jeho klíčů, výbavy či vzhledu (včetně polepů): Nájemce nese náklady na uvedení do původního stavu a škodu za dobu, po kterou bylo vozidlo z tohoto důvodu mimo provoz.</li>
+<li>Zásah do satelitního zabezpečení vozidla je podstatným porušením Smlouvy; Nájemce bere na vědomí, že vozidlo může být vybaveno satelitním sledováním polohy (podrobnosti v Zásadách zpracování osobních údajů).</li>
+<li>Pronajímatel neodpovídá za věci ponechané, zapomenuté nebo odcizené z vozidla.</li>
+<li>Každá smluvní pokuta dle těchto VOP je splatná do 14 dnů od doručení výzvy k úhradě a nedotýká se nároku na náhradu škody převyšující smluvní pokutu, je-li tak u příslušného ujednání uvedeno.</li>
+</ol>
+
+<h2>Článek 16 — Přepravní segment: taxislužba a kurýrní přeprava</h2>
+<ol>
+<li><strong>Taxislužba a přeprava osob (Bolt, Uber apod.):</strong> Hodlá-li Nájemce užívat vozidlo k taxislužbě či smluvní přepravě osob, je povinen to sjednat ve Smlouvě. Registraci (zápis) vozidla do evidence vozidel taxislužby, průkaz řidiče taxislužby i případný zápis provozovatele si zajišťuje <strong>Nájemce sám na vlastní náklady a odpovědnost</strong>. Nájemce odpovídá za to, že provoz bude splňovat požadavky zákona č. 111/1994 Sb., o silniční dopravě.</li>
+<li><strong>Kurýrní přeprava (rozvoz jídla a zásilek — Wolt, Foodora apod.):</strong> K užívání vozidla ke kurýrní přepravě není taxi registrace potřeba. Pojištění je zahrnuto v ceně nájmu; nájemné se v tomto segmentu hradí <strong>v týdenních platbách</strong> dle platebního kalendáře ve Smlouvě.</li>
+<li>Pro přepravní segment platí kilometrový limit dle čl. 11 odst. 1 písm. b) a zádržné dle čl. 10 odst. 6.</li>
+</ol>
+
+<h2>Článek 17 — Dětská autosedačka</h2>
+<ol>
+<li>Je-li vozidlo užíváno k přepravě dítěte, na které se dle § 6 zákona č. 361/2000 Sb. vztahuje povinnost užití dětské autosedačky, je Nájemce povinen to Pronajímateli předem oznámit; Pronajímatel proti úhradě poplatku dle ceníku zapůjčí homologovanou dětskou autosedačku (bez instalace).</li>
+<li>Instalaci autosedačky do vozidla zajišťuje Nájemce sám a nese za ni odpovědnost.</li>
+</ol>
+
+<h2>Článek 18 — Pokuty a sankce správních orgánů</h2>
+<ol>
+<li>Nájemce odpovídá za pokuty, přestupky a jiné sankce uložené v souvislosti s užíváním vozidla v době nájmu.</li>
+<li>Nájemce bere na vědomí, že Pronajímatel jako provozovatel vozidla může být podle § 125f zákona č. 361/2000 Sb. vyzván správním orgánem k úhradě určené částky za přestupek spáchaný provozem vozidla. Nájemce se zavazuje na výzvu Pronajímatele bezodkladně sdělit totožnost řidiče v rozhodné době, případně přestupek se správním orgánem sám vyřídit.</li>
+<li>Uhradí-li Pronajímatel pokutu, určenou částku nebo jinou sankci uloženou v souvislosti s jednáním Nájemce (či schváleného řidiče) při užívání vozidla, přeúčtuje ji Nájemci v plné výši. Spolu s ní účtuje <strong>administrativní poplatek 300 Kč + DPH</strong> za každou jednotlivou pokutu (evidence, komunikace se správním orgánem, zpracování).</li>
+<li>Přefakturovaná částka a poplatek jsou splatné dle vystaveného dokladu, se splatností nejméně 14 dní; Pronajímatel je oprávněn je započíst proti kauci či zádržnému dle čl. 10.</li>
+</ol>
+
+<h2>Článek 19 — Reklamace a mimosoudní řešení sporů (ADR)</h2>
+<ol>
+<li>Reklamace (vytčení vad plnění, námitky k vyúčtování, k protokolům dle čl. 14) uplatňuje Nájemce bez zbytečného odkladu písemně na <a href="mailto:info@popojedu.cz">info@popojedu.cz</a> nebo na adrese provozovny. Pronajímatel reklamaci vyřídí a Nájemce o výsledku informuje <strong>nejpozději do 30 dnů</strong> od jejího uplatnění, nedohodnou-li se na delší lhůtě.</li>
+<li>Je-li Nájemce spotřebitelem a nepodaří-li se spor vyřešit přímo, je oprávněn obrátit se na subjekt mimosoudního řešení spotřebitelských sporů, kterým je <strong>Česká obchodní inspekce</strong>, Ústřední inspektorát — oddělení ADR, Gorazdova 1969/24, 120 00 Praha 2, internetová adresa: <strong><a href="https://adr.coi.cz">https://adr.coi.cz</a></strong>, e-mail: <a href="mailto:adr@coi.cz">adr@coi.cz</a>. Návrh lze podat rovněž prostřednictvím platformy pro řešení sporů on-line provozované Evropskou komisí.</li>
+</ol>
+
+<h2>Článek 20 — Ochrana osobních údajů</h2>
+<ol>
+<li>Pronajímatel zpracovává osobní údaje Nájemce a schválených řidičů v souladu s nařízením (EU) 2016/679 (GDPR) a zákonem č. 110/2019 Sb., a to zejména za účelem uzavření a plnění Smlouvy, plnění zákonných povinností a ochrany oprávněných zájmů Pronajímatele.</li>
+<li>Podrobné informace o zpracování — včetně účelů, právních titulů, příjemců, dob uchování a práv subjektů údajů — obsahují <strong>Zásady zpracování osobních údajů</strong> dostupné na <a href="v1-2.1-ochrana-udaju-v1.html">www.popojedu.cz/ochrana-osobnich-udaju</a>. Zpracování osobních údajů nevyžaduje souhlas Nájemce, s výjimkou marketingu; podpisem Smlouvy Nájemce potvrzuje, že se se Zásadami seznámil.</li>
+</ol>
+
+<h2>Článek 21 — Závěrečná ustanovení</h2>
+<ol>
+<li>Smlouva a tyto VOP se řídí právním řádem České republiky, zejména občanským zákoníkem. Ujednáními těchto VOP nejsou dotčena práva spotřebitele plynoucí z kogentních ustanovení právních předpisů; ujednání, které by se od nich odchylovalo v neprospěch spotřebitele, se nepoužije.</li>
+<li>K řešení sporů je příslušný obecný soud; u spotřebitelů se místní příslušnost řídí kogentními pravidly na jejich ochranu.</li>
+<li>Změny Smlouvy se sjednávají písemně, včetně prosté elektronické formy dle čl. 2 (dodatek podepsaný oběma stranami).</li>
+<li>Tyto VOP mohou být přeloženy do dalších jazyků pro informativní účely; rozhodné je znění v českém jazyce.</li>
+<li>Je-li nebo stane-li se některé ustanovení VOP neplatným či neúčinným, nedotýká se to platnosti ostatních ustanovení.</li>
+<li>Pronajímatel je oprávněn VOP měnit vydáním nové verze; nová verze se použije jen na Smlouvy uzavřené po datu její účinnosti. Archiv verzí je dostupný na <a href="https://www.popojedu.cz">www.popojedu.cz</a>.</li>
+</ol>
+
+<hr>
+
+<p><strong>Tyto Všeobecné obchodní podmínky, verze 1.0, nabývají účinnosti dne 22. 7. 2026.</strong></p>
+
+<p class="fin">MODRÝ ANDĚL s.r.o. · Cukrovarská 991, Praha 9 — Čakovice · <a href="https://www.popojedu.cz">www.popojedu.cz</a> · <a href="mailto:info@popojedu.cz">info@popojedu.cz</a> · +420 731 683 203</p>
+
+</article>
+</div>
+
+</main>
+
+<!-- ============ FOOTER — 1:1 z homepage v8 (odkazy dle _odkazy-mapa.md) ============ -->
+<footer>
+  <div class="wrap ft-grid">
+    <div class="ft">
+      <a class="logo" href="v1-2.1-homepage-v8.html" style="margin-bottom:12px"><span class="logo-p">p</span><b style="color:#fff">popojedu</b></a>
+      <div class="c"><a href="tel:+420731683203">+420 731 683 203</a> · Po–Pá 8:00–17:30</div>
+      <div class="c"><a href="mailto:info@popojedu.cz">info@popojedu.cz</a></div>
+      <div class="c">Provozovna: Cukrovarská 991, Praha 9 — Čakovice</div>
+      <div class="c">Sídlo: Českomoravská 1181/21, Praha 9</div>
+      <div class="c" style="margin-top:8px"><a href="https://www.facebook.com/popojedu">Facebook</a> · <a href="https://www.instagram.com/popojedu.cz/">Instagram</a></div>
+    </div>
+    <div class="ft">
+      <h4>Pronájem</h4>
+      <a href="v1-2.1-homepage-v8.html#spocitat">Konfigurátor</a>
+      <a href="v1-2.1-nase-vozy-v1.html">Naše vozy</a>
+      <a href="v1-2.1-cenik-v3.html">Ceník</a>
+      <a href="v1-2.1-dlouhodoby-pronajem-v1.html">Dlouhodobý pronájem</a>
+      <a href="v1-2.1-pujcovna-cakovice-v1.html">Půjčovna aut Praha 9 — Čakovice</a>
+      <a href="v1-2.1-vyzvednuti-vozu-v1.html">Vyzvednutí vozu</a>
+      <a href="v1-2.1-vraceni-vozu-v1.html">Vrácení vozu</a>
+    </div>
+    <div class="ft">
+      <h4>Pro koho</h4>
+      <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
+      <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
+      <a href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
+      <a href="v1-2.1-jak-to-probiha-v1.html">Jak to funguje</a>
+      <a href="v1-2.1-blog-v1.html">Blog</a>
+      <a href="v1-2.1-caste-dotazy-v1.html">FAQ</a>
+    </div>
+    <div class="ft">
+      <h4>Účet a právní</h4>
+      <a href="v1-2.1-kontakt-v1.html">Kontakt</a>
+      <a href="v1-2.1-obchodni-podminky-v1.html">Obchodní podmínky</a>
+      <a href="v1-2.1-ochrana-udaju-v1.html">Ochrana osobních údajů</a>
+      <a href="v1-2.1-zasady-cookies-v1.html">Zásady cookies</a>
+      <a href="v1-2.1-nastaveni-cookies-v1.html">Nastavení cookies</a>
+    </div>
+  </div>
+  <div class="wrap legal-ft">© 2026 Popojedu.cz · Autopůjčovna od roku 2017 · spravuje MODRÝ ANDĚL s.r.o. IČO: 27218422 · DIČ: CZ27218422 · spisová značka C 105306/MSPH, Městský soud v Praze</div>
+</footer>
+
+<!-- ============ DOPORUČENÍ (interní, nejde na web) ============ -->
+<section class="reco" id="doporuceni">
+  <div class="wrap">
+    <span class="tag">INTERNÍ — JEN V PŘEDLOZE · OBCHODNÍ PODMÍNKY v1</span>
+    <h2>Doporučení: rozhodnutí této stránky</h2>
+    <ul>
+      <li><b>Právní text 1:1 z produkce /obchodni-podminky (10. 8. 2026)</b> — VOP verze 1.0, účinnost 22. 7. 2026, články 1–21 vč. závěrečné doložky. Text NEUPRAVOVAT — je právně závazný; mění se jen vydáním nové verze VOP (čl. 21 odst. 6, řeší <a href="https://app.clickup.com/t/869ec0r5d">869ec0r5d</a>).</li>
+      <li><b>Firemní jméno v textu VOP = MODRÝ ANDĚL s.r.o.</b> (přesně jak je na produkci — Pronajímatel v hlavičce i doložce). Pozn.: patička produkce už píše „Popojedu s.r.o.", ale text VOP drží starý název; předloha přebírá oba stavy přesně (tělo = MODRÝ ANDĚL, rámová patička = MODRÝ ANDĚL dle guardrailu sady).</li>
+      <li><b>Nový je jen rám:</b> header + patička + styl v8 a čtecí kontejner max-width 760 px (delší řádkování 1.75, číslované seznamy, zvýrazněný úvodní blok s identifikací Pronajímatele). Bez scroll-reveal (právní text se nemá odkrývat po kouskách), bez CTA pásu a sticky lišty — jediné CTA „Spočítat cenu" je v hlavičce.</li>
+      <li><b>Interní prokliky v textu</b> (Zásady zpracování osobních údajů) míří na facelift soubor dle _odkazy-mapa.md; viditelný text odkazu zůstal beze změny. Externí (adr.coi.cz, www.popojedu.cz) beze změny.</li>
+      <li><b>Komentovací vrstva</b> má vlastní klíč <code>popojedu-v121-obchodni-podminky-v1-comments</code> — komentáře se nemíchají s jinými stránkami.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ KOMENTOVACÍ VRSTVA ============ -->
+<div class="cmt-hint">Režim komentářů — klepněte na místo, které chcete okomentovat</div>
+<div class="cmt-fab">
+  <button class="cmt-ui" id="cmtToggle" title="Režim komentářů">💬</button>
+  <button class="cmt-ui" id="cmtExport" title="Zkopírovat komentáře">📋</button>
+</div>
+
+<script>
+/* ================= NÁHLED DESKTOP/MOBIL — restrukturalizace DOM (1:1 z v8) ================= */
+var pvFrame=document.createElement('div');pvFrame.id='pvFrame';
+var pvScreen=document.createElement('div');pvScreen.id='pvScreen';
+pvFrame.appendChild(pvScreen);
+(function(){
+  var kids=Array.prototype.slice.call(document.body.children);
+  document.body.appendChild(pvFrame);
+  kids.forEach(function(k){
+    if(k===pvFrame||k.id==='pvBar'||k.tagName==='SCRIPT')return;
+    if(k.classList.contains('cmt-fab')||k.classList.contains('cmt-hint')){pvFrame.appendChild(k)}
+    else pvScreen.appendChild(k);
+  });
+})();
+
+/* ================= HLAVIČKA / MENU (1:1 z v8) ================= */
+document.getElementById('menuBtn').onclick=function(){
+  var n=document.getElementById('mNav');n.classList.toggle('open');
+  this.setAttribute('aria-expanded',n.classList.contains('open'));
+};
+(function(){
+  var dd=document.getElementById('ddSeg');if(!dd)return;
+  var b=dd.querySelector('button');
+  function close(){dd.classList.remove('open');b.setAttribute('aria-expanded','false');}
+  b.addEventListener('click',function(e){e.stopPropagation();
+    var o=dd.classList.toggle('open');b.setAttribute('aria-expanded',o?'true':'false');});
+  document.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+})();
+
+/* ================= PŘEPÍNAČ DESKTOP / MOBIL 390 (1:1 z v8) ================= */
+var zmOn=false,zmLayer=null,zmPanel=null;
+function setPv(mob){
+  document.documentElement.classList.toggle('force-mobile',mob);
+  document.getElementById('pvDesk').classList.toggle('on',!mob);
+  document.getElementById('pvMob').classList.toggle('on',mob);
+  if(zmOn)setTimeout(placeBadges,350);
+}
+document.getElementById('pvDesk').onclick=function(){setPv(false)};
+document.getElementById('pvMob').onclick=function(){setPv(true)};
+
+/* ================= REŽIM „ZMĚNY" (1:1 z v8) ================= */
+function zmItems(){return Array.prototype.slice.call(document.querySelectorAll('[data-zmena]'))}
+function ensureZmLayer(){
+  if(!zmLayer){
+    zmLayer=document.createElement('div');
+    zmLayer.style.cssText='position:absolute;top:0;left:0;width:100%;height:0;z-index:84;pointer-events:none';
+    pvScreen.appendChild(zmLayer);
+  }
+}
+function placeBadges(){
+  if(!zmLayer)return;
+  zmLayer.innerHTML='';
+  var lr=zmLayer.getBoundingClientRect();
+  zmItems().forEach(function(el){
+    var r=el.getBoundingClientRect();
+    if(!r.width&&!r.height)return;
+    var b=document.createElement('span');b.className='zm-badge';
+    b.textContent=el.getAttribute('data-zmena');
+    b.style.left=Math.max(4,r.left-lr.left)+'px';
+    b.style.top=Math.max(4,r.top-lr.top-9)+'px';
+    zmLayer.appendChild(b);
+  });
+}
+function buildZmPanel(){
+  zmPanel=document.createElement('div');zmPanel.className='zm-panel';
+  var h=document.createElement('h3');h.textContent='🔍 Změny proti produkci ('+zmItems().length+')';
+  zmPanel.appendChild(h);
+  zmItems().forEach(function(el,i){
+    var b=document.createElement('button');b.type='button';b.className='it cmt-ui';
+    b.textContent=(i+1)+'. '+el.getAttribute('data-zmena');
+    b.onclick=function(){
+      el.scrollIntoView({behavior:'smooth',block:'center'});
+      el.classList.add('zm-flash');
+      setTimeout(function(){el.classList.remove('zm-flash')},1600);
+      setTimeout(placeBadges,700);
+    };
+    zmPanel.appendChild(b);
+  });
+  document.body.appendChild(zmPanel);
+}
+document.getElementById('zmToggle').onclick=function(){
+  zmOn=!zmOn;
+  this.classList.toggle('on',zmOn);
+  document.documentElement.classList.toggle('show-zmeny',zmOn);
+  if(!zmPanel)buildZmPanel();
+  zmPanel.classList.toggle('open',zmOn);
+  ensureZmLayer();
+  if(zmOn)placeBadges();else zmLayer.innerHTML='';
+};
+window.addEventListener('resize',function(){if(zmOn)placeBadges()});
+document.addEventListener('click',function(){if(zmOn)setTimeout(placeBadges,400)});
+
+/* ================= KOMENTOVACÍ VRSTVA (localStorage, file:// OK) =================
+   Vlastní klíč této stránky — komentáře se nemíchají s ostatními. */
+(function(){
+  var KEY='popojedu-v121-obchodni-podminky-v1-comments';
+  function load(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return[]}}
+  function save(c){localStorage.setItem(KEY,JSON.stringify(c))}
+  function nearestHeading(el){
+    var sec=el.closest('section,header,footer,article');
+    if(sec){var h=sec.querySelector('h1,h2,h3');if(h)return h.textContent.trim().slice(0,70)}
+    return document.title;
+  }
+  var layer=document.createElement('div');layer.style.cssText='position:absolute;top:0;left:0;width:100%;height:0;z-index:80;pointer-events:none';pvScreen.appendChild(layer);
+  function layerPoint(e){var r=layer.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
+  function layerWidth(){var r=layer.getBoundingClientRect();return r.width||document.documentElement.clientWidth}
+  function renderPins(){
+    layer.innerHTML='';
+    load().forEach(function(c,i){
+      var p=document.createElement('div');p.className='cmt-pin cmt-ui';p.textContent=i+1;
+      p.style.left=c.x+'px';p.style.top=c.y+'px';p.title=c.text;
+      p.onclick=function(ev){ev.stopPropagation();openPop(c.x,c.y,i)};
+      layer.appendChild(p);
+    });
+  }
+  var pop=null;
+  function closePop(){if(pop){pop.remove();pop=null}}
+  function openPop(x,y,idx,heading){
+    closePop();
+    var cs=load(),c=idx!=null?cs[idx]:null;
+    pop=document.createElement('div');pop.className='cmt-pop cmt-ui';
+    pop.style.left=Math.min(x,Math.max(10,layerWidth()-320))+'px';
+    pop.style.top=(y+14)+'px';
+    pop.innerHTML='<div class="ctx">📍 '+((c?c.heading:heading)||'')+'</div>'+
+      '<textarea class="cmt-ui" placeholder="Napište komentář…">'+(c?c.text.replace(/</g,'&lt;'):'')+'</textarea>'+
+      '<div class="r"><button class="sv cmt-ui">Uložit</button><button class="dl cmt-ui">'+(c?'Smazat':'Zrušit')+'</button></div>';
+    layer.appendChild(pop);
+    var ta=pop.querySelector('textarea');ta.focus();
+    pop.querySelector('.sv').onclick=function(){
+      var t=ta.value.trim();var cs2=load();
+      if(idx!=null){if(t)cs2[idx].text=t;else cs2.splice(idx,1)}
+      else if(t)cs2.push({x:x,y:y,text:t,heading:heading});
+      save(cs2);closePop();renderPins();
+    };
+    pop.querySelector('.dl').onclick=function(){
+      if(idx!=null){var cs2=load();cs2.splice(idx,1);save(cs2)}
+      closePop();renderPins();
+    };
+  }
+  var tg=document.getElementById('cmtToggle');
+  tg.onclick=function(){document.body.classList.toggle('commenting');tg.classList.toggle('act');closePop()};
+  document.addEventListener('click',function(e){
+    if(!document.body.classList.contains('commenting'))return;
+    if(e.target.closest('.cmt-fab,.cmt-pop,.cmt-pin,.pv-bar,.zm-panel'))return;
+    e.preventDefault();e.stopPropagation();
+    var pt=layerPoint(e);
+    openPop(pt.x,pt.y,null,nearestHeading(e.target));
+  },true);
+  document.getElementById('cmtExport').onclick=function(){
+    var cs=load();
+    if(!cs.length){alert('Žádné komentáře.');return}
+    var md='# Komentáře — v1-2.1 OBCHODNÍ PODMÍNKY v1 ('+new Date().toLocaleString('cs-CZ')+')\n\n';
+    cs.forEach(function(c,i){md+=(i+1)+'. ['+c.heading+'] '+c.text+'\n'});
+    function fallback(){prompt('Zkopírujte ručně (Cmd+C):',md)}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(md).then(function(){alert('Zkopírováno — vložte Claudovi do chatu.')},fallback)}else fallback();
+  };
+  renderPins();
+})();
+</script>
+</body>
+</html>
