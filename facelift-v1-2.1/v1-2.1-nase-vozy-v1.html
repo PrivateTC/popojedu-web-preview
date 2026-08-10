@@ -258,6 +258,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
           </div>
         </div>
       </div>
+      <a href="v1-2.1-caste-dotazy-v1.html">Časté dotazy</a>
       <a href="v1-2.1-kontakt-v1.html">Kontakt</a>
       <a class="cta" href="v1-2.1-homepage-v8.html#spocitat">Spočítat cenu</a>
     </nav>
@@ -269,6 +270,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <a href="v1-2.1-pro-firmy-v3.html">Pro firmy</a>
     <a href="v1-2.1-landing-kuryri-v3.html">Pro kurýry</a>
     <a href="v1-2.1-landing-bolt-uber-v3.html">Pro Bolt a Uber</a>
+    <a href="v1-2.1-caste-dotazy-v1.html">Časté dotazy</a>
     <a href="v1-2.1-kontakt-v1.html">Kontakt</a>
   </nav>
 </header>
@@ -313,9 +315,9 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     </div>
     <p class="count-note" id="countNote">Zobrazeno 14 vozů</p>
 
-    <div class="grid" id="carGrid" data-zmena="ÚPRAVA: karty vozů ve stylu v8 (tactile, celé klikatelné na facelift detail) — ceny „od X Kč/měs“ = month × 0,85 při 12 měsících + „≈ X Kč/den“ ze zobrazené ceny ÷ 30,4 (pravidla RF 9. 8.), sazby 1:1 z _cenik-data-produkce.json"></div>
+    <div class="grid" id="carGrid" data-zmena="ÚPRAVA: karty vozů ve stylu v8 (tactile, celé klikatelné na facelift detail) — ceny „od X Kč/měs" = month × 0,85 při 12 měsících + „≈ X Kč/den" ze zobrazené ceny ÷ 30,4 (pravidla RF 9. 8.), sazby 1:1 z _cenik-data-produkce.json"></div>
 
-    <p class="grid-note" data-zmena="PŘEVZATO z produkce: vysvětlivka orientačních cen — doplněno „při 12 měsících“, ať cena „od“ nelže">Ceny jsou orientační „od" při 12měsíčním pronájmu (sleva −15 %) a zahrnují 1&nbsp;500 km/měs — přesnou cenu podle délky pronájmu a nájezdu spočítá konfigurátor. Fotky jsou reálné vozy z naší flotily; konkrétní kus přidělíme podle dostupnosti. U všech vozů je v ceně servis, pojištění i dálniční známka.</p>
+    <p class="grid-note" data-zmena="PŘEVZATO z produkce: vysvětlivka orientačních cen — doplněno „při 12měsíčním pronájmu", ať cena „od" nelže">Ceny jsou orientační „od" při 12měsíčním pronájmu (sleva −15 %) a zahrnují 1&nbsp;500 km/měs — přesnou cenu podle délky pronájmu a nájezdu spočítá konfigurátor. Fotky jsou reálné vozy z naší flotily; konkrétní kus přidělíme podle dostupnosti. U všech vozů je v ceně servis, pojištění i dálniční známka.</p>
   </div>
 </section>
 
@@ -347,7 +349,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
     <div class="ft">
       <h4>Pronájem</h4>
       <a href="v1-2.1-homepage-v8.html#spocitat">Konfigurátor</a>
-      <a href="v1-2.1-nase-vozy-v1.html" data-zmena="Patička: „Naše vozy“ nově míří na tento facelift soubor (dřív produkce)">Naše vozy</a>
+      <a href="v1-2.1-nase-vozy-v1.html" data-zmena="Patička: „Naše vozy" nově míří na tento facelift soubor (dřív produkce)">Naše vozy</a>
       <a href="v1-2.1-cenik-v3.html">Ceník</a>
       <a href="v1-2.1-dlouhodoby-pronajem-v1.html">Dlouhodobý pronájem</a>
       <a href="v1-2.1-pujcovna-cakovice-v1.html">Půjčovna aut Praha 9 — Čakovice</a>
@@ -372,7 +374,7 @@ html.show-zmeny [data-zmena].zm-flash,[data-zmena].zm-flash{outline:3px solid va
       <a href="v1-2.1-nastaveni-cookies-v1.html">Nastavení cookies</a>
     </div>
   </div>
-  <div class="wrap legal">© 2026 Popojedu.cz · Autopůjčovna od roku 2017 · spravuje MODRÝ ANDĚL s.r.o. IČO: 27218422 · DIČ: CZ27218422 · spisová značka C 105306/MSPH, Městský soud v Praze</div>
+  <div class="wrap legal">© 2026 Popojedu.cz · Autopůjčovna od roku 2017 · spravuje Popojedu s.r.o. IČO: 27218422 · DIČ: CZ27218422 · spisová značka C 105306/MSPH, Městský soud v Praze</div>
 </footer>
 
 <!-- ============ DOPORUČENÍ (interní, nejde na web) ============ -->
@@ -438,7 +440,7 @@ var CARS=[
  {slug:'mercedes-s-350-d-4matic-l-air',name:'Mercedes-Benz S350 d 4MATIC L, automat',cat:'Prémium',gear:'Automat',fuel:'diesel',seats:'5 míst',min:30,range:'EU',month:57500,img:'mercedes-s-350-d-4matic-l-air.webp'}
 ];
 var S={vat:true,cat:'all',gear:'all'};
-var VAT=1.21,DAYS_MONTH=30.4,DISC12=0.85; /* měsíční „od“ = sazba při 12 měsících (−15 %), RF 9. 8. */
+var VAT=1.21,DAYS_MONTH=30.4,DISC12=0.85; /* měsíční „od" = sazba při 12 měsících (−15 %), RF 9. 8. */
 var DETAIL='v1-2.1-detail-vozu-v5.html';
 function fmt(n){return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ')}
 function withVat(n){return Math.round(n*VAT)}
