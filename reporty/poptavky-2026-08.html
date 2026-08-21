@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Popojedu — report poptávek, srpen 2026</title>
+<style>
+  :root{
+    --zelena:#00C853; --zelena-tmava:#00A641; --navy:#0A1F3F;
+    --mint:#E8F8EE; --krem:#F8F1E5; --seda:#6B7684; --lin:#E4E8EE;
+    --cervena:#D64545; --cervena-svetla:#FDECEC; --oranz:#C77700; --oranz-svetla:#FDF3E3;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; padding:0 16px 80px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    color:var(--navy); background:#fff; line-height:1.6; font-size:16px;
+  }
+  .obal{max-width:1080px; margin:0 auto}
+  header.hlava{padding:40px 0 24px; border-bottom:3px solid var(--zelena)}
+  h1{font-size:32px; margin:0 0 6px; letter-spacing:-.02em}
+  .podtitul{color:var(--seda); font-size:15px; margin:0}
+  h2{font-size:24px; margin:48px 0 6px; letter-spacing:-.01em}
+  h2 .cislo{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:32px; height:32px; border-radius:999px; background:var(--navy); color:#fff;
+    font-size:16px; margin-right:10px; vertical-align:2px;
+  }
+  h3{font-size:18px; margin:28px 0 8px}
+  p{margin:8px 0 14px}
+  .vysvetlivka{color:var(--seda); font-size:14px; margin:0 0 16px}
+
+  .navod{background:var(--krem); border-radius:20px; padding:20px 24px; margin:28px 0}
+  .navod h3{margin-top:0}
+  .navod ul{margin:8px 0 0; padding-left:20px}
+  .navod li{margin:6px 0}
+
+  .karty{display:flex; flex-wrap:wrap; gap:14px; margin:20px 0 8px}
+  .karta{
+    flex:1 1 160px; background:var(--mint); border-radius:16px; padding:18px 20px;
+  }
+  .karta.spatna{background:var(--cervena-svetla)}
+  .karta.neutral{background:#F2F4F7}
+  .karta .cifra{font-size:30px; font-weight:700; letter-spacing:-.02em; display:block; line-height:1.2}
+  .karta .popis{font-size:13px; color:var(--seda); display:block; margin-top:4px}
+
+  table{width:100%; border-collapse:collapse; margin:16px 0 8px; font-size:14.5px}
+  th{
+    text-align:left; padding:10px 12px; background:var(--navy); color:#fff;
+    font-weight:600; font-size:13px; text-transform:uppercase; letter-spacing:.04em;
+  }
+  th:first-child{border-radius:12px 0 0 0}
+  th:last-child{border-radius:0 12px 0 0}
+  td{padding:10px 12px; border-bottom:1px solid var(--lin); vertical-align:top}
+  tr:nth-child(even) td{background:#FAFBFC}
+  td.cislo, th.cislo{text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums}
+  tr.souhrn td{font-weight:700; background:var(--mint) !important; border-bottom:none}
+
+  .stitek{
+    display:inline-block; padding:2px 10px; border-radius:999px;
+    font-size:12px; font-weight:600; white-space:nowrap;
+  }
+  .s-ztrata{background:var(--cervena-svetla); color:var(--cervena)}
+  .s-ziva{background:var(--oranz-svetla); color:var(--oranz)}
+  .s-ok{background:var(--mint); color:var(--zelena-tmava)}
+  .s-chybi{background:#F2F4F7; color:var(--seda)}
+
+  .pruh{background:var(--lin); border-radius:999px; height:10px; overflow:hidden; min-width:80px}
+  .pruh span{display:block; height:100%; background:var(--zelena); border-radius:999px}
+  .pruh.cerv span{background:var(--cervena)}
+
+  .box{border-left:4px solid var(--zelena); background:var(--mint); border-radius:0 16px 16px 0; padding:16px 20px; margin:20px 0}
+  .box.pozor{border-left-color:var(--cervena); background:var(--cervena-svetla)}
+  .box.upozorneni{border-left-color:var(--oranz); background:var(--oranz-svetla)}
+  .box p:last-child{margin-bottom:0}
+  .box p:first-child{margin-top:0}
+
+  .doporuceni{border:2px solid var(--lin); border-radius:20px; padding:22px 24px; margin:18px 0}
+  .doporuceni h3{margin-top:0; display:flex; align-items:baseline; gap:10px}
+  .poradi{
+    display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto;
+    width:28px; height:28px; border-radius:999px; background:var(--zelena); color:#fff; font-size:15px;
+  }
+  .doporuceni .castka{font-weight:700; color:var(--cervena)}
+
+  footer{margin-top:60px; padding-top:20px; border-top:1px solid var(--lin); color:var(--seda); font-size:13px}
+  .maly{font-size:13px; color:var(--seda)}
+  @media print{
+    body{font-size:12px} h2{margin-top:26px; page-break-after:avoid}
+    .karta{background:#f4f4f4 !important} table{page-break-inside:auto}
+    tr{page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="obal">
+
+<header class="hlava">
+  <h1>Report poptávek — Popojedu</h1>
+  <p class="podtitul">
+    Období: <strong>22. 7. – 20. 8. 2026</strong> (od spuštění nového webu) · Zdroj: HubSpot, portál Popojedu ·
+    Data odečtena živě 20. 8. 2026 · Zpracoval Claude (asistent RF)
+  </p>
+</header>
+
+<div class="navod">
+  <h3>Jak tenhle report číst</h3>
+  <p style="margin-top:4px">Report ukazuje, <strong>co přišlo za poptávky, co z toho vyšlo a co ne — a hlavně proč ne.</strong> Slouží k jedné konkrétní věci: rozhodnout, které vozy dokoupit.</p>
+  <ul>
+    <li><strong>Poptávka</strong> = jeden záznam v HubSpotu s číslem POP-2026-XXXX. Vzniká z webu, telefonu nebo e-mailu.</li>
+    <li><strong>Hodnota</strong> = částka, na kterou byla poptávka nacenená. U ztracených je to peníze, které jsme nevydělali.</li>
+    <li><strong>Důvod ztráty</strong> = to, co je zaškrtnuté v HubSpotu. <strong>Skutečnost</strong> = to, co je napsané v poznámce. Tam, kde se to liší, je to v reportu vidět — a je to důležité.</li>
+    <li>Kde je napsáno <span class="stitek s-chybi">chybí zápis</span>, tam v HubSpotu prostě nic není. Není to chyba reportu.</li>
+  </ul>
+</div>
+
+<h2><span class="cislo">1</span>Čísla na jedno nadechnutí</h2>
+<div class="karty">
+  <div class="karta neutral"><span class="cifra">42</span><span class="popis">poptávek celkem</span></div>
+  <div class="karta"><span class="cifra">9</span><span class="popis">realizovaných (rezervace, probíhá, vráceno)</span></div>
+  <div class="karta spatna"><span class="cifra">29</span><span class="popis">ztracených</span></div>
+  <div class="karta neutral"><span class="cifra">3</span><span class="popis">stále živé</span></div>
+</div>
+<div class="karty">
+  <div class="karta"><span class="cifra">169 502 Kč</span><span class="popis">hodnota realizovaných</span></div>
+  <div class="karta spatna"><span class="cifra">546 434 Kč</span><span class="popis">hodnota ztracených</span></div>
+  <div class="karta neutral"><span class="cifra">60 638 Kč</span><span class="popis">visí v živých poptávkách</span></div>
+  <div class="karta neutral"><span class="cifra">23,7 %</span><span class="popis">úspěšnost z uzavřených</span></div>
+</div>
+<p class="vysvetlivka">Testovací záznam POP-2026-0011 (122 196 Kč) je ze všech čísel vyřazen. Poptávky POP-2026-0001 a 0009 v systému neexistují.</p>
+
+<div class="box pozor">
+  <p><strong>Jedna věta, kterou si z reportu odnést:</strong> ztratili jsme přes půl milionu korun poptávek a <strong>68 % té částky padlo na to, že nebyl volný vůz</strong> — z drtivé většiny Superb. Cena za tím stojí z necelých 2 %.</p>
+</div>
+
+<h2><span class="cislo">2</span>Kde poptávky skončily</h2>
+<table>
+  <thead>
+    <tr><th>Fáze</th><th class="cislo">Počet</th><th class="cislo">Hodnota</th><th style="width:200px">Podíl na hodnotě</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><span class="stitek s-ztrata">Ztraceno / zrušeno</span></td><td class="cislo">29</td><td class="cislo">546 434 Kč</td><td><div class="pruh cerv"><span style="width:70%"></span></div></td></tr>
+    <tr><td><span class="stitek s-ok">Vůz vyzvednut / probíhá</span></td><td class="cislo">3</td><td class="cislo">148 723 Kč</td><td><div class="pruh"><span style="width:19%"></span></div></td></tr>
+    <tr><td><span class="stitek s-ziva">Kontaktováno / ověřuje se</span></td><td class="cislo">2</td><td class="cislo">55 539 Kč</td><td><div class="pruh"><span style="width:7%"></span></div></td></tr>
+    <tr><td><span class="stitek s-ok">Vyřízeno — vůz vrácen</span></td><td class="cislo">4</td><td class="cislo">13 413 Kč</td><td><div class="pruh"><span style="width:2%"></span></div></td></tr>
+    <tr><td><span class="stitek s-ok">Záloha uhrazena / rezervováno</span></td><td class="cislo">2</td><td class="cislo">7 366 Kč</td><td><div class="pruh"><span style="width:1%"></span></div></td></tr>
+    <tr><td><span class="stitek s-ziva">Nabídka + čeká záloha</span></td><td class="cislo">1</td><td class="cislo">5 099 Kč</td><td><div class="pruh"><span style="width:1%"></span></div></td></tr>
+    <tr class="souhrn"><td>Celkem</td><td class="cislo">41</td><td class="cislo">776 574 Kč</td><td></td></tr>
+  </tbody>
+</table>
+
+<h2><span class="cislo">3</span>Proč poptávky padly</h2>
+<p>Tabulka má dva sloupce záměrně. <strong>Vlevo je to, co je v HubSpotu zaškrtnuté. Vpravo to, co se doopravdy stalo</strong> podle poznámek. Rozdíl mezi nimi je největší zjištění tohoto reportu.</p>
+
+<h3>Podle zaškrtnutého důvodu (jak to vypadá v HubSpotu)</h3>
+<table>
+  <thead><tr><th>Zaškrtnutý důvod</th><th class="cislo">Počet</th><th class="cislo">Hodnota</th></tr></thead>
+  <tbody>
+    <tr><td>Přestal reagovat</td><td class="cislo">2</td><td class="cislo">230 242 Kč</td></tr>
+    <tr><td>Vůz nedostupný</td><td class="cislo">6</td><td class="cislo">138 966 Kč</td></tr>
+    <tr><td><span class="stitek s-chybi">nevyplněno</span></td><td class="cislo">2</td><td class="cislo">117 259 Kč</td></tr>
+    <tr><td>Jiné</td><td class="cislo">13</td><td class="cislo">41 270 Kč</td></tr>
+    <tr><td>Cena</td><td class="cislo">3</td><td class="cislo">9 014 Kč</td></tr>
+    <tr><td>Nesplnil podmínky</td><td class="cislo">1</td><td class="cislo">4 425 Kč</td></tr>
+    <tr><td>Termín nevyhovuje</td><td class="cislo">1</td><td class="cislo">2 856 Kč</td></tr>
+    <tr><td>Spam / test / omyl</td><td class="cislo">1</td><td class="cislo">2 402 Kč</td></tr>
+  </tbody>
+</table>
+
+<h3>Podle skutečnosti z poznámek (jak to bylo doopravdy)</h3>
+<table>
+  <thead><tr><th>Skutečný důvod</th><th class="cislo">Počet</th><th class="cislo">Hodnota</th><th style="width:180px">Podíl</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Kapacita — vůz nebyl volný</strong></td><td class="cislo">9</td><td class="cislo"><strong>370 198 Kč</strong></td><td><div class="pruh cerv"><span style="width:100%"></span></div></td></tr>
+    <tr><td>Zákazník odložil (není ztráta)</td><td class="cislo">1</td><td class="cislo">115 274 Kč</td><td><div class="pruh"><span style="width:31%"></span></div></td></tr>
+    <tr><td>Přestal reagovat</td><td class="cislo">2</td><td class="cislo">19 505 Kč</td><td><div class="pruh cerv"><span style="width:5%"></span></div></td></tr>
+    <tr><td>Termín / mimo provozní dobu</td><td class="cislo">6</td><td class="cislo">15 210 Kč</td><td><div class="pruh cerv"><span style="width:4%"></span></div></td></tr>
+    <tr><td>Odmítli jsme sami (riziko, podmínky)</td><td class="cislo">4</td><td class="cislo">9 246 Kč</td><td><div class="pruh"><span style="width:3%"></span></div></td></tr>
+    <tr><td>Cena</td><td class="cislo">3</td><td class="cislo">9 014 Kč</td><td><div class="pruh cerv"><span style="width:2%"></span></div></td></tr>
+    <tr><td><span class="stitek s-chybi">nezjistitelné — chybí zápis</span></td><td class="cislo">3</td><td class="cislo">5 585 Kč</td><td><div class="pruh"><span style="width:2%"></span></div></td></tr>
+    <tr><td>Spam</td><td class="cislo">1</td><td class="cislo">2 402 Kč</td><td><div class="pruh"><span style="width:1%"></span></div></td></tr>
+  </tbody>
+</table>
+
+<div class="box upozorneni">
+  <p><strong>Tři přesuny, které tabulku úplně mění:</strong></p>
+  <p><strong>POP-2026-0002 (220 662 Kč)</strong> je zaškrtnuté jako „přestal reagovat". V poznámce ale stojí, že zákazníkovi slíbený Superb dostal ředitel jiné firmy a náhradní Octavia IV byla mezitím rozdána dvěma dalším klientům. Zákazník přestal reagovat <em>až potom</em>. Patří ke kapacitě.</p>
+  <p><strong>POP-2026-0033 (115 274 Kč)</strong> je zavřená jako ztráta. Přitom 12. 8. byly potvrzené detaily, 13. 8. přišly doklady a přidal se druhý řidič — a pak paní odložila zájem o dva měsíce. To není ztráta, to je <strong>odklad na říjen</strong>, na který dnes nikdo nečeká.</p>
+  <p><strong>POP-2026-0031 (1 770 Kč)</strong> je „vůz nedostupný", ale zákazník chtěl pronájem <strong>kratší než 30 dní</strong> — vyřadila ho naše podmínka minimální doby, ne prázdný dvůr. Ve statistice to dnes vypadá jako chybějící auto.</p>
+</div>
+
+<h2><span class="cislo">4</span>Které vozy nám utíkají</h2>
+<p>Poptávaný vůz není v HubSpotu samostatné pole — dohledat se dá jen z poznámek a e-mailů. Proto je doložený u <strong>11 z 29</strong> ztracených poptávek. To, co je vidět, je ale jednoznačné.</p>
+<table>
+  <thead><tr><th>Vůz</th><th class="cislo">Poptávek</th><th class="cislo">Ztracená hodnota</th><th>Co se dělo</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Superb (III, IV, Combi)</strong></td><td class="cislo">7</td><td class="cislo"><strong>350 907 Kč</strong></td>
+      <td>Z toho 345 402 Kč čistě proto, že byl obsazený. Zbytek jsme odmítli sami (exekuce, nedůvěryhodný zájemce).</td>
+    </tr>
+    <tr>
+      <td>Octavia III / Citigo</td><td class="cislo">2</td><td class="cislo">12 482 Kč</td>
+      <td>Obsazené. Zákazník odešel ke konkurenci týž den — jeden z nich dal nejdřív jednu hvězdičku.</td>
+    </tr>
+    <tr>
+      <td>Octavia IV</td><td class="cislo">1</td><td class="cislo">3 570 Kč</td>
+      <td>Jen jako nabídnutá náhrada, nikoli původní přání.</td>
+    </tr>
+    <tr>
+      <td>Scala</td><td class="cislo">1</td><td class="cislo">1 252 Kč</td>
+      <td>Také jen jako náhrada. <strong>Nikdo si Scalu nevyžádal sám.</strong></td>
+    </tr>
+    <tr>
+      <td><span class="stitek s-chybi">neuvedeno</span></td><td class="cislo">18</td><td class="cislo">~65 000 Kč</td>
+      <td>Nikde není zapsáno, o jaký vůz šlo.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2><span class="cislo">5</span>Nabídli jsme něco jiného?</h2>
+<p>Když vůz není volný, rozhoduje se o zakázce tím, co nabídneme místo něj. Doložená alternativa je u <strong>5 z 29</strong> ztracených poptávek.</p>
+<table>
+  <thead><tr><th>Poptávka</th><th>Co jsme nabídli</th><th>Jak to dopadlo</th></tr></thead>
+  <tbody>
+    <tr><td>POP-2026-0025</td><td>Octavia IV, pak kombinace dvou vozů</td><td>Odmítl — jel daleko, nemohl přijet na výměnu</td></tr>
+    <tr><td>POP-2026-0040</td><td>Scala</td><td>Cenově nevyhovuje</td></tr>
+    <tr><td>POP-2026-0008</td><td>Scala</td><td>Neschválena interně u klienta, chtěli větší vůz</td></tr>
+    <tr><td>POP-2026-0013</td><td>Octavia III CNG / Citigo za nižší sazbu do budoucna</td><td>Mezitím si vzal jinou půjčovnu</td></tr>
+    <tr><td>POP-2026-0016</td><td>Nabídnuta jiná možnost (nespecifikováno)</td><td>„Nemám čas, nashledanou" a položil</td></tr>
+  </tbody>
+</table>
+
+<div class="box pozor">
+  <p><strong>Čtyři případy, kdy zákazník sám chtěl něco jiného — a odpověď nikde není:</strong></p>
+  <p><strong>POP-2026-0038 (108 290 Kč)</strong> — zákazník e-mailem výslovně napsal, že se ptá, jaké vozy tedy volné jsou. Odpověď v CRM není a poptávka byla týž den uzavřena jako ztracená. Tohle je nejdražší jednotlivá věc, kterou lze napravit bez nákupu jediného auta.</p>
+  <p>Dále <strong>0041</strong> (dozvěděl se, že Superb III jsou obsazené, alternativa nezaznamenána), <strong>0031</strong> (žádná odchozí komunikace vůbec) a <strong>0027</strong> (paní byla otevřená jinému vozu).</p>
+</div>
+
+<h2><span class="cislo">6</span>Všech 29 ztracených poptávek</h2>
+<p class="vysvetlivka">Seřazeno od nejvyšší částky. „Zaškrtnuto" = pole v HubSpotu, „Skutečnost" = z poznámky nebo e-mailu.</p>
+<table>
+  <thead>
+    <tr><th>Č.</th><th class="cislo">Kč</th><th>Uzavřeno</th><th>Zaškrtnuto</th><th>Vůz</th><th>Skutečnost</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>0002</td><td class="cislo">220 662</td><td>31. 7.</td><td>Přestal reagovat</td><td>Superb → Octavia IV</td><td>Slíbený Superb dostal ředitel jiné firmy, náhradní Octavia IV rozdána dvěma dalším klientům, termín startu mezitím prošel.</td></tr>
+    <tr><td>0033</td><td class="cislo">115 274</td><td>17. 8.</td><td><span class="stitek s-chybi">nevyplněno</span></td><td>?</td><td>Doklady poslány 13. 8., přidán druhý řidič, pak odložila zájem o 2 měsíce. <strong>Není ztráta — patří do října.</strong></td></tr>
+    <tr><td>0038</td><td class="cislo">108 290</td><td>17. 8.</td><td>Vůz nedostupný</td><td>Superb vč. Combi</td><td>Všechny Superb obsazené. Zákazník se ptal, co je volné — odpověď nezaznamenána.</td></tr>
+    <tr><td>0034</td><td class="cislo">11 910</td><td>12. 8.</td><td>Vůz nedostupný</td><td><span class="stitek s-chybi">?</span></td><td><span class="stitek s-chybi">žádný záznam komunikace</span></td></tr>
+    <tr><td>0008</td><td class="cislo">10 000</td><td>30. 7.</td><td>Vůz nedostupný</td><td>kombi / Superb</td><td>Scala u nich interně neschválena, potřebovali větší vůz od 31. 7. — „ty jsou a budou na jiných klientech".</td></tr>
+    <tr><td>0012</td><td class="cislo">9 925</td><td>29. 7.</td><td>Jiné</td><td><span class="stitek s-chybi">?</span></td><td>Nezvedal telefon, SMS přečtena bez reakce. Patří pod „přestal reagovat".</td></tr>
+    <tr><td>0007</td><td class="cislo">9 580</td><td>29. 7.</td><td>Přestal reagovat</td><td><span class="stitek s-chybi">?</span></td><td>Bez reakce na jakýkoliv způsob spojení.</td></tr>
+    <tr><td>0013</td><td class="cislo">7 000</td><td>28. 7.</td><td>Jiné</td><td>Citigo / Octavia III</td><td>Oba obsazené — a navíc ten den nefungovalo odeslání formuláře na webu. Vzal jinou půjčovnu, dal 1★, později ji stáhl.</td></tr>
+    <tr><td>0039</td><td class="cislo">5 482</td><td>18. 8.</td><td>Cena</td><td>Octavia CNG</td><td>Řekl, že cena je v pohodě, pak přestal brát telefon a večer napsal, že sehnal jinde.</td></tr>
+    <tr><td>0010</td><td class="cislo">4 425</td><td>29. 7.</td><td>Nesplnil podmínky</td><td>Superb</td><td>2 exekuce na firmu, 9 na jednatele. Vysvětleno po telefonu, rozešli jsme se v dobrém.</td></tr>
+    <tr><td>0037</td><td class="cislo">3 600</td><td>17. 8.</td><td>Jiné</td><td><span class="stitek s-chybi">?</span></td><td>Poptávka v sobotu na sobotu — nerealizovatelné.</td></tr>
+    <tr><td>0025</td><td class="cislo">3 570</td><td>10. 8.</td><td>Jiné</td><td><span class="stitek s-chybi">?</span></td><td>Nabídnuta Octavia IV i kombinace dvou vozů; potřeboval jeden vůz na dlouhou cestu, nemohl přijet na výměnu.</td></tr>
+    <tr><td>0041</td><td class="cislo">3 540</td><td>17. 8.</td><td>Vůz nedostupný</td><td>Superb III</td><td>Všechny Superb III obsazené, alternativa nezaznamenána.</td></tr>
+    <tr><td>0035</td><td class="cislo">3 456</td><td>13. 8.</td><td>Vůz nedostupný</td><td><span class="stitek s-chybi">?</span></td><td><span class="stitek s-chybi">žádný záznam komunikace</span></td></tr>
+    <tr><td>0016</td><td class="cislo">3 159</td><td>30. 7.</td><td>Jiné</td><td>nejlevnější vůz</td><td>Chtěl vůz na včerejší večer, což nešlo. Na nabídku jiné možnosti položil telefon.</td></tr>
+    <tr><td>0029</td><td class="cislo">2 910</td><td>10. 8.</td><td>Jiné</td><td>Superb IV</td><td>Sobota od soboty nereálné, Superb IV je stejně dlouhodobě obsazený.</td></tr>
+    <tr><td>0023</td><td class="cislo">2 856</td><td>4. 8.</td><td>Jiné</td><td><span class="stitek s-chybi">?</span></td><td>Místo reakce na e-mail poslal duplicitní poptávku so–so, vyřazeno.</td></tr>
+    <tr><td>0020</td><td class="cislo">2 856</td><td>3. 8.</td><td>Termín nevyhovuje</td><td><span class="stitek s-chybi">?</span></td><td>Sobota–sobota nelze, vůz nebyl k dispozici, na poptávky mimo provozní dobu nelze reagovat.</td></tr>
+    <tr><td>0042</td><td class="cislo">2 402</td><td>18. 8.</td><td>Spam / test</td><td>—</td><td><span class="stitek s-chybi">bez poznámky</span></td></tr>
+    <tr><td>0005</td><td class="cislo">2 400</td><td>7. 8.</td><td>Jiné</td><td><span class="stitek s-chybi">?</span></td><td><span class="stitek s-chybi">bez poznámky</span></td></tr>
+    <tr><td>0017</td><td class="cislo">2 280</td><td>31. 7.</td><td>Cena</td><td><span class="stitek s-chybi">?</span></td><td>Chtěl 4 dny za cenu 3. Špatně si to spočítal na začátku a vnuknul si jinou představu.</td></tr>
+    <tr><td>0027</td><td class="cislo">1 985</td><td>6. 8.</td><td><span class="stitek s-chybi">nevyplněno</span></td><td><span class="stitek s-chybi">?</span></td><td>Chtěla vůz týž den; byla otevřená i jinému vozu, alternativa nezaznamenána.</td></tr>
+    <tr><td>0019</td><td class="cislo">1 800</td><td>31. 7.</td><td>Jiné</td><td><span class="stitek s-chybi">?</span></td><td>12 minut po telefonu: chtěla vůz jen na sobotu — v sobotu je zavřeno a žádný vůz nebyl volný.</td></tr>
+    <tr><td>0031</td><td class="cislo">1 770</td><td>11. 8.</td><td>Vůz nedostupný</td><td>jakýkoli volný</td><td><strong>Chtěl pronájem kratší než 30 dní.</strong> Vyřadila ho naše podmínka, ne obsazenost. Žádná odchozí komunikace.</td></tr>
+    <tr><td>0040</td><td class="cislo">1 252</td><td>17. 8.</td><td>Cena</td><td><span class="stitek s-chybi">?</span></td><td>Nabídnuta Scala, cenově mu už nevyhovuje.</td></tr>
+    <tr><td>0004</td><td class="cislo">1 200</td><td>24. 7.</td><td>Jiné</td><td><span class="stitek s-chybi">?</span></td><td><span class="stitek s-chybi">bez poznámky</span></td></tr>
+    <tr><td>0022</td><td class="cislo">1 080</td><td>5. 8.</td><td>Jiné</td><td>Superb</td><td>Odmítnuto vědomě — Superb jen důvěryhodným osobám a na předem plánované rezervace.</td></tr>
+    <tr><td>0036</td><td class="cislo">885</td><td>14. 8.</td><td>Jiné</td><td><span class="stitek s-chybi">?</span></td><td>Sobota–neděle na jeden den, poptávka v pátek odpoledne. Bez nabídky i kdyby bylo volno.</td></tr>
+    <tr><td>0018</td><td class="cislo">885</td><td>31. 7.</td><td>Jiné</td><td><span class="stitek s-chybi">?</span></td><td>Odmítnuto vědomě.</td></tr>
+    <tr class="souhrn"><td>Celkem</td><td class="cislo">546 434</td><td colspan="4"></td></tr>
+  </tbody>
+</table>
+
+<h2><span class="cislo">7</span>Poptávky, které vyšly nebo ještě žijí</h2>
+<table>
+  <thead><tr><th>Č.</th><th class="cislo">Kč</th><th>Stav</th><th>Segment</th><th>Poznámka</th></tr></thead>
+  <tbody>
+    <tr><td>0006</td><td class="cislo">121 190</td><td><span class="stitek s-ok">pronájem probíhá</span></td><td>Dlouhodobý pronájem</td><td>Zdaleka největší realizovaná zakázka období.</td></tr>
+    <tr><td>0028</td><td class="cislo">28 920</td><td><span class="stitek s-ziva">ověřuje se dostupnost</span></td><td>—</td><td>Čeká na aktivaci u Woltu, prý problém se smlouvou. Od 10. 8. beze změny.</td></tr>
+    <tr><td>0026</td><td class="cislo">26 619</td><td><span class="stitek s-ziva">ověřuje se dostupnost</span></td><td>—</td><td>Firma odložila zájem o 2 týdny (z 10. 8.) — termín ozvání už uplynul.</td></tr>
+    <tr><td>0015</td><td class="cislo">15 620</td><td><span class="stitek s-ok">pronájem probíhá</span></td><td>—</td><td></td></tr>
+    <tr><td>0030</td><td class="cislo">11 913</td><td><span class="stitek s-ok">pronájem probíhá</span></td><td>—</td><td></td></tr>
+    <tr><td>0044</td><td class="cislo">5 099</td><td><span class="stitek s-ziva">nabídka, čeká záloha</span></td><td>—</td><td></td></tr>
+    <tr><td>0014</td><td class="cislo">4 314</td><td><span class="stitek s-ok">vůz vrácen</span></td><td>—</td><td></td></tr>
+    <tr><td>0003</td><td class="cislo">4 066</td><td><span class="stitek s-ok">rezervováno</span></td><td>B2C krátkodobý</td><td></td></tr>
+    <tr><td>0043</td><td class="cislo">3 300</td><td><span class="stitek s-ok">rezervováno</span></td><td>—</td><td>Nejnovější poptávka (20. 8.).</td></tr>
+    <tr><td>0032</td><td class="cislo">3 223</td><td><span class="stitek s-ok">vůz vrácen</span></td><td>—</td><td></td></tr>
+    <tr><td>0024</td><td class="cislo">3 165</td><td><span class="stitek s-ok">vůz vrácen</span></td><td>—</td><td></td></tr>
+    <tr><td>0021</td><td class="cislo">2 711</td><td><span class="stitek s-ok">vůz vrácen</span></td><td>B2C krátkodobý</td><td></td></tr>
+  </tbody>
+</table>
+
+<h2><span class="cislo">8</span>Kvalita dat — na čem report stojí a padá</h2>
+<p>Report je jen tak dobrý, jak dobře jsou poptávky zapsané. Tohle dnes chybí:</p>
+<table>
+  <thead><tr><th>Údaj</th><th class="cislo">Vyplněno</th><th>Dopad na rozhodování</th></tr></thead>
+  <tbody>
+    <tr><td>Segment zákazníka</td><td class="cislo">4 ze 42</td><td>Neumíme oddělit dlouhodobé poptávky od krátkodobých — přitom právě o dlouhodobých se rozhoduje.</td></tr>
+    <tr><td>Poptávaný vůz</td><td class="cislo">11 z 29</td><td>Doporučení nákupu stojí na necelé polovině vzorku.</td></tr>
+    <tr><td>Nabídnutá alternativa</td><td class="cislo">5 z 29</td><td>Nevíme, jestli zákazníci odešli proto, že nic nebylo, nebo proto, že jsme nic nenabídli.</td></tr>
+    <tr><td>Důvod ztráty</td><td class="cislo">27 z 29</td><td>Chybí u 0033 (115 tis.) a 0027.</td></tr>
+    <tr><td>Poznámka s detailem</td><td class="cislo">21 z 29</td><td>Osm poptávek nemá žádný zápis, z toho dvě (0034, 0035) ani jednu zaznamenanou komunikaci.</td></tr>
+    <tr><td>Telefonáty v CRM</td><td class="cislo">0</td><td>Vše, co se domluví po telefonu, dnes ve statistice chybí. Nastavení se řeší.</td></tr>
+  </tbody>
+</table>
+<p class="maly">Doplnění zadáno Romanovi 20. 8. 2026 (ClickUp 869emf24t).</p>
+
+<h2><span class="cislo">9</span>Co z toho plyne</h2>
+
+<div class="doporuceni">
+  <h3><span class="poradi">1</span> Superb kombi — jednoznačně první</h3>
+  <p>Poptávky, které padly na obsazeném Superbu, mají za jeden měsíc hodnotu <span class="castka">345 402 Kč</span>. Žádný jiný vůz se tomu nepřibližuje.</p>
+  <p><strong>Pozor na rozpor:</strong> lifecycle plán z dubna (4× Octavia III + 2× Octavia G-TEC + 1× Scala za 1,74 mil. Kč) Superb vůbec neobsahuje. Buď plán, nebo tahle data — jedno z toho je potřeba upravit.</p>
+</div>
+
+<div class="doporuceni">
+  <h3><span class="poradi">2</span> Druhá Octavia IV jako plnohodnotná náhrada</h3>
+  <p>Největší ztráta období (0002) nepadla jen na Superbu. Padla i proto, že náhradní Octavia IV byla mezitím rozdána dvěma jiným klientům, zatímco zákazník čekal. Chybí nejen vůz, ale i <strong>rezervační disciplína — držení vozu pro klienta, kterému už byl slíben</strong>.</p>
+</div>
+
+<div class="doporuceni">
+  <h3><span class="poradi">3</span> Octavia III / Citigo pro rychlé zapůjčení</h3>
+  <p>Když jsou obsazené, zákazník je do hodiny u konkurence (0013 — a nejdřív dal jednu hvězdičku). Menší částky, ale nejrychleji ztracené a nejvíc vidět v recenzích.</p>
+</div>
+
+<div class="doporuceni">
+  <h3><span class="poradi">4</span> Scalu si nikdo nevyžádal</h3>
+  <p>Objevuje se výhradně jako nabízená náhrada a dvakrát neuspěla. Jako nákupní položka je z dubnového plánu nejslabší.</p>
+</div>
+
+<h3>Tři věci, které nestojí ani korunu za auta</h3>
+<div class="box">
+  <p><strong>Odpovídat na dotaz „a co máte volného?"</strong> — u 0038 (108 290 Kč) se zákazník ptal a odpověď v CRM není. Čtyři poptávky celkem.</p>
+  <p><strong>Rozlišit minimum 30 dní od obsazenosti</strong> — dnes obojí spadne pod „vůz nedostupný" a data pak tvrdí, že chybí auta, i když jsme jen odmítli podmínkou.</p>
+  <p><strong>Víkendy a poptávky na dnešek</strong> — šest poptávek zahozeno kvůli tomu, že přišly mimo provozní dobu nebo na okamžitý termín. Malé částky, ale opakující se vzorec.</p>
+</div>
+
+<h3>Připomenout, ať nezapadne</h3>
+<div class="box upozorneni">
+  <p><strong>0033</strong> (115 274 Kč) — paní se má ozvat v <strong>říjnu</strong>, dnes je poptávka zavřená jako ztracená.<br>
+  <strong>0026</strong> (26 619 Kč) — firma se měla ozvat kolem <strong>24. 8.</strong><br>
+  <strong>0028</strong> (28 920 Kč) — čeká na aktivaci u Woltu, od 10. 8. se nic nestalo.</p>
+  <p>Dohromady <strong>170 813 Kč</strong>, které nevyžadují nový vůz, jen připomínku.</p>
+</div>
+
+<footer>
+  <p><strong>Zdroj dat:</strong> HubSpot, portál Popojedu (148819647), dealy POP-2026-0002 až 0044, odečteno živě 20. 8. 2026.
+  Částky jsou hodnoty dealů v CZK tak, jak jsou v HubSpotu nacenené. Testovací záznam POP-2026-0011 vyřazen.</p>
+  <p><strong>Omezení:</strong> období je necelý měsíc a 29 ztracených poptávek. Superb ve statistice dominuje mimo jiné díky jedné zakázce za 220 tis. Kč.
+  Poptávaný vůz je doložený u 11 z 29 ztracených, alternativa u 5 z 29. Do doplnění chybějících zápisů je potřeba brát čísla jako silnou indicii, ne jako důkaz.</p>
+  <p>Report sestavil Claude (asistent RF) · 20. 8. 2026 · Stránka je označená jako neindexovatelná (noindex).</p>
+</footer>
+
+</div>
+</body>
+</html>
